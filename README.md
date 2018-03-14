@@ -9,7 +9,7 @@ TimesheetPlus is a simple but powerful timetracker for the commandline.
 ## Zero Installation, No Dependencies
 
 * The application consists from a single executable file
-* No server or database needed: Timetracking entries are recorded directly to an HTML file, no server or database needed
+* No server or database needed: Timetracking entries are recorded directly to an HTML file
 * No background processes: Starting a new entry just records the current time, than timesheetPlus get out of your way
 * A default configuration file is created on first run
 
