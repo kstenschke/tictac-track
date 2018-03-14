@@ -334,12 +334,11 @@ Build Instructions
 * run: `./make.sh`
 * or: `cmake CMakeLists.txt; make`
 
+
 Running tests
 -------------
 
-
-
-run: `./test.sh`
+    ./test.sh
 
 
 Code Convention
