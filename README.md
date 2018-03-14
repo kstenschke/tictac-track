@@ -21,13 +21,13 @@ Features
 * No external editor needed: Existing entries can be edited directly from CLI (start/end-time, comment, task)
 * Task-reference and comments: Timesheet entries contain start- and end-time and optionally a task-number and comment
 * CLI viewer: The timesheet can be viewed pretty-printed user-friendly formatted, directly within CLI
-* Search filter: The CLI viewer can use search filters (by date, week, month, task-number)
+* Search filter: The CLI viewer can use search filters (by date, week, month, task-number, comment)
 * Time sum calculation: Recorded work times are additionally summed: per entry / task per day / day / filtered view / in total
 * Overtime saldo: Required vs. recorded work time per day is calculated automatically
 * Timesheet entries can be merged, split and deleted from the commandline
 * Automatic backup / undo option: Before modifications are done, a backup of the timesheet is recorded,
   every modification command can be undone. Note: currently only one previous command can be undone.
-* Terminal color variations: There are several color themes built-in to support different terminal color palettes
+* Terminal color themes: There are several color presets built-in to support different terminal color palettes
 * Export: Timesheets can be exported to CSV
 * External URL-linking: Referenced items can be dynamically opened in web-browser: all tasks of a day / week / month
 * Timesheet can be recorded in 18 languages (de, dk, en, es, fi, fr, gr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
@@ -37,7 +37,7 @@ Commands Overview
 -----------------
 
 * For every command there is also a 1 or 2 letter shortcut.
-* For every command there is a help topic with more detailed information and usage examples.
+* For every command there is a help topic with more detailed information and various usage examples.
   Example: More detailed help on the "start" command is display via: ./tsp h s
 
 
@@ -336,6 +336,8 @@ Build Instructions
 
 Running tests
 -------------
+
+
 
 run: `./test.sh`
 
