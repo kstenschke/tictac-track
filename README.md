@@ -110,15 +110,22 @@ the previous entry is being stopped, with the current time being recorded as tha
 
 ### Command: stop / pause (p) - Stops the ongoing entry, storing the current time as it's end-time
 
-Usage example 1: p           - End currently ongoing entry, store current time as end-time
-Usage example 2: p Foo       - End currently ongoing entry, append "Foo" to it's comment, store current time as end-time
-Usage example 3: p "Foo bar" - End currently ongoing entry, append "Foo bar" to it's comment, store current time as end-time
-Usage example 4: p i=3 08:30 - Update end-time of entry 3 to 08:30
+#### Usage examples:
+
+`p`           - End currently ongoing entry, store current time as end-time
+
+`p Foo`       - End currently ongoing entry, append "Foo" to it's comment, store current time as end-time
+
+`p "Foo bar"` - End currently ongoing entry, append "Foo bar" to it's comment, store current time as end-time
+
+`p i=3 08:30` - Update end-time of entry 3 to 08:30
 
 
 ### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same task and comment)
 
-Usage example 1: r    - Resume latest entry (has to be not running anymore).
+#### Usage examples
+
+`r`    - Resume latest entry (has to be not running anymore).
 Usage example 2: r 1  - Resume entry with ID 1. Stops running entry, if any.
 Usage example 3: r 2  - Resume entry with ID 2. Stops running entry, if any.
 Usage example 4: r -1 - Resume entry 1 place before latest entry. Stops running entry, if any.
