@@ -16,7 +16,7 @@ case "$OSTYPE" in
 esac
 
 if [ "$OS" == "osx" ]; then
-  mv ./tracker bin/mac/tsp
+  mv ./tsp bin/mac/tsp
 elif [ $OS == "linux" ]; then
-  mv ./tracker bin/linux/tsp
+  mv ./tsp bin/linux/tsp
 fi

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.9)
-project(tracker)
+project(tsp)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(tracker
+add_executable(tsp
         src/app/app.cc
         src/app/app.h
         src/app/arguments.cc
