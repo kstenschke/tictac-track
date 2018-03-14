@@ -126,10 +126,14 @@ the previous entry is being stopped, with the current time being recorded as tha
 #### Usage examples
 
 `r`    - Resume latest entry (has to be not running anymore).
-Usage example 2: r 1  - Resume entry with ID 1. Stops running entry, if any.
-Usage example 3: r 2  - Resume entry with ID 2. Stops running entry, if any.
-Usage example 4: r -1 - Resume entry 1 place before latest entry. Stops running entry, if any.
-Usage example 5: r -2 - Resume entry 2 paces before latest entry. Stops running entry, if any.
+
+`r 1`  - Resume entry with ID 1. Stops running entry, if any.
+
+`r 2`  - Resume entry with ID 2. Stops running entry, if any.
+
+`r -1` - Resume entry 1 place before latest entry. Stops running entry, if any.
+
+`r -2` - Resume entry 2 paces before latest entry. Stops running entry, if any.
 
 
 ### Command: day (d) - Add an all-day entry
@@ -138,53 +142,85 @@ Usage example 5: r -2 - Resume entry 2 paces before latest entry. Stops running 
 
 Useful to log full days of e.g. external work, conferences, sickness, etc.
 
-Usage example 1:  d                    - Add all-day entry at current day
-Usage example 2:  d t=123              - Add all-day entry at current day, for task 123
-Usage example 3:  d 123                - Add all-day entry at current day, for task 123
-Usage example 4:  d c=foo              - Add all-day entry at current day, commented "foo"
-Usage example 5:  d 123 c=foo          - Add all-day entry at current day, for task 123, commented "foo"
-Usage example 6:  d c="foo bar"        - Add all-day entry at current day, commented "foo bar"
-Usage example 7:  d -1                 - Add all-day entry at previous day
-Usage example 8:  d -2 c=foo           - Add all-day entry two days in the past, commented "foo"
-Usage example 9:  d -3 c="foo bar"     - Add all-day entry three days in the past, commented "foo bar"
-Usage example 10: d -3 123 c="foo bar" - Add all-day entry three days in the past, for task 123, commented "foo bar"
+#### Usage examples
+
+`d`                    - Add all-day entry at current day
+
+`d t=123`              - Add all-day entry at current day, for task 123
+
+`d 123`                - Add all-day entry at current day, for task 123
+
+`d c=foo`              - Add all-day entry at current day, commented "foo"
+
+`d 123 c=foo`          - Add all-day entry at current day, for task 123, commented "foo"
+
+`d c="foo bar"`        - Add all-day entry at current day, commented "foo bar"
+
+`d -1`                 - Add all-day entry at previous day
+
+`d -2 c=foo`           - Add all-day entry two days in the past, commented "foo"
+
+`d -3 c="foo bar"`     - Add all-day entry three days in the past, commented "foo bar"
+
+`d -3 123 c="foo bar"` - Add all-day entry three days in the past, for task 123, commented "foo bar"
 
 
 ### Command: comment (c) - Appends the given text to the comment of the given, or latest timesheet entry.
              
-Usage example 1: c               - Remove the comment of the latest entry
-Usage example 2: c Foo           - Append "Foo" to the comment of the latest entry
-Usage example 3: c "Foo bar"     - Append "Foo bar" to the comment of the latest entry
-Usage example 4: c i=3           - Remove the comment from the entry with ID 3
-Usage example 5: c i=3 "Foo bar" - Append "Foo bar" to the comment with ID 3
+#### Usage examples
+
+`c`               - Remove the comment of the latest entry
+
+`c Foo`           - Append "Foo" to the comment of the latest entry
+
+`c "Foo bar"`     - Append "Foo bar" to the comment of the latest entry
+
+`c i=3`           - Remove the comment from the entry with ID 3
+
+`c i=3 "Foo bar"` - Append "Foo bar" to the comment with ID 3
 
 
 ### Command: task (t) - Stores the given task number to the given or latest entry.
                       
-Usage example 1: t         - Unsets the task number of the latest entry
-Usage example 2: t 123     - Sets the task number of the latest timetacking entry to 123
-Usage example 3: t i=3     - Unsets the task number of the timetacking entry with ID 3
-Usage example 4: t i=3 123 - Sets the task number of the timetacking entry with ID 3 to 123
+#### Usage examples
+ 
+`t`         - Unsets the task number of the latest entry
+
+`t 123`     - Sets the task number of the latest timetacking entry to 123
+
+`t i=3`     - Unsets the task number of the timetacking entry with ID 3
+
+`t i=3 123` - Sets the task number of the timetacking entry with ID 3 to 123
 
 
 ### Command: split (sp): Splits the given entry into two.
            
-Usage example: sp 5 0:30 - Reduce end-time of entry 5 by 0:30, insert new entry with duration of 0:30 after it
+#### Usage example
+
+`sp 5 0:30` - Reduce end-time of entry 5 by 0:30, insert new entry with duration of 0:30 after it
 
 
 ### Command: merge (m): Merges two successive entries.
 
-Usage example 2: m 5 - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
-Usage example 1: m   - Merge last two entries
+#### Usage examples
+ 
+`m 5` - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
+`m`   - Merge last two entries
 
 
 ### Command: remove (rm): Removes timesheet entry/entries.
            
-Usage example 1: rm     - Remove last entry
-Usage example 2: rm 5   - Remove entry with ID 5
-Usage example 3: rm i=5 - Remove entry with ID 5
-Usage example 4: rm -5  - Remove last 5 entries
-Usage example 5: rm a   - Remove all entries, initialize timesheet anew
+#### Usage examples
+
+`rm`     - Remove last entry
+
+`rm 5`   - Remove entry with ID 5
+
+`rm i=5` - Remove entry with ID 5
+
+`rm -5`  - Remove last 5 entries
+
+`rm a`   - Remove all entries, initialize timesheet anew
 
 
 ### Command: undo (z): Reverts the last operation (comment, remove, start, stop, task).
@@ -203,20 +239,35 @@ Recalculate also updates all localizable labels (column titles, day of week, etc
 
 ### Command: view (v): Displays the timesheet in the command-line.
            
-Usage example 1:  v                  - Display full timesheet
-Usage example 2:  v d                - Display entries of current day
-Usage example 2:  v d -1             - Display entries of previous day
-Usage example 3:  v w                - Display entries of current week
-Usage example 3:  v w -1             - Display entries of previous week
-Usage example 5:  v t=123            - Display entries of task 123
-Usage example 6:  v d t=123          - Display entries of task 123 in current day
-Usage example 6:  v d -1 t=123       - Display entries of task 123 in previous day
-Usage example 7:  v w t=123          - Display entries of task 123 in current week
-Usage example 8:  v c=foo            - Display entries with "foo" inside the comment
-Usage example 9:  v d c=foo          - Display entries of current day with "foo" inside the comment
-Usage example 10: v t=123 c=foo      - Display entries of task 123 with "foo" inside the comment
-Usage example 11: v d t=123 c=foo    - Display entries of task 123 of current day with "foo" inside the comment
-Usage example 12: v w -1 t=123 c=foo - Display entries of task 123 of previous week with "foo" inside the comment
+#### Usage examples
+ 
+`v`                  - Display full timesheet
+
+`v d`                - Display entries of current day
+
+`v d -1`             - Display entries of previous day
+
+`v w`                - Display entries of current week
+
+`v w -1`             - Display entries of previous week
+
+`v t=123`            - Display entries of task 123
+
+`v d t=123`          - Display entries of task 123 in current day
+
+`v d -1 t=123`       - Display entries of task 123 in previous day
+
+`v w t=123`          - Display entries of task 123 in current week
+
+`v c=foo`            - Display entries with "foo" inside the comment
+
+`v d c=foo`          - Display entries of current day with "foo" inside the comment
+
+`v t=123 c=foo`      - Display entries of task 123 with "foo" inside the comment
+
+`v d t=123 c=foo`    - Display entries of task 123 of current day with "foo" inside the comment
+
+`v w -1 t=123 c=foo` - Display entries of task 123 of previous week with "foo" inside the comment
 
 
 ### Command: csv: Exports timesheet to CSV file.
@@ -224,20 +275,31 @@ Usage example 12: v w -1 t=123 c=foo - Display entries of task 123 of previous w
 
 ### Command: url (u): Opens configured task action URLs in web browser.
 
-Usage example 1: u            - Opens url.default in web browser, with "#TASK#" removed
-Usage example 2: u edit       - Opens url.edit in web browser, with "#TASK#" removed
-Usage example 3: u 123        - Opens url.default in web browser, with "#TASK#" replaced by 123
-Usage example 4: u d          - Opens url.default for all tasks in current day, with "#TASK#" replaced by task numbers
-Usage example 5: u d -1       - Opens url.default for all tasks in previous day, with "#TASK#" replaced by task numbers
-Usage example 6: u d edit     - Opens url.edit in web browser, for all tasks in current day, with "#TASK#" replaced by task numbers
-Usage example 7: u d -1 edit  - Opens url.edit in web browser, for all tasks in previous day, with "#TASK#" replaced by task numbers
-Usage example 8: u 123 edit   - Opens url.edit in web browser, with "#TASK#" replaced by 123
+#### Usage examples
+ 
+`u`            - Opens url.default in web browser, with "#TASK#" removed
+
+`u edit`       - Opens url.edit in web browser, with "#TASK#" removed
+
+`u 123`        - Opens url.default in web browser, with "#TASK#" replaced by 123
+
+`u d`          - Opens url.default for all tasks in current day, with "#TASK#" replaced by task numbers
+
+`u d -1`       - Opens url.default for all tasks in previous day, with "#TASK#" replaced by task numbers
+
+`u d edit`     - Opens url.edit in web browser, for all tasks in current day, with "#TASK#" replaced by task numbers
+
+`u d -1 edit`  - Opens url.edit in web browser, for all tasks in previous day, with "#TASK#" replaced by task numbers
+
+`u 123 edit`   - Opens url.edit in web browser, with "#TASK#" replaced by 123
 
 
 ### Command: help (h): Describes usage of the program or its commands.
            
-Usage example 1: h view  - Displays info on using the view command
-Usage example 2: h v     - Displays info on using the view command
+#### Usage examples
+
+`h view`  - Displays info on using the view command
+`h v`     - Displays info on using the view command
 
 
 ### Command: version (V): Displays current version number.
@@ -247,9 +309,10 @@ Optional Configuration
 ----------------------
 
 When run for the first time, TimesheetPlus creates a default configuration file 
-(".timesheetplus.ini" in the path of the executable), which can than be edited. The following options are available:
+(".timesheetplus.ini" in the path of the executable), which can than be edited. 
+The following options are available:
 
-* Report path: Path where the timetracking report is stored
+* Report path: Path where the timesheet is stored
 * AppLocale: Language for calendaric and other labels (day, date, week, etc.).
   The following languages are built-in:
   Chinese (cn), German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr),
@@ -258,7 +321,7 @@ When run for the first time, TimesheetPlus creates a default configuration file
 * Debit per day: Required amount of time. Allowing to calculate overtime saldo.
 * default_daily_start_time: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
 * Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
-* Arbitratry commands for opening URLs of other project-management tools
+* Arbitrary commands for opening URLs of other project-management tools
 * Theme for commandline timesheet viewer: There are several color themes built-in, allowing to view timesheets
   with various different color palettes in different CLI applications (bash, terminal, etc.).
 * Date formatting for: Week of year, date, day of week.
@@ -268,13 +331,13 @@ When run for the first time, TimesheetPlus creates a default configuration file
 Build Instructions
 ------------------
 
-* run: make.sh
-* or: cmake CMakeLists.txt; make
+* run: `./make.sh`
+* or: `cmake CMakeLists.txt; make`
 
 Running tests
 -------------
 
-run: test.sh
+run: `./test.sh`
 
 
 Code Convention
