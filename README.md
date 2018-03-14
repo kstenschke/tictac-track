@@ -43,47 +43,47 @@ Commands Overview
 
 ### 1. Record work entries:
 
-| Command           | Description
-|-------------------|-------------------------------------------------------------------------------
-| start (s)         | Start tracking new work entry
-| pause / stop (p)  | Stop currently running entry
-| resume (r)        | Start new work entry at current time, w/ task and comment from previous entry
+| Command          | Description
+|------------------|-------------------------------------------------------------------------------
+| start / s        | Start tracking new work entry
+| pause / stop / p | Stop currently running entry
+| resume / r       | Start new work entry at current time, w/ task and comment from previous entry
 
 
 ### 2. Update recorded entries:
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
-| start (s)         | Update start-time of given entry
-| stop / pause (p)  | Update end-time of given entry
-| day (d)           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc.
-| comment (c)       | Unset or append to comment of given entry
-| task (t)          | Update task-number of given entry
-| split (sp)        | Split given entry at given duration into two
-| merge (m)         | Merge given entry w/ the following entry
-| remove (rm)       | Remove given entry / given amout of latest entries / all entries
-| undo (z)          | Undo last entry creation / modification
-| recalculate (rc)  | Recalculate all duration sums (per entry, per task per day, per day)
+| start /s          | Update start-time of given entry
+| stop / pause /p   | Update end-time of given entry
+| day / d           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc.
+| comment / c       | Unset or append to comment of given entry
+| task / t          | Update task-number of given entry
+| split / sp        | Split given entry at given duration into two
+| merge / m         | Merge given entry w/ the following entry
+| remove / rm       | Remove given entry / given amout of latest entries / all entries
+| undo / z          | Undo last entry creation / modification
+| recalculate / rc  | Recalculate all duration sums (per entry, per task per day, per day)
 
 
 ### 3. View and export timesheet and tasks:
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
-| browse (b)        | Open timesheet in web browser
-| view (v)          | Display timesheet in commandline
-| week (w)          | Display week out of timesheet in commandline
+| browse / b        | Open timesheet in web browser
+| view / v          | Display timesheet in commandline
+| week / w          | Display week out of timesheet in commandline
 | csv               | Export timesheet to CSV file
-| url (u)           | Open external task URL in web browser
+| url / u           | Open external task URL in web browser
 
 
 ### 4. Meta Commands
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
-| date (D)          | Display date at given offset of days
-| help (h)          | Describe usage of this program
-| version (V)       | Display installed version of this program
+| date / D          | Display date at given offset of days
+| help / h          | Describe usage of this program
+| version / V       | Display installed version of this program
 
 
 ## Commands in detail
@@ -93,12 +93,19 @@ Commands Overview
 The new entry's status is set to ongoing. If a previous entry has been ongoing when a new entry is started,
 the previous entry is being stopped, with the current time being recorded as that task's end-time.
 
-Usage example 1: s           - Start a new entry (w/o task-no. or comment) at the current time
-Usage example 2: s Foo       - Start a new entry commented w/ "Foo"
-Usage example 3: s "Foo bar" - Start a new entry commented w/ "Foo bar"
-Usage example 4: s Foo 123   - Start a new entry commented w/ "Foo" and task number: 123
-Usage example 5: s 123       - Start task 123 w/o comment
-Usage example 6: s i=3 08:30 - Update start-time of entry 3 to 08:30
+#### Usage examples
+
+`s`           - Start a new entry (w/o task-no. or comment) at the current time
+
+`s Foo`       - Start a new entry commented w/ "Foo"
+
+`s "Foo bar"` - Start a new entry commented w/ "Foo bar"
+
+`s Foo 123`   - Start a new entry commented w/ "Foo" and task number: 123
+
+`s 123`       - Start task 123 w/o comment
+
+`s i=3 08:30` - Update start-time of entry 3 to 08:30
 
 
 ### Command: stop / pause (p) - Stops the ongoing entry, storing the current time as it's end-time
