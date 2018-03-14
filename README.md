@@ -38,7 +38,7 @@ Commands Overview
 
 * For every command there is also a 1 or 2 letter shortcut.
 * For every command there is a help topic with more detailed information and usage examples.
-  Example: More detailed help on the "start" command is display via: clts h s
+  Example: More detailed help on the "start" command is display via: ./tsp h s
 
 
 ### 1. Record work entries:
@@ -266,7 +266,7 @@ run: test.sh
 Code Convention
 ---------------
 
-The source code of clts follows the Google C++ Style Guide,
+The source code of TimesheetPlus follows the Google C++ Style Guide,
 see: https://google.github.io/styleguide/cppguide.html
 
 
