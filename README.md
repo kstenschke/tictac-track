@@ -9,9 +9,9 @@ TimesheetPlus is a simple but powerful timetracker for the commandline.
 ## Zero Installation, No Dependencies
 
 * The application consists from a single executable file
-* A default configuration file is created on first run
 * No server or database needed: Timetracking entries are recorded directly to an HTML file, no server or database needed
 * No background processes: Starting a new entry just records the current time, than timesheetPlus get out of your way
+* A default configuration file is created on first run
 
 
 Features
@@ -145,7 +145,7 @@ Usage example 4: c i=3           - Remove the comment from the entry with ID 3
 Usage example 5: c i=3 "Foo bar" - Append "Foo bar" to the comment with ID 3
 
 
-# Command: task (t) - Stores the given task number to the given or latest entry.
+### Command: task (t) - Stores the given task number to the given or latest entry.
                       
 Usage example 1: t         - Unsets the task number of the latest entry
 Usage example 2: t 123     - Sets the task number of the latest timetacking entry to 123
@@ -153,18 +153,18 @@ Usage example 3: t i=3     - Unsets the task number of the timetacking entry wit
 Usage example 4: t i=3 123 - Sets the task number of the timetacking entry with ID 3 to 123
 
 
-# Command: split (sp): Splits the given entry into two.
+### Command: split (sp): Splits the given entry into two.
            
 Usage example: sp 5 0:30 - Reduce end-time of entry 5 by 0:30, insert new entry with duration of 0:30 after it
 
 
-# Command: merge (m): Merges two successive entries.
+### Command: merge (m): Merges two successive entries.
 
 Usage example 2: m 5 - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
 Usage example 1: m   - Merge last two entries
 
 
-# Command: remove (rm): Removes timesheet entry/entries.
+### Command: remove (rm): Removes timesheet entry/entries.
            
 Usage example 1: rm     - Remove last entry
 Usage example 2: rm 5   - Remove entry with ID 5
@@ -173,21 +173,21 @@ Usage example 4: rm -5  - Remove last 5 entries
 Usage example 5: rm a   - Remove all entries, initialize timesheet anew
 
 
-# Command: undo (z): Reverts the last operation (comment, remove, start, stop, task).
+### Command: undo (z): Reverts the last operation (comment, remove, start, stop, task).
            
 Please note: Only one operation can be undone.
 
 
-# Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day).
+### Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day).
   
 Helpful after manual editing of timesheet entries in an external editor.
 Recalculate also updates all localizable labels (column titles, day of week, etc) into the configured language's translation.
 
 
-# Command: browse (b): Open timesheet in web browser.
+### Command: browse (b): Open timesheet in web browser.
 
 
-# Command: view (v): Displays the timesheet in the command-line.
+### Command: view (v): Displays the timesheet in the command-line.
            
 Usage example 1:  v                  - Display full timesheet
 Usage example 2:  v d                - Display entries of current day
@@ -205,10 +205,10 @@ Usage example 11: v d t=123 c=foo    - Display entries of task 123 of current da
 Usage example 12: v w -1 t=123 c=foo - Display entries of task 123 of previous week with "foo" inside the comment
 
 
-# Command: csv: Exports timesheet to CSV file.
+### Command: csv: Exports timesheet to CSV file.
 
 
-# Command: url (u): Opens configured task action URLs in web browser.
+### Command: url (u): Opens configured task action URLs in web browser.
 
 Usage example 1: u            - Opens url.default in web browser, with "#TASK#" removed
 Usage example 2: u edit       - Opens url.edit in web browser, with "#TASK#" removed
@@ -220,13 +220,13 @@ Usage example 7: u d -1 edit  - Opens url.edit in web browser, for all tasks in 
 Usage example 8: u 123 edit   - Opens url.edit in web browser, with "#TASK#" replaced by 123
 
 
-# Command: help (h): Describes usage of the program or its commands.
+### Command: help (h): Describes usage of the program or its commands.
            
 Usage example 1: h view  - Displays info on using the view command
 Usage example 2: h v     - Displays info on using the view command
 
 
-# Command: version (V): Displays current version number.
+### Command: version (V): Displays current version number.
 
 
 Optional Configuration
