@@ -1,0 +1,55 @@
+cmake_minimum_required(VERSION 3.9)
+project(tracker)
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(tracker
+        src/app/app.cc
+        src/app/app.h
+        src/app/arguments.cc
+        src/app/arguments.h
+        src/app/commands.cc
+        src/app/commands.h
+        src/app/config.cc
+        src/app/config.h
+        src/app/error.cc
+        src/app/error.h
+        src/app/help.cc
+        src/app/help.h
+        src/app/app_locale.cc
+        src/app/app_locale.h
+        src/helper/date_time.cc
+        src/helper/date_time.h
+        src/helper/file.cc
+        src/helper/file.h
+        src/helper/html.cc
+        src/helper/html.h
+        src/helper/numeric.cc
+        src/helper/numeric.h
+        src/helper/helper_string.cc
+        src/helper/helper_string.h
+        src/helper/system.cc
+        src/helper/system.h
+        src/report/browser.cc
+        src/report/browser.h
+        src/report/crud.cc
+        src/report/crud.h
+        src/report/date_time.cc
+        src/report/date_time.h
+        src/report/file.cc
+        src/report/file.h
+        src/report/html_parser.cc
+        src/report/html_parser.h
+        src/report/recalculator.cc
+        src/report/recalculator.h
+        src/report/renderer.cc
+        src/report/renderer.h
+        src/report/renderer_cli.cc
+        src/report/renderer_cli.h
+        src/report/renderer_csv.cc
+        src/report/renderer_csv.h
+        src/report/report.cc
+        src/report/report.h
+        src/vendor/decode_html_entities_utf8.cc
+        src/vendor/decode_html_entities_utf8.h
+        src/main.cc)
