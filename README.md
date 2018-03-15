@@ -77,7 +77,7 @@ Commands Overview
 | url / u           | Open external task URL in web browser
 
 
-### 4. Meta Commands
+### 4. Meta Commands:
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
