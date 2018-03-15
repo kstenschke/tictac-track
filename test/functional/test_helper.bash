@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 
+case "$OSTYPE" in
+  bsd*)     OS="bsd" ;;
+  darwin*)  OS="osx" ;;
+  linux*)   OS="linux" ;;
+  solaris*) OS="solaris" ;;
+  *)        OS="unknown: $OSTYPE" ;;
+esac
+
 setup() {
-  cp $BATS_TEST_DIRNAME/../../bin/mac/tsp $BATS_TEST_DIRNAME/tsp
+    if [ "$OS" == "osx" ]; then
+      cp $BATS_TEST_DIRNAME/../../bin/mac/tsp $BATS_TEST_DIRNAME/tsp
+    elif [ $OS == "linux" ]; then
+      cp $BATS_TEST_DIRNAME/../../bin/linux/tsp $BATS_TEST_DIRNAME/tsp
+    fi
 }
 
 teardown() {

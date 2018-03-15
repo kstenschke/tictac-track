@@ -11,7 +11,7 @@
 ########################################################################################################################
 
 printf "\033[4mTest commands recognition and display of help\033[0m\n"
-bats ./test/functional/commands-help.bats.sh
+bats ./test/functional/help.bats.sh
 
 printf "\n\033[4mTest initialization\033[0m\n"
 bats ./test/functional/initialization.bats.sh
@@ -26,7 +26,7 @@ printf "\n\033[4mTest resume command\033[0m\n"
 bats ./test/functional/resume.bats.sh
 
 printf "\n\033[4mTest comment and task commands\033[0m\n"
-bats ./test/functional/comment-task.bats.sh
+bats ./test/functional/task.bats.sh
 
 printf "\n\033[4mTest merge command\033[0m\n"
 bats ./test/functional/merge.bats.sh
