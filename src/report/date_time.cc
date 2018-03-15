@@ -6,6 +6,7 @@
 
 #include <utility>
 #include <vector>
+#include <cstring>
 #include "date_time.h"
 #include "../app/config.h"
 #include "../helper/date_time.h"

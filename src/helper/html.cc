@@ -5,6 +5,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <string>
+#include <cstring>
 #include "html.h"
 #include "../vendor/decode_html_entities_utf8.h"
 

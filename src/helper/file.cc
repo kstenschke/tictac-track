@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <zconf.h>
 #include "file.h"
 
 namespace timesheetplus {

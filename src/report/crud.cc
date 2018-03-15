@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <cstring>
 #include "crud.h"
 #include "../app/config.h"
 #include "../helper/file.h"

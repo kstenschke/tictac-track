@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include "renderer_csv.h"
 #include "html_parser.h"
 #include "../helper/date_time.h"

@@ -6,6 +6,7 @@
 
 #include <string>
 #include <ctime>
+#include <cstring>
 #include "date_time.h"
 #include "helper_string.h"
 #include "numeric.h"
@@ -117,13 +118,13 @@ namespace timesheetplus {
    * Get index of day of week from english name of weekday: sunday == 0, monday == 1, etc.
    */
   int HelperDateTime::GetWeekdayIndexByName(const char* weekday_name_en) {
-    if (0 == strcmp(weekday_name_en, "Monday"))    return 0;
-    if (0 == strcmp(weekday_name_en, "Tuesday"))   return 1;
-    if (0 == strcmp(weekday_name_en, "Wednesday")) return 2;
-    if (0 == strcmp(weekday_name_en, "Thursday"))  return 3;
-    if (0 == strcmp(weekday_name_en, "Friday"))    return 4;
-    if (0 == strcmp(weekday_name_en, "Saturday"))  return 5;
-    if (0 == strcmp(weekday_name_en, "Sunday"))    return 6;
+    if (0 == std::strcmp(weekday_name_en, "Monday"))    return 0;
+    if (0 == std::strcmp(weekday_name_en, "Tuesday"))   return 1;
+    if (0 == std::strcmp(weekday_name_en, "Wednesday")) return 2;
+    if (0 == std::strcmp(weekday_name_en, "Thursday"))  return 3;
+    if (0 == std::strcmp(weekday_name_en, "Friday"))    return 4;
+    if (0 == std::strcmp(weekday_name_en, "Saturday"))  return 5;
+    if (0 == std::strcmp(weekday_name_en, "Sunday"))    return 6;
 
     return 8;
   }

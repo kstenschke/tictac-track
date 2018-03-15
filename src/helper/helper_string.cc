@@ -10,6 +10,7 @@
 #include <locale>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 #include "helper_string.h"
 
 namespace timesheetplus {

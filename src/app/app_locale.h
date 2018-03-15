@@ -33,8 +33,6 @@ namespace timesheetplus {
       void Init();
       void InitActiveDictionary();
 
-      std::map<std::string, int>::iterator SearchByValue(std::map<std::string, std::string> & mapOfWords, const char* val);
-
       std::string supported_locale_keys_ = "de,dk,en,es,fi,fr,gr,hu,it,lv,nl,no,pl,pt,ro,ru,sv,tr";
 
       std::map<std::string, std::string> dictionary_de_ = {

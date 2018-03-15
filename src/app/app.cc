@@ -6,6 +6,7 @@
 
 #include <string>
 #include <iostream>
+#include <cstring>
 #include "app.h"
 #include "help.h"
 #include "../report/browser.h"
@@ -159,7 +160,7 @@ namespace timesheetplus {
     char *ptr;
     ptr = realpath(path_relative, absolute_path);
 
-    unsigned long len_without_binary = strlen(absolute_path) - strlen(App::kAppExecutableName.c_str());
+    unsigned long len_without_binary = std::strlen(absolute_path) - std::strlen(App::kAppExecutableName.c_str());
 
     return std::string(ptr).substr(0, len_without_binary);
   }

@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 #include "html_parser.h"
 #include "file.h"
 #include "crud.h"
@@ -312,7 +313,7 @@ std::vector<std::string> ReportHtmlParser::GetTasksOfDay(std::string &date) {
     if (date != GetColumnContent(i, ColumnIndexes::Index_Date)) return tasks;
 
     task = GetColumnContent(i, ColumnIndexes::Index_Task);
-    if (!task.empty() && (tasks.end() == std::find(tasks.begin(), tasks.end(), task))) {
+    if (!task.empty() && (tasks.end() == find(tasks.begin(), tasks.end(), task))) {
       tasks.push_back(task);
     }
   }

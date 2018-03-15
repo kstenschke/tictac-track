@@ -5,6 +5,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <fstream>
+#include <cstring>
 #include "renderer.h"
 #include "../app/config.h"
 #include "../helper/file.h"

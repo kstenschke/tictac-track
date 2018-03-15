@@ -4,6 +4,7 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <cstring>
 #include "app_locale.h"
 #include "config.h"
 #include "../helper/helper_string.h"

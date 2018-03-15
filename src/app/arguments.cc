@@ -6,6 +6,7 @@
 
 #include <string>
 #include <iostream>
+#include <cstring>
 #include "arguments.h"
 #include "../helper/helper_string.h"
 #include "../helper/html.h"
@@ -145,13 +146,13 @@ int AppArguments::ResolveNumber(int index) {
   }
 
   if (HelperString::StartsWith(argv_[index], "i=") || HelperString::StartsWith(argv_[index], "t=")) {
-    std::string numeric = std::string(argv_[index] + 2, strlen(argv_[index]));
+    std::string numeric = std::string(argv_[index] + 2, std::strlen(argv_[index]));
     return HelperString::ToInt(numeric.c_str());
   }
 
   return HelperString::IsNumeric(argv_[index])
          ? HelperString::ToInt(argv_[index])
-         : HelperString::ToInt(std::string(argv_[index] + 5, strlen(argv_[index])).c_str());
+         : HelperString::ToInt(std::string(argv_[index] + 5, std::strlen(argv_[index])).c_str());
 }
 
 /**
