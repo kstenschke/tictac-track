@@ -205,6 +205,7 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 #### Usage examples
  
 `m 5` - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
+
 `m`   - Merge last two entries
 
 
@@ -299,6 +300,7 @@ Recalculate also updates all localizable labels (column titles, day of week, etc
 #### Usage examples
 
 `h view`  - Displays info on using the view command
+
 `h v`     - Displays info on using the view command
 
 
