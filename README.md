@@ -312,20 +312,20 @@ When run for the first time, TimesheetPlus creates a default configuration file
 (".timesheetplus.ini" in the path of the executable), which can than be edited. 
 The following options are available:
 
-* Report path: Path where the timesheet is stored
-* AppLocale: Language for calendaric and other labels (day, date, week, etc.).
+* `report_path`: Path where the timesheet is stored
+* `locale`: Language for calendaric and other labels (day, date, week, etc.).
   The following languages are built-in:
   Chinese (cn), German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr),
   Hungarian (hu), Italian (it), Japanese (jp), Lithuanian (lt), Latvian (lv), Dutch (nl), Norwegian (no),
   Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
-* Debit per day: Required amount of time. Allowing to calculate overtime saldo.
-* default_daily_start_time: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
-* Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
-* Arbitrary commands for opening URLs of other project-management tools
-* Theme for commandline timesheet viewer: There are several color themes built-in, allowing to view timesheets
+* `debit_per_day`: Required amount of time. Allowing to calculate overtime saldo.
+* `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
+* `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
+* Arbitrary commands for opening URLs of other project-management tools, e.g. `url.edit` / `url.log` / ...
+* `cli_theme`: Theme for commandline timesheet viewer. There are several color themes built-in, allowing to view timesheets
   with various different color palettes in different CLI applications (bash, terminal, etc.).
-* Date formatting for: Week of year, date, day of week.
-* Offset of index-column within CLI viewer
+* Date formatting: `format_week_of_year`, `format_day_of_week`
+* `id_column`: Offset of index-column within CLI viewer
 
 
 Build Instructions
