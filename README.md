@@ -133,7 +133,7 @@ the previous entry is being stopped, with the current time being recorded as tha
 
 `r -1` - Resume entry 1 place before latest entry. Stops running entry, if any.
 
-`r -2` - Resume entry 2 paces before latest entry. Stops running entry, if any.
+`r -2` - Resume entry 2 places before latest entry. Stops running entry, if any.
 
 
 ### Command: day (d) - Add an all-day entry
