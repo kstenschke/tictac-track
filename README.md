@@ -28,7 +28,7 @@ Features
 * Automatic backup / undo option: Before modifications are done, a backup of the timesheet is recorded,
   every modification command can be undone. Note: currently only one previous command can be undone.
 * Terminal color themes: There are several color presets built-in to support different terminal color palettes
-* Export: Timesheets can be exported to CSV
+* Export: Timesheets can be exported to a CSV file
 * External URL-linking: Referenced items can be dynamically opened in web-browser: all tasks of a day / week / month
 * Timesheet can be recorded in 18 languages (de, dk, en, es, fi, fr, gr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
 
@@ -271,7 +271,9 @@ Recalculate also updates all localizable labels (column titles, day of week, etc
 `v w -1 t=123 c=foo` - Display entries of task 123 of previous week with "foo" inside the comment
 
 
-### Command: csv: Exports timesheet to CSV file.
+### Command: csv: Exports timesheet to CSV file. 
+
+The CSV is named automatically and stored to the current path.
 
 
 ### Command: url (u): Opens configured task action URLs in web browser.

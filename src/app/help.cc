@@ -24,8 +24,7 @@ bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
   switch (command) {
     case AppCommand::Commands::Command_Browse:return PrintHelpOnBrowse();
     case AppCommand::Commands::Command_Comment:return PrintHelpOnComment();
-    case AppCommand::Commands::Command_Csv:std::cout << "csv: Exports timesheet to CSV file.\n";
-      return true;
+    case AppCommand::Commands::Command_Csv:return PrintHelpOnCsv();
     case AppCommand::Commands::Command_Day:return PrintHelpOnDay();
     case AppCommand::Commands::Command_Date:return PrintHelpOnDate();
     case AppCommand::Commands::Command_ExternalTaskUrl:return PrintHelpOnExternalTaskUrl();
@@ -96,6 +95,12 @@ void AppHelp::PrintOverview() {
 bool AppHelp::PrintHelpOnBrowse() {
   std::cout << "browse (b): Open timesheet in web browser."
             << "\n";
+  return true;
+}
+
+bool AppHelp::PrintHelpOnCsv() {
+  std::cout << "csv: Exports timesheet to CSV file. The CSV is named automatically and stored to the current path.\n";
+
   return true;
 }
 

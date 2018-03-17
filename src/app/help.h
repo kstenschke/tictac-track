@@ -25,6 +25,7 @@ class AppHelp {
   static void PrintOverview();
 
   static bool PrintHelpOnBrowse();
+  static bool PrintHelpOnCsv();
   static bool PrintHelpOnComment();
   static bool PrintHelpOnDate();
   static bool PrintHelpOnDay();
