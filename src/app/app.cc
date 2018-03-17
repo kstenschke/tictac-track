@@ -349,7 +349,7 @@ namespace timesheetplus {
     std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
 
     return ReportCrud::GetInstance().InsertEntryAfter(
-      html, row_index, meta, weekday, week_number, day_date, time_start, time_end, task_number);
+      html, row_index, meta, week_number, weekday, day_date, time_start, time_end, task_number);
   }
 
   /**
