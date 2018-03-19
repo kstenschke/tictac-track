@@ -71,6 +71,7 @@ namespace timesheetplus {
 
       // Add/Append/Unset comment of latest or entry with given ID
       bool UpdateComment();
+      bool UpdateCommentByEntryId(int last_index, int index, std::string comment);
 
       // Update time of row + column by arguments
       bool UpdateTime(Report::ColumnIndexes column_index);
