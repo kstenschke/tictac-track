@@ -249,10 +249,8 @@ namespace timesheetplus {
     ReportHtmlParser *parser = new ReportHtmlParser();
     if (!parser->LoadReportHtml()) return false;
 
-    if (0 >= row_index) {
-      // Negative offset: Convert to index
-      row_index = parser->GetLastIndex() + row_index;
-    }
+    // Negative offset: Convert to index
+    if (0 >= row_index) row_index = parser->GetLastIndex() + row_index;
 
     int last_index = parser->GetLastIndex();
     if (row_index > last_index) {
@@ -306,10 +304,7 @@ namespace timesheetplus {
         int amount_rows = arguments_->ResolveNumber(2);
         
         // Negative number: remove given amount of latest entries
-
-        if (amount_rows < 0) {
-          return report.RemoveEntries(amount_rows * -1);
-        }
+        if (amount_rows < 0) return report.RemoveEntries(amount_rows * -1);
 
         // Numeric argument: remove entry w/ given ID
         report.RemoveEntryById(amount_rows);
