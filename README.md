@@ -124,6 +124,9 @@ the previous entry is being stopped, with the current time being recorded as tha
 
 ### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same task and comment)
 
+If the given argument is no existing ID, but there is an entry w/ such a task number, the system suggests to resume the
+related entry.
+
 #### Usage examples
 
 `r`    - Resume latest entry (has to be not running anymore).
@@ -135,12 +138,6 @@ the previous entry is being stopped, with the current time being recorded as tha
 `r -1` - Resume entry 1 place before latest entry. Stops running entry, if any.
 
 `r -2` - Resume entry 2 places before latest entry. Stops running entry, if any.
-
-
-If the given argument is no existing ID, but there is an entry w/ such a task number, the system suggests to resume the
-related entry.
-
-
 
 ### Command: day (d) - Add all-day entry
 
