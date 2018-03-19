@@ -55,8 +55,8 @@ Commands Overview
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
-| start /s          | Update start-time of given entry
-| stop / pause /p   | Update end-time of given entry
+| start / s         | Update start-time of given entry
+| stop / pause / p  | Update end-time of given entry
 | day / d           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc.
 | comment / c       | Unset or append to comment of given entry
 | task / t          | Update task-number of given entry
