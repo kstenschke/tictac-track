@@ -7,6 +7,7 @@
 #include <string>
 #include <clocale>
 #include <iostream>
+#include <cstdlib>
 #include "system.h"
 #include "helper_string.h"
 

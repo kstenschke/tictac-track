@@ -54,7 +54,7 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
 
 std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(int lookbehind_amount) {
   ReportHtmlParser *parser = new ReportHtmlParser();
-  if (!parser->LoadReportHtml()) return std::string("");
+  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return std::string("");
 
   int available_lookbehind_offset = parser->GetExistingEntryOffsetBefore(lookbehind_amount);
 

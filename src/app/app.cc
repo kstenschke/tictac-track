@@ -235,7 +235,7 @@ namespace timesheetplus {
         // Resume last entry
         return ResumeEntryByIndexOrNegativeOffset(0);
       case 3:
-        if (is_any_running) report.StopEntry("");
+        if (is_any_running) report.StopEntry();
         return ResumeEntryByIndexOrNegativeOffset(arguments_->ResolveNumber(2));
       default:
         return AppError::PrintError("Too many arguments.");
@@ -386,7 +386,7 @@ namespace timesheetplus {
     ReportCrud& report = ReportCrud::GetInstance();
 
     // Stop currently ongoing entry if any
-    if (report.IsAnyEntryRunning()) report.StopEntry("");
+    if (report.IsAnyEntryRunning()) report.StopEntry();
 
     // No arguments given: Add start entry w/o comment or task number
     if (arguments_->argc_ == 2) return report.StartEntry("", "");

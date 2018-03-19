@@ -11,6 +11,11 @@ load test_helper
   [[ "$amount_separators" = 11 ]]
 }
 
+@test 'Viewing an empty timesheet w/ day filter, displays 12 columns' {
+  amount_separators=$($BATS_TEST_DIRNAME/tsp v d | grep "\|" -o | wc -l | xargs)
+  [[ "$amount_separators" = 11 ]]
+}
+
 @test 'Viewed timesheet contains no HTML' {
   # Start an entry w/ task-number and comment
   run $BATS_TEST_DIRNAME/tsp s "foo bar baz" 123
