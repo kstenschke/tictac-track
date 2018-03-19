@@ -137,6 +137,11 @@ the previous entry is being stopped, with the current time being recorded as tha
 `r -2` - Resume entry 2 places before latest entry. Stops running entry, if any.
 
 
+If the given argument is no existing ID, but there is an entry w/ such a task number, the system suggest to resume the
+related entry.
+
+
+
 ### Command: day (d) - Add an all-day entry
 
 "All-day" = spanning configured required hours/day)
