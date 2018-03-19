@@ -19,6 +19,7 @@
 #include "../helper/numeric.h"
 #include "../helper/helper_string.h"
 #include "../helper/date_time.h"
+#include "../helper/system.h"
 
 namespace timesheetplus {
 
@@ -254,19 +255,40 @@ namespace timesheetplus {
     }
 
     int last_index = parser->GetLastIndex();
-    if (row_index > last_index) return AppError::PrintError(std::string("Cannot resume entry ")
-      .append(HelperNumeric::ToString(row_index)).append(", last entry is ").append(HelperNumeric::ToString(last_index))
-      .append(".").c_str());
+    if (row_index > last_index) {
+      bool can_resume = false;
+
+      // Check: did user pass as task-number instead the required ID?
+      std::string task_number = HelperNumeric::ToString(row_index);
+      int row_index_by_task = parser->GetLatestIndexByTaskNumber(task_number);
+      if (row_index_by_task > -1) {
+        // Suggest resuming the last entry of that task
+        std::cout << "Cannot resume entry " << row_index << ", last entry is " << last_index << "."
+                  << " Do you want to resume entry " << row_index_by_task << " (last item of task " << row_index
+                  << ")?\nY/n";
+
+        bool do_resume_by_task = HelperSystem::GetYesOrNoKeyPress();
+        std::cout << "\n";
+
+        if (!do_resume_by_task) return false;
+        can_resume = true;
+        row_index = row_index_by_task;
+      }
+
+      if (!can_resume) return AppError::PrintError(
+          std::string("Cannot resume entry ").append(HelperNumeric::ToString(row_index)).append(", last entry is ")
+              .append(HelperNumeric::ToString(last_index)).append(".").c_str());
+    }
 
     std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
-    std::string comment     = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
+    std::string comment = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
 
     return ReportCrud::GetInstance().StartEntry(comment.c_str(), task_number.c_str());
   }
 
-  /**
-   * Remove entries
-   */
+/**
+ * Remove entries
+ */
   bool App::Remove() {
     ReportHtmlParser *parser = new ReportHtmlParser();
     if (!parser->LoadReportHtml()) return false;

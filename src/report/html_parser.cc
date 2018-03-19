@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <cstring>
 #include "html_parser.h"
 #include "file.h"
 #include "crud.h"
@@ -178,6 +179,21 @@ std::string ReportHtmlParser::UpdateTitle() {
 int ReportHtmlParser::GetLastIndex() {
   // Do not count header. Subtract one more, as index is zero-based
   return HelperString::GetSubStrCount(html_.c_str(), "<tr") - 2;
+}
+
+/**
+ * Get ID of latest entry w/ given task number, or -1
+ */
+int ReportHtmlParser::GetLatestIndexByTaskNumber(std::string task_number) {
+  if (!HtmlContains(task_number)) return -1;
+
+  int last_index = GetLastIndex();
+  for (int index = last_index; index >= 0; index--) {
+    const char* task = task_number.c_str();
+    if (0 == std::strcmp(task, GetColumnContent(index, ColumnIndexes::Index_Task).c_str())) return index;
+  }
+
+  return -1;
 }
 
 int ReportHtmlParser::GetIndexFirstEntryOfDate(std::string &date) {

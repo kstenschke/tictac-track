@@ -33,6 +33,9 @@ namespace timesheetplus {
 
       int GetLastIndex();
 
+      // Get ID of latest entry w/ given task number, or -1
+      int GetLatestIndexByTaskNumber(std::string task_number);
+
       // Find row w/ date immediately before given one
       int GetIndexBeforeMetaDate(std::string meta_date);
 
