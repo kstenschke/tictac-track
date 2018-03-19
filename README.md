@@ -354,6 +354,12 @@ In order to run tests, [Bats](https://github.com/sstephenson/bats) must be insta
 Run all tests: `./test.sh`
 
 
+Changelog
+---------
+
+See: https://github.com/kstenschke/TimesheetPlus/blob/master/CHANGELOG.md
+
+
 Code Convention
 ---------------
 
