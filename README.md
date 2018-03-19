@@ -142,11 +142,12 @@ related entry.
 
 
 
-### Command: day (d) - Add an all-day entry
+### Command: day (d) - Add all-day entry
 
-"All-day" = spanning configured required hours/day)
-
+Adds a new entry, starting at the configured daily default starting time (`default_daily_start_time`) spanning for
+the configured required hours/day (`debit_per_day`).
 Useful to log full days of e.g. external work, conferences, sickness, etc.
+
 
 #### Usage examples
 
