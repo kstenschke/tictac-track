@@ -177,11 +177,15 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 
 `c Foo`               - Append "Foo" to the comment of the latest entry
 
+`c 3`                 - Remove comment from the entry with ID 3
+
 `c "Foo bar"`         - Append "Foo bar" to the comment of the latest entry
 
 `c i=3`               - Remove comment from the entry with ID 3
 
 `c i=3 "Foo bar"`     - Append "Foo bar" to the comment of the entry with ID 3
+
+`c 3 "Foo bar"`       - Append "Foo bar" to the comment with ID 3
 
 `c i=3,6,7`           - Remove comments from entries with IDs 3, 6 and 7
 

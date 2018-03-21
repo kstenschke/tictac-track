@@ -109,11 +109,13 @@ bool AppHelp::PrintHelpOnComment() {
             << "\n"
             << "\nUsage example 1: c                   - Remove the comment of the latest entry"
             << "\nUsage example 2: c Foo               - Append \"Foo\" to the comment of the latest entry"
-            << "\nUsage example 3: c \"Foo bar\"         - Append \"Foo bar\" to the comment of the latest entry"
-            << "\nUsage example 4: c i=3               - Remove the comment from the entry with ID 3"
-            << "\nUsage example 5: c i=3 \"Foo bar\"     - Append \"Foo bar\" to the comment with ID 3"
-            << "\nUsage example 6: c i=3,6,7           - Remove the comments of the entries with IDs 3, 6 and 7"
-            << "\nUsage example 7: c i=3,6,7 \"Foo bar\" - Append \"Foo bar\" to the comments of the entries with IDs 3, 6 and 7"
+            << "\nUsage example 3: c 3                 - Remove the comment from the entry with ID 3"
+            << "\nUsage example 4: c \"Foo bar\"         - Append \"Foo bar\" to the comment of the latest entry"
+            << "\nUsage example 5: c i=3               - Remove the comment from the entry with ID 3"
+            << "\nUsage example 6: c i=3 \"Foo bar\"     - Append \"Foo bar\" to the comment with ID 3"
+            << "\nUsage example 7: c 3 \"Foo bar\"     - Append \"Foo bar\" to the comment with ID 3"
+            << "\nUsage example 8: c i=3,6,7           - Remove the comments of the entries with IDs 3, 6 and 7"
+            << "\nUsage example 9: c i=3,6,7 \"Foo bar\" - Append \"Foo bar\" to the comments of the entries with IDs 3, 6 and 7"
             << "\n";
   return true;
 }

@@ -418,12 +418,12 @@ bool App::UpdateComment() {
     row_ids = arguments_->ids_;
 
     comment_argument_offset = 3;
-  } else if (arguments_->argument_index_entry_id_ != -1) {
+  } else if (-1 != arguments_->argument_index_entry_id_) {
     // Single index given: find argument-offsets of comment and row-index (allow arbitrary order)
     row_ids[0] = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
 
     if (row_ids[0] < 0) return AppError::PrintError("Cannot update comment: Index cannot be < 0.");
-    comment_argument_offset = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
+    comment_argument_offset = 2 == arguments_->argument_index_entry_id_ ? 3 : 2;
   }
 
   std::string comment = arguments_->ResolveComment(comment_argument_offset);

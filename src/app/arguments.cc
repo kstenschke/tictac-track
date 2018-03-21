@@ -79,10 +79,16 @@ void AppArguments::Resolve(AppCommand &command) {
       }
     }
 
-    if (HelperString::StartsWith(argument.c_str(), "t=") || HelperString::IsNumeric(argument, true)) {
+    bool is_numeric = HelperString::IsNumeric(argument, true);
+    if (HelperString::StartsWith(argument.c_str(), "t=") || is_numeric) {
       argv_types_[i] = ArgumentType_Number;
       if ('-' == argument[0]) {
         argument_index_negative_number_ = i;
+        continue;
+      }
+      AppCommand::Commands command_resolved = command.GetResolved();
+      if (command_resolved == AppCommand::Command_Comment && is_numeric && -1 == argument_index_entry_id_) {
+        argument_index_entry_id_ = i;
         continue;
       }
       argument_index_task_number_ = i;

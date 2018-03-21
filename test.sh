@@ -25,7 +25,10 @@ bats ./test/functional/stop.bats.sh
 printf "\n\033[4mTest resume command\033[0m\n"
 bats ./test/functional/resume.bats.sh
 
-printf "\n\033[4mTest comment and task commands\033[0m\n"
+printf "\n\033[4mTest comment command\033[0m\n"
+bats ./test/functional/comment.bats.sh
+
+printf "\n\033[4mTest task command\033[0m\n"
 bats ./test/functional/task.bats.sh
 
 printf "\n\033[4mTest merge command\033[0m\n"
