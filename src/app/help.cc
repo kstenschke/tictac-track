@@ -71,8 +71,8 @@ void AppHelp::PrintOverview() {
             << "\n  2. Update recorded entries:"
             << "\n    start (s)         - Update start-time of given entry"
             << "\n    pause / stop (p)  - Update end-time of given entry"
-            << "\n    comment (c)       - Unset or append to comment of given entry"
-            << "\n    task (t)          - Update task-number of given entry"
+            << "\n    comment (c)       - Unset or append to comment of given entry/entries or latest entry"
+            << "\n    task (t)          - Update task-number of given entry/entries or latest entry"
             << "\n    split (sp)        - Split given entry at given duration into two"
             << "\n    merge (m)         - Merge given entry w/ the following entry"
             << "\n    remove (rm)       - Remove given entry / given amout of latest entries / all entries"
@@ -249,10 +249,12 @@ bool AppHelp::PrintHelpOnStop() {
 bool AppHelp::PrintHelpOnTask() {
   std::cout << "task (t): Stores the given task number to the given or latest entry."
             << "\n"
-            << "\nUsage example 1: t         - Unsets the task number of the latest entry"
-            << "\nUsage example 2: t 123     - Sets the task number of the latest timetacking entry to 123"
-            << "\nUsage example 3: t i=3     - Unsets the task number of the timetacking entry with ID 3"
-            << "\nUsage example 4: t i=3 123 - Sets the task number of the timetacking entry with ID 3 to 123"
+            << "\nUsage example 1: t             - Unsets the task number of the latest entry"
+            << "\nUsage example 2: t 123         - Sets the task number of the latest timetacking entry to 123"
+            << "\nUsage example 3: t i=3         - Unsets the task number of the timetacking entry with ID 3"
+            << "\nUsage example 4: t i=3 123     - Sets the task number of the timetacking entry with ID 3 to 123"
+            << "\nUsage example 4: t i=3,5,9     - Unsets the task number of timetacking entries with IDs 3, 5 and 9"
+            << "\nUsage example 4: t i=3,5,9 123 - Sets the task number of timetacking entries with IDs 3, 5 and 9 to 123"
             << "\n";
   return true;
 }

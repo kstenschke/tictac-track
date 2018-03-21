@@ -4,7 +4,7 @@ TimesheetPlus
 [![Licence](https://img.shields.io/badge/license-BSL-blue.svg?style=flat)](LICENSE_1_0.txt)
 [![GitHub version](https://badge.fury.io/gh/kstenschke%2Ftimesheetplus.svg)](http://badge.fury.io/gh/kstenschke%2Ftimesheetplus)
 
-TimesheetPlus is a simple but powerful timetracker for the commandline.
+TimesheetPlus is a simple but powerful timesheet recorder for the commandline.
 
 
 ## Zero Installation, No Dependencies
@@ -89,12 +89,12 @@ Commands Overview
 
 ## Commands in detail
 
-### Command: start (s) - Adds a new entry to the timesheet report.
+### Command: start (s) - Add new entry to timesheet report
 
 The new entry's status is set to ongoing. If a previous entry has been ongoing when a new entry is started,
 the previous entry is being stopped, with the current time being recorded as that task's end-time.
 
-#### Usage examples
+#### Usage examples:
 
 `s`           - Start a new entry (w/o task-no. or comment) at the current time
 
@@ -109,7 +109,7 @@ the previous entry is being stopped, with the current time being recorded as tha
 `s i=3 08:30` - Update start-time of entry 3 to 08:30
 
 
-### Command: stop / pause (p) - Stops the ongoing entry, storing the current time as it's end-time
+### Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time
 
 #### Usage examples:
 
@@ -127,7 +127,7 @@ the previous entry is being stopped, with the current time being recorded as tha
 If the given argument is no existing ID, but there is an entry w/ such a task number, the system suggests to resume the
 related entry.
 
-#### Usage examples
+#### Usage examples:
 
 `r`    - Resume latest entry (has to be not running anymore).
 
@@ -146,7 +146,7 @@ the configured required hours/day (`debit_per_day`).
 Useful to log full days of e.g. external work, conferences, sickness, etc.
 
 
-#### Usage examples
+#### Usage examples:
 
 `d`                    - Add all-day entry at current day
 
@@ -169,9 +169,9 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 `d -3 123 c="foo bar"` - Add all-day entry three days in the past, for task 123, commented "foo bar"
 
 
-### Command: comment (c) - Appends the given text to the comment of the given, or latest timesheet entry.
+### Command: comment (c) - Appends given text to comment of given or latest timesheet entry
              
-#### Usage examples
+#### Usage examples:
 
 `c`                   - Remove comment from the latest entry
 
@@ -188,38 +188,42 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 `c i=3,6,7 "Foo bar"` - Append "Foo bar" to the comments of the entries with IDs 3, 6 and 7
 
 
-### Command: task (t) - Stores the given task number to the given or latest entry.
+### Command: task (t) - Stores given task number to given entry/entries or latest entry
                       
-#### Usage examples
+#### Usage examples:
  
 `t`         - Unsets the task number of the latest entry
 
-`t 123`     - Sets the task number of the latest timetacking entry to 123
+`t 123`     - Sets the task number of the latest timesheet entry to 123
 
-`t i=3`     - Unsets the task number of the timetacking entry with ID 3
+`t i=3`     - Unsets the task number of the timesheet entry with ID 3
 
-`t i=3 123` - Sets the task number of the timetacking entry with ID 3 to 123
+`t i=3 123` - Sets the task number of the timesheet entry with ID 3 to 123
+
+`t i=3,5,7` - Unsets the task number of the timesheet entries with IDs 3, 5 and 7
+
+`t i=3,5,7 1234` - Sets the task number of timesheet entries with IDs 3, 5 and 7 to 1234
 
 
-### Command: split (sp): Splits the given entry into two.
+### Command: split (sp): Splits given timesheet entry into two
            
-#### Usage example
+#### Usage example:
 
 `sp 5 0:30` - Reduce end-time of entry 5 by 0:30, insert new entry with duration of 0:30 after it
 
 
-### Command: merge (m): Merges two successive entries.
+### Command: merge (m): Merges two successive entries
 
-#### Usage examples
+#### Usage examples:
  
 `m 5` - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
 
 `m`   - Merge last two entries
 
 
-### Command: remove (rm): Removes timesheet entry/entries.
+### Command: remove (rm): Removes timesheet one or multiple entries
            
-#### Usage examples
+#### Usage examples:
 
 `rm`     - Remove last entry
 
@@ -232,23 +236,23 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 `rm a`   - Remove all entries, initialize timesheet anew
 
 
-### Command: undo (z): Reverts the last operation (comment, remove, start, stop, task).
+### Command: undo (z): Reverts last operation (comment, remove, start, stop, task)
            
 Please note: Only one operation can be undone.
 
 
-### Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day).
+### Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day)
   
 Helpful after manual editing of timesheet entries in an external editor.
 Recalculate also updates all localizable labels (column titles, day of week, etc) into the configured language's translation.
 
 
-### Command: browse (b): Open timesheet in web browser.
+### Command: browse (b): Open timesheet in web browser
 
 
-### Command: view (v): Displays the timesheet in the command-line.
+### Command: view (v): Displays the timesheet in the command-line
            
-#### Usage examples
+#### Usage examples:
  
 `v`                  - Display full timesheet
 
@@ -279,14 +283,14 @@ Recalculate also updates all localizable labels (column titles, day of week, etc
 `v w -1 t=123 c=foo` - Display entries of task 123 of previous week with "foo" inside the comment
 
 
-### Command: csv: Exports timesheet to CSV file. 
+### Command: csv: Exports timesheet to CSV file
 
 The CSV is named automatically and stored to the current path.
 
 
-### Command: url (u): Opens configured task action URLs in web browser.
+### Command: url (u): Opens configured task action URLs in web browser
 
-#### Usage examples
+#### Usage examples:
  
 `u`            - Opens url.default in web browser, with "#TASK#" removed
 
@@ -305,16 +309,16 @@ The CSV is named automatically and stored to the current path.
 `u 123 edit`   - Opens url.edit in web browser, with "#TASK#" replaced by 123
 
 
-### Command: help (h): Describes usage of the program or its commands.
+### Command: help (h): Describes usage of the program or its commands
            
-#### Usage examples
+#### Usage examples:
 
 `h view`  - Displays info on using the view command
 
 `h v`     - Displays info on using the view command
 
 
-### Command: version (V): Displays current version number.
+### Command: version (V): Displays current version number
 
 
 Optional Configuration

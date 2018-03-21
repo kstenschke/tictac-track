@@ -7,6 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_APP_ARGUMENTS
 #define CLASS_TIMETRACKERCL_APP_ARGUMENTS
 
+#include <vector>
 #include "commands.h"
 namespace timesheetplus {
 
@@ -40,6 +41,10 @@ class AppArguments {
   int argument_index_negative_number_ = -1;
   // Index of comment argument
   int argument_index_comment_ = -1;
+
+  // Multiple comma-separated IDs, if given stored as ints
+  std::vector<int> ids_{-1};
+  bool has_multiple_ids_ = false;
 
   // Constructor
   AppArguments(int argc, char **argv, AppCommand &command);

@@ -3,7 +3,8 @@ TimesheetPlus - Changelog
 
 V1.1
 ----
-* Improved comment command: Updating/appending to existing comments by entry ID now accepts multiple comma-separated entry IDs 
+* Improved task command: Updating task number now accepts multiple comma-separated entry IDs 
+* Improved comment command: Updating/appending to existing comments now accepts multiple comma-separated entry IDs 
 * Improved resume command: When user entered task-number instead entry ID, the last entry of that task is suggested to be resumed
 * Bugfix: Viewing empty timesheet w/ filter was stuck in loop
 

@@ -413,20 +413,13 @@ bool App::UpdateComment() {
 
   int comment_argument_offset = 2;
 
-  if (arguments_->argc_ >= 3
-      && HelperString::StartsWith(arguments_->argv_[2], "i=") && HelperString::Contains(arguments_->argv_[2], ",")) {
+  if (arguments_->has_multiple_ids_) {
     // Multiple comma-separated indexes given
-    std::vector<std::string> entry_indexes_str = HelperString::Explode(std::string(arguments_->argv_[2]).substr(2), ',');
-    row_ids.assign(entry_indexes_str.size(), -1);
-    int i = 0;
-    for(auto const &index: entry_indexes_str) {
-      row_ids[i] = HelperString::ToInt(index);
-      i++;
-    }
+    row_ids = arguments_->ids_;
 
     comment_argument_offset = 3;
   } else if (arguments_->argument_index_entry_id_ != -1) {
-    // Index given: find argument-offsets of comment and row-index (allow arbitrary order)
+    // Single index given: find argument-offsets of comment and row-index (allow arbitrary order)
     row_ids[0] = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
 
     if (row_ids[0] < 0) return AppError::PrintError("Cannot update comment: Index cannot be < 0.");
@@ -456,20 +449,29 @@ bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment)
 }
 
 bool App::UpdateTaskNumber() {
-  int row_index = -1;
   int task_argument_offset = 2;
+  std::vector<int> row_ids{-1};
 
-  if (arguments_->argument_index_entry_id_ != -1) {
+  if (arguments_->has_multiple_ids_) {
+    // Multiple comma-separated indexes given
+    row_ids = arguments_->ids_;
+    task_argument_offset = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
+  } else if (arguments_->argument_index_entry_id_ != -1) {
     // Index given: find argument-offsets of task number and row-index (allow arbitrary order)
-    row_index = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
-    if (row_index < 0) return AppError::PrintError("Entry index cannot be < 0.");
+    row_ids[0] = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
+    if (row_ids[0] < 0) return AppError::PrintError("Entry index cannot be < 0.");
 
     task_argument_offset = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
   }
 
   int task_number = arguments_->ResolveNumber(task_argument_offset);
+  ReportCrud &reportCrud = ReportCrud::GetInstance();
+  bool res = true;
+  for(auto const &index: row_ids) {
+    res = reportCrud.UpdateTaskNumber(task_number, index) && res;
+  }
 
-  return ReportCrud::GetInstance().UpdateTaskNumber(task_number, row_index);
+  return res;
 }
 
 /**

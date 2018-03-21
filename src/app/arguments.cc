@@ -60,11 +60,23 @@ void AppArguments::Resolve(AppCommand &command) {
       continue;
     }
 
-    bool containsComma = HelperString::Contains(argv_[i], ",");
-    if (HelperString::StartsWith(argv_[i], "i=") && !containsComma) {
+    if (HelperString::StartsWith(argv_[i], "i=")) {
+      argument_index_entry_id_ = i;
+      if (!HelperString::Contains(argv_[i], ",")) {
+        // Single index given
         argv_types_[i] = ArgumentType_Number;
-        argument_index_entry_id_ = i;
         continue;
+      } else {
+        // Multiple comma-separated indexes given - parse and store as vector of integers
+        has_multiple_ids_ = true;
+        std::vector<std::string> entry_indexes_str = HelperString::Explode(std::string(argv_[i]).substr(2), ',');
+        ids_.assign(entry_indexes_str.size(), -1);
+        int j = 0;
+        for(auto const &index: entry_indexes_str) {
+          ids_[j] = HelperString::ToInt(index);
+          j++;
+        }
+      }
     }
 
     if (HelperString::StartsWith(argument.c_str(), "t=") || HelperString::IsNumeric(argument, true)) {
