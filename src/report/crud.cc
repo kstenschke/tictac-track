@@ -263,18 +263,16 @@ bool ReportCrud::StopEntry(const char *comment) {
 /**
  * Append given text to comment of given or latest entry
  */
-bool ReportCrud::AppendComment(std::string &comment, int row_index) {
+bool ReportCrud::AppendComment(std::string &comment, int row_index, bool start_with_space) {
   if (comment.empty()) return false;
 
   ReportHtmlParser *parser = new ReportHtmlParser();
   if (!parser->LoadReportHtml()) return false;
 
-  // TODO detect ending/beginning of old/new comments, ensure concatenation being ". " or ", "
-  // if new comment does not start w/ "." or ",":
-  //   get current comment
-  //   if !empty: check ending - if not "." or ",": append ". "
+  std::string comment_lhs = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
+  std::string append = std::string(start_with_space ? " " : "").append(comment);
 
-  return SaveReport(parser->AppendToColumn(row_index, Report::ColumnIndexes::Index_Comment, comment));
+  return SaveReport(parser->AppendToColumn(row_index, Report::ColumnIndexes::Index_Comment, append));
 }
 
 /**

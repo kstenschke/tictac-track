@@ -426,17 +426,18 @@ bool App::UpdateComment() {
     comment_argument_offset = 2 == arguments_->argument_index_entry_id_ ? 3 : 2;
   }
 
+  bool starts_with_space = ' ' == arguments_->argv_[comment_argument_offset][0];
   std::string comment = arguments_->ResolveComment(comment_argument_offset);
 
   bool res = true;
   for(auto const &index: row_ids) {
-    res = UpdateCommentByEntryId(last_index, index, comment) && res;
+    res = UpdateCommentByEntryId(last_index, index, comment, starts_with_space) && res;
   }
 
   return res;
 }
 
-bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment) {
+bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment, bool starts_with_space) {
   if (index > last_index)
     return AppError::PrintError(
         std::string("Cannot update comment of entry ").append(HelperNumeric::ToString(index)).append(", last index is: ")
@@ -444,8 +445,7 @@ bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment)
 
   if (comment.empty()) return ReportHtmlParser::UpdateColumn(index, Report::Index_Comment, "");
 
-  HelperString::Trim(comment);
-  return ReportCrud::GetInstance().AppendComment(comment, index);
+  return ReportCrud::GetInstance().AppendComment(comment, index, starts_with_space);
 }
 
 bool App::UpdateTaskNumber() {

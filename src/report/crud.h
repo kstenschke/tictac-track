@@ -29,7 +29,7 @@ namespace timesheetplus {
       bool AddFullDayEntry(int offset_days = 0, std::string comment = "", std::string task_number = "");
 
       // Append given text to comment of given or latest entry
-      bool AppendComment(std::string &comment, int row_index = -1);
+      bool AppendComment(std::string &comment, int row_index = -1, bool starts_with_space = false);
 
       // Set task number of latest or given entry
       bool UpdateTaskNumber(int task_number, int row_index = -1);

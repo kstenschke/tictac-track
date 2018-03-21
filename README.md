@@ -173,23 +173,23 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
              
 #### Usage examples:
 
-`c`                   - Remove comment from the latest entry
+`c`                   - Remove comment from latest entry
 
-`c Foo`               - Append "Foo" to the comment of the latest entry
+`c Foo`               - Append "Foo" to comment of latest entry
 
-`c 3`                 - Remove comment from the entry with ID 3
+`c 3`                 - Remove comment from entry with ID 3
 
-`c "Foo bar"`         - Append "Foo bar" to the comment of the latest entry
+`c "Foo bar"`         - Append "Foo bar" to comment of latest entry
 
-`c i=3`               - Remove comment from the entry with ID 3
+`c i=3`               - Remove comment from entry with ID 3
 
-`c i=3 "Foo bar"`     - Append "Foo bar" to the comment of the entry with ID 3
+`c i=3 "Foo bar"`     - Append "Foo bar" to comment of entry with ID 3
 
-`c 3 "Foo bar"`       - Append "Foo bar" to the comment with ID 3
+`c 3 "Foo bar"`       - Append "Foo bar" to comment with ID 3
 
 `c i=3,6,7`           - Remove comments from entries with IDs 3, 6 and 7
 
-`c i=3,6,7 "Foo bar"` - Append "Foo bar" to the comments of the entries with IDs 3, 6 and 7
+`c i=3,6,7 "Foo bar"` - Append "Foo bar" to comments of entries with IDs 3, 6 and 7
 
 
 ### Command: task (t) - Stores given task number to given entry/entries or latest entry
