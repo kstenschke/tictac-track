@@ -225,7 +225,7 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 `m`   - Merge last two entries
 
 
-### Command: remove (rm): Removes timesheet one or multiple entries
+### Command: remove (rm): Removes one or multiple timesheet entries
            
 #### Usage examples:
 
