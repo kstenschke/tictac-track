@@ -26,7 +26,7 @@ namespace timesheetplus {
 // Meta constants
 const std::string App::kAppName = "TimesheetPlus";
 const std::string App::kAppExecutableName = "tsp";
-const std::string App::kAppVersion = "v1.0";
+const std::string App::kAppVersion = "v1.2";
 
 /**
  * Constructor: init (resolve) command and arguments

@@ -37,7 +37,7 @@ const std::string kNewline = "\n";
 // Get language key from system default locale
 extern std::string GetLanguageKey();
 
-extern bool GetYesOrNoKeyPress();
+bool GetYesOrNoKeyPress();
 
 }
 } // namespace timesheetplus
