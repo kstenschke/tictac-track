@@ -1,6 +1,11 @@
 TimesheetPlus - Changelog
 =========================
 
+V1.2
+----
+* Bugfix: Parsing "c i=<number>" threw segmentation fault 
+
+
 V1.1
 ----
 * Bugfix: Viewing empty timesheet w/ filter was stuck in loop

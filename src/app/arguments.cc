@@ -94,6 +94,7 @@ void AppArguments::Resolve(AppCommand &command) {
       argument_index_task_number_ = i;
       continue;
     }
+
     if (HelperString::StartsWith(argv_[i], "c=") || HelperString::StartsWith(argv_[i], "comment=")) {
       argv_types_[i] = ArgumentType_Comment;
       argument_index_comment_ = i;

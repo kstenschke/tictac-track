@@ -410,24 +410,36 @@ bool App::UpdateComment() {
   if (-1 == last_index) return AppError::PrintError("Cannot update comment: there are no entries.");
 
   std::vector<int> row_ids{-1};
-
   int comment_argument_offset = 2;
 
   if (arguments_->has_multiple_ids_) {
     // Multiple comma-separated indexes given
     row_ids = arguments_->ids_;
-
     comment_argument_offset = 3;
   } else if (-1 != arguments_->argument_index_entry_id_) {
     // Single index given: find argument-offsets of comment and row-index (allow arbitrary order)
     row_ids[0] = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
-
     if (row_ids[0] < 0) return AppError::PrintError("Cannot update comment: Index cannot be < 0.");
-    comment_argument_offset = 2 == arguments_->argument_index_entry_id_ ? 3 : 2;
+
+    if (arguments_->argc_ > 2) {
+      if (2 == arguments_->argument_index_entry_id_) {
+        comment_argument_offset = 3;
+      }
+    } else {
+      comment_argument_offset = -1;
+    }
   }
 
-  bool starts_with_space = ' ' == arguments_->argv_[comment_argument_offset][0];
-  std::string comment = arguments_->ResolveComment(comment_argument_offset);
+  bool starts_with_space;
+  std::string comment;
+
+  if (2 == arguments_->argc_ || -1 == comment_argument_offset || comment_argument_offset >= arguments_->argc_) {
+    starts_with_space = false;
+    comment = "";
+  } else {
+    starts_with_space = ' ' == arguments_->argv_[comment_argument_offset][0];
+    comment = arguments_->ResolveComment(comment_argument_offset);
+  }
 
   bool res = true;
   for(auto const &index: row_ids) {
