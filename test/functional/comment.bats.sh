@@ -69,6 +69,33 @@ load test_helper
   [[ "$amount_entries" = 3 ]]
 }
 
+@test 'Multiple items comments can be appended by passing comma-separated indexes' {
+  # Create 6 entries commented w/ "foo"
+  $BATS_TEST_DIRNAME/tsp s a
+  $BATS_TEST_DIRNAME/tsp p
+  $BATS_TEST_DIRNAME/tsp s b
+  $BATS_TEST_DIRNAME/tsp p
+  $BATS_TEST_DIRNAME/tsp s c
+  $BATS_TEST_DIRNAME/tsp p
+  $BATS_TEST_DIRNAME/tsp s d
+  $BATS_TEST_DIRNAME/tsp p
+  $BATS_TEST_DIRNAME/tsp s e
+  $BATS_TEST_DIRNAME/tsp p
+  $BATS_TEST_DIRNAME/tsp s f
+  $BATS_TEST_DIRNAME/tsp p
+
+  # Append to multiple comments
+  run $BATS_TEST_DIRNAME/tsp c i=1,3,5 oo
+
+  # Check comments
+  amount_boo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "boo" -o | wc -l | xargs)
+  amount_doo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "doo" -o | wc -l | xargs)
+  amount_foo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "foo" -o | wc -l | xargs)
+  [[ "$amount_boo" = 1 ]]
+  [[ "$amount_doo" = 1 ]]
+  [[ "$amount_foo" = 1 ]]
+}
+
 @test 'Multiple items comments can be removed by passing comma-separated indexes' {
   # Create 6 entries commented w/ "foo"
   $BATS_TEST_DIRNAME/tsp s foo
@@ -100,4 +127,29 @@ load test_helper
   # There are 3 "foo" comments
   amount_entries=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "foo" -o | wc -l | xargs)
   [[ "$amount_entries" = 3 ]]
+}
+
+@test 'Text in double quotes w/ a leading space can be appended to a comment' {
+  $BATS_TEST_DIRNAME/tsp s foo
+  $BATS_TEST_DIRNAME/tsp c " bar"
+  $BATS_TEST_DIRNAME/tsp c i=0 " baz"
+  $BATS_TEST_DIRNAME/tsp v i=0 | grep 'foo bar baz'
+}
+
+@test 'Text in double quotes cannot append more than 1 leading space to a comment' {
+  $BATS_TEST_DIRNAME/tsp s foo
+  $BATS_TEST_DIRNAME/tsp c "      bar"
+  $BATS_TEST_DIRNAME/tsp v i=0 | grep 'foo bar'
+}
+
+@test 'Text in double quotes cannot append trailing space to a comment' {
+  $BATS_TEST_DIRNAME/tsp s foo
+  $BATS_TEST_DIRNAME/tsp c " bar   "
+  $BATS_TEST_DIRNAME/tsp v i=0 | grep 'foo bar'
+  amount_entries=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "foo bar " -o | wc -l | xargs)
+  [[ "$amount_entries" = 0 ]]
+
+  $BATS_TEST_DIRNAME/tsp c " "
+  amount_entries=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "foo bar " -o | wc -l | xargs)
+  [[ "$amount_entries" = 0 ]]
 }
