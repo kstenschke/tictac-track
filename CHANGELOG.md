@@ -4,6 +4,7 @@ TimesheetPlus - Changelog
 V1.2
 ----
 * Bugfix: Parsing "c i=<number>" threw segmentation fault 
+* Improved removal stability: Attempting to remove more entries than available corrupted timesheet
 
 
 V1.1

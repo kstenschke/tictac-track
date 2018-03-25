@@ -344,6 +344,8 @@ bool ReportCrud::RemoveEntries(int amount) {
   ReportHtmlParser *parser = new ReportHtmlParser();
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
 
+  if (amount - 1 >= parser->GetLastIndex()) return Reset();
+
   std::string html = parser->GetHtml();
   for (int i = 0; i < amount; i++) {
     std::size_t offset_last_tr = html.rfind("\n<tr");

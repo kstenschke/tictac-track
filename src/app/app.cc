@@ -49,49 +49,69 @@ bool App::Process() {
   bool keep_backup;
 
   switch (command_->GetResolved()) {
-    case AppCommand::Command_Browse:return ReportBrowser::Browse();
-    case AppCommand::Command_Comment:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Browse:
+      return ReportBrowser::Browse();
+    case AppCommand::Command_Comment:
+      ReportFile::BackupReportTemporary();
       keep_backup = UpdateComment();
       break;
-    case AppCommand::Command_Csv:return ExportCsv();
-    case AppCommand::Command_Date:return DisplayDate();
-    case AppCommand::Command_Day:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Csv:
+      return ExportCsv();
+    case AppCommand::Command_Date:
+      return DisplayDate();
+    case AppCommand::Command_Day:
+      ReportFile::BackupReportTemporary();
       keep_backup = AddFullDayEntry();
       break;
-    case AppCommand::Command_ExternalTaskUrl:return BrowseTaskUrl();
-    case AppCommand::Command_Help:return Help();
-    case AppCommand::Command_Merge:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_ExternalTaskUrl:
+      return BrowseTaskUrl();
+    case AppCommand::Command_Help:
+      return Help();
+    case AppCommand::Command_Merge:
+      ReportFile::BackupReportTemporary();
       keep_backup = Merge();
       break;
-    case AppCommand::Command_Recalculate:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Recalculate:
+      ReportFile::BackupReportTemporary();
       keep_backup = Recalculate();
       break;
-    case AppCommand::Command_Resume:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Resume:
+      ReportFile::BackupReportTemporary();
       keep_backup = Resume();
       break;
-    case AppCommand::Command_Remove:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Remove:
+      ReportFile::BackupReportTemporary();
       keep_backup = Remove();
       break;
-    case AppCommand::Command_Split:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Split:
+      ReportFile::BackupReportTemporary();
       keep_backup = Split();
       break;
-    case AppCommand::Command_Start:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Start:
+      ReportFile::BackupReportTemporary();
       keep_backup = Start();
       break;
-    case AppCommand::Command_Stop:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Stop:
+      ReportFile::BackupReportTemporary();
       keep_backup = Stop();
       break;
-    case AppCommand::Command_Task:ReportFile::BackupReportTemporary();
+    case AppCommand::Command_Task:
+      ReportFile::BackupReportTemporary();
       keep_backup = UpdateTaskNumber();
       break;
-    case AppCommand::Command_Undo:return ReportFile::RestoreBackup();
-    case AppCommand::Command_Version:AppHelp::PrintVersion();
+    case AppCommand::Command_Undo:
+      return ReportFile::RestoreBackup();
+    case AppCommand::Command_Version:
+      AppHelp::PrintVersion();
       std::cout << "\n";
       return true;
-    case AppCommand::Command_View:return View();
-    case AppCommand::Command_ViewWeek:return ViewWeek();
+    case AppCommand::Command_View:
+      return View();
+    case AppCommand::Command_ViewWeek:
+      return ViewWeek();
     case AppCommand::Command_Invalid:
-    default:AppHelp::PrintUnknownArgumentMessage(arguments_->argv_[1]);
+    default:
+      AppHelp::PrintUnknownArgumentMessage(arguments_->argv_[1]);
       return false;
   }
 

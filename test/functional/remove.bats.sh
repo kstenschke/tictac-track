@@ -72,3 +72,24 @@ load test_helper
   run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 1 ]]
 }
+
+@test 'Attempting to remove more entries than available, removes all entries, timehseet stays uncorrupted' {
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+
+  # there are 2 entries now
+  run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 4 ]]
+
+  run $BATS_TEST_DIRNAME/tsp rm -10
+
+  # there are 0 entries now
+  run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 0 ]]
+
+  # viewing in CLI displays 12 columns
+  amount_separators=$($BATS_TEST_DIRNAME/tsp v | grep "\|" -o | wc -l | xargs)
+  [[ "$amount_separators" = 11 ]]
+}
