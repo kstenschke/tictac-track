@@ -422,6 +422,8 @@ bool App::Stop() {
 
 /**
  * Add/Append/Unset comment of latest or entry/entries with given ID/IDs
+ *
+ * @todo TBD: add argument that allows reuse of already existing comments, e.g. "c from=<TASK-NO>"
  */
 bool App::UpdateComment() {
   ReportHtmlParser *parser = new ReportHtmlParser();
