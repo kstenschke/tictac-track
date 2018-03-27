@@ -340,9 +340,8 @@ The following options are available:
 * `report_path`: Path where the timesheet is stored
 * `locale`: Language for calendaric and other labels (day, date, week, etc.).
   The following languages are built-in:
-  Chinese (cn), German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr),
-  Hungarian (hu), Italian (it), Japanese (jp), Lithuanian (lt), Latvian (lv), Dutch (nl), Norwegian (no),
-  Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
+  German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr), Hungarian (hu), Italian (it), Japanese (jp), 
+  Lithuanian (lt), Latvian (lv), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
 * `debit_per_day`: Required daily working time. Needed for calculation of overtime saldo.
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
