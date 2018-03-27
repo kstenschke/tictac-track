@@ -408,7 +408,7 @@ bool App::Start() {
  */
 bool App::Stop() {
   // Index given: update already existing entry
-  if (arguments_->argument_index_entry_id_ != -1) return UpdateTime(Report::ColumnIndexes::Index_End);
+  if (-1 != arguments_->argument_index_entry_id_) return UpdateTime(Report::ColumnIndexes::Index_End);
 
   ReportCrud &report = ReportCrud::GetInstance();
   if (report.IsAnyEntryRunning())
@@ -512,31 +512,31 @@ bool App::UpdateTaskNumber() {
  * Update time of row + column by arguments
  */
 bool App::UpdateTime(Report::ColumnIndexes column_index) {
-  if (arguments_->argc_ < 4)
-    return AppError::PrintError("To few arguments: missing time argument in format: \"hh:mm\".");
+  if (arguments_->argc_ < 4) return AppError::PrintError("To few arguments: missing time argument in format: \"hh:mm\".");
 
   int row_index = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
   if (row_index < 0) return AppError::PrintError("Entry index cannot be < 0.");
 
-  // Find index of time-argument: if entry-index is argument 2, than time is 3, if entry-index is 3- time is 2.
-  int argument_index_time = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
-  std::string time = arguments_->ResolveTime(argument_index_time);
-  if (!time.empty()) {
-    // Start-time is allowed to be > end-time, it is than interpreted as if the entry spans over midnight
-    if (!ReportHtmlParser::UpdateColumn(row_index, column_index, time))
-      return AppError::PrintError(
-          std::string("Update column failed (").append(HelperNumeric::ToString(column_index)).append(")").c_str()
-      );
+  std::string time;
+  if (-1 == arguments_->argument_index_time_) {
+    // Fallback: Try find index of time-argument now: if entry-index is argument 2, than time is 3, if entry-index is 3- time is 2.
+    arguments_->argument_index_time_ = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
+  }
+  if (-1 != arguments_->argument_index_time_) {
+    time = arguments_->ResolveTime(arguments_->argument_index_time_);
+    if (!time.empty()) {
+      // Start-time is allowed to be > end-time, it is than interpreted as if the entry spans over midnight
+      if (!ReportHtmlParser::UpdateColumn(row_index, column_index, time))
+        return AppError::PrintError(
+            std::string("Update column failed (").append(HelperNumeric::ToString(column_index)).append(")").c_str()
+        );
 
-    ReportFile::SaveReport(ReportRecalculator::CalculateAndUpdateDuration(row_index));
-    return true;
+      ReportFile::SaveReport(ReportRecalculator::CalculateAndUpdateDuration(row_index));
+      return true;
+    }
   }
 
-  std::string message =
-      std::string("Failed parsing time argument \"")
-          + (arguments_->argv_[argument_index_time]) + std::string(R"(", must use format: "hh:mm".)");
-
-  return AppError::PrintError(message.c_str());
+  return AppError::PrintError("Failed parsing arguments.");
 }
 
 /**

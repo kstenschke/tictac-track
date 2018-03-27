@@ -16,8 +16,9 @@ class AppArguments {
   enum ArgumentTypes {
     ArgumentType_Comment,
     // Task- or other (e.g. amount) number
-        ArgumentType_Number,
+    ArgumentType_Number,
     ArgumentType_RenderScope,
+    ArgumentType_Time,
     ArgumentType_OptionAll,
     ArgumentType_OptionIndex,
     ArgumentType_Invalid
@@ -41,6 +42,7 @@ class AppArguments {
   int argument_index_negative_number_ = -1;
   // Index of comment argument
   int argument_index_comment_ = -1;
+  int argument_index_time_ = -1;
 
   // Multiple comma-separated IDs, if given stored as ints
   std::vector<int> ids_{-1};

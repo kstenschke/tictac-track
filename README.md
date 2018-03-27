@@ -119,6 +119,8 @@ the previous entry is being stopped, with the current time being recorded as tha
 
 `p "Foo bar"` - End currently ongoing entry, append "Foo bar" to it's comment, store current time as end-time
 
+`p 3 08:30`   - Update end-time of entry 3 to 08:30
+
 `p i=3 08:30` - Update end-time of entry 3 to 08:30
 
 

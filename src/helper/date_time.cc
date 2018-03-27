@@ -142,4 +142,12 @@ namespace timesheetplus {
       default: return "";
     }
   }
+
+  bool HelperDateTime::IsTime(std::string str) {
+    unsigned long offsetColon = str.find(':');
+    if (std::string::npos == offsetColon) return false;
+    str = str.replace(offsetColon, 1, "");
+
+    return HelperString::IsNumeric(str);
+  }
 } // namespace timesheetplus

@@ -243,7 +243,8 @@ bool AppHelp::PrintHelpOnStop() {
             << "\nUsage example 1: p           - End currently ongoing entry, store current time as end-time"
             << "\nUsage example 2: p Foo       - End currently ongoing entry, append \"Foo\" to it's comment, store current time as end-time"
             << "\nUsage example 3: p \"Foo bar\" - End currently ongoing entry, append \"Foo bar\" to it's comment, store current time as end-time"
-            << "\nUsage example 4: p i=3 08:30 - Update end-time of entry 3 to 08:30"
+            << "\nUsage example 4: p 3 08:30   - Update end-time of entry 3 to 08:30"
+            << "\nUsage example 5: p i=3 08:30 - Update end-time of entry 3 to 08:30"
             << "\n";
   return true;
 }

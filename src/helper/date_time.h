@@ -30,6 +30,8 @@ namespace timesheetplus {
     // Get index of day of week from english name of weekday: sunday == 0, monday == 1, etc.
     int GetWeekdayIndexByName(const char* weekday_name_en);
     std::string GetWeekdayEnByIndex(int day_index);
+
+    extern bool IsTime(std::string str);
   }
 } // namespace timesheetplus
 

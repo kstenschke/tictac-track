@@ -11,6 +11,7 @@
 #include "../helper/helper_string.h"
 #include "../helper/html.h"
 #include "../report/renderer_cli.h"
+#include "../helper/date_time.h"
 
 namespace timesheetplus {
 
@@ -79,14 +80,28 @@ void AppArguments::Resolve(AppCommand &command) {
       }
     }
 
+    AppCommand::Commands command_resolved = command.GetResolved();
     bool is_numeric = HelperString::IsNumeric(argument, true);
+
+    if (command_resolved == AppCommand::Command_Stop) {
+      if (is_numeric && -1 == argument_index_entry_id_) {
+        argv_types_[i] = ArgumentType_Number;
+        argument_index_entry_id_ = i;
+        continue;
+      }
+      if (HelperDateTime::IsTime(argument)) {
+        argv_types_[i] = ArgumentType_Time;
+        argument_index_time_ = i;
+        continue;
+      }
+    }
+
     if (HelperString::StartsWith(argument.c_str(), "t=") || is_numeric) {
       argv_types_[i] = ArgumentType_Number;
       if ('-' == argument[0]) {
         argument_index_negative_number_ = i;
         continue;
       }
-      AppCommand::Commands command_resolved = command.GetResolved();
       if (command_resolved == AppCommand::Command_Comment && is_numeric && -1 == argument_index_entry_id_) {
         argument_index_entry_id_ = i;
         continue;
