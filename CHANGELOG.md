@@ -5,6 +5,7 @@ V1.2
 ----
 * Bugfix: Parsing "c i=<number>" caused segmentation fault
 * Improved removal stability: Attempting to remove more entries than available corrupted timesheet
+* Improved start command: Updating start-time of existing entry now accepts ID argument w/o "i=" prefix
 * Improved stop command: Updating end-time of existing entry now accepts ID argument w/o "i=" prefix
 
 V1.1

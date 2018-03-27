@@ -373,7 +373,11 @@ bool App::SplitAtEnd(ReportHtmlParser *parser, std::string split_duration, int r
  * Add start-entry
  */
 bool App::Start() {
-  if (arguments_->argument_index_entry_id_ != -1) {
+  // Detect ID out of invocation like: "s 1 0:30"
+  if (4 == arguments_->argc_ && arguments_->IsNumber(2) && arguments_->IsTime(3))
+    arguments_->argument_index_entry_id_ = 2;
+
+  if (-1 != arguments_->argument_index_entry_id_) {
     // Index given: update already existing entry
     return UpdateTime(Report::ColumnIndexes::Index_Start);
   }

@@ -61,64 +61,82 @@ void AppArguments::Resolve(AppCommand &command) {
       continue;
     }
 
-    if (HelperString::StartsWith(argv_[i], "i=")) {
-      argument_index_entry_id_ = i;
-      if (!HelperString::Contains(argv_[i], ",")) {
-        // Single index given
-        argv_types_[i] = ArgumentType_Number;
-        continue;
-      } else {
-        // Multiple comma-separated indexes given - parse and store as vector of integers
-        has_multiple_ids_ = true;
-        std::vector<std::string> entry_indexes_str = HelperString::Explode(std::string(argv_[i]).substr(2), ',');
-        ids_.assign(entry_indexes_str.size(), -1);
-        int j = 0;
-        for(auto const &index: entry_indexes_str) {
-          ids_[j] = HelperString::ToInt(index);
-          j++;
-        }
-      }
-    }
+    // Try resolve i=<number> or i=<number,number,...>
+    if (HelperString::StartsWith(argv_[i], "i=") && ResolveAsIndex(i)) continue;
+
+    if (HelperDateTime::IsTime(argument) && ResolveAsTime(i)) continue;
 
     AppCommand::Commands command_resolved = command.GetResolved();
     bool is_numeric = HelperString::IsNumeric(argument, true);
 
-    if (command_resolved == AppCommand::Command_Stop) {
-      if (is_numeric && -1 == argument_index_entry_id_) {
+    if (command_resolved == AppCommand::Command_Stop && is_numeric && -1 == argument_index_entry_id_) {
         argv_types_[i] = ArgumentType_Number;
         argument_index_entry_id_ = i;
         continue;
-      }
-      if (HelperDateTime::IsTime(argument)) {
-        argv_types_[i] = ArgumentType_Time;
-        argument_index_time_ = i;
-        continue;
-      }
     }
 
     if (HelperString::StartsWith(argument.c_str(), "t=") || is_numeric) {
-      argv_types_[i] = ArgumentType_Number;
-      if ('-' == argument[0]) {
-        argument_index_negative_number_ = i;
-        continue;
-      }
-      if (command_resolved == AppCommand::Command_Comment && is_numeric && -1 == argument_index_entry_id_) {
-        argument_index_entry_id_ = i;
-        continue;
-      }
-      argument_index_task_number_ = i;
+      ResolveAsTaskIndex(i, argument, command_resolved, is_numeric);
       continue;
     }
-
-    if (HelperString::StartsWith(argv_[i], "c=") || HelperString::StartsWith(argv_[i], "comment=")) {
-      argv_types_[i] = ArgumentType_Comment;
-      argument_index_comment_ = i;
-      continue;
-    }
+    if ((HelperString::StartsWith(argv_[i], "c=") || HelperString::StartsWith(argv_[i], "comment="))
+        && ResolveAsComment(i)) continue;
 
     // Argument is not numeric, no command or command shortcut
     SetArgvDefaultTypeByCommand(command, i);
   }
+}
+
+bool AppArguments::ResolveAsComment(int i) {
+  argv_types_[i] = ArgumentType_Comment;
+  argument_index_comment_ = i;
+
+  return true;
+}
+
+void AppArguments::ResolveAsTaskIndex(int i, const std::string &argument, const AppCommand::Commands &command_resolved,
+                                      bool is_numeric) {
+  argv_types_[i] = ArgumentType_Number;
+  if ('-' == argument[0]) {
+    argument_index_negative_number_ = i;
+    return;
+  }
+  if (command_resolved == AppCommand::Command_Comment && is_numeric && -1 == argument_index_entry_id_) {
+    argument_index_entry_id_ = i;
+    return;
+  }
+  argument_index_task_number_ = i;
+}
+
+bool AppArguments::ResolveAsTime(int i) {
+  argv_types_[i] = ArgumentType_Time;
+  argument_index_time_ = i;
+
+  return true;
+}
+
+/**
+ * Try resolve i=<number> or i=<number,number,...>
+ */
+bool AppArguments::ResolveAsIndex(int i) {
+  argument_index_entry_id_ = i;
+  if (!HelperString::Contains(argv_[i], ",")) {
+    // Single index given
+    argv_types_[i] = ArgumentType_Number;
+    return true;
+  }
+
+  // Multiple comma-separated indexes given - parse and store as vector of integers
+  has_multiple_ids_ = true;
+  std::__1::vector<std::__1::string> entry_indexes_str = HelperString::Explode(std::__1::string(argv_[i]).substr(2), ',');
+  ids_.assign(entry_indexes_str.size(), -1);
+  int j = 0;
+  for(auto const &index: entry_indexes_str) {
+    ids_[j] = HelperString::ToInt(index);
+    j++;
+  }
+
+  return false;
 }
 
 void AppArguments::SetArgvDefaultTypeByCommand(AppCommand &command, int index) {
@@ -146,6 +164,10 @@ bool AppArguments::IsComment(int index) {
 
 bool AppArguments::IsNumber(int index) {
   return index >= argc_ ? false : argv_types_[index] == ArgumentType_Number;
+}
+
+bool AppArguments::IsTime(int index) {
+  return index >= argc_ ? false : HelperDateTime::IsTime(argv_[index]);
 }
 
 std::string AppArguments::GetComment() {

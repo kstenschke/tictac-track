@@ -232,7 +232,8 @@ bool AppHelp::PrintHelpOnStart() {
             << "\nUsage example 3: s \"Foo bar\" - Start a new entry commented w/ \"Foo bar\""
             << "\nUsage example 4: s Foo 123   - Start a new entry commented w/ \"Foo\" and task number: 123"
             << "\nUsage example 5: s 123       - Start task 123 w/o comment"
-            << "\nUsage example 6: s i=3 08:30 - Update start-time of entry 3 to 08:30"
+            << "\nUsage example 6: s 3 08:30   - Update start-time of entry 3 to 08:30"
+            << "\nUsage example 7: s i=3 08:30 - Update start-time of entry 3 to 08:30"
             << "\n";
   return true;
 }

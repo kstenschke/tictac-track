@@ -108,3 +108,47 @@ load test_helper
   $BATS_TEST_DIRNAME/tsp v i=0 | grep "12345"
   $BATS_TEST_DIRNAME/tsp v i=0 | grep "foo bar baz"
 }
+
+@test 'The start-time of an existing entry can be updated w/ arguments: s i=<ID> <hh:ss>' {
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+
+  run $BATS_TEST_DIRNAME/tsp s i=0 01:23
+  run $BATS_TEST_DIRNAME/tsp s i=1 12:34
+  run $BATS_TEST_DIRNAME/tsp s i=2 34:56
+
+  run grep -c '>01:23<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+
+  run grep -c '>12:34<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+
+  run grep -c '>34:56<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+}
+
+@test 'The start-time of an existing entry can be updated w/ arguments: s <ID> <hh:ss>' {
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+  run $BATS_TEST_DIRNAME/tsp s
+  run $BATS_TEST_DIRNAME/tsp p
+
+  run $BATS_TEST_DIRNAME/tsp s 0 01:23
+  run $BATS_TEST_DIRNAME/tsp s 1 12:34
+  run $BATS_TEST_DIRNAME/tsp s 2 34:56
+
+  run grep -c '>01:23<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+
+  run grep -c '>12:34<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+
+  run grep -c '>34:56<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+}

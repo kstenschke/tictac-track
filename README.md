@@ -106,6 +106,8 @@ the previous entry is being stopped, with the current time being recorded as tha
 
 `s 123`       - Start task 123 w/o comment
 
+`s 3 08:30`   - Update start-time of entry 3 to 08:30
+
 `s i=3 08:30` - Update start-time of entry 3 to 08:30
 
 

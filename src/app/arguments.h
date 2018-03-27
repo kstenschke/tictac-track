@@ -53,6 +53,7 @@ class AppArguments {
 
   bool IsComment(int index);
   bool IsNumber(int index);
+  bool IsTime(int index);
   bool Contains(int index, std::string needle);
 
   std::string GetComment();
@@ -75,12 +76,14 @@ class AppArguments {
 
   // Set attributes from arguments
   void Resolve(AppCommand &command);
+  bool ResolveAsComment(int i);
+  // Try resolve i=<number> or i=<number,number,...>
+  bool ResolveAsIndex(int i);
+  bool ResolveAsTime(int i);
+  void ResolveAsTaskIndex(int i, const std::string &argument, const AppCommand::Commands &command_resolved,
+                          bool is_numeric);
 
   void SetArgvDefaultTypeByCommand(AppCommand &command, int index);
-
-  // Argument value as received from CLI, that is w/ "c="-prefix if given
-  //std::string argv_;
-  //bool is_comment_;
 };
 } // namespace timesheetplus
 
