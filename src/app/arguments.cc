@@ -128,7 +128,7 @@ bool AppArguments::ResolveAsIndex(int i) {
 
   // Multiple comma-separated indexes given - parse and store as vector of integers
   has_multiple_ids_ = true;
-  std::__1::vector<std::__1::string> entry_indexes_str = HelperString::Explode(std::__1::string(argv_[i]).substr(2), ',');
+  std::vector<std::string> entry_indexes_str = HelperString::Explode(std::string(argv_[i]).substr(2), ',');
   ids_.assign(entry_indexes_str.size(), -1);
   int j = 0;
   for(auto const &index: entry_indexes_str) {

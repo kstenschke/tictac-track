@@ -19,9 +19,10 @@ Features
 --------
 
 * Works directly from CLI, on Linux and Mac OS (not tested on Windows)
-* No external editor needed: Existing entries can be edited directly from CLI (start/end-time, comment, task)
-* Task-reference and comments: Timesheet entries contain start- and end-time and optionally a task-number and comment
+* Stores all work entries into an HTML file, ready to be printed
 * CLI viewer: The timesheet can be viewed pretty-printed user-friendly formatted, directly within CLI
+* No external editor needed: Entries can be edited directly from CLI (start/end-time, comment, task)
+* Task-reference and comments: Timesheet entries contain start- and end-time and optionally a task-number and comment
 * Search filter: The CLI viewer can use search filters (by date, week, month, task-number, comment)
 * Time sum calculation: Recorded work times are additionally summed: per entry / task per day / day / filtered view / in total
 * Overtime saldo: Required vs. recorded work time per day is calculated automatically
@@ -343,10 +344,9 @@ The following options are available:
 * `report_path`: Path where the timesheet is stored
 * `locale`: Language for calendaric and other labels (day, date, week, etc.).
   The following languages are built-in:
-  Chinese (cn), German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr),
-  Hungarian (hu), Italian (it), Japanese (jp), Lithuanian (lt), Latvian (lv), Dutch (nl), Norwegian (no),
-  Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
-* `debit_per_day`: Required amount of time. Allowing to calculate overtime saldo.
+  German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr), Hungarian (hu), Italian (it), Japanese (jp), 
+  Lithuanian (lt), Latvian (lv), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
+* `debit_per_day`: Required daily working time. Needed for calculation of overtime saldo.
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
 * Arbitrary commands for opening URLs of other project-management tools, e.g. `url.edit` / `url.log` / ...
