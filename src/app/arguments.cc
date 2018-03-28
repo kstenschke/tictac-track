@@ -162,15 +162,15 @@ void AppArguments::SetArgvDefaultTypeByCommand(AppCommand &command, int index) {
 }
 
 bool AppArguments::IsComment(int index) {
-  return index >= argc_ ? false : argv_types_[index] == ArgumentType_Comment;
+  return index < argc_ && argv_types_[index] == ArgumentType_Comment;
 }
 
 bool AppArguments::IsNumber(int index) {
-  return index >= argc_ ? false : argv_types_[index] == ArgumentType_Number;
+  return index < argc_ && argv_types_[index] == ArgumentType_Number;
 }
 
 bool AppArguments::IsTime(int index) {
-  return index >= argc_ ? false : HelperDateTime::IsTime(argv_[index]);
+  return index < argc_ && HelperDateTime::IsTime(argv_[index]);
 }
 
 std::string AppArguments::GetComment() {
@@ -189,7 +189,7 @@ int AppArguments::GetTaskNumber() {
  * Was the argument given w/ an identifier prefix? e.g. "c=", "i=", etc.
  */
 bool AppArguments::Contains(int index, std::string needle) {
-  return index >= argc_ ? false : HelperString::Contains(argv_[index], needle);
+  return index < argc_ && HelperString::Contains(argv_[index], needle);
 }
 
 /**

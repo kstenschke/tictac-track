@@ -24,9 +24,7 @@ bool HelperString::StartsWith(const char *str, const char *prefix) {
  * Check whether given string ends w/ given string
  */
 bool HelperString::EndsWith(std::string const &value, std::string const &ending) {
-  return ending.size() > value.size()
-         ? false
-         : std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+  return ending.size() <= value.size() && std::equal(ending.rbegin(), ending.rend(), value.rbegin());
 }
 
 /**

@@ -111,7 +111,7 @@ bool ReportCrud::UpsertEntry(EntryStatus status, const char *comment, const char
   unsigned long offset = html.find("</table>", 0);
   html.replace(offset, 8, entry.append("\n</table>"));
 
-  return SaveReport(html) ? ReportRecalculator::RecalculateAndUpdate() : false;
+  return SaveReport(html) && ReportRecalculator::RecalculateAndUpdate();
 }
 
 /**
@@ -356,7 +356,7 @@ bool ReportCrud::RemoveEntries(int amount) {
     }
   }
 
-  return SaveReport(html) ? ReportRecalculator::RecalculateAndUpdate() : false;
+  return SaveReport(html) && ReportRecalculator::RecalculateAndUpdate();
 }
 
 /**
@@ -380,13 +380,13 @@ bool ReportCrud::RemoveEntryById(std::string &html, int id) {
 
   html = html.erase(static_cast<unsigned long>(offset_tr_open), offset_tr_close - offset_tr_open + 6);
 
-  return SaveReport(html) ? ReportRecalculator::RecalculateAndUpdate() : false;
+  return SaveReport(html) && ReportRecalculator::RecalculateAndUpdate();
 }
 
 bool ReportCrud::RemoveEntryById(int id) {
   std::string html = GetReportHtml();
 
-  return html.empty() ? false : RemoveEntryById(html, id);
+  return !html.empty() && RemoveEntryById(html, id);
 }
 
 bool ReportCrud::Reset() {
@@ -396,6 +396,6 @@ bool ReportCrud::Reset() {
 bool ReportCrud::IsAnyEntryRunning() {
   std::string html = GetReportHtml();
 
-  return html.empty() ? false : ReportHtmlParser::IsAnyEntryRunning(html);
+  return !html.empty() && ReportHtmlParser::IsAnyEntryRunning(html);
 }
 } // namespace timesheetplus
