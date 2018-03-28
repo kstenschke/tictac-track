@@ -200,17 +200,21 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
                       
 #### Usage examples:
  
-`t`         - Unsets the task number of the latest entry
+`t`                     - Unset the task number of the latest entry
 
-`t 123`     - Sets the task number of the latest timesheet entry to 123
+`t 123`                 - Set the task number of the latest entry to 123
 
-`t i=3`     - Unsets the task number of the timesheet entry with ID 3
+`t i=3`                 - Unset the task number of the entry with ID 3
 
-`t i=3 123` - Sets the task number of the timesheet entry with ID 3 to 123
+`t i=3 123`             - Set the task number of the entry with ID 3 to 123
 
-`t i=3,5,7` - Unsets the task number of the timesheet entries with IDs 3, 5 and 7
+`t i=3,5,7`             - Unset the task number of the entries with IDs 3, 5 and 7
 
-`t i=3,5,7 1234` - Sets the task number of timesheet entries with IDs 3, 5 and 7 to 1234
+`t i=3,5,7 1234`        - Set the task number of entries with IDs 3, 5 and 7 to 1234
+
+`t i=3 1234 " foo bar"` - Set the task number of the entry with ID 3 to 1234 and append " foo bar" to its comment
+
+`t i=3,5,7 1234 foo`    - Set the task number of the entries with IDs 3, 5 and 7 to 1234 and append " foo bar" to their comments
 
 
 ### Command: split (sp): Splits given timesheet entry into two
@@ -300,30 +304,30 @@ The CSV is named automatically and stored to the current path.
 
 #### Usage examples:
  
-`u`            - Opens url.default in web browser, with "#TASK#" removed
+`u`            - Open url.default in web browser, with "#TASK#" removed
 
-`u edit`       - Opens url.edit in web browser, with "#TASK#" removed
+`u edit`       - Open url.edit in web browser, with "#TASK#" removed
 
-`u 123`        - Opens url.default in web browser, with "#TASK#" replaced by 123
+`u 123`        - Open url.default in web browser, with "#TASK#" replaced by 123
 
-`u d`          - Opens url.default for all tasks in current day, with "#TASK#" replaced by task numbers
+`u d`          - Open url.default for all tasks in current day, with "#TASK#" replaced by task numbers
 
-`u d -1`       - Opens url.default for all tasks in previous day, with "#TASK#" replaced by task numbers
+`u d -1`       - Open url.default for all tasks in previous day, with "#TASK#" replaced by task numbers
 
-`u d edit`     - Opens url.edit in web browser, for all tasks in current day, with "#TASK#" replaced by task numbers
+`u d edit`     - Open url.edit in web browser, for all tasks in current day, with "#TASK#" replaced by task numbers
 
-`u d -1 edit`  - Opens url.edit in web browser, for all tasks in previous day, with "#TASK#" replaced by task numbers
+`u d -1 edit`  - Open url.edit in web browser, for all tasks in previous day, with "#TASK#" replaced by task numbers
 
-`u 123 edit`   - Opens url.edit in web browser, with "#TASK#" replaced by 123
+`u 123 edit`   - Open url.edit in web browser, with "#TASK#" replaced by 123
 
 
 ### Command: help (h): Describes usage of the program or its commands
            
 #### Usage examples:
 
-`h view`  - Displays info on using the view command
+`h view`  - Display info on using the view command
 
-`h v`     - Displays info on using the view command
+`h v`     - Display info on using the view command
 
 
 ### Command: version (V): Displays current version number

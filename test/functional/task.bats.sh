@@ -14,9 +14,8 @@ load test_helper
 @test 'A task-number can be added to an existing entry' {
   # Create running entry
   $BATS_TEST_DIRNAME/tsp s
-  # Stop entry
   $BATS_TEST_DIRNAME/tsp p
-  # Alter entry's comment
+
   $BATS_TEST_DIRNAME/tsp t i=0 12345
   $BATS_TEST_DIRNAME/tsp v i=0 | grep '12345'
 }
@@ -28,4 +27,18 @@ load test_helper
   $BATS_TEST_DIRNAME/tsp t
   run grep -c '1234' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 0 ]]
+}
+
+@test 'At the same time with setting a task-number, a comment can be added to an entry' {
+  # Create running entry
+  $BATS_TEST_DIRNAME/tsp s
+  $BATS_TEST_DIRNAME/tsp p
+
+  $BATS_TEST_DIRNAME/tsp t i=0 12345 "foo bar"
+
+  run grep -c '>1234<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
+
+  run grep -c '>foo bar<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" = 1 ]]
 }

@@ -504,9 +504,16 @@ bool App::UpdateTaskNumber() {
 
   int task_number = arguments_->ResolveNumber(task_argument_offset);
   ReportCrud &reportCrud = ReportCrud::GetInstance();
+
+  std::string comment = 5 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[4])
+    ? arguments_->ResolveComment(4) : "";
+  bool has_comment = !comment.empty();
+  bool starts_with_space = has_comment && ' ' == arguments_->argv_[4][0];
+
   bool res = true;
   for(auto const &index: row_ids) {
     res = reportCrud.UpdateTaskNumber(task_number, index) && res;
+    if (has_comment) reportCrud.AppendComment(comment, index, starts_with_space);
   }
 
   return res;

@@ -113,7 +113,7 @@ bool AppHelp::PrintHelpOnComment() {
             << "\nUsage example 4: c \"Foo bar\"         - Append \"Foo bar\" to the comment of the latest entry"
             << "\nUsage example 5: c i=3               - Remove the comment from the entry with ID 3"
             << "\nUsage example 6: c i=3 \"Foo bar\"     - Append \"Foo bar\" to the comment with ID 3"
-            << "\nUsage example 7: c 3 \"Foo bar\"     - Append \"Foo bar\" to the comment with ID 3"
+            << "\nUsage example 7: c 3 \"Foo bar\"       - Append \"Foo bar\" to the comment with ID 3"
             << "\nUsage example 8: c i=3,6,7           - Remove the comments of the entries with IDs 3, 6 and 7"
             << "\nUsage example 9: c i=3,6,7 \"Foo bar\" - Append \"Foo bar\" to the comments of the entries with IDs 3, 6 and 7"
             << "\n";
@@ -123,9 +123,9 @@ bool AppHelp::PrintHelpOnComment() {
 bool AppHelp::PrintHelpOnDate() {
   std::cout << "date (D): Display date at given offset of days"
             << "\n"
-            << "\nUsage example 1:  D                    - Display date of current day"
-            << "\nUsage example 2:  D -1                 - Display yesterday's date"
-            << "\nUsage example 3:  D 1                  - Display tomorrow's date"
+            << "\nUsage example 1:  D    - Display date of current day"
+            << "\nUsage example 2:  D -1 - Display yesterday's date"
+            << "\nUsage example 3:  D 1  - Display tomorrow's date"
             << "\n";
   return true;
 }
@@ -152,14 +152,14 @@ bool AppHelp::PrintHelpOnDay() {
 bool AppHelp::PrintHelpOnExternalTaskUrl() {
   std::cout << "url (u): Opens configured task action URLs in web browser."
             << "\n"
-            << "\nUsage example 1: u            - Opens url.default in web browser, with \"#TASK#\" removed"
-            << "\nUsage example 2: u edit       - Opens url.edit in web browser, with \"#TASK#\" removed"
-            << "\nUsage example 3: u 123        - Opens url.default in web browser, with \"#TASK#\" replaced by 123"
-            << "\nUsage example 4: u d          - Opens url.default for all tasks in current day, with \"#TASK#\" replaced by task numbers"
-            << "\nUsage example 5: u d -1       - Opens url.default for all tasks in previous day, with \"#TASK#\" replaced by task numbers"
-            << "\nUsage example 6: u d edit     - Opens url.edit in web browser, for all tasks in current day, with \"#TASK#\" replaced by task numbers"
-            << "\nUsage example 7: u d -1 edit  - Opens url.edit in web browser, for all tasks in previous day, with \"#TASK#\" replaced by task numbers"
-            << "\nUsage example 8: u 123 edit   - Opens url.edit in web browser, with \"#TASK#\" replaced by 123"
+            << "\nUsage example 1: u           - Open url.default in web browser, with \"#TASK#\" removed"
+            << "\nUsage example 2: u edit      - Open url.edit in web browser, with \"#TASK#\" removed"
+            << "\nUsage example 3: u 123       - Open url.default in web browser, with \"#TASK#\" replaced by 123"
+            << "\nUsage example 4: u d         - Open url.default for all tasks in current day, with \"#TASK#\" replaced by task numbers"
+            << "\nUsage example 5: u d -1      - Open url.default for all tasks in previous day, with \"#TASK#\" replaced by task numbers"
+            << "\nUsage example 6: u d edit    - Open url.edit in web browser, for all tasks in current day, with \"#TASK#\" replaced by task numbers"
+            << "\nUsage example 7: u d -1 edit - Open url.edit in web browser, for all tasks in previous day, with \"#TASK#\" replaced by task numbers"
+            << "\nUsage example 8: u 123 edit  - Open url.edit in web browser, with \"#TASK#\" replaced by 123"
             << "\n";
   return true;
 }
@@ -175,9 +175,9 @@ bool AppHelp::PrintHelpOnHelp() {
 bool AppHelp::PrintHelpOnMerge() {
   std::cout << "merge (m): Merges two successive entries."
             << "\n"
-            << "\nUsage example 2: m 5 - Remove entry 6, set end-time of 5 to that of 6,"
+            << "\nUsage example 1: m 5 - Remove entry 6, set end-time of 5 to that of 6,"
             << " set task to first given, merge comments if different"
-            << "\nUsage example 1: m   - Merge last two entries"
+            << "\nUsage example 2: m   - Merge last two entries"
             << "\n";
   return true;
 }
@@ -206,10 +206,10 @@ bool AppHelp::PrintHelpOnResume() {
   std::cout << "resume (r): Resumes last or given entry: starts a new entry w/ same task and comment."
             << "\n"
             << "\nUsage example 1: r    - Resume latest entry (has to be not running anymore)."
-            << "\nUsage example 2: r 1  - Resume entry with ID 1. Stops running entry, if any."
-            << "\nUsage example 3: r 2  - Resume entry with ID 2. Stops running entry, if any."
-            << "\nUsage example 4: r -1 - Resume entry 1 place before latest entry. Stops running entry, if any."
-            << "\nUsage example 5: r -2 - Resume entry 2 paces before latest entry. Stops running entry, if any."
+            << "\nUsage example 2: r 1  - Resume entry with ID 1. Stop running entry, if any."
+            << "\nUsage example 3: r 2  - Resume entry with ID 2. Stop running entry, if any."
+            << "\nUsage example 4: r -1 - Resume entry 1 place before latest entry. Stop running entry, if any."
+            << "\nUsage example 5: r -2 - Resume entry 2 paces before latest entry. Stop running entry, if any."
             << "\n";
   return true;
 }
@@ -253,12 +253,14 @@ bool AppHelp::PrintHelpOnStop() {
 bool AppHelp::PrintHelpOnTask() {
   std::cout << "task (t): Stores the given task number to the given or latest entry."
             << "\n"
-            << "\nUsage example 1: t             - Unsets the task number of the latest entry"
-            << "\nUsage example 2: t 123         - Sets the task number of the latest timetacking entry to 123"
-            << "\nUsage example 3: t i=3         - Unsets the task number of the timetacking entry with ID 3"
-            << "\nUsage example 4: t i=3 123     - Sets the task number of the timetacking entry with ID 3 to 123"
-            << "\nUsage example 4: t i=3,5,9     - Unsets the task number of timetacking entries with IDs 3, 5 and 9"
-            << "\nUsage example 4: t i=3,5,9 123 - Sets the task number of timetacking entries with IDs 3, 5 and 9 to 123"
+            << "\nUsage example 1: t                    - Unset the task number of the latest entry"
+            << "\nUsage example 2: t 123                - Set the task number of the latest entry to 123"
+            << "\nUsage example 3: t i=3                - Unset the task number of the the entry with ID 3"
+            << "\nUsage example 4: t i=3 123            - Set the task number of the the entry with ID 3 to 123"
+            << "\nUsage example 5: t i=3,5,9            - Unset the task number of the entries with IDs 3, 5 and 9"
+            << "\nUsage example 6: t i=3,5,9 123        - Set the task number of the entries with IDs 3, 5 and 9 to 123"
+            << "\nUsage example 7: t i=3 123 \" foo bar\" - Set the task number of entry with ID 3 to 123 and append \" foo bar\" to it's comment"
+            << "\nUsage example 8: t i=3,5,7 123 foo    - Set the task number of the entries with IDs 3, 5 and 7 to 123 and append \"foo\" to their comments"
             << "\n";
   return true;
 }
@@ -276,18 +278,18 @@ bool AppHelp::PrintHelpOnView() {
             << "\n"
             << "\nUsage example 1:  v                  - Display full timesheet"
             << "\nUsage example 2:  v d                - Display entries of current day"
-            << "\nUsage example 2:  v d -1             - Display entries of previous day"
-            << "\nUsage example 3:  v w                - Display entries of current week"
-            << "\nUsage example 3:  v w -1             - Display entries of previous week"
-            << "\nUsage example 5:  v t=123            - Display entries of task 123"
-            << "\nUsage example 6:  v d t=123          - Display entries of task 123 in current day"
-            << "\nUsage example 6:  v d -1 t=123       - Display entries of task 123 in previous day"
-            << "\nUsage example 7:  v w t=123          - Display entries of task 123 in current week"
-            << "\nUsage example 8:  v c=foo            - Display entries with \"foo\" inside the comment"
-            << "\nUsage example 9:  v d c=foo          - Display entries of current day with \"foo\" inside the comment"
-            << "\nUsage example 10: v t=123 c=foo      - Display entries of task 123 with \"foo\" inside the comment"
-            << "\nUsage example 11: v d t=123 c=foo    - Display entries of task 123 of current day with \"foo\" inside the comment"
-            << "\nUsage example 12: v w -1 t=123 c=foo - Display entries of task 123 of previous week with \"foo\" inside the comment"
+            << "\nUsage example 3:  v d -1             - Display entries of previous day"
+            << "\nUsage example 4:  v w                - Display entries of current week"
+            << "\nUsage example 5:  v w -1             - Display entries of previous week"
+            << "\nUsage example 6:  v t=123            - Display entries of task 123"
+            << "\nUsage example 7:  v d t=123          - Display entries of task 123 in current day"
+            << "\nUsage example 8:  v d -1 t=123       - Display entries of task 123 in previous day"
+            << "\nUsage example 9:  v w t=123          - Display entries of task 123 in current week"
+            << "\nUsage example 10: v c=foo            - Display entries with \"foo\" inside the comment"
+            << "\nUsage example 11: v d c=foo          - Display entries of current day with \"foo\" inside the comment"
+            << "\nUsage example 12: v t=123 c=foo      - Display entries of task 123 with \"foo\" inside the comment"
+            << "\nUsage example 13: v d t=123 c=foo    - Display entries of task 123 of current day with \"foo\" inside the comment"
+            << "\nUsage example 14: v w -1 t=123 c=foo - Display entries of task 123 of previous week with \"foo\" inside the comment"
             << "\n";
   return true;
 }
@@ -295,8 +297,8 @@ bool AppHelp::PrintHelpOnView() {
 bool AppHelp::PrintHelpOnWeek() {
   std::cout << "week (w): Displays week out of timesheet in command-line."
             << "\n"
-            << "\nUsage example 1:  w                  - Display current week of timesheet"
-            << "\nUsage example 2:  w -1               - Display previous week of timesheet"
+            << "\nUsage example 1:  w    - Display current week of timesheet"
+            << "\nUsage example 2:  w -1 - Display previous week of timesheet"
             << "\n";
   return true;
 }

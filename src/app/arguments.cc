@@ -143,15 +143,18 @@ void AppArguments::SetArgvDefaultTypeByCommand(AppCommand &command, int index) {
   switch (command.GetResolved()) {
     case AppCommand::Command_Day:
     case AppCommand::Command_Help:
-    case AppCommand::Command_Remove:return;
+    case AppCommand::Command_Remove:
+      return;
     case AppCommand::Command_Comment:
     case AppCommand::Command_Start:
     case AppCommand::Command_Stop:
       argv_types_[index] = ArgumentType_Comment;
       argument_index_comment_ = index;
       return;
-    case AppCommand::Command_Version:return;
-    case AppCommand::Command_View:return;
+    case AppCommand::Command_Version:
+      return;
+    case AppCommand::Command_View:
+      return;
     case AppCommand::Command_Invalid:
     default:argv_types_[index] = ArgumentType_Invalid;
       return;
