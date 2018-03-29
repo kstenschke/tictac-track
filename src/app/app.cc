@@ -507,8 +507,15 @@ bool App::UpdateTaskNumber() {
   int task_number = arguments_->ResolveNumber(task_argument_offset);
   ReportCrud &reportCrud = ReportCrud::GetInstance();
 
-  std::string comment = 5 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[4])
-    ? arguments_->ResolveComment(4) : "";
+  std::string comment;
+
+  if (4 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[3]))
+    // Get optional comment from invocation like: "t i=1 1234 comment", or: "t i=1,2,3 1234 comment"
+    comment = arguments_->ResolveComment(3);
+  else if (5 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[4]))
+    // Get optional comment from invocation like: "t i=1 1234 comment", or: "t i=1,2,3 1234 comment"
+    comment = arguments_->ResolveComment(4);
+
   bool has_comment = !comment.empty();
   bool starts_with_space = has_comment && ' ' == arguments_->argv_[4][0];
 
