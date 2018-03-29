@@ -401,7 +401,9 @@ bool App::Start() {
     case AppArguments::ArgumentType_Invalid:
     case AppArguments::ArgumentType_OptionAll:
     case AppArguments::ArgumentType_OptionIndex:
-    case AppArguments::ArgumentType_RenderScope:return false;
+    case AppArguments::ArgumentType_RenderScope:
+    case AppArguments::ArgumentType_Time:
+      return false;
   }
 
   return false;
