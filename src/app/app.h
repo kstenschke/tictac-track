@@ -82,6 +82,8 @@ namespace timesheetplus {
       // Pretty-print report to CLI
       bool View();
       bool ViewWeek();
+
+      int GetCommentArgOffsetInTaskCommand() const;
   };
 } // namespace timesheetplus
 

@@ -507,25 +507,28 @@ bool App::UpdateTaskNumber() {
   int task_number = arguments_->ResolveNumber(task_argument_offset);
   ReportCrud &reportCrud = ReportCrud::GetInstance();
 
-  std::string comment;
-
-  if (4 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[3]))
-    // Get optional comment from invocation like: "t i=1 1234 comment", or: "t i=1,2,3 1234 comment"
-    comment = arguments_->ResolveComment(3);
-  else if (5 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[4]))
-    // Get optional comment from invocation like: "t i=1 1234 comment", or: "t i=1,2,3 1234 comment"
-    comment = arguments_->ResolveComment(4);
-
+  int argument_index_comment = GetCommentArgOffsetInTaskCommand();
+  std::string comment = argument_index_comment > -1 ? arguments_->ResolveComment(argument_index_comment) : "";
   bool has_comment = !comment.empty();
-  bool starts_with_space = has_comment && ' ' == arguments_->argv_[4][0];
+  bool comment_starts_with_space = has_comment && ' ' == arguments_->argv_[argument_index_comment][0];
 
   bool res = true;
   for(auto const &index: row_ids) {
     res = reportCrud.UpdateTaskNumber(task_number, index) && res;
-    if (has_comment) reportCrud.AppendComment(comment, index, starts_with_space);
+    if (has_comment) reportCrud.AppendComment(comment, index, comment_starts_with_space);
   }
 
   return res;
+}
+
+int App::GetCommentArgOffsetInTaskCommand() const {
+  // Get optional comment from invocation like: "t 1234 comment", or: "t 1234 comment"
+  if (4 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[3])) return 3;
+
+  // Get optional comment from invocation like: "t i=1 1234 comment", or: "t i=1,2,3 1234 comment"
+  if (5 == arguments_->argc_ && !HelperString::IsNumeric(arguments_->argv_[4])) return 4;
+
+  return -1;
 }
 
 /**

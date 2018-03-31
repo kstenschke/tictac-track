@@ -364,9 +364,9 @@ void ReportHtmlParser::UpdateColumn(std::string &html, int row_index, Report::Co
     return;
   }
 
-  unsigned long offset_td_content_start = parser->GetColumnOffset("<td",
-                                                                  static_cast<unsigned long>(offset_tr), column_index)
-      + 4;
+  unsigned long offset_td_content_start = parser->GetColumnOffset(
+      "<td", static_cast<unsigned long>(offset_tr), column_index) + 4;
+
   // Meta-column td contains also class name
   if (column_index == ColumnIndexes::Index_Meta) offset_td_content_start += 13;
 
