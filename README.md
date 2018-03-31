@@ -11,7 +11,7 @@ TimesheetPlus is a simple but powerful timesheet recorder for the commandline.
 
 * The application consists from a single executable file
 * No server or database needed: Timetracking entries are recorded directly to an HTML file
-* No background processes: Starting a new entry just records the current time, than timesheetPlus get out of your way
+* No background processes: Starting a new entry just records the current time, than timesheetPlus gets out of your way
 * A default configuration file is created on first run
 
 
@@ -205,6 +205,8 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 
 `t 123`                 - Set the task number of the latest entry to 123
 
+`t 123 foo`             - Set the task number of the latest entry to 123 and append "foo" to its comment
+
 `t i=3`                 - Unset the task number of the entry with ID 3
 
 `t i=3 123`             - Set the task number of the entry with ID 3 to 123
@@ -344,8 +346,8 @@ The following options are available:
 * `report_path`: Path where the timesheet is stored
 * `locale`: Language for calendaric and other labels (day, date, week, etc.).
   The following languages are built-in:
-  German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Greek (gr), Hungarian (hu), Italian (it), Japanese (jp), 
-  Lithuanian (lt), Latvian (lv), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
+  German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Hungarian (hu), Italian (it),
+  Latvian (lv), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
 * `debit_per_day`: Required daily working time. Needed for calculation of overtime saldo.
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.

@@ -255,12 +255,13 @@ bool AppHelp::PrintHelpOnTask() {
             << "\n"
             << "\nUsage example 1: t                    - Unset the task number of the latest entry"
             << "\nUsage example 2: t 123                - Set the task number of the latest entry to 123"
-            << "\nUsage example 3: t i=3                - Unset the task number of the the entry with ID 3"
-            << "\nUsage example 4: t i=3 123            - Set the task number of the the entry with ID 3 to 123"
-            << "\nUsage example 5: t i=3,5,9            - Unset the task number of the entries with IDs 3, 5 and 9"
-            << "\nUsage example 6: t i=3,5,9 123        - Set the task number of the entries with IDs 3, 5 and 9 to 123"
-            << "\nUsage example 7: t i=3 123 \" foo bar\" - Set the task number of entry with ID 3 to 123 and append \" foo bar\" to it's comment"
-            << "\nUsage example 8: t i=3,5,7 123 foo    - Set the task number of the entries with IDs 3, 5 and 7 to 123 and append \"foo\" to their comments"
+            << "\nUsage example 3: t 123 foo            - Set the task number of the latest entry to 123 and append \"foo\" to its comment"
+            << "\nUsage example 4: t i=3                - Unset the task number of the the entry with ID 3"
+            << "\nUsage example 5: t i=3 123            - Set the task number of the the entry with ID 3 to 123"
+            << "\nUsage example 6: t i=3,5,9            - Unset the task number of the entries with IDs 3, 5 and 9"
+            << "\nUsage example 7: t i=3,5,9 123        - Set the task number of the entries with IDs 3, 5 and 9 to 123"
+            << "\nUsage example 8: t i=3 123 \" foo bar\" - Set the task number of entry with ID 3 to 123 and append \" foo bar\" to its comment"
+            << "\nUsage example 9: t i=3,5,7 123 foo    - Set the task number of the entries with IDs 3, 5 and 7 to 123 and append \"foo\" to their comments"
             << "\n";
   return true;
 }

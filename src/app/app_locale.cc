@@ -28,7 +28,7 @@ void AppLocale::Init() {
 }
 
 void AppLocale::InitActiveDictionary() {
-  if (0 == std::strcmp("de", locale_key_)) active_dictionary_ = dictionary_de_;
+       if (0 == std::strcmp("de", locale_key_)) active_dictionary_ = dictionary_de_;
   else if (0 == std::strcmp("dk", locale_key_)) active_dictionary_ = dictionary_dk_;
   else if (0 == std::strcmp("es", locale_key_)) active_dictionary_ = dictionary_es_;
   else if (0 == std::strcmp("fi", locale_key_)) active_dictionary_ = dictionary_fi_;
@@ -37,6 +37,7 @@ void AppLocale::InitActiveDictionary() {
   else if (0 == std::strcmp("it", locale_key_)) active_dictionary_ = dictionary_it_;
   else if (0 == std::strcmp("lv", locale_key_)) active_dictionary_ = dictionary_lv_;
   else if (0 == std::strcmp("nl", locale_key_)) active_dictionary_ = dictionary_nl_;
+  else if (0 == std::strcmp("no", locale_key_)) active_dictionary_ = dictionary_no_;
   else if (0 == std::strcmp("pl", locale_key_)) active_dictionary_ = dictionary_pl_;
   else if (0 == std::strcmp("pt", locale_key_)) active_dictionary_ = dictionary_pt_;
   else if (0 == std::strcmp("ro", locale_key_)) active_dictionary_ = dictionary_ro_;
