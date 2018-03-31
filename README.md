@@ -32,7 +32,7 @@ Features
 * Terminal color themes: There are several color presets built-in to support different terminal color palettes
 * Export: Timesheets can be exported to a CSV file
 * External URL-linking: Referenced items can be dynamically opened in web-browser: all tasks of a day / week / month
-* Timesheet can be recorded in 18 languages (de, dk, en, es, fi, fr, gr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
+* Timesheet can be recorded in multiple languages (de, dk, en, es, fi, fr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
 
 
 Commands Overview
