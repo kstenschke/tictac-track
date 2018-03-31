@@ -12,28 +12,28 @@ else()
 endif()
 
 add_executable(tsp
-        src/app/app.cc
-        src/app/arguments.cc
-        src/app/commands.cc
-        src/app/config.cc
-        src/app/error.cc
-        src/app/help.cc
-        src/app/app_locale.cc
-        src/helper/date_time.cc
-        src/helper/file.cc
-        src/helper/html.cc
-        src/helper/numeric.cc
-        src/helper/helper_string.cc
-        src/helper/system.cc
-        src/report/browser.cc
-        src/report/crud.cc
-        src/report/date_time.cc
-        src/report/file.cc
-        src/report/html_parser.cc
-        src/report/recalculator.cc
-        src/report/renderer.cc
-        src/report/renderer_cli.cc
-        src/report/renderer_csv.cc
-        src/report/report.cc
+        src/client/app/app.cc
+        src/client/app/arguments.cc
+        src/client/app/commands.cc
+        src/client/app/config.cc
+        src/client/app/error.cc
+        src/client/app/help.cc
+        src/client/app/app_locale.cc
+        src/client/helper/date_time.cc
+        src/client/helper/file.cc
+        src/client/helper/html.cc
+        src/client/helper/numeric.cc
+        src/client/helper/helper_string.cc
+        src/client/helper/system.cc
+        src/client/report/browser.cc
+        src/client/report/crud.cc
+        src/client/report/date_time.cc
+        src/client/report/file.cc
+        src/client/report/html_parser.cc
+        src/client/report/recalculator.cc
+        src/client/report/renderer.cc
+        src/client/report/renderer_cli.cc
+        src/client/report/renderer_csv.cc
+        src/client/report/report.cc
         src/vendor/decode_html_entities_utf8.cc
-        src/main.cc)
+        src/client/main.cc)

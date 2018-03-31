@@ -7,7 +7,7 @@
 #include <string>
 #include <cstring>
 #include "html.h"
-#include "../vendor/decode_html_entities_utf8.h"
+#include "../../vendor/decode_html_entities_utf8.h"
 
 namespace timesheetplus {
 
