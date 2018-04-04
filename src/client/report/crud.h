@@ -11,7 +11,7 @@
 #include "file.h"
 #include "date_time.h"
 
-namespace timesheetplus {
+namespace tictac_track {
   class ReportCrud : public ReportFile {
     public:
       // Get object instance. Initialize at 1st call
@@ -86,6 +86,6 @@ namespace timesheetplus {
 
       bool IsMergeableAmountMinutes(int amount_minutes);
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

@@ -10,7 +10,7 @@
 #include <string>
 #include <map>
 
-namespace timesheetplus {
+namespace tictac_track {
   class AppLocale {
     public:
       const char* locale_key_{};
@@ -227,6 +227,6 @@ namespace timesheetplus {
         {"timesheet",      "Zaman planı"},
         {"week",           "Hafta"}};
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

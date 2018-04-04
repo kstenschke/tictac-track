@@ -9,7 +9,7 @@
 
 #include "renderer.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 class ReportRendererCsv : public ReportRenderer {
  public:
@@ -30,6 +30,6 @@ class ReportRendererCsv : public ReportRenderer {
  protected:
 
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

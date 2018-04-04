@@ -14,7 +14,7 @@
 #include "html_parser.h"
 #include "../helper/numeric.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Extract from timesheet HTML: amount columns, column titles, column max. length, rows amount, cells content
@@ -141,4 +141,4 @@ std::vector<std::string> ReportRenderer::ExtractRowsFromTable(std::string table)
 
   return HelperString::Explode(table, '|');
 }
-} // namespace timesheetplus
+} // namespace tictac_track

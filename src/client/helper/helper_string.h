@@ -9,7 +9,7 @@
 
 #include <vector>
 
-namespace timesheetplus {
+namespace tictac_track {
 namespace HelperString {
 // Check whether given string ends w/ given string
 bool EndsWith(std::string const &value, std::string const &ending);
@@ -55,6 +55,6 @@ extern void LTrim(std::string &s);
 extern void RTrim(std::string &s);
 extern void Trim(std::string &s);
 }
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

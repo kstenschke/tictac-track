@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(tsp
+project(ttt
         VERSION 1.2)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -11,7 +11,7 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/linux)
 endif()
 
-add_executable(tsp
+add_executable(ttt
         src/client/app/app.cc
         src/client/app/arguments.cc
         src/client/app/commands.cc

@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_HELPER_NUMERIC
 #define CLASS_TIMETRACKERCL_HELPER_NUMERIC
 
-namespace timesheetplus {
+namespace tictac_track {
 namespace HelperNumeric {
 extern unsigned int ToUnsignedInt(int number);
 
@@ -16,6 +16,6 @@ extern unsigned long GetAmountDigits(int number);
 extern std::string ToString(int number);
 extern std::string ToString(int number, unsigned int amount_digits_min);
 }
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_APP_ERROR
 #define CLASS_TIMETRACKERCL_APP_ERROR
 
-namespace timesheetplus {
+namespace tictac_track {
 
 class AppError {
  public:
@@ -15,6 +15,6 @@ class AppError {
   static bool PrintError(const char *message);
   static bool PrintError(const char *message, int n);
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

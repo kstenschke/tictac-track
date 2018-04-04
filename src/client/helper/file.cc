@@ -10,7 +10,7 @@
 #include <zconf.h>
 #include "file.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 /**
  * Check whether given file exists
  */
@@ -51,4 +51,4 @@ bool HelperFile::WriteToNewFile(const std::string &filename, std::string &conten
 
   return HelperFile::FileExists(filename);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

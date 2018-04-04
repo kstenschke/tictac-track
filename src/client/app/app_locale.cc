@@ -10,7 +10,7 @@
 #include "../helper/helper_string.h"
 #include "../helper/html.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 AppLocale &AppLocale::GetInstance() {
   // Instantiated on first use
   static AppLocale instance;
@@ -63,4 +63,4 @@ std::string AppLocale::Translate(const char *label, bool html_encode) {
 
   return HelperHtml::Encode(translated);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

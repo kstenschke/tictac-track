@@ -13,7 +13,7 @@
 #include "../helper/helper_string.h"
 #include "../helper/numeric.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
    * Constructor
@@ -146,4 +146,4 @@ namespace timesheetplus {
 
     return day_date1 > day_date2;
   }
-} // namespace timesheetplus
+} // namespace tictac_track

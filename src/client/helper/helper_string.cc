@@ -13,7 +13,7 @@
 #include <algorithm>
 #include "helper_string.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 /**
  * Check whether given string starts w/ given prefix
  */
@@ -257,4 +257,4 @@ void HelperString::Trim(std::string &s) {
   LTrim(s);
   RTrim(s);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

@@ -10,7 +10,7 @@
 #include <map>
 #include "html_parser.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 class ReportRecalculator : public ReportHtmlParser {
  public:
   // Constructor
@@ -38,6 +38,6 @@ class ReportRecalculator : public ReportHtmlParser {
 
   void ClearTaskMaps();
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

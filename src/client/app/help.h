@@ -8,7 +8,7 @@
 #define CLASS_TIMETRACKERCL_APP_HELP
 
 #include "commands.h"
-namespace timesheetplus {
+namespace tictac_track {
 
 class AppHelp {
  public:
@@ -43,6 +43,6 @@ class AppHelp {
   static bool PrintHelpOnView();
   static bool PrintHelpOnWeek();
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

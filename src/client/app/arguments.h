@@ -9,7 +9,7 @@
 
 #include <vector>
 #include "commands.h"
-namespace timesheetplus {
+namespace tictac_track {
 
 class AppArguments {
  public:
@@ -85,6 +85,6 @@ class AppArguments {
 
   void SetArgvDefaultTypeByCommand(AppCommand &command, int index);
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

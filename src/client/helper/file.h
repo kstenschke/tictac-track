@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_HELPER_FILE
 #define CLASS_TIMETRACKERCL_HELPER_FILE
 
-namespace timesheetplus {
+namespace tictac_track {
 namespace HelperFile {
 // Check whether given file exists
 extern bool FileExists(const std::string &name);
@@ -18,6 +18,6 @@ extern std::string GetFileContents(std::ifstream &file);
 
 extern bool WriteToNewFile(const std::string &filename, std::string &content);
 }
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

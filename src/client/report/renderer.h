@@ -10,7 +10,7 @@
 #include <vector>
 #include "report.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 class ReportRenderer : public Report {
  public:
@@ -39,6 +39,6 @@ class ReportRenderer : public Report {
   void SetColumnTitlesExtractedFromTHead(std::string t_head);
   std::vector<std::string> ExtractRowsFromTable(std::string table);
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

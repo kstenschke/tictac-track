@@ -8,7 +8,7 @@
 #include "help.h"
 #include "app.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Print version information
@@ -310,4 +310,4 @@ void AppHelp::PrintUnknownArgumentMessage(const char *arg) {
   PrintHelp(false, AppCommand::Commands::Command_Invalid);
 }
 
-} // namespace timesheetplus
+} // namespace tictac_track

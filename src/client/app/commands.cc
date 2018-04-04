@@ -7,7 +7,7 @@
 #include <string>
 #include "commands.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Constructor
@@ -52,4 +52,4 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
   return Command_Invalid;
 }
 
-} // namespace timesheetplus
+} // namespace tictac_track

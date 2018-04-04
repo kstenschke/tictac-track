@@ -11,7 +11,7 @@
 #include "system.h"
 #include "helper_string.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Get language key from system default locale
@@ -43,5 +43,5 @@ bool HelperSystem::GetYesOrNoKeyPress() {
   return ch != 78 && ch != 110;
 }
 
-} // namespace timesheetplus
+} // namespace tictac_track
 

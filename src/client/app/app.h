@@ -12,7 +12,7 @@
 #include "../report/html_parser.h"
 #include "../report/report.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
   class App
   {
@@ -85,6 +85,6 @@ namespace timesheetplus {
 
       int GetCommentArgOffsetInTaskCommand() const;
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

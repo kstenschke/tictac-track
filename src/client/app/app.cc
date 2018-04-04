@@ -21,10 +21,10 @@
 #include "../helper/date_time.h"
 #include "../helper/system.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 // Meta constants
-const std::string App::kAppName = "TimesheetPlus";
+const std::string App::kAppName = "tictac-track";
 const std::string App::kAppExecutableName = "tsp";
 const std::string App::kAppVersion = "v1.2";
 
@@ -577,4 +577,4 @@ bool App::ViewWeek() {
   return renderer.PrintToCli(Report::RenderScopes::Scope_Week, arguments_->GetNegativeNumber(),
                              arguments_->GetTaskNumber(), arguments_->GetComment());
 }
-} // namespace timesheetplus
+} // namespace tictac_track

@@ -13,7 +13,7 @@
 #include "../report/renderer_cli.h"
 #include "../helper/date_time.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Constructor
@@ -284,4 +284,4 @@ AppCommand::Commands AppArguments::ResolveCommandName(int index) {
   return AppCommand::ResolveCommandByName(argv_[index]);
 }
 
-} // namespace timesheetplus
+} // namespace tictac_track

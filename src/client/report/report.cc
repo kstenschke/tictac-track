@@ -7,7 +7,7 @@
 #include <string>
 #include "report.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Init filter value for time scope (all rows or filtered by: day / week / month)
@@ -43,4 +43,4 @@ std::string Report::GetFilterValueForWeekScope(int offset) {
 std::string Report::GetFilterValueForMonthScope(int offset) {
   return report_date_time_instance_.GetCurrentDate(offset);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

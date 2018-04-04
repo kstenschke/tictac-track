@@ -11,7 +11,7 @@
 #include "report.h"
 #include "../app/commands.h"
 
-namespace timesheetplus {
+namespace tictac_track {
   class ReportHtmlParser : public Report {
     public:
       // Constructor
@@ -94,6 +94,6 @@ namespace timesheetplus {
     private:
       int GetIndexFirstEntryOfDate(std::string &date);
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

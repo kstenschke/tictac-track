@@ -11,7 +11,7 @@
 #include "file.h"
 #include "crud.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Constructor
@@ -169,4 +169,4 @@ std::string ReportRecalculator::CalculateAndUpdateDuration(int row_index) {
 
   return html;
 }
-} // namespace timesheetplus
+} // namespace tictac_track

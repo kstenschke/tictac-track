@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_APP_COMMAND
 #define CLASS_TIMETRACKERCL_APP_COMMAND
 
-namespace timesheetplus {
+namespace tictac_track {
 
 class AppCommand {
  public:
@@ -52,6 +52,6 @@ class AppCommand {
   Commands Resolve();
 
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

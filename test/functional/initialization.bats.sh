@@ -8,11 +8,11 @@ load test_helper
 
 @test "Running creates ini-file if not there" {
   # Assert ini doesn't exist
-  run ls $BATS_TEST_DIRNAME/.timesheetplus.ini
+  run ls $BATS_TEST_DIRNAME/.ttt.ini
   [ "$status" -eq 1 ]
   # Assert running the program creates ini
   run $BATS_TEST_DIRNAME/tsp
-  run ls $BATS_TEST_DIRNAME/.timesheetplus.ini
+  run ls $BATS_TEST_DIRNAME/.ttt.ini
   [ "$status" -eq 0 ]
 }
 
@@ -30,6 +30,6 @@ load test_helper
   # Create ini
   run $BATS_TEST_DIRNAME/tsp
   # Compare report-path
-  run grep ";report_path=" $BATS_TEST_DIRNAME/.timesheetplus.ini
+  run grep ";report_path=" $BATS_TEST_DIRNAME/.ttt.ini
   [[ "$output" = *$BATS_TEST_DIRNAME* ]]
 }

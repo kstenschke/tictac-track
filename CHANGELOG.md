@@ -1,4 +1,4 @@
-TimesheetPlus - Changelog
+tictac-track - Changelog
 =========================
 
 V1.2

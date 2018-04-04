@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_HELPER_DATE_TIME
 #define CLASS_TIMETRACKERCL_HELPER_DATE_TIME
 
-namespace timesheetplus {
+namespace tictac_track {
   namespace HelperDateTime {
     const int kMinutesPerDay = 1440;
 
@@ -33,6 +33,6 @@ namespace timesheetplus {
 
     extern bool IsTime(std::string str);
   }
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

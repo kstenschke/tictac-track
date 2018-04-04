@@ -9,7 +9,7 @@
 #include "html.h"
 #include "../../vendor/decode_html_entities_utf8.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 std::string HelperHtml::Encode(std::string str) {
   std::string subs[] = {";", "&", "\"", "'", "<", ">", ":", "=", "!"};
@@ -343,4 +343,4 @@ std::string HelperHtml::Decode(std::string str) {
 
   return std::string(dest);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

@@ -17,7 +17,7 @@
 #include "../helper/system.h"
 #include "../helper/helper_string.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Constructor
@@ -114,4 +114,4 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
 
   return csv_stream.str();
 }
-} // namespace timesheetplus
+} // namespace tictac_track

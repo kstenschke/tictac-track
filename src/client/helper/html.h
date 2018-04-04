@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_HELPER_HTML
 #define CLASS_TIMETRACKERCL_HELPER_HTML
 
-namespace timesheetplus {
+namespace tictac_track {
 namespace HelperHtml {
 extern std::string Encode(std::string str);
 extern std::wstring ReplaceWideCharByEntity(std::wstring wstr, int str_len, int offset, int offset_left,
@@ -16,6 +16,6 @@ extern std::wstring ReplaceWideCharByEntity(std::wstring wstr, int str_len, int 
 
 extern std::string Decode(std::string str);
 }
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

@@ -7,7 +7,7 @@
 #include <string>
 #include "numeric.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 unsigned int HelperNumeric::ToUnsignedInt(int number) {
   return static_cast<unsigned int>(number);
 }
@@ -37,4 +37,4 @@ unsigned long HelperNumeric::GetAmountDigits(int number) {
 
   return digits;
 }
-} // namespace timesheetplus
+} // namespace tictac_track

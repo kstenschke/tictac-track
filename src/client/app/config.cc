@@ -17,8 +17,8 @@
 #include "../helper/numeric.h"
 #include "../report/crud.h"
 
-namespace timesheetplus {
-const std::string AppConfig::kFilename = ".timesheetplus.ini";
+namespace tictac_track {
+const std::string AppConfig::kFilename = ".ttt.ini";
 
 /**
  * Get object instance. Initialize at 1st call: ensure config file exists, load contents to attribute
@@ -32,7 +32,7 @@ AppConfig &AppConfig::GetInstance(char **argv) {
 }
 
 /**
- * Create default ".timesheetplus.conf" if it does not exist, store to instance property
+ * Create default ".tictac-track.conf" if it does not exist, store to instance property
  */
 void AppConfig::Init(char **argv) {
   is_initialized_ = true;
@@ -66,7 +66,7 @@ void AppConfig::SaveConfig(std::string path_config_file, std::string content) {
 
 std::string AppConfig::GetDefaultConfig() {
   std::stringstream content;
-  content << ";TimesheetPlus Configuration"
+  content << ";tictac-track Configuration"
           << "\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
           << "\n"
           << "\n; Absolute directory path to timesheet.html. If not set: directory where executable is"
@@ -124,7 +124,7 @@ std::string AppConfig::GetDefaultConfig() {
 }
 
 /**
- * Read config from timesheetplus.ini into associative map
+ * Read config from ttt.ini into associative map
  */
 void AppConfig::InitConfigMap() {
   config_map_.erase(config_map_.begin(), config_map_.end());
@@ -173,7 +173,7 @@ std::string AppConfig::GetDefaultLanguageKey() {
 }
 
 /**
- * Get value of given key from .timesheetplus.conf, or default value
+ * Get value of given key from .tictac-track.conf, or default value
  */
 std::string AppConfig::GetConfigValue(const std::string &key) {
   return 0 == config_map_.count(key) ? GetConfigValueDefault(key) : config_map_[key];
@@ -228,4 +228,4 @@ int AppConfig::GetDefaultThemeIdByOs() {
          // Blue theme w/ zebra-look, optimized for Linux
          : 0;
 }
-} // namespace timesheetplus
+} // namespace tictac_track

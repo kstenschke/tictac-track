@@ -12,7 +12,7 @@
 #include "../helper/file.h"
 #include "../app/error.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
   const std::string ReportFile::kFilenameReport = "timesheet.html";
 
@@ -134,4 +134,4 @@ namespace timesheetplus {
     return HelperFile::WriteToNewFile(report_file_path, content);
   }
 
-} // namespace timesheetplus
+} // namespace tictac_track

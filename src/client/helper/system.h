@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_HELPER_SYSTEM
 #define CLASS_TIMETRACKERCL_HELPER_SYSTEM
 
-namespace timesheetplus {
+namespace tictac_track {
 namespace HelperSystem {
 // OS, newline
 #ifdef _WIN32
@@ -40,6 +40,6 @@ extern std::string GetLanguageKey();
 bool GetYesOrNoKeyPress();
 
 }
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

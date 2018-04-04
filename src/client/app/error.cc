@@ -7,7 +7,7 @@
 #include <iostream>
 #include "error.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 bool AppError::PrintError(const char *message) {
   std::cout << message << "\n";
@@ -18,4 +18,4 @@ bool AppError::PrintError(const char *message, int n) {
   std::cout << message << n << "\n";
   return false;
 }
-} // namespace timesheetplus
+} // namespace tictac_track

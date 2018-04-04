@@ -15,7 +15,7 @@
 #include "../helper/html.h"
 #include "../app/error.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 const std::string ReportRendererCli::kAnsiFormatReset = "\033[0m";
 
@@ -303,4 +303,4 @@ void ReportRendererCli::InitAnsiTheme() {
       theme_style_grid_ = "\033[0m";
   }
 }
-} // namespace timesheetplus
+} // namespace tictac_track

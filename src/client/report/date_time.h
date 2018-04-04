@@ -9,7 +9,7 @@
 
 #include <string>
 
-namespace timesheetplus {
+namespace tictac_track {
   class ReportDateTime {
     public:
       static constexpr const char *FORMAT_TIME = "%H:%M";
@@ -69,6 +69,6 @@ namespace timesheetplus {
       const char* weekDayLabelsSv[7] = {"Måndag",       "Tisdag",      "Onsdag",       "Torsdag",        "Fredag",       "Lördag",      "Söndag"};
       const char* weekDayLabelsTr[7] = {"Pazartesi",    "Salı",        "Çarşamba",     "Perşembe",       "Cuma",         "Cumartesi",   "Pazar"};
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

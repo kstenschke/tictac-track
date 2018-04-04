@@ -19,7 +19,7 @@
 #include "../app/error.h"
 #include "../helper/numeric.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 /**
  * Constructor
  */
@@ -452,4 +452,4 @@ std::string ReportHtmlParser::MergeCommentByRowIndexWithNext(int row_index) {
          ? comment_1.append(" ").append(comment_2)
          : comment_1.append(". ").append(comment_2);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

@@ -10,7 +10,7 @@
 #include <string>
 #include <map>
 
-namespace timesheetplus {
+namespace tictac_track {
 class AppConfig {
  public:
   static const std::string kFilename;
@@ -51,7 +51,7 @@ class AppConfig {
   // Prevent construction from outside (singleton)
   AppConfig() = default;;
 
-  // Create default ".timesheetplus.conf" if it does not exist, store in property
+  // Create default ".tictac-track.conf" if it does not exist, store in property
   void Init(char **argv = nullptr);
 
   std::string GetDefaultConfig();
@@ -59,7 +59,7 @@ class AppConfig {
   // Save given content to file of given name in directory where also the binary is
   void SaveConfig(std::string filename, std::string content);
 
-  // Read config from timesheetplus.ini into associative map
+  // Read config from .ttt.ini into associative map
   void InitConfigMap();
 
   static std::string GetDefaultLanguageKey();
@@ -68,6 +68,6 @@ class AppConfig {
 
   static int GetDefaultThemeIdByOs();
 };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

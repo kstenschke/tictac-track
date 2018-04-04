@@ -12,7 +12,7 @@
 #include "numeric.h"
 #include "../report/date_time.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
   /**
    * Get string of current timestamp, w/ given offset in days added, in given format.
@@ -150,4 +150,4 @@ namespace timesheetplus {
 
     return HelperString::IsNumeric(str);
   }
-} // namespace timesheetplus
+} // namespace tictac_track

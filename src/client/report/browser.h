@@ -10,7 +10,7 @@
 #include "report.h"
 #include "renderer.h"
 
-namespace timesheetplus {
+namespace tictac_track {
   class ReportBrowser : public Report {
     public:
       public:
@@ -28,6 +28,6 @@ namespace timesheetplus {
       static void BrowseOnLinux(std::string url);
       static void BrowseOnMac(std::string url);
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif

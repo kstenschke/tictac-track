@@ -17,7 +17,7 @@
 #include "../helper/date_time.h"
 #include "../app/error.h"
 
-namespace timesheetplus {
+namespace tictac_track {
 
 /**
  * Get object instance. Initialize at 1st call: ensure config file exists, load contents to attribute
@@ -398,4 +398,4 @@ bool ReportCrud::IsAnyEntryRunning() {
 
   return !html.empty() && ReportHtmlParser::IsAnyEntryRunning(html);
 }
-} // namespace timesheetplus
+} // namespace tictac_track

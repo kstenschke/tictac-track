@@ -1,16 +1,13 @@
-TimesheetPlus
-=============
+Tictac-track: Simple but powerful timesheet recorder for the commandline
+========================================================================
 
 [![Licence](https://img.shields.io/badge/license-BSL-blue.svg?style=flat)](LICENSE_1_0.txt)
-
-TimesheetPlus is a simple but powerful timesheet recorder for the commandline.
-
 
 ## Zero Installation, No Dependencies
 
 * The application consists from a single executable file
 * No server or database needed: Timetracking entries are recorded directly to an HTML file
-* No background processes: Starting a new entry just records the current time, than timesheetPlus gets out of your way
+* No background processes: Starting a new entry just records the current time, than tictac-track gets out of your way
 * A default configuration file is created on first run
 
 
@@ -338,8 +335,8 @@ The CSV is named automatically and stored to the current path.
 Optional Configuration
 ----------------------
 
-When run for the first time, TimesheetPlus creates a default configuration file 
-(".timesheetplus.ini" in the path of the executable), which can than be edited. 
+When run for the first time, tictac-track creates a default configuration file 
+(".ttt.ini" in the path of the executable), which can than be edited. 
 The following options are available:
 
 * `report_path`: Path where the timesheet is stored
@@ -374,13 +371,13 @@ Run all tests: `./test.sh`
 Changelog
 ---------
 
-See: https://github.com/kstenschke/TimesheetPlus/blob/master/CHANGELOG.md
+See: https://github.com/kstenschke/tictac-track/blob/master/CHANGELOG.md
 
 
 Code Convention
 ---------------
 
-The source code of TimesheetPlus follows the Google C++ Style Guide,
+The source code of tictac-track follows the Google C++ Style Guide,
 see: https://google.github.io/styleguide/cppguide.html
 
 

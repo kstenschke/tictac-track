@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_REPORT_FILE
 #define CLASS_TIMETRACKERCL_REPORT_FILE
 
-namespace timesheetplus {
+namespace tictac_track {
   class ReportFile {
     public:
       static const std::string kFilenameReport;
@@ -32,6 +32,6 @@ namespace timesheetplus {
       // Create initial timesheet HTML file
       static bool InitReportFile(bool removeIfExists);
   };
-} // namespace timesheetplus
+} // namespace tictac_track
 
 #endif
