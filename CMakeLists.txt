@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(ttt
-        VERSION 1.2)
+        VERSION 1.3)
 
 set(CMAKE_CXX_STANDARD 11)
 
