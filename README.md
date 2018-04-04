@@ -1,4 +1,4 @@
-Tictac-track
+Tictac-Track
 ============
 
 Simple but powerful timesheet recorder for the commandline
