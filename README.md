@@ -1,5 +1,8 @@
-Tictac-track: Simple but powerful timesheet recorder for the commandline
-========================================================================
+Tictac-track
+============
+
+Simple but powerful timesheet recorder for the commandline
+----------------------------------------------------------
 
 [![Licence](https://img.shields.io/badge/license-BSL-blue.svg?style=flat)](LICENSE_1_0.txt)
 
