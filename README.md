@@ -39,7 +39,7 @@ Commands Overview
 
 * For every command there is also a 1 or 2 letter shortcut.
 * For every command there is a help topic with more detailed information and various usage examples.
-  Example: More detailed help on the `start` (or `s`) command is displayed via: `./tsp h s`
+  Example: More detailed help on the `start` (or `s`) command is displayed via: `./ttt h s`
 
 
 ### 1. Record work entries:

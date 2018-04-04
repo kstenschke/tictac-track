@@ -10,15 +10,15 @@ esac
 
 setup() {
     if [ "$OS" == "osx" ]; then
-      cp $BATS_TEST_DIRNAME/../../bin/mac/tsp $BATS_TEST_DIRNAME/tsp
+      cp $BATS_TEST_DIRNAME/../../bin/mac/ttt $BATS_TEST_DIRNAME/ttt
     elif [ $OS == "linux" ]; then
-      cp $BATS_TEST_DIRNAME/../../bin/linux/tsp $BATS_TEST_DIRNAME/tsp
+      cp $BATS_TEST_DIRNAME/../../bin/linux/ttt $BATS_TEST_DIRNAME/ttt
     fi
 }
 
 teardown() {
-  if [ -f $BATS_TEST_DIRNAME/tsp ] ; then rm $BATS_TEST_DIRNAME/tsp; fi
-  if [ -f $BATS_TEST_DIRNAME/.ttt.ini ] ; then rm $BATS_TEST_DIRNAME/.tictac-track.ini; fi
+  if [ -f $BATS_TEST_DIRNAME/ttt ] ; then rm $BATS_TEST_DIRNAME/ttt; fi
+  if [ -f $BATS_TEST_DIRNAME/.ttt.ini ] ; then rm $BATS_TEST_DIRNAME/.ttt.ini; fi
   if [ -f $BATS_TEST_DIRNAME/timesheet.html ] ; then rm $BATS_TEST_DIRNAME/timesheet.html; fi
   if [ -f $BATS_TEST_DIRNAME/timesheet.html.bak ] ; then rm $BATS_TEST_DIRNAME/timesheet.html.bak; fi
 }

@@ -27,6 +27,8 @@ namespace tictac_track {
 
       // Process command + arguments
       bool Process();
+      void function(bool& keep_backup);
+
 
       // Get absolute path to executable binary
       static std::string GetBinaryPath(char** argv);

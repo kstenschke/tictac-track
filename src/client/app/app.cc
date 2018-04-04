@@ -25,8 +25,8 @@ namespace tictac_track {
 
 // Meta constants
 const std::string App::kAppName = "tictac-track";
-const std::string App::kAppExecutableName = "tsp";
-const std::string App::kAppVersion = "v1.2";
+const std::string App::kAppExecutableName = "ttt";
+const std::string App::kAppVersion = "v1.3";
 
 /**
  * Constructor: init (resolve) command and arguments
@@ -40,6 +40,11 @@ App::App(int argc, char **argv) {
 
   command_ = new AppCommand(argc > 0 ? argv[1] : "");
   arguments_ = new AppArguments(argc, argv, *command_);
+}
+
+void App::function(bool& keep_backup){
+  ReportFile::BackupReportTemporary();
+  keep_backup = Split();
 }
 
 /**
@@ -84,8 +89,7 @@ bool App::Process() {
       keep_backup = Remove();
       break;
     case AppCommand::Command_Split:
-      ReportFile::BackupReportTemporary();
-      keep_backup = Split();
+      function(keep_backup);
       break;
     case AppCommand::Command_Start:
       ReportFile::BackupReportTemporary();
@@ -121,7 +125,7 @@ bool App::Process() {
 bool App::AddFullDayEntry() {
   ReportCrud &report = ReportCrud::GetInstance();
 
-  // "tsp d" - No arguments given: Add start entry w/o comment or task number at current day
+  // "ttt d" - No arguments given: Add start entry w/o comment or task number at current day
   if (arguments_->argc_ == 2) return report.AddFullDayEntry();
 
   int offset_days = arguments_->GetNegativeNumber();

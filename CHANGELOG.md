@@ -1,5 +1,9 @@
-tictac-track - Changelog
-=========================
+Tictac-Track - Changelog
+========================
+
+V1.3
+----
+* Changed application name to Tictac-Track (ttt)
 
 V1.2
 ----
