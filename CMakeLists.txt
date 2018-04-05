@@ -11,29 +11,33 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/linux)
 endif()
 
+include_directories(
+        "${CMAKE_SOURCE_DIR}/src"
+)
+
 add_executable(ttt
-        src/client/app/app.cc
-        src/client/app/arguments.cc
-        src/client/app/commands.cc
-        src/client/app/config.cc
-        src/client/app/error.cc
-        src/client/app/help.cc
-        src/client/app/app_locale.cc
-        src/client/helper/date_time.cc
-        src/client/helper/file.cc
-        src/client/helper/html.cc
-        src/client/helper/numeric.cc
-        src/client/helper/helper_string.cc
-        src/client/helper/system.cc
-        src/client/report/browser.cc
-        src/client/report/crud.cc
-        src/client/report/date_time.cc
-        src/client/report/file.cc
-        src/client/report/html_parser.cc
-        src/client/report/recalculator.cc
-        src/client/report/renderer.cc
-        src/client/report/renderer_cli.cc
-        src/client/report/renderer_csv.cc
-        src/client/report/report.cc
-        src/vendor/decode_html_entities_utf8.cc
-        src/client/main.cc)
+        src/apps/client/app/app.cc
+        src/apps/client/app/app_arguments.cc
+        src/apps/client/app/app_commands.cc
+        src/apps/client/app/app_config.cc
+        src/apps/client/app/app_error.cc
+        src/apps/client/app/app_help.cc
+        src/apps/client/app/app_locale.cc
+        src/helper/helper_date_time.cc
+        src/helper/helper_file.cc
+        src/helper/helper_html.cc
+        src/helper/helper_numeric.cc
+        src/helper/helper_string.cc
+        src/helper/helper_system.cc
+        src/apps/client/report/report_browser.cc
+        src/apps/client/report/report_crud.cc
+        src/apps/client/report/report_date_time.cc
+        src/apps/client/report/report_file.cc
+        src/apps/client/report/report_html_parser.cc
+        src/apps/client/report/report_recalculator.cc
+        src/apps/client/report/report_renderer.cc
+        src/apps/client/report/report_renderer_cli.cc
+        src/apps/client/report/report_renderer_csv.cc
+        src/apps/client/report/report.cc
+        src/vendor/entities/decode_html_entities_utf8.cc
+        src/apps/client/main.cc)
