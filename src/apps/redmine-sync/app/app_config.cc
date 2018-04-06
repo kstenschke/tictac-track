@@ -7,8 +7,10 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <apps/redmine-sync/report/report_file.h>
+#include <iostream>
 #include "app_config.h"
-//#include "app.h"
+#include "app.h"
 #include "helper/helper_file.h"
 #include "helper/helper_string.h"
 #include "helper/helper_system.h"
@@ -66,6 +68,9 @@ std::string AppConfig::GetDefaultConfig() {
     content << ";tictac-track Redmine-Sync Configuration"
             << "\n;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
             << "\n"
+            << "\n; Absolute directory path to timesheet.html. If not set: directory where executable is"
+            << "\n;report_path=" + helper::System::GetBinaryPath(argv_, std::strlen(App::kAppExecutableName.c_str()))
+            << "\n"
             << "\n; Redmine URL and credentials"
             << "\nredmine_url=\"http://redmine.com\""
             << "\nredmine_username=\"yourname\""
@@ -73,7 +78,9 @@ std::string AppConfig::GetDefaultConfig() {
             << "\n"
             << "\n; Round times to next full minutes"
             << "\nround_minutes=15"
-            << "\n";
+            << "\n"
+            << "\n; Date until last entries were synced, format: yyyy-mm-dd"
+            << "\ndate_synced_until=-1";
 
   return content.str();
 }
@@ -121,35 +128,18 @@ AppConfig::ConfigKeys AppConfig::ResolveOption(std::string input) {
 std::string AppConfig::GetConfigValue(const std::string &key) {
   return 0 == config_map_.count(key) ? GetConfigValueDefault(key) : config_map_[key];
 }
-/**
- * Get instance of config, than get value for given config option
- */
-std::string AppConfig::GetConfigValueStatic(const std::string &key) {
-  return AppConfig::GetInstance().GetConfigValue(key);
-}
 
 /**
  * Get default value for given config option
  */
 std::string AppConfig::GetConfigValueDefault(const std::string &key) {
-  /*switch (ResolveOption(key)) {
-    case Option_Cli_Theme:return helper::Numeric::ToString(GetDefaultThemeIdByOs());
-
-      // Date/time formats
-    case Option_Format_Week_Of_Year:
-      // %W = Week starting w/ monday, %U = Week starting w/ sunday
-      return "%W";
-    case Option_Format_Date:return "%d.%m.%Y";
-    case Option_Format_Day_Of_Week:return "%A";
-
-    case Option_Locale_Key:return "en";
-    case Option_Id_Column:
-    case Option_Max_Mergeable_Gap:return "0";
-    case Option_Report_File_Path:return App::GetBinaryPath(argv_);
+  switch (ResolveOption(key)) {
+    case Option_Report_File_Path:
+      return helper::System::GetBinaryPath(argv_, std::strlen(App::kAppExecutableName.c_str()));
     case Option_Invalid:
-    default:return "";
-  }*/
-  return "";
+    default:
+      return "";
+  }
 }
 
 /**
@@ -159,6 +149,6 @@ std::string AppConfig::GetReportFilePath() {
   AppConfig config = GetInstance();
   std::string report_dir_path = config.GetConfigValue("report_path");
 
-  return report_dir_path + ""; //ReportCrud::kFilenameReport;
+  return report_dir_path + ReportFile::kFilenameReport;
 }
 } // namespace tictac_rms

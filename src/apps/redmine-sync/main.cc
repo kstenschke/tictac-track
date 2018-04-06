@@ -4,9 +4,8 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <apps/redmine-sync/app/app.h>
 #include "apps/redmine-sync/app/app_config.h"
-//#include "apps/client/report/report_crud.h"
-//#include "app/app.h"
 
 /**
   * @param argc Amount of arguments received
@@ -21,8 +20,7 @@ int main(int argc,  char** argv) {
    //  return -1;
    //}
 
-   //auto * app = new tictac_rms::App(argc, argv);
-   //if (argc > 1) app->Process();*/
+  (new tictac_rms::App(argc, argv))->Process();
 
    return 0;
 }

@@ -7,31 +7,24 @@
 #ifndef CLASS_TIMETRACKERCL_APP
 #define CLASS_TIMETRACKERCL_APP
 
-//#include "app_commands.h"
-//#include "app_arguments.h"
+#include <string>
 //#include "apps/client/report/report_html_parser.h"
 //#include "../report/report.h"
 
 namespace tictac_rms {
+class App {
+ public:
+  // Meta constants
+  static const std::string kAppName;
+  static const std::string kAppExecutableName;
+  static const std::string kAppVersion;
 
-  class App
-  {
-    public:
-      // Meta constants
-      static const std::string kAppName;
-      static const std::string kAppExecutableName;
-      static const std::string kAppVersion;
+  // Constructor
+  App(int argc,  char** argv);
 
-      // Process command + arguments
-      static bool Process();
-
-      // Get absolute path to executable binary
-      static std::string GetBinaryPath(char** argv);
-
-    private:
-      AppCommand *command_;
-      AppArguments *arguments_;
-  };
+  // Process command + arguments
+  bool Process();
+};
 } // namespace tictac_rms
 
 #endif

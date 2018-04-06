@@ -20,6 +20,7 @@ class AppConfig {
     Option_Redmine_Username,
     Option_Remine_Password,
     Option_Round_Minutes,
+    Option_Report_File_Path,
     Option_Invalid,
   };
 
@@ -31,8 +32,6 @@ class AppConfig {
 
   // Get value for given config option
   std::string GetConfigValue(const std::string &key);
-  // Get instance of config, than get value for given config option
-  static std::string GetConfigValueStatic(const std::string &key);
 
   // Get absolute path to timesheet.html (including filename)
   std::string GetReportFilePath();

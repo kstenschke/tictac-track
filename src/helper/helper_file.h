@@ -7,6 +7,8 @@
 #ifndef CLASS_TIMETRACKERCL_HELPER_FILE
 #define CLASS_TIMETRACKERCL_HELPER_FILE
 
+#include <string>
+
 namespace helper {
 namespace File {
 // Check whether given file exists
