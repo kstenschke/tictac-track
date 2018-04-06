@@ -47,6 +47,7 @@ add_executable(ttt
 add_executable(ttt-redmine_sync
         src/apps/redmine-sync/app/app.cc
         src/apps/redmine-sync/app/app_config.cc
+        src/apps/client/app/app_error.cc
         src/helper/helper_date_time.cc
         src/helper/helper_file.cc
         src/helper/helper_numeric.cc

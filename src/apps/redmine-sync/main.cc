@@ -5,6 +5,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <apps/redmine-sync/app/app.h>
+#include <apps/redmine-sync/report/report_file.h>
+#include <apps/client/app/app_error.h>
 #include "apps/redmine-sync/app/app_config.h"
 
 /**
@@ -15,10 +17,11 @@ int main(int argc,  char** argv) {
    // Ensure config file exists
    tictac_rms::AppConfig::GetInstance(argv);
 
-   //tictac_track::ReportCrud report_crud = tictac_track::ReportCrud::GetInstance();
-   //if (!report_crud.ReportExists()) {
-   //  return -1;
-   //}
+   if (!tictac_rms::ReportFile::ReportExists()) {
+     std::string report_file_path = tictac_rms::ReportFile::getReportFilePath();
+     const char* message = std::string("Error: timesheet file not found (path: " + report_file_path + ").").c_str();
+     return tictac_track::AppError::PrintError(message);
+   }
 
   (new tictac_rms::App(argc, argv))->Process();
 
