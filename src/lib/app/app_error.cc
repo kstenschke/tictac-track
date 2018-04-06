@@ -7,7 +7,7 @@
 #include <iostream>
 #include "app_error.h"
 
-namespace tictac_track {
+namespace tictac_lib {
 
 bool AppError::PrintError(const char *message) {
   std::cout << message << "\n";
@@ -18,4 +18,4 @@ bool AppError::PrintError(const char *message, int n) {
   std::cout << message << n << "\n";
   return false;
 }
-} // namespace tictac_track
+} // namespace tictac_lib

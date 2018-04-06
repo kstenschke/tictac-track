@@ -8,11 +8,11 @@
 #include <cstring>
 #include "report_renderer.h"
 #include "apps/client/app/app_config.h"
-#include "helper/helper_file.h"
-#include "helper/helper_string.h"
-#include "helper/helper_html.h"
+#include "lib/helper/helper_file.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_html.h"
 #include "report_html_parser.h"
-#include "helper/helper_numeric.h"
+#include "lib/helper/helper_numeric.h"
 
 namespace tictac_track {
 
@@ -141,4 +141,4 @@ std::vector<std::string> ReportRenderer::ExtractRowsFromTable(std::string table)
 
   return helper::String::Explode(table, '|');
 }
-} // namespace tictac_track
+} // namespace tictac_lib

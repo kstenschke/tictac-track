@@ -52,6 +52,6 @@ class AppCommand {
   Commands Resolve();
 
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

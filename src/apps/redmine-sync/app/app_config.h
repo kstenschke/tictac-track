@@ -59,6 +59,6 @@ class AppConfig {
 
   std::string GetConfigValueDefault(const std::string &key);
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

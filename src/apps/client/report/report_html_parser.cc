@@ -12,12 +12,12 @@
 #include "report_html_parser.h"
 #include "report_file.h"
 #include "report_crud.h"
-#include "helper/helper_string.h"
+#include "lib/helper/helper_string.h"
 #include "apps/client/app/app_config.h"
 #include "../app/app_locale.h"
-#include "helper/helper_date_time.h"
-#include "apps/client/app/app_error.h"
-#include "helper/helper_numeric.h"
+#include "lib/helper/helper_date_time.h"
+#include "lib/app/app_error.h"
+#include "lib/helper/helper_numeric.h"
 
 namespace tictac_track {
 /**
@@ -329,9 +329,9 @@ std::vector<std::string> ReportHtmlParser::GetTasksOfDay(std::string &date) {
     if (date != GetColumnContent(i, ColumnIndexes::Index_Date)) return tasks;
 
     task = GetColumnContent(i, ColumnIndexes::Index_Task);
-    if (!task.empty() && (tasks.end() == find(tasks.begin(), tasks.end(), task))) {
-      tasks.push_back(task);
-    }
+    if (task.empty() || (tasks.end() != find(tasks.begin(), tasks.end(), task))) continue;
+
+    tasks.push_back(task);
   }
 
   return tasks;
@@ -352,14 +352,14 @@ void ReportHtmlParser::UpdateColumn(std::string &html, int row_index, Report::Co
   ReportHtmlParser *parser = new ReportHtmlParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index) {
-    AppError::PrintError(std::string("Cannot update entry ").append(helper::Numeric::ToString(row_index))
+    tictac_lib::AppError::PrintError(std::string("Cannot update entry ").append(helper::Numeric::ToString(row_index))
                              .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(".").c_str());
     return;
   }
 
   int offset_tr = GetOffsetTrOpenByIndex(html, row_index);
   if (-1 == offset_tr) {
-    AppError::PrintError(std::string("Cannot update entry: Failed finding row ")
+    tictac_lib::AppError::PrintError(std::string("Cannot update entry: Failed finding row ")
                              .append(helper::Numeric::ToString(row_index)).c_str());
     return;
   }
@@ -386,7 +386,7 @@ bool ReportHtmlParser::UpdateColumn(int row_index, Report::ColumnIndexes column_
   ReportHtmlParser *parser = new ReportHtmlParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index)
-    return AppError::PrintError(std::string("Cannot update entry ")
+    return tictac_lib::AppError::PrintError(std::string("Cannot update entry ")
                                     .append(helper::Numeric::ToString(row_index))
                                     .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(".").c_str());
 
@@ -427,7 +427,7 @@ bool ReportHtmlParser::ReduceEntryTime(int row_index, std::string subtrahend_hhm
     if (AppCommand::Commands::Command_Split == command)
       message = std::string("Cannot split entry: ").append(message);
 
-    return AppError::PrintError(message.c_str());
+    return tictac_lib::AppError::PrintError(message.c_str());
   }
 
   std::string content = helper::DateTime::GetHoursFormattedFromMinutes(minutes_end - minutes_subtrahend);
@@ -452,4 +452,4 @@ std::string ReportHtmlParser::MergeCommentByRowIndexWithNext(int row_index) {
          ? comment_1.append(" ").append(comment_2)
          : comment_1.append(". ").append(comment_2);
 }
-} // namespace tictac_track
+} // namespace tictac_lib

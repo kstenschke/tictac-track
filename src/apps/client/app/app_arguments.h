@@ -86,6 +86,6 @@ class AppArguments {
 
   void SetArgvDefaultTypeByCommand(AppCommand &command, int index);
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

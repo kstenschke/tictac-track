@@ -43,4 +43,4 @@ std::string Report::GetFilterValueForWeekScope(int offset) {
 std::string Report::GetFilterValueForMonthScope(int offset) {
   return report_date_time_instance_.GetCurrentDate(offset);
 }
-} // namespace tictac_track
+} // namespace tictac_lib

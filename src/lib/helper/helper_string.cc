@@ -61,9 +61,7 @@ int String::GetSubStrCount(const char *str, const char *sub) {
   if (length == 0) return 0;
 
   int count = 0;
-  for (str = strstr(str, sub); str; str = strstr(str + length, sub)) {
-    ++count;
-  }
+  for (str = strstr(str, sub); str; str = strstr(str + length, sub)) ++count;
 
   return count;
 }
@@ -136,9 +134,7 @@ std::vector<std::string> String::Explode(std::string const &str, char delimiter)
   std::vector<std::string> result;
   std::istringstream iss(str);
 
-  for (std::string token; std::getline(iss, token, delimiter);) {
-    result.push_back(std::move(token));
-  }
+  for (std::string token; std::getline(iss, token, delimiter);) result.push_back(std::move(token));
 
   return result;
 }

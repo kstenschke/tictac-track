@@ -310,4 +310,4 @@ void AppHelp::PrintUnknownArgumentMessage(const char *arg) {
   PrintHelp(false, AppCommand::Commands::Command_Invalid);
 }
 
-} // namespace tictac_track
+} // namespace tictac_lib

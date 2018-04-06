@@ -28,6 +28,6 @@ namespace tictac_track {
       static void BrowseOnLinux(std::string url);
       static void BrowseOnMac(std::string url);
   };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

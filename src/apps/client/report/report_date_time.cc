@@ -9,9 +9,9 @@
 #include <cstring>
 #include "report_date_time.h"
 #include "apps/client/app/app_config.h"
-#include "helper/helper_date_time.h"
-#include "helper/helper_string.h"
-#include "helper/helper_numeric.h"
+#include "lib/helper/helper_date_time.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_numeric.h"
 
 namespace tictac_track {
 
@@ -146,4 +146,4 @@ namespace tictac_track {
 
     return day_date1 > day_date2;
   }
-} // namespace tictac_track
+} // namespace tictac_lib

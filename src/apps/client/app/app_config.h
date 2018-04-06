@@ -68,6 +68,6 @@ class AppConfig {
 
   static int GetDefaultThemeIdByOs();
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

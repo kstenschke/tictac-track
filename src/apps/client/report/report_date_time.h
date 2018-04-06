@@ -67,6 +67,6 @@ namespace tictac_track {
       const char* weekDayLabelsSv[7] = {"Måndag",       "Tisdag",      "Onsdag",       "Torsdag",        "Fredag",       "Lördag",      "Söndag"};
       const char* weekDayLabelsTr[7] = {"Pazartesi",    "Salı",        "Çarşamba",     "Perşembe",       "Cuma",         "Cumartesi",   "Pazar"};
   };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

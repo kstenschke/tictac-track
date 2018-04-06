@@ -30,6 +30,6 @@ class ReportRendererCsv : public ReportRenderer {
  protected:
 
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

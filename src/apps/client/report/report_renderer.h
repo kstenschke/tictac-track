@@ -39,6 +39,6 @@ class ReportRenderer : public Report {
   void SetColumnTitlesExtractedFromTHead(std::string t_head);
   std::vector<std::string> ExtractRowsFromTable(std::string table);
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

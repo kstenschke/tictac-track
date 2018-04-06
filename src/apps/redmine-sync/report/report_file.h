@@ -16,11 +16,13 @@ class ReportFile {
 
   static bool ReportExists();
 
-  // Get input stream to report file
-  static std::ifstream GetReportIfStream();
   static std::string GetReportHtml();
   static std::string getReportFilePath();
+
+ private:
+  // Get input stream to report file
+  static std::ifstream GetReportIfStream();
 };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

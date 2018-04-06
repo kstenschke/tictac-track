@@ -9,12 +9,12 @@
 #include <vector>
 #include "app_config.h"
 #include "app.h"
-#include "helper/helper_file.h"
+#include "lib/helper/helper_file.h"
 #include "apps/client/report/report_file.h"
-#include "helper/helper_string.h"
-#include "helper/helper_system.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_system.h"
 #include "app_locale.h"
-#include "helper/helper_numeric.h"
+#include "lib/helper/helper_numeric.h"
 #include "apps/client/report/report_crud.h"
 
 namespace tictac_track {
@@ -132,16 +132,15 @@ void AppConfig::InitConfigMap() {
   std::vector<std::string> lines = helper::String::Explode(config_file_content_, '\n');
   for (std::vector<int>::size_type i = 0; i != lines.size(); i++) {
     std::string line = lines[i];
-    if (!helper::String::StartsWith(line.c_str(), ";")) {
-      size_t offset_equals = line.find('=');
-      if (std::string::npos != offset_equals) {
-        std::string key = line.substr(0, offset_equals);
-        std::string value = line.substr(offset_equals + 1, std::string::npos);
+    if (helper::String::StartsWith(line.c_str(), ";")) continue;
 
-        //std::cout << "key: " << key << ", value: " << value << "\n";
-        config_map_.insert(std::make_pair(key, value));
-      }
-    }
+    size_t offset_equals = line.find('=');
+    if (std::string::npos == offset_equals) continue;
+
+    std::string key = line.substr(0, offset_equals);
+    std::string value = line.substr(offset_equals + 1, std::string::npos);
+
+    config_map_.insert(std::make_pair(key, value));
   }
 }
 
@@ -149,14 +148,14 @@ void AppConfig::InitConfigMap() {
  * Resolve config option string to related enum item (which allows e.g. switch)
  */
 AppConfig::ConfigKeys AppConfig::ResolveOption(std::string input) {
-  if (input == "cli_theme") return Option_Cli_Theme;
-  if (input == "format_week_of_year") return Option_Format_Week_Of_Year;
-  if (input == "format_date") return Option_Format_Date;
-  if (input == "format_day_of_week") return Option_Format_Day_Of_Week;
-  if (input == "id_column") return Option_Id_Column;
-  if (input == "locale") return Option_Locale_Key;
-  if (input == "max_mergeable_minutes_gap") return Option_Max_Mergeable_Gap;
-  if (input == "report_path") return Option_Report_File_Path;
+  if ("cli_theme" == input) return Option_Cli_Theme;
+  if ("format_week_of_year" == input) return Option_Format_Week_Of_Year;
+  if ("format_date" == input) return Option_Format_Date;
+  if ("format_day_of_week" == input) return Option_Format_Day_Of_Week;
+  if ("id_column" == input) return Option_Id_Column;
+  if ("locale" == input) return Option_Locale_Key;
+  if ("max_mergeable_minutes_gap" == input) return Option_Max_Mergeable_Gap;
+  if ("report_path" == input) return Option_Report_File_Path;
 
   return Option_Invalid;
 }
@@ -228,4 +227,4 @@ int AppConfig::GetDefaultThemeIdByOs() {
          // Blue theme w/ zebra-look, optimized for Linux
          : 0;
 }
-} // namespace tictac_track
+} // namespace tictac_lib

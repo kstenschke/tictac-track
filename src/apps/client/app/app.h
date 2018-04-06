@@ -83,6 +83,6 @@ namespace tictac_track {
 
       int GetCommentArgOffsetInTaskCommand() const;
   };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

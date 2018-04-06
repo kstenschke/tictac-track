@@ -12,8 +12,6 @@ namespace tictac_track {
     public:
       static const std::string kFilenameReport;
 
-      // Get input stream to report file
-      static std::ifstream GetReportIfStream();
       static std::string GetReportHtml();
 
       // Save given HTML to timesheet, replacing any previous content
@@ -31,7 +29,11 @@ namespace tictac_track {
     protected:
       // Create initial timesheet HTML file
       static bool InitReportFile(bool removeIfExists);
+
+   private:
+    // Get input stream to report file
+    static std::ifstream GetReportIfStream();
   };
-} // namespace tictac_track
+} // namespace tictac_lib
 
 #endif

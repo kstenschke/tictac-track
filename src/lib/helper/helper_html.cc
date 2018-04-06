@@ -29,15 +29,6 @@ std::string Html::Encode(std::string str) {
   for (int i = str_len; i >= 0; i--) {
     char ch = str[i];
     if (ch & 128) {
-
-/*if (1) {
-        std::cout << "\n\n";
-        std::cout << (int)str[i] << " => ";
-        for(size_t ii = 0, iMax = str.size(); ii < iMax; ++ii) {
-          std::cout << ((int)str[ii]) << ", ";
-        }
-        std::cout << "\n\n";
-} else {*/
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "missing_default_case"
       switch ((int) str[i - 1]) {

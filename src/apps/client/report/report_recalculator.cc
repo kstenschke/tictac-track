@@ -6,7 +6,7 @@
 
 #include <string>
 #include "report_recalculator.h"
-#include "helper/helper_date_time.h"
+#include "lib/helper/helper_date_time.h"
 #include "apps/client/app/app_config.h"
 #include "report_file.h"
 #include "report_crud.h"
@@ -169,4 +169,4 @@ std::string ReportRecalculator::CalculateAndUpdateDuration(int row_index) {
 
   return html;
 }
-} // namespace tictac_track
+} // namespace tictac_lib

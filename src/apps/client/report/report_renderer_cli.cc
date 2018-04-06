@@ -7,13 +7,13 @@
 #include <iostream>
 #include <cstring>
 #include "report_renderer_cli.h"
-#include "../../../helper/helper_string.h"
+#include "lib/helper/helper_string.h"
 #include "apps/client/app/app_config.h"
-#include "helper/helper_numeric.h"
+#include "lib/helper/helper_numeric.h"
 #include "report_html_parser.h"
-#include "helper/helper_date_time.h"
-#include "helper/helper_html.h"
-#include "apps/client/app/app_error.h"
+#include "lib/helper/helper_date_time.h"
+#include "lib/helper/helper_html.h"
+#include "lib/app/app_error.h"
 
 namespace tictac_track {
 
@@ -47,7 +47,7 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
   if (RenderScopes::Scope_Day == render_scope_)
     message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
 
-  AppError::PrintError(message.append("\n").c_str());
+  tictac_lib::AppError::PrintError(message.append("\n").c_str());
 
   return false;
 }
@@ -226,9 +226,8 @@ void ReportRendererCli::PrintDurationSums(int task_number, int sum_task_minutes)
  */
 std::string ReportRendererCli::RenderSeparationRow() {
   std::string separation_row = theme_style_grid_ + std::string(4 + max_index_digits_, '-');
-  for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++) {
+  for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++)
     separation_row.append(std::string(column_content_max_len_[indexColumn] + 3, '-'));
-  }
 
   return separation_row + kAnsiFormatReset;
 }
@@ -303,4 +302,4 @@ void ReportRendererCli::InitAnsiTheme() {
       theme_style_grid_ = "\033[0m";
   }
 }
-} // namespace tictac_track
+} // namespace tictac_lib

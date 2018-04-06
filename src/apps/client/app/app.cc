@@ -14,12 +14,12 @@
 #include "apps/client/report/report_crud.h"
 #include "apps/client/report/report_renderer_csv.h"
 #include "apps/client/report/report_renderer_cli.h"
-#include "app_error.h"
+#include "lib/app/app_error.h"
 #include "apps/client/report/report_recalculator.h"
-#include "helper/helper_numeric.h"
-#include "helper/helper_string.h"
-#include "helper/helper_date_time.h"
-#include "helper/helper_system.h"
+#include "lib/helper/helper_numeric.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_date_time.h"
+#include "lib/helper/helper_system.h"
 
 namespace tictac_track {
 
@@ -194,13 +194,13 @@ bool App::Merge() {
   if (!parser->LoadReportHtml()) return false;
 
   int last_row_index = parser->GetLastIndex();
-  if (last_row_index == 0) return AppError::PrintError("Cannot merge: There's only one entry.");
+  if (last_row_index == 0) return tictac_lib::AppError::PrintError("Cannot merge: There's only one entry.");
 
   int row_index = 2 == arguments_->argc_ ? last_row_index - 1 : arguments_->ResolveNumber(2);
-  if (row_index < 0) return AppError::PrintError("Cannot merge: Entry index cannot be < 0.");
+  if (row_index < 0) return tictac_lib::AppError::PrintError("Cannot merge: Entry index cannot be < 0.");
 
   return row_index >= last_row_index
-         ? AppError::PrintError("Cannot merge: Last mergeable ID is:", last_row_index - 1)
+         ? tictac_lib::AppError::PrintError("Cannot merge: Last mergeable ID is:", last_row_index - 1)
          : ReportCrud::GetInstance().Merge(row_index);
 }
 
@@ -214,18 +214,18 @@ bool App::Recalculate() {
 bool App::Resume() {
   ReportHtmlParser *parser = new ReportHtmlParser();
   if (!parser->LoadReportHtml()) return false;
-  if (-1 == parser->GetLastIndex()) return AppError::PrintError("Cannot resume: there are no entries.");
+  if (-1 == parser->GetLastIndex()) return tictac_lib::AppError::PrintError("Cannot resume: there are no entries.");
 
   ReportCrud &report = ReportCrud::GetInstance();
   bool is_any_running = report.IsAnyEntryRunning();
 
   switch (arguments_->argc_) {
-    case 2:if (is_any_running) return AppError::PrintError("Cannot resume: last entry is still running.");
+    case 2:if (is_any_running) return tictac_lib::AppError::PrintError("Cannot resume: last entry is still running.");
       // Resume last entry
       return ResumeEntryByIndexOrNegativeOffset(0);
     case 3:if (is_any_running) report.StopEntry();
       return ResumeEntryByIndexOrNegativeOffset(arguments_->ResolveNumber(2));
-    default:return AppError::PrintError("Too many arguments.");
+    default:return tictac_lib::AppError::PrintError("Too many arguments.");
   }
 }
 
@@ -261,7 +261,7 @@ bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index) {
     }
 
     if (!can_resume)
-      return AppError::PrintError(
+      return tictac_lib::AppError::PrintError(
           std::string("Cannot resume entry ").append(helper::Numeric::ToString(row_index)).append(", last entry is ")
               .append(helper::Numeric::ToString(last_index)).append(".").c_str());
   }
@@ -279,7 +279,7 @@ bool App::Remove() {
   ReportHtmlParser *parser = new ReportHtmlParser();
   if (!parser->LoadReportHtml()) return false;
   int last_index = parser->GetLastIndex();
-  if (-1 == last_index) return AppError::PrintError("Cannot remove: there are no entries.");
+  if (-1 == last_index) return tictac_lib::AppError::PrintError("Cannot remove: there are no entries.");
 
   ReportCrud &report = ReportCrud::GetInstance();
   // No arguments: remove last entry
@@ -302,7 +302,7 @@ bool App::Remove() {
     return report.RemoveEntryById(arguments_->ResolveNumber(arguments_->argument_index_entry_id_));
   }
 
-  return AppError::PrintError("Removal argument unclear.");
+  return tictac_lib::AppError::PrintError("Removal argument unclear.");
 }
 
 /**
@@ -310,23 +310,23 @@ bool App::Remove() {
  */
 bool App::Split() {
   int row_index = arguments_->ResolveNumber(2);
-  if (-1 == row_index) return AppError::PrintError("No entry ID given.");
+  if (-1 == row_index) return tictac_lib::AppError::PrintError("No entry ID given.");
 
   ReportHtmlParser *parser = new ReportHtmlParser();
   if (!parser->LoadReportHtml()) return false;
 
   int last_index = parser->GetLastIndex();
-  if (last_index == -1) return AppError::PrintError("Cannot split: there are no entries yet.");
+  if (last_index == -1) return tictac_lib::AppError::PrintError("Cannot split: there are no entries yet.");
 
-  if (parser->IsEntryRunning(row_index)) return AppError::PrintError("Cannot split: Entry is still running.");
+  if (parser->IsEntryRunning(row_index)) return tictac_lib::AppError::PrintError("Cannot split: Entry is still running.");
   if (last_index < row_index)
-    return AppError::PrintError(std::string("Cannot split entry ")
+    return tictac_lib::AppError::PrintError(std::string("Cannot split entry ")
                                     .append(helper::Numeric::ToString(row_index)).append(", last entry is ").append(
             helper::Numeric::ToString(last_index))
                                     .append(".").c_str());
 
   std::string split_duration = arguments_->ResolveTime(3, true);
-  if (split_duration.empty()) return AppError::PrintError("Failed parsing entry-duration to split at.");
+  if (split_duration.empty()) return tictac_lib::AppError::PrintError("Failed parsing entry-duration to split at.");
 
   if (split_duration[0] == '-') split_duration = split_duration.substr(1, std::string::npos);
 
@@ -413,7 +413,7 @@ bool App::Stop() {
         arguments_->ResolveComment(2).c_str()
     );
 
-  return AppError::PrintError("Cannot stop: No entry is currently running.");
+  return tictac_lib::AppError::PrintError("Cannot stop: No entry is currently running.");
 }
 
 /**
@@ -425,7 +425,7 @@ bool App::UpdateComment() {
   ReportHtmlParser *parser = new ReportHtmlParser();
   if (!parser->LoadReportHtml()) return false;
   int last_index = parser->GetLastIndex();
-  if (-1 == last_index) return AppError::PrintError("Cannot update comment: there are no entries.");
+  if (-1 == last_index) return tictac_lib::AppError::PrintError("Cannot update comment: there are no entries.");
 
   std::vector<int> row_ids{-1};
   int comment_argument_offset = 2;
@@ -437,7 +437,7 @@ bool App::UpdateComment() {
   } else if (-1 != arguments_->argument_index_entry_id_) {
     // Single index given: find argument-offsets of comment and row-index (allow arbitrary order)
     row_ids[0] = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
-    if (row_ids[0] < 0) return AppError::PrintError("Cannot update comment: Index cannot be < 0.");
+    if (row_ids[0] < 0) return tictac_lib::AppError::PrintError("Cannot update comment: Index cannot be < 0.");
 
     if (arguments_->argc_ > 2) {
       if (2 == arguments_->argument_index_entry_id_) {
@@ -469,7 +469,7 @@ bool App::UpdateComment() {
 
 bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment, bool starts_with_space) {
   if (index > last_index)
-    return AppError::PrintError(
+    return tictac_lib::AppError::PrintError(
         std::string("Cannot update comment of entry ").append(helper::Numeric::ToString(index)).append(", last index is: ")
             .append(helper::Numeric::ToString(last_index)).c_str());
 
@@ -489,7 +489,7 @@ bool App::UpdateTaskNumber() {
   } else if (arguments_->argument_index_entry_id_ != -1) {
     // Index given: find argument-offsets of task number and row-index (allow arbitrary order)
     row_ids[0] = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
-    if (row_ids[0] < 0) return AppError::PrintError("Entry index cannot be < 0.");
+    if (row_ids[0] < 0) return tictac_lib::AppError::PrintError("Entry index cannot be < 0.");
 
     task_argument_offset = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
   }
@@ -525,10 +525,10 @@ int App::GetCommentArgOffsetInTaskCommand() const {
  * Update time of row + column by arguments
  */
 bool App::UpdateTime(Report::ColumnIndexes column_index) {
-  if (arguments_->argc_ < 4) return AppError::PrintError("To few arguments: missing time argument in format: \"hh:mm\".");
+  if (arguments_->argc_ < 4) return tictac_lib::AppError::PrintError("To few arguments: missing time argument in format: \"hh:mm\".");
 
   int row_index = arguments_->ResolveNumber(arguments_->argument_index_entry_id_);
-  if (row_index < 0) return AppError::PrintError("Entry index cannot be < 0.");
+  if (row_index < 0) return tictac_lib::AppError::PrintError("Entry index cannot be < 0.");
 
   std::string time;
   if (-1 == arguments_->argument_index_time_) {
@@ -540,7 +540,7 @@ bool App::UpdateTime(Report::ColumnIndexes column_index) {
     if (!time.empty()) {
       // Start-time is allowed to be > end-time, it is than interpreted as if the entry spans over midnight
       if (!ReportHtmlParser::UpdateColumn(row_index, column_index, time))
-        return AppError::PrintError(
+        return tictac_lib::AppError::PrintError(
             std::string("Update column failed (").append(helper::Numeric::ToString(column_index)).append(")").c_str()
         );
 
@@ -549,7 +549,7 @@ bool App::UpdateTime(Report::ColumnIndexes column_index) {
     }
   }
 
-  return AppError::PrintError("Failed parsing arguments.");
+  return tictac_lib::AppError::PrintError("Failed parsing arguments.");
 }
 
 /**
@@ -567,4 +567,4 @@ bool App::ViewWeek() {
   return renderer.PrintToCli(Report::RenderScopes::Scope_Week, arguments_->GetNegativeNumber(),
                              arguments_->GetTaskNumber(), arguments_->GetComment());
 }
-} // namespace tictac_track
+} // namespace tictac_lib

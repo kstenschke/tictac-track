@@ -8,10 +8,10 @@
 #include <iostream>
 #include <cstring>
 #include "app_arguments.h"
-#include "helper/helper_string.h"
-#include "helper/helper_html.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_html.h"
 #include "apps/client/report/report_renderer_cli.h"
-#include "helper/helper_date_time.h"
+#include "lib/helper/helper_date_time.h"
 
 namespace tictac_track {
 
@@ -284,4 +284,4 @@ AppCommand::Commands AppArguments::ResolveCommandName(int index) {
   return AppCommand::ResolveCommandByName(argv_[index]);
 }
 
-} // namespace tictac_track
+} // namespace tictac_lib

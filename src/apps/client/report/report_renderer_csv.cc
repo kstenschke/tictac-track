@@ -10,12 +10,12 @@
 #include <algorithm>
 #include "report_renderer_csv.h"
 #include "report_html_parser.h"
-#include "helper/helper_date_time.h"
+#include "lib/helper/helper_date_time.h"
 #include "report_file.h"
 #include "../app/app_locale.h"
-#include "helper/helper_file.h"
-#include "helper/helper_system.h"
-#include "../../../helper/helper_string.h"
+#include "lib/helper/helper_file.h"
+#include "lib/helper/helper_system.h"
+#include "lib/helper/helper_string.h"
 
 namespace tictac_track {
 
@@ -114,4 +114,4 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
 
   return csv_stream.str();
 }
-} // namespace tictac_track
+} // namespace tictac_lib

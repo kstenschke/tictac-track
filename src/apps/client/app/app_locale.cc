@@ -7,8 +7,8 @@
 #include <cstring>
 #include "app_locale.h"
 #include "app_config.h"
-#include "helper/helper_string.h"
-#include "helper/helper_html.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_html.h"
 
 namespace tictac_track {
 AppLocale &AppLocale::GetInstance() {
@@ -63,4 +63,4 @@ std::string AppLocale::Translate(const char *label, bool html_encode) {
 
   return helper::Html::Encode(translated);
 }
-} // namespace tictac_track
+} // namespace tictac_lib

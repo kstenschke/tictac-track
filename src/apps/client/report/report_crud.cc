@@ -9,13 +9,13 @@
 #include <cstring>
 #include "report_crud.h"
 #include "apps/client/app/app_config.h"
-#include "helper/helper_file.h"
+#include "lib/helper/helper_file.h"
 #include "report_html_parser.h"
 #include "report_recalculator.h"
-#include "helper/helper_string.h"
-#include "helper/helper_numeric.h"
-#include "helper/helper_date_time.h"
-#include "apps/client/app/app_error.h"
+#include "lib/helper/helper_string.h"
+#include "lib/helper/helper_numeric.h"
+#include "lib/helper/helper_date_time.h"
+#include "lib/app/app_error.h"
 
 namespace tictac_track {
 
@@ -128,14 +128,14 @@ bool ReportCrud::InsertEntryAfter(std::string html, int row_index, std::string m
     // Insert before / as first entry, independent on whether there's any yet
     insertion_offset = html.find("</thead>");
     if (std::string::npos == insertion_offset) {
-      return AppError::PrintError("Error: Failed finding insertion offset.");
+      return tictac_lib::AppError::PrintError("Error: Failed finding insertion offset.");
     }
     insertion_offset += 8;
   } else {
     size_t offset_tr_open = ReportHtmlParser::GetOffsetTrOpenByIndex(html, row_index);
     insertion_offset = html.find(std::string("</tr>"), offset_tr_open);
     if (std::string::npos == insertion_offset) {
-      return AppError::PrintError(
+      return tictac_lib::AppError::PrintError(
           std::string("Error: Failed finding insertion offset (row index: ").append(helper::Numeric::ToString(row_index))
               .append(").").c_str());
     }
@@ -223,7 +223,7 @@ bool ReportCrud::AddFullDayEntry(int offset_days, std::string comment, std::stri
   std::string date_day = helper::DateTime::GetCurrentTimeFormatted(format_date.c_str(), offset_days);
 
   if (std::string::npos != html.find(date_meta + "</td>")) {
-    AppError::PrintError(
+    tictac_lib::AppError::PrintError(
         std::string("Cannot add full-day entry. There are entries already on ").append(date_day).append(".").c_str()
     );
     return false;
@@ -329,7 +329,7 @@ bool ReportCrud::IsMergeableAmountMinutes(int amount_minutes) {
   std::string max_gap_str = config.GetConfigValue("max_mergeable_minutes_gap");
   int max_gap = helper::String::ToInt(max_gap_str);
 
-  return amount_minutes <= max_gap || AppError::PrintError(
+  return amount_minutes <= max_gap || tictac_lib::AppError::PrintError(
       std::string("Cannot merge: Entries have a gap of ")
           .append(helper::Numeric::ToString(amount_minutes))
           .append(" minutes (allowed maximum: ")
@@ -349,11 +349,10 @@ bool ReportCrud::RemoveEntries(int amount) {
   std::string html = parser->GetHtml();
   for (int i = 0; i < amount; i++) {
     std::size_t offset_last_tr = html.rfind("\n<tr");
-    if (std::string::npos != offset_last_tr) {
-      std::size_t offset_last_tr_end = html.rfind("</tr>");
-      if (std::string::npos != offset_last_tr_end)
-        html = html.erase(offset_last_tr, offset_last_tr_end - offset_last_tr + 6);
-    }
+    if (std::string::npos == offset_last_tr) continue;
+
+    std::size_t offset_last_tr_end = html.rfind("</tr>");
+    if (std::string::npos != offset_last_tr_end) html = html.erase(offset_last_tr, offset_last_tr_end - offset_last_tr + 6);
   }
 
   return SaveReport(html) && ReportRecalculator::RecalculateAndUpdate();
@@ -368,7 +367,7 @@ bool ReportCrud::RemoveEntryById(std::string &html, int id) {
   ReportHtmlParser *parser = new ReportHtmlParser(html);
   int last_index = parser->GetLastIndex();
   if (id > last_index)
-    return AppError::PrintError(std::string("Cannot remove entry ")
+    return tictac_lib::AppError::PrintError(std::string("Cannot remove entry ")
                                     .append(helper::Numeric::ToString(id)).append(", last index is ")
                                     .append(helper::Numeric::ToString(last_index)).c_str());
 
@@ -398,4 +397,4 @@ bool ReportCrud::IsAnyEntryRunning() {
 
   return !html.empty() && ReportHtmlParser::IsAnyEntryRunning(html);
 }
-} // namespace tictac_track
+} // namespace tictac_lib
