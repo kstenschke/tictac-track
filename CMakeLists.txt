@@ -15,6 +15,7 @@ include_directories(
         "${CMAKE_SOURCE_DIR}/src"
 )
 
+# tictac-track client executable
 add_executable(ttt
         src/apps/client/app/app.cc
         src/apps/client/app/app_arguments.cc
@@ -41,3 +42,12 @@ add_executable(ttt
         src/apps/client/report/report.cc
         src/vendor/entities/decode_html_entities_utf8.cc
         src/apps/client/main.cc)
+
+# redmine-sync executable
+add_executable(ttt-redmine_sync
+        src/apps/redmine-sync/app/app_config.cc
+        src/helper/helper_file.cc
+        src/helper/helper_numeric.cc
+        src/helper/helper_string.cc
+        src/helper/helper_system.cc
+        src/apps/redmine-sync/main.cc)
