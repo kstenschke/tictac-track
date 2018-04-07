@@ -10,7 +10,7 @@
 #include "lib/helper/helper_string.h"
 #include "apps/client/app/app_config.h"
 #include "lib/helper/helper_numeric.h"
-#include "report_html_parser.h"
+#include "report_parser.h"
 #include "lib/helper/helper_date_time.h"
 #include "lib/helper/helper_html.h"
 #include "lib/app/app_error.h"
@@ -53,7 +53,7 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
 }
 
 std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(int lookbehind_amount) {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return std::string("");
 
   int available_lookbehind_offset = parser->GetExistingEntryOffsetBefore(lookbehind_amount);
@@ -134,12 +134,12 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment) {
   int sum_task_minutes = 0;
   int amount_rows_printed = 0;
   for (int index_row = 0; index_row < amount_rows_ && index_cell < amount_cells; index_row++) {
-    comment_in_row     = cells_[index_cell + ReportHtmlParser::ColumnIndexes::Index_Comment];
-    date_in_row        = cells_[index_cell + ReportHtmlParser::ColumnIndexes::Index_Date];
-    duration_in_row    = cells_[index_cell + ReportHtmlParser::ColumnIndexes::Index_Duration];
-    task_number_in_row = cells_[index_cell + ReportHtmlParser::ColumnIndexes::Index_Week + 5];
+    comment_in_row     = cells_[index_cell + ReportParser::ColumnIndexes::Index_Comment];
+    date_in_row        = cells_[index_cell + ReportParser::ColumnIndexes::Index_Date];
+    duration_in_row    = cells_[index_cell + ReportParser::ColumnIndexes::Index_Duration];
+    task_number_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Week + 5];
 
-    is_entry_running = 's' == cells_[index_cell + ReportHtmlParser::ColumnIndexes::Index_Meta][0];
+    is_entry_running = 's' == cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0];
 
     bool do_display = (task_number == -1 || 0 == std::strcmp(task_number_in_row.c_str(), task_number_str.c_str()))
                       && (!has_comment || helper::String::Contains(comment_in_row, comment));

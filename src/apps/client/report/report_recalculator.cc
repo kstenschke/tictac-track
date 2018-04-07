@@ -33,7 +33,7 @@ bool ReportRecalculator::RecalculateAndUpdate() {
  * Non-static recalculate: Update title, column titles, durations, day of week, sum task/day, sum day, balance
  */
 bool ReportRecalculator::Recalculate() {
-  ReportHtmlParser *parser = new ReportHtmlParser(html_);
+  ReportParser *parser = new ReportParser(html_);
   int last_index = parser->GetLastIndex();
   if (last_index == -1 || (last_index == 0 && parser->IsAnyEntryRunning())) return false;
 
@@ -62,10 +62,10 @@ bool ReportRecalculator::Recalculate() {
     std::string weekday_name = report_date_time->GetWeekdayByMeta(
         parser->GetColumnContent(index_row, Report::ColumnIndexes::Index_Meta));
 
-    ReportHtmlParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_Day, weekday_name);
-    ReportHtmlParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_SumTaskDay, "");
-    ReportHtmlParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_SumDay, "");
-    ReportHtmlParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_Balance, "");
+    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_Day, weekday_name);
+    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_SumTaskDay, "");
+    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_SumDay, "");
+    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_Balance, "");
 
     parser->SetHtml(html_);
 
@@ -77,16 +77,16 @@ bool ReportRecalculator::Recalculate() {
       int debit_day = sum_minutes_day - minutes_per_day_should;
       balance += debit_day;
       balance_formatted = helper::DateTime::GetHoursFormattedFromMinutes(balance);
-      ReportHtmlParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_Balance, balance_formatted);
+      ReportParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_Balance, balance_formatted);
 
       sum_day_formatted = helper::DateTime::GetHoursFormattedFromMinutes(sum_minutes_day);
-      ReportHtmlParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
+      ReportParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
       sum_minutes_day = 0;
 
       UpdateTaskSumsFromMaps(html_);
       ClearTaskMaps();
     } else {
-      ReportHtmlParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_SumDay, "");
+      ReportParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_SumDay, "");
     }
 
     parser->SetHtml(html_);
@@ -107,10 +107,10 @@ bool ReportRecalculator::Recalculate() {
   int debit_day = sum_minutes_day - minutes_per_day_should;
   balance += debit_day;
   balance_formatted = helper::DateTime::GetHoursFormattedFromMinutes(balance);
-  ReportHtmlParser::UpdateColumn(html_, amount_rows, Report::ColumnIndexes::Index_Balance, balance_formatted);
+  ReportParser::UpdateColumn(html_, amount_rows, Report::ColumnIndexes::Index_Balance, balance_formatted);
 
   sum_day_formatted = helper::DateTime::GetHoursFormattedFromMinutes(sum_minutes_day);
-  ReportHtmlParser::UpdateColumn(html_, amount_rows, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
+  ReportParser::UpdateColumn(html_, amount_rows, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
 
   UpdateTaskSumsFromMaps(html_);
   return ReportCrud::SaveReport(html_);
@@ -140,7 +140,7 @@ void ReportRecalculator::UpdateTaskSumsFromMaps(std::string &html) {
     int sum_minutes = task_in_day_duration_sum_[task_number];
     std::string sum_formatted = helper::DateTime::GetHoursFormattedFromMinutes(sum_minutes);
 
-    ReportHtmlParser::UpdateColumn(html, index_row, Report::ColumnIndexes::Index_SumTaskDay, sum_formatted);
+    ReportParser::UpdateColumn(html, index_row, Report::ColumnIndexes::Index_SumTaskDay, sum_formatted);
   }
 }
 
@@ -148,7 +148,7 @@ void ReportRecalculator::UpdateTaskSumsFromMaps(std::string &html) {
  * Extract start- and end-time and calculate and update duration column in given row from it
  */
 void ReportRecalculator::CalculateAndUpdateDuration(std::string &html, int row_index) {
-  ReportHtmlParser *parser = new ReportHtmlParser(html);
+  ReportParser *parser = new ReportParser(html);
   // Still ongoing: silently abort
   if (parser->IsEntryRunning(row_index)) return;
 
@@ -156,7 +156,7 @@ void ReportRecalculator::CalculateAndUpdateDuration(std::string &html, int row_i
   std::string end = parser->GetColumnContent(row_index, ColumnIndexes::Index_End);
   std::string duration = ReportDateTime::GetDurationFormatted(start, end);
 
-  ReportHtmlParser::UpdateColumn(html, row_index, ColumnIndexes::Index_Duration, duration);
+  ReportParser::UpdateColumn(html, row_index, ColumnIndexes::Index_Duration, duration);
 }
 
 /**

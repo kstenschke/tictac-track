@@ -128,7 +128,7 @@ namespace tictac_track {
     //if (removeIfExists && helper::File::FileExists(ReportFile::kFilenameReport)) {
     if (helper::File::FileExists(report_file_path) && removeIfExists) std::remove(report_file_path.c_str());
 
-    std::string content = ReportHtmlParser::GetInitialReportHtml();
+    std::string content = ReportParser::GetInitialReportHtml();
 //    std::cout << "Created report: " << report_file_path << "\n\n";
 
     return helper::File::WriteToNewFile(report_file_path, content);

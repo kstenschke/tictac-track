@@ -8,10 +8,10 @@
 #define CLASS_TIMETRACKERCL_REPORT_RECALCULATOR
 
 #include <map>
-#include "report_html_parser.h"
+#include "report_parser.h"
 
 namespace tictac_track {
-class ReportRecalculator : public ReportHtmlParser {
+class ReportRecalculator : public ReportParser {
  public:
   // Constructor
   explicit ReportRecalculator(std::string html = "");

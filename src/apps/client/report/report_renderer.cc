@@ -11,7 +11,7 @@
 #include "lib/helper/helper_file.h"
 #include "lib/helper/helper_string.h"
 #include "lib/helper/helper_html.h"
-#include "report_html_parser.h"
+#include "report_parser.h"
 #include "lib/helper/helper_numeric.h"
 
 namespace tictac_track {
@@ -67,7 +67,7 @@ bool ReportRenderer::ExtractPartsFromReport(int filter_offset) {
           continue;
         }
         break;
-      case Scope_Week:ReportHtmlParser *parser = new ReportHtmlParser(html);
+      case Scope_Week:ReportParser *parser = new ReportParser(html);
         std::string week_number = parser->GetColumnContent(indexRow, ColumnIndexes::Index_Week);
         std::string zero = "0";
         if (1 == week_number.size() && 2 == rows_filter_.size()) week_number = zero.append(week_number);

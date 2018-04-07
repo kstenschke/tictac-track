@@ -190,7 +190,7 @@ bool App::Help() {
  * Merge given task with following one
  */
 bool App::Merge() {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   int last_row_index = parser->GetLastIndex();
@@ -212,7 +212,7 @@ bool App::Recalculate() {
  * Resume a previous entry
  */
 bool App::Resume() {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
   if (-1 == parser->GetLastIndex()) return tictac_lib::AppError::PrintError("Cannot resume: there are no entries.");
 
@@ -233,7 +233,7 @@ bool App::Resume() {
  * Resume entry, if given index is positive: is row index, else: negative offset
  */
 bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index) {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   // Negative offset: Convert to index
@@ -276,7 +276,7 @@ bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index) {
  * Remove entries
  */
 bool App::Remove() {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
   int last_index = parser->GetLastIndex();
   if (-1 == last_index) return tictac_lib::AppError::PrintError("Cannot remove: there are no entries.");
@@ -312,7 +312,7 @@ bool App::Split() {
   int row_index = arguments_->ResolveNumber(2);
   if (-1 == row_index) return tictac_lib::AppError::PrintError("No entry ID given.");
 
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   int last_index = parser->GetLastIndex();
@@ -336,7 +336,7 @@ bool App::Split() {
 /**
  * Split given entry at given duration before its end into two entries
  */
-bool App::SplitAtEnd(ReportHtmlParser *parser, std::string split_duration, int row_index) {
+bool App::SplitAtEnd(ReportParser *parser, std::string split_duration, int row_index) {
   // New entry end is end of entry before reduction
   std::string time_end = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_End);
 
@@ -422,7 +422,7 @@ bool App::Stop() {
  * @todo TBD: add argument that allows reuse of already existing comments, e.g. "c from=<TASK-NO>"
  */
 bool App::UpdateComment() {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
   int last_index = parser->GetLastIndex();
   if (-1 == last_index) return tictac_lib::AppError::PrintError("Cannot update comment: there are no entries.");
@@ -473,7 +473,7 @@ bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment,
         std::string("Cannot update comment of entry ").append(helper::Numeric::ToString(index)).append(", last index is: ")
             .append(helper::Numeric::ToString(last_index)).c_str());
 
-  if (comment.empty()) return ReportHtmlParser::UpdateColumn(index, Report::Index_Comment, "");
+  if (comment.empty()) return ReportParser::UpdateColumn(index, Report::Index_Comment, "");
 
   return ReportCrud::GetInstance().AppendComment(comment, index, starts_with_space);
 }
@@ -539,7 +539,7 @@ bool App::UpdateTime(Report::ColumnIndexes column_index) {
     time = arguments_->ResolveTime(arguments_->argument_index_time_);
     if (!time.empty()) {
       // Start-time is allowed to be > end-time, it is than interpreted as if the entry spans over midnight
-      if (!ReportHtmlParser::UpdateColumn(row_index, column_index, time))
+      if (!ReportParser::UpdateColumn(row_index, column_index, time))
         return tictac_lib::AppError::PrintError(
             std::string("Update column failed (").append(helper::Numeric::ToString(column_index)).append(")").c_str()
         );

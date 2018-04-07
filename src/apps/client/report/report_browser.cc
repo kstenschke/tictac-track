@@ -10,7 +10,7 @@
 #include "apps/client/app/app_config.h"
 #include "lib/helper/helper_system.h"
 #include "lib/app/app_error.h"
-#include "report_html_parser.h"
+#include "report_parser.h"
 #include "lib/helper/helper_string.h"
 #include "lib/helper/helper_numeric.h"
 
@@ -72,7 +72,7 @@ namespace tictac_track {
     if (url_raw.empty()) return tictac_lib::AppError::PrintError("Invalid URL.");
 
     if (render_scope == ReportRenderer::RenderScopes::Scope_Day) {
-        ReportHtmlParser *parser = new ReportHtmlParser();
+        ReportParser *parser = new ReportParser();
         if (!parser->LoadReportHtml()) return false;
 
         InitScopeFilter(render_scope, offset);

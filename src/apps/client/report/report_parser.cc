@@ -9,7 +9,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
-#include "report_html_parser.h"
+#include "report_parser.h"
 #include "report_file.h"
 #include "report_crud.h"
 #include "lib/helper/helper_string.h"
@@ -23,11 +23,11 @@ namespace tictac_track {
 /**
  * Constructor
  */
-ReportHtmlParser::ReportHtmlParser(std::string html) {
+ReportParser::ReportParser(std::string html) {
   html_ = std::move(html);
 }
 
-bool ReportHtmlParser::LoadReportHtml() {
+bool ReportParser::LoadReportHtml() {
   html_ = ReportFile::GetReportHtml();
 
   if (html_.empty()) return false;
@@ -37,18 +37,18 @@ bool ReportHtmlParser::LoadReportHtml() {
   return true;
 }
 
-std::string ReportHtmlParser::GetHtml() {
+std::string ReportParser::GetHtml() {
   return html_;
 }
 
-void ReportHtmlParser::SetHtml(std::string html) {
+void ReportParser::SetHtml(std::string html) {
   html_ = std::move(html);
 }
 
 /**
  * Get initial timesheet html
  */
-std::string ReportHtmlParser::GetInitialReportHtml() {
+std::string ReportParser::GetInitialReportHtml() {
   AppLocale locale = AppLocale::GetInstance();
   AppConfig config = AppConfig::GetInstance();
 
@@ -77,7 +77,7 @@ std::string ReportHtmlParser::GetInitialReportHtml() {
   return content_stream.str();
 }
 
-std::string ReportHtmlParser::GetTHead() {
+std::string ReportParser::GetTHead() {
   AppConfig config = AppConfig::GetInstance();
   AppLocale locale = AppLocale::GetInstance();
   locale.locale_key_ = config.GetConfigValue("locale").c_str();
@@ -104,7 +104,7 @@ std::string ReportHtmlParser::GetTHead() {
 /**
  * Update table head (using labels in currently configured language)
  */
-std::string ReportHtmlParser::UpdateTableHeader() {
+std::string ReportParser::UpdateTableHeader() {
   size_t offset_start_thead = html_.find("<thead>");
   size_t offset_end_thead = html_.find("</thead>");
   if (std::string::npos == offset_start_thead || std::string::npos == offset_end_thead) return html_;
@@ -119,7 +119,7 @@ std::string ReportHtmlParser::UpdateTableHeader() {
 /**
  * Get title for timesheet HTML headline: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
  */
-std::string ReportHtmlParser::GetReportTitle() {
+std::string ReportParser::GetReportTitle() {
   if (-1 == GetLastIndex()) return std::string("");
 
   std::string date_first = GetColumnContent(0, ColumnIndexes::Index_Date);
@@ -133,7 +133,7 @@ std::string ReportHtmlParser::GetReportTitle() {
   return title;
 }
 
-std::string ReportHtmlParser::GetDateLatestEntry() {
+std::string ReportParser::GetDateLatestEntry() {
   int index_last = GetLastIndex();
 
   return GetColumnContent(index_last, ColumnIndexes::Index_Date);
@@ -143,7 +143,7 @@ std::string ReportHtmlParser::GetDateLatestEntry() {
  * Decrement offset (of days) until finding an entry of that date, going backwards from current date - given days-offset
  * Ex: when "v d -1" does not find any entries, but there is an entry 3 days before current date, it returns: -3
  */
-int ReportHtmlParser::GetExistingEntryOffsetBefore(int offset_start) {
+int ReportParser::GetExistingEntryOffsetBefore(int offset_start) {
   int offset = offset_start;
   auto *report_date_time = new ReportDateTime();
 
@@ -161,7 +161,7 @@ int ReportHtmlParser::GetExistingEntryOffsetBefore(int offset_start) {
 /**
  * Update report title (in title- and h1-tag) to: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
  */
-std::string ReportHtmlParser::UpdateTitle() {
+std::string ReportParser::UpdateTitle() {
   if (-1 == GetLastIndex()) return html_;
 
   std::string title = GetReportTitle();
@@ -176,7 +176,7 @@ std::string ReportHtmlParser::UpdateTitle() {
   return html_;
 }
 
-int ReportHtmlParser::GetLastIndex() {
+int ReportParser::GetLastIndex() {
   // Do not count header. Subtract one more, as index is zero-based
   return helper::String::GetSubStrCount(html_.c_str(), "<tr") - 2;
 }
@@ -184,7 +184,7 @@ int ReportHtmlParser::GetLastIndex() {
 /**
  * Get ID of latest entry w/ given task number, or -1
  */
-int ReportHtmlParser::GetLatestIndexByTaskNumber(std::string task_number) {
+int ReportParser::GetLatestIndexByTaskNumber(std::string task_number) {
   if (!HtmlContains(task_number)) return -1;
 
   int last_index = GetLastIndex();
@@ -196,7 +196,7 @@ int ReportHtmlParser::GetLatestIndexByTaskNumber(std::string task_number) {
   return -1;
 }
 
-int ReportHtmlParser::GetIndexFirstEntryOfDate(std::string &date) {
+int ReportParser::GetIndexFirstEntryOfDate(std::string &date) {
   int last_index = GetLastIndex();
 
   for (int i = 0; i <= last_index; i++) {
@@ -209,8 +209,8 @@ int ReportHtmlParser::GetIndexFirstEntryOfDate(std::string &date) {
 /**
  * Find row w/ date immediately before given one
  */
-int ReportHtmlParser::GetIndexBeforeMetaDate(std::string meta_date) {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+int ReportParser::GetIndexBeforeMetaDate(std::string meta_date) {
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   int last_index = parser->GetLastIndex();
@@ -230,23 +230,23 @@ int ReportHtmlParser::GetIndexBeforeMetaDate(std::string meta_date) {
 /**
  * Check whether given timesheet HTML contains any in-progress (= w/o end time) entry
  */
-bool ReportHtmlParser::IsAnyEntryRunning(std::string &html) {
+bool ReportParser::IsAnyEntryRunning(std::string &html) {
   return helper::String::Contains(html, "<td class=\"meta\">s/");
 }
-bool ReportHtmlParser::IsAnyEntryRunning() {
+bool ReportParser::IsAnyEntryRunning() {
   return helper::String::Contains(html_, "<td class=\"meta\">s/");
 }
 
-bool ReportHtmlParser::IsEntryRunning(int row_index) {
+bool ReportParser::IsEntryRunning(int row_index) {
   std::string row_meta = GetColumnContent(row_index, ColumnIndexes::Index_Meta);
   return 's' == row_meta[0];
 }
 
-bool ReportHtmlParser::HtmlContains(std::string &str) {
+bool ReportParser::HtmlContains(std::string &str) {
   return helper::String::Contains(html_, str.c_str());
 }
 
-int ReportHtmlParser::GetOffsetTrOpenByIndex(std::string &html, int index_row) {
+int ReportParser::GetOffsetTrOpenByIndex(std::string &html, int index_row) {
   size_t offset_tr;
 
   if (-1 == index_row) {
@@ -271,7 +271,7 @@ int ReportHtmlParser::GetOffsetTrOpenByIndex(std::string &html, int index_row) {
 /**
  * Get offset of <td> tag of start-time column of currently running entry in given html
  */
-unsigned long ReportHtmlParser::GetOffsetTdStartInRunningEntry() {
+unsigned long ReportParser::GetOffsetTdStartInRunningEntry() {
   unsigned long offsetTdMeta = html_.find("<td class=\"meta\">s/");
 
   unsigned long offsetTdWeek = html_.find("<td>", offsetTdMeta + 1);
@@ -281,7 +281,7 @@ unsigned long ReportHtmlParser::GetOffsetTdStartInRunningEntry() {
   return html_.find("<td>", offsetTdDate + 1);
 }
 
-int ReportHtmlParser::GetMinutesBetweenEntryAndNext(int row_index) {
+int ReportParser::GetMinutesBetweenEntryAndNext(int row_index) {
   std::string time_end_first = GetColumnContent(row_index, Report::ColumnIndexes::Index_End);
   std::string time_start_second = GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Start);
 
@@ -294,7 +294,7 @@ int ReportHtmlParser::GetMinutesBetweenEntryAndNext(int row_index) {
 /**
  * Get offset of given needle (e.g. "<td>" or "</td>") of given column, after given initial offset
  */
-size_t ReportHtmlParser::GetColumnOffset(const char *needle, unsigned long offset_initial,
+size_t ReportParser::GetColumnOffset(const char *needle, unsigned long offset_initial,
                                                 Report::ColumnIndexes column_index) {
   auto column_index_int = static_cast<int>(column_index);
   size_t offset = offset_initial;
@@ -307,7 +307,7 @@ size_t ReportHtmlParser::GetColumnOffset(const char *needle, unsigned long offse
   return offset;
 }
 
-std::string ReportHtmlParser::GetColumnContent(int row_index, ColumnIndexes index_column) {
+std::string ReportParser::GetColumnContent(int row_index, ColumnIndexes index_column) {
   int offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
   if (-1 == offset_tr) return "";
 
@@ -318,7 +318,7 @@ std::string ReportHtmlParser::GetColumnContent(int row_index, ColumnIndexes inde
   return html_.substr(offset_content_start, offset_content_end - offset_content_start);
 }
 
-std::vector<std::string> ReportHtmlParser::GetTasksOfDay(std::string &date) {
+std::vector<std::string> ReportParser::GetTasksOfDay(std::string &date) {
   int index_row_day_start = GetIndexFirstEntryOfDate(date);
   if (-1 == index_row_day_start) return {};
 
@@ -337,7 +337,7 @@ std::vector<std::string> ReportHtmlParser::GetTasksOfDay(std::string &date) {
   return tasks;
 }
 
-bool ReportHtmlParser::IsDateOfLatestEntry(std::string &date_compare) {
+bool ReportParser::IsDateOfLatestEntry(std::string &date_compare) {
   int row_index_last = GetLastIndex();
   std::string date_last = GetColumnContent(row_index_last, ColumnIndexes::Index_Date);
 
@@ -347,9 +347,9 @@ bool ReportHtmlParser::IsDateOfLatestEntry(std::string &date_compare) {
 /**
  * Replace/insert content of given column of given row, return changed report HTML
  */
-void ReportHtmlParser::UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
+void ReportParser::UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
                                     std::string content) {
-  ReportHtmlParser *parser = new ReportHtmlParser(html);
+  ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index) {
     tictac_lib::AppError::PrintError(std::string("Cannot update entry ").append(helper::Numeric::ToString(row_index))
@@ -379,11 +379,11 @@ void ReportHtmlParser::UpdateColumn(std::string &html, int row_index, Report::Co
 /**
  * Load report HTML, replace given column content, save changed report, return bool: succeeded?
  */
-bool ReportHtmlParser::UpdateColumn(int row_index, Report::ColumnIndexes column_index, std::string content) {
+bool ReportParser::UpdateColumn(int row_index, Report::ColumnIndexes column_index, std::string content) {
   std::string html = ReportFile::GetReportHtml();
   if (html.empty()) return false;
 
-  ReportHtmlParser *parser = new ReportHtmlParser(html);
+  ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index)
     return tictac_lib::AppError::PrintError(std::string("Cannot update entry ")
@@ -398,7 +398,7 @@ bool ReportHtmlParser::UpdateColumn(int row_index, Report::ColumnIndexes column_
 /**
  * Append given content to content of column in row
  */
-std::string ReportHtmlParser::AppendToColumn(int row_index, Report::ColumnIndexes column_index, std::string content) {
+std::string ReportParser::AppendToColumn(int row_index, Report::ColumnIndexes column_index, std::string content) {
   int offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
   if (-1 == offset_tr) return html_;
 
@@ -410,7 +410,7 @@ std::string ReportHtmlParser::AppendToColumn(int row_index, Report::ColumnIndexe
 /**
  * Reduce given time-column by given duration
  */
-bool ReportHtmlParser::ReduceEntryTime(int row_index, std::string subtrahend_hhmm, AppCommand::Commands command) {
+bool ReportParser::ReduceEntryTime(int row_index, std::string subtrahend_hhmm, AppCommand::Commands command) {
   int minutes_end = helper::DateTime::GetSumMinutesFromTime(
       GetColumnContent(row_index, Report::ColumnIndexes::Index_End));
   int minutes_start = helper::DateTime::GetSumMinutesFromTime(
@@ -439,7 +439,7 @@ bool ReportHtmlParser::ReduceEntryTime(int row_index, std::string subtrahend_hhm
 /**
  * Merge comments from given row and following
  */
-std::string ReportHtmlParser::MergeCommentByRowIndexWithNext(int row_index) {
+std::string ReportParser::MergeCommentByRowIndexWithNext(int row_index) {
   std::string comment_1 = GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
   std::string comment_2 = GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Comment);
   helper::String::Trim(comment_1);

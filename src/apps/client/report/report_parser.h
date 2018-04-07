@@ -12,10 +12,10 @@
 #include "apps/client/app/app_commands.h"
 
 namespace tictac_track {
-  class ReportHtmlParser : public Report {
+  class ReportParser : public Report {
     public:
       // Constructor
-      explicit ReportHtmlParser(std::string html = "");
+      explicit ReportParser(std::string html = "");
 
       bool LoadReportHtml();
       std::string GetHtml();

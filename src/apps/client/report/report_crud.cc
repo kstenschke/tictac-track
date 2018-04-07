@@ -10,7 +10,7 @@
 #include "report_crud.h"
 #include "apps/client/app/app_config.h"
 #include "lib/helper/helper_file.h"
-#include "report_html_parser.h"
+#include "report_parser.h"
 #include "report_recalculator.h"
 #include "lib/helper/helper_string.h"
 #include "lib/helper/helper_numeric.h"
@@ -83,7 +83,7 @@ std::string ReportCrud::RenderEntryHtml(
  * Insert/update timesheet entry
  */
 bool ReportCrud::UpsertEntry(EntryStatus status, const char *comment, const char *task_number) {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   std::string time_stopped = status == EntryStatus::Status_Started ? "..." : report_date_time_->GetCurrentTime();
@@ -132,7 +132,7 @@ bool ReportCrud::InsertEntryAfter(std::string html, int row_index, std::string m
     }
     insertion_offset += 8;
   } else {
-    size_t offset_tr_open = ReportHtmlParser::GetOffsetTrOpenByIndex(html, row_index);
+    size_t offset_tr_open = ReportParser::GetOffsetTrOpenByIndex(html, row_index);
     insertion_offset = html.find(std::string("</tr>"), offset_tr_open);
     if (std::string::npos == insertion_offset) {
       return tictac_lib::AppError::PrintError(
@@ -165,7 +165,7 @@ void ReportCrud::UpdateRunningEntry(std::string &html, std::string add_to_commen
                                     std::string time_stopped) {
   bool has_comment = !add_to_comment.empty();
 
-  ReportHtmlParser *parser = new ReportHtmlParser(html);
+  ReportParser *parser = new ReportParser(html);
   if (!parser->IsAnyEntryRunning() || (!do_stop && !has_comment)) return;
 
   unsigned long offset_td_start = parser->GetOffsetTdStartInRunningEntry();
@@ -231,7 +231,7 @@ bool ReportCrud::AddFullDayEntry(int offset_days, std::string comment, std::stri
 
   std::string week_number = helper::DateTime::GetCurrentTimeFormatted("%W", offset_days);
 
-  ReportHtmlParser *parser = new ReportHtmlParser(html);
+  ReportParser *parser = new ReportParser(html);
   int row_index = -1 == parser->GetLastIndex() ? -1 : parser->GetIndexBeforeMetaDate(date_meta);
 
   std::string meta = "p/" + date_meta;
@@ -266,7 +266,7 @@ bool ReportCrud::StopEntry(const char *comment) {
 bool ReportCrud::AppendComment(std::string &comment, int row_index, bool start_with_space) {
   if (comment.empty()) return false;
 
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   std::string comment_lhs = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
@@ -283,7 +283,7 @@ bool ReportCrud::UpdateTaskNumber(int task_number, int row_index) {
   if (html.empty()) return false;
 
   std::string task_number_str = task_number > 0 ? helper::Numeric::ToString(task_number) : "";
-  ReportHtmlParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task_number_str);
+  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task_number_str);
 
   return SaveReport(html);
 }
@@ -292,7 +292,7 @@ bool ReportCrud::UpdateTaskNumber(int task_number, int row_index) {
  * Merge (time, task, comment of) given entry w/ next one (and remove next one)
  */
 bool ReportCrud::Merge(int row_index) {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
   int minutes_gap = parser->GetMinutesBetweenEntryAndNext(row_index);
@@ -311,12 +311,12 @@ bool ReportCrud::Merge(int row_index) {
   if ('s' == meta_second[0]) {
     std::string meta_first = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta);
     meta_first[0] = 's';
-    ReportHtmlParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Meta, meta_first);
+    ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Meta, meta_first);
   }
 
-  ReportHtmlParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_End, time_end_second);
-  ReportHtmlParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Comment, comment);
-  ReportHtmlParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task);
+  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_End, time_end_second);
+  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Comment, comment);
+  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task);
 
   ReportRecalculator::CalculateAndUpdateDuration(html, row_index);
 
@@ -341,7 +341,7 @@ bool ReportCrud::IsMergeableAmountMinutes(int amount_minutes) {
  * Remove given amount of latest entries (but not more than exist)
  */
 bool ReportCrud::RemoveEntries(int amount) {
-  ReportHtmlParser *parser = new ReportHtmlParser();
+  ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
 
   if (amount - 1 >= parser->GetLastIndex()) return Reset();
@@ -364,14 +364,14 @@ bool ReportCrud::RemoveEntries(int amount) {
 bool ReportCrud::RemoveEntryById(std::string &html, int id) {
   if (0 > id) return false;
 
-  ReportHtmlParser *parser = new ReportHtmlParser(html);
+  ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (id > last_index)
     return tictac_lib::AppError::PrintError(std::string("Cannot remove entry ")
                                     .append(helper::Numeric::ToString(id)).append(", last index is ")
                                     .append(helper::Numeric::ToString(last_index)).c_str());
 
-  int offset_tr_open = ReportHtmlParser::GetOffsetTrOpenByIndex(html, id);
+  int offset_tr_open = ReportParser::GetOffsetTrOpenByIndex(html, id);
   if (-1 == offset_tr_open) return false;
 
   size_t offset_tr_close = html.find("</tr>", static_cast<unsigned long>(offset_tr_open));
@@ -395,6 +395,6 @@ bool ReportCrud::Reset() {
 bool ReportCrud::IsAnyEntryRunning() {
   std::string html = GetReportHtml();
 
-  return !html.empty() && ReportHtmlParser::IsAnyEntryRunning(html);
+  return !html.empty() && ReportParser::IsAnyEntryRunning(html);
 }
 } // namespace tictac_lib

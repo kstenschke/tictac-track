@@ -34,7 +34,7 @@ add_executable(ttt
         src/apps/client/report/report_crud.cc
         src/apps/client/report/report_date_time.cc
         src/apps/client/report/report_file.cc
-        src/apps/client/report/report_html_parser.cc
+        src/apps/client/report/report_parser.cc
         src/apps/client/report/report_recalculator.cc
         src/apps/client/report/report_renderer.cc
         src/apps/client/report/report_renderer_cli.cc
@@ -53,5 +53,7 @@ add_executable(ttt-redmine_sync
         src/lib/helper/helper_numeric.cc
         src/lib/helper/helper_string.cc
         src/lib/helper/helper_system.cc
+        src/apps/redmine-sync/report/report.cc
         src/apps/redmine-sync/report/report_file.cc
+        src/apps/redmine-sync/report/report_parser.cc
         src/apps/redmine-sync/main.cc)

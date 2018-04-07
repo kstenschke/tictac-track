@@ -18,7 +18,7 @@ bool ReportFile::ReportExists() {
 }
 
 std::string ReportFile::getReportFilePath() {
-  return AppConfig::GetInstance().GetReportFilePath();
+  return tictac_rms::AppConfig::GetInstance().GetReportFilePath();
 }
 
 /**

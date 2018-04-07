@@ -9,7 +9,7 @@
 #include <sstream>
 #include <algorithm>
 #include "report_renderer_csv.h"
-#include "report_html_parser.h"
+#include "report_parser.h"
 #include "lib/helper/helper_date_time.h"
 #include "report_file.h"
 #include "../app/app_locale.h"
@@ -28,7 +28,7 @@ ReportRendererCsv::ReportRendererCsv() = default;
    * Get timesheet CSV filename
    */
 std::string ReportRendererCsv::GetFilename(std::string html) {
-  ReportHtmlParser *parser = new ReportHtmlParser(std::move(html));
+  ReportParser *parser = new ReportParser(std::move(html));
 
   std::string date_first = parser->GetColumnContent(0, ColumnIndexes::Index_Date);
 

@@ -9,7 +9,7 @@
 
 #include "app_commands.h"
 #include "app_arguments.h"
-#include "apps/client/report/report_html_parser.h"
+#include "apps/client/report/report_parser.h"
 #include "../report/report.h"
 
 namespace tictac_track {
@@ -59,7 +59,7 @@ namespace tictac_track {
       // Split entry into two
       bool Split();
       // Split given entry at given duration before its end into two entries
-      bool SplitAtEnd(ReportHtmlParser *parser, std::string split_duration, int row_index);
+      bool SplitAtEnd(ReportParser *parser, std::string split_duration, int row_index);
 
       // Add start-entry
       bool Start();
