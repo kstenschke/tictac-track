@@ -7,6 +7,7 @@
 #include <iostream>
 #include <lib/helper/helper_date_time.h>
 #include <apps/redmine-sync/report/report_file.h>
+#include <apps/redmine-sync/report/report_parser.h>
 #include "app.h"
 #include "app_config.h"
 
@@ -36,11 +37,12 @@ bool App::Process() {
   if ("-1" == date_synced_until) date_synced_until = "not yet (using this sync tool)";
   std::cout << "Entries have been synced to Redmine until: " + date_synced_until + ".\n";
 
-  std::string report_html = ReportFile::GetReportHtml();
+  ReportParser *parser = new ReportParser();
+  if (!parser->LoadReportHtml()) return false;
 
-  std::string date_first_entry = "";
-  std::string date_last_entry = "";
-  std::cout << "The given timesheet contains entries from" + date_first_entry + " to " + date_last_entry + ".\n";
+  std::string date_first_entry = parser->GetDateById(0);
+  std::string date_last_entry = parser->GetDateLatestEntry();
+  std::cout << "The given timesheet contains entries from " + date_first_entry + " to " + date_last_entry + ".\n";
 
   std::cout << "\n";
 

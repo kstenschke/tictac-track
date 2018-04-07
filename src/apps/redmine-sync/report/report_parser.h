@@ -30,6 +30,7 @@ class ReportParser : public Report {
 
   size_t GetColumnOffset(const char *needle, unsigned long offset_initial, Report::ColumnIndexes column_index);
 
+  std::string GetDateById(int id);
   std::string GetDateLatestEntry();
 
  protected:

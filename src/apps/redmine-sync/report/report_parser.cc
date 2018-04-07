@@ -92,6 +92,10 @@ size_t ReportParser::GetColumnOffset(const char *needle, unsigned long offset_in
   return offset;
 }
 
+std::string ReportParser::GetDateById(int id) {
+  return GetColumnContent(0, ColumnIndexes::Index_Date);
+}
+
 std::string ReportParser::GetDateLatestEntry() {
   int index_last = GetLastIndex();
 
