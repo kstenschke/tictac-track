@@ -123,27 +123,16 @@ namespace tictac_track {
   }
 
   /**
-   * Check whether date1 is after date2
+   * Check whether meta-date1 is after meta-date2
+   * Meta-date is passed built like: yyyy/mm/ww/dd
    */
   bool ReportDateTime::IsMetaDateAfter(std::string meta_date1, std::string meta_date2) {
     std::vector<std::string> meta_parts1 = helper::String::Explode(meta_date1, '/');
     std::vector<std::string> meta_parts2 = helper::String::Explode(meta_date2, '/');
 
-    int year_date1 = helper::String::ToInt(meta_parts1[1]);
-    int year_date2 = helper::String::ToInt(meta_parts2[1]);
-    if (year_date1 > year_date2) return true;
-    if (year_date1 < year_date2) return false;
+    std::string date1_numeric = meta_parts1[0] + meta_parts1[1] + meta_parts1[3];
+    std::string date2_numeric = meta_parts2[0] + meta_parts2[1] + meta_parts2[3];
 
-    // Years are same
-    int month_date1 = helper::String::ToInt(meta_parts1[2]);
-    int month_date2 = helper::String::ToInt(meta_parts2[2]);
-    if (month_date1 > month_date2) return true;
-    if (month_date1 < month_date2) return false;
-
-    // Months are same
-    int day_date1 = helper::String::ToInt(meta_parts1[4]);
-    int day_date2 = helper::String::ToInt(meta_parts2[4]);
-
-    return day_date1 > day_date2;
+    return helper::String::ToInt(date1_numeric) > helper::String::ToInt(date2_numeric);
   }
 } // namespace tictac_lib

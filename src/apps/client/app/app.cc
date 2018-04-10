@@ -567,6 +567,9 @@ bool App::View() {
 }
 bool App::ViewWeek() {
   ReportRendererCli renderer;
+  
+  AppConfig config = AppConfig::GetInstance();
+  if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
 
   return renderer.PrintToCli(Report::RenderScopes::Scope_Week, arguments_->GetNegativeNumber(),
                              arguments_->GetTaskNumber(), arguments_->GetComment());
