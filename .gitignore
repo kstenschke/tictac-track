@@ -7,3 +7,7 @@ Makefile
 .*.ini
 timesheet.html
 timesheet.html.bak
+/ttt.cbp
+/tsp.cbp
+/cmake_install.cmake
+.idea
