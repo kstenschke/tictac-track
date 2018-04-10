@@ -4,6 +4,7 @@ Tictac-Track - Changelog
 V1.3
 ----
 * Changed application name to Tictac-Track (ttt)
+* Bugfix: Splitting entry by 1 hour was formatting time as 0:60
 
 V1.2
 ----

@@ -89,7 +89,7 @@ namespace helper {
     if (is_negative) minutes *= -1;
 
     int hours   = 0;
-    while(minutes > 60) {
+    while(minutes > 59) {
       hours++;
       minutes -= 60;
       if (hours > 23) hours = 0;
