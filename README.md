@@ -381,7 +381,7 @@ See: https://github.com/kstenschke/tictac-track/blob/master/CHANGELOG.md
 Code Convention
 ---------------
 
-The source code of tictac-track follows the Google C++ Style Guide,
+The source code of tictac-track mostly follows the Google C++ Style Guide,
 see: https://google.github.io/styleguide/cppguide.html
 
 
