@@ -351,6 +351,7 @@ The following options are available:
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
 * Arbitrary commands for opening URLs of other project-management tools, e.g. `url.edit` / `url.log` / ...
+* `clear_before_view`: Clears console before printing timesheet to console
 * `cli_theme`: Theme for commandline timesheet viewer. There are several color themes built-in, allowing to view timesheets
   with various different color palettes in different CLI applications (bash, terminal, etc.).
 * Date formatting: `format_week_of_year`, `format_day_of_week`
