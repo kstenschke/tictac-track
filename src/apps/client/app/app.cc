@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cstring>
 #include "app.h"
+#include "app_config.h"
 #include "app_help.h"
 #include "apps/client/report/report_browser.h"
 #include "apps/client/report/report_file.h"
@@ -557,7 +558,10 @@ bool App::UpdateTime(Report::ColumnIndexes column_index) {
  */
 bool App::View() {
   ReportRendererCli renderer;
-
+  
+  AppConfig config = AppConfig::GetInstance();
+  if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
+  
   return renderer.PrintToCli(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
                              arguments_->GetNegativeNumber(), arguments_->GetTaskNumber(), arguments_->GetComment());
 }

@@ -56,5 +56,9 @@ bool System::GetYesOrNoKeyPress() {
   // Everything but "n" / "N" means yes
   return ch != 78 && ch != 110;
 }
+
+void System::ClearConsole() {
+  system("clear");
+}
 } // namespace helper
 

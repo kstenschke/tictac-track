@@ -41,7 +41,10 @@ extern std::string GetBinaryPath(char** argv, size_t strLenExecutableName);
 extern std::string GetLanguageKey();
 
 bool GetYesOrNoKeyPress();
+
+void ClearConsole();
 } // namespace System
 } // namespace helper
+
 
 #endif
