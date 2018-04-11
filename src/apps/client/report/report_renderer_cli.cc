@@ -18,6 +18,9 @@
 namespace tictac_track {
 
 const std::string ReportRendererCli::kAnsiFormatReset = "\033[0m";
+const std::string ReportRendererCli::kAnsiFormatBold = "\033[1m";
+const std::string ReportRendererCli::kAnsiFormatUnderline = "\033[4m";
+const std::string ReportRendererCli::kAnsiFormatInverted = "\033[7m";
 
 /**
  * Constructor: init CLI ANSI color theme
@@ -25,6 +28,9 @@ const std::string ReportRendererCli::kAnsiFormatReset = "\033[0m";
 ReportRendererCli::ReportRendererCli() {
   InitAnsiTheme();
   offset_id_column_ = helper::String::ToInt(AppConfig::GetInstance().GetConfigValue("id_column"));
+
+  AppConfig config = AppConfig::GetInstance();
+  minutes_break_ = helper::String::ToInt(config.GetConfigValue("max_mergeable_minutes_gap"));
 }
 
 /**
@@ -115,13 +121,13 @@ void ReportRendererCli::PrintHeaderCellForId(bool is_left_most) {
 int ReportRendererCli::PrintRows(int task_number, std::string comment) {
   std::string task_number_str = task_number == -1 ? "" : helper::Numeric::ToString(task_number);
 
-  // Pre-render grid line inbetween content of two rows
+  // Pre-render grid line between content of two rows
   std::string separation_row = RenderSeparationRow();
 
   bool has_comment = !comment.empty();
   int index_cell = 0;
-  auto amount_cells = static_cast<int>(cells_.size());
   bool is_even = true;
+  amount_cells_ = static_cast<int>(cells_.size());
 
   std::string comment_in_row;
   std::string task_number_in_row;
@@ -133,7 +139,9 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment) {
 
   int sum_task_minutes = 0;
   int amount_rows_printed = 0;
-  for (int index_row = 0; index_row < amount_rows_ && index_cell < amount_cells; index_row++) {
+
+  bool is_around_break = false;
+  for (int index_row = 0; index_row < amount_rows_ && index_cell < amount_cells_; index_row++) {
     comment_in_row     = cells_[index_cell + ReportParser::ColumnIndexes::Index_Comment];
     date_in_row        = cells_[index_cell + ReportParser::ColumnIndexes::Index_Date];
     duration_in_row    = cells_[index_cell + ReportParser::ColumnIndexes::Index_Duration];
@@ -157,10 +165,16 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment) {
       is_even = !is_even;
     }
     // Skip meta-column (start from index 1 instead of 0)
-    for (int index_column = 0; index_column < amount_columns_ && index_cell < amount_cells; index_column++) {
+    for (int index_column = 0; index_column < amount_columns_ && index_cell < amount_cells_; index_column++) {
       if (index_column == 2) previous_day = cells_[index_cell];
 
-      if (do_display) PrintColumn(index_cell, is_even, index_row, index_column);
+      if (do_display) {
+        // Emphasize times around e.g. lunch-break (end-time before and start-time after)
+        if (index_column == Index_End) is_around_break = IsEndTimeBeforeBreak(index_cell);
+        bool is_emphasizable_column = index_column == Index_End || index_column == Index_Start;
+
+        PrintColumn(index_cell, is_even, index_row, index_column, is_emphasizable_column && is_around_break);
+      }
 
       // Skip meta cell
       index_cell++;
@@ -179,6 +193,21 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment) {
   return amount_rows_printed;
 }
 
+/**
+ * Check end-time at given cell: is there an unmergeable gap (lunch- or other break) between the start-time of the next entry?
+ */
+bool ReportRendererCli::IsEndTimeBeforeBreak(int index_cell) {
+  // Last entry cannot end before a break
+  if (amount_cells_ < index_cell + 11) return false;
+  // Last entry of day is not considered to be ending before a break
+  if (amount_cells_ > index_cell + 10 && cells_[index_cell - 2] != cells_[index_cell + 10]) return false;
+
+  int minutes_end_current = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell]);
+  int minutes_start_next  = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell + 11]);
+
+  return minutes_start_next - minutes_end_current > minutes_break_ + 1;
+}
+
 int ReportRendererCli::AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_running,
                                      int sum_task_minutes) const {
   if (is_entry_running) {
@@ -189,17 +218,21 @@ int ReportRendererCli::AddSumMinutes(int index_cell, const std::string &duration
   return sum_task_minutes;
 }
 
-void ReportRendererCli::PrintColumn(int index_cell, bool is_even, int index_row, int index_column) {
+void ReportRendererCli::PrintColumn(int index_cell, bool is_even, int index_row, int index_column, bool emphasize) {
   if (index_column > 1) {
     // Skip column 0 (meta)
     std::cout << (is_even ? theme_style_default_ : theme_style_grid_) << "| " << kAnsiFormatReset;
   } else if (index_column == 1 && offset_id_column_ > 0) std::cout << " ";
 
-  cells_[index_cell];
   if (index_column > 0) {
     std::string content = cells_[index_cell];
     if (index_column == Index_Comment) content = helper::Html::Decode(content);
-    std::cout << (is_even ? theme_style_default_ : "") << content << " ";
+
+    std::cout << (is_even ? theme_style_default_ : "")
+              << (emphasize ? kAnsiFormatInverted : "")
+              << content
+              << (emphasize ? kAnsiFormatReset : "")
+              << " ";
   }
 
   PrintRhsCellSpaces(index_cell, index_column);

@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <cstring>
 #include "app_config.h"
 #include "app.h"
 #include "lib/helper/helper_file.h"
@@ -81,6 +82,8 @@ std::string AppConfig::GetDefaultConfig() {
           << "\ndefault_daily_start_time=09:00"
           << "\n"
           << "\n; Maximum gap between entries to be allowed to be merged. Format: In minutes (if not set: 0)"
+          << "\n; Also used for detection before emphasis of lunch- and other longer breaks in console timesheet view"
+          << "\n; When viewed in console, end/start-times of timesheet entries around such breaks are displayed bold"
           << "\nmax_mergeable_minutes_gap=2"
           << "\n"
           << "\n; External task action URLs:"

@@ -23,6 +23,9 @@ class ReportRendererCli : public ReportRenderer {
 
  private:
   static const std::string kAnsiFormatReset;
+  static const std::string kAnsiFormatBold;
+  static const std::string kAnsiFormatInverted;
+  static const std::string kAnsiFormatUnderline;
 
   std::string GetMessageHintClosestDayEntryBefore(int lookbehind_amount);
 
@@ -34,9 +37,12 @@ class ReportRendererCli : public ReportRenderer {
   std::string theme_style_default_;
   std::string theme_style_grid_;
 
+  // Maximum mergeable amount of minutes between to entries (lunch- or other long break)
+  int minutes_break_;
+
   // Amount of digits in maximum index
   unsigned long max_index_digits_;
-
+  int amount_cells_;
   int offset_id_column_;
 
   // Output <thead>
@@ -49,7 +55,7 @@ class ReportRendererCli : public ReportRenderer {
   // Fill cell w/ spaces to keep width of cells in column identical
   void PrintRhsCellSpaces(int index_cell, int index_column);
 
-  void PrintColumn(int index_cell, bool is_even, int index_row, int index_column);
+  void PrintColumn(int index_cell, bool is_even, int index_row, int index_column, bool emphasize = false);
   void PrintDurationSums(int task_number, int sum_task_minutes);
 
   // Render separator row (printed between days)
@@ -57,6 +63,9 @@ class ReportRendererCli : public ReportRenderer {
 
   // Initialize color/formatting theme style codes
   void InitAnsiTheme();
+
+  // Check end-time at given cell: is there an unmergeable gap (lunch- or other break) between the start-time of the next entry?
+  bool IsEndTimeBeforeBreak(int index_cell);
 
   int AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_running, int sum_task_minutes) const;
 };

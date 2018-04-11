@@ -27,7 +27,6 @@ namespace tictac_track {
 
       // Process command + arguments
       bool Process();
-      void function(bool& keep_backup);
 
     private:
       AppCommand *command_;

@@ -43,11 +43,6 @@ App::App(int argc, char **argv) {
   arguments_ = new AppArguments(argc, argv, *command_);
 }
 
-void App::function(bool& keep_backup){
-  ReportFile::BackupReportTemporary();
-  keep_backup = Split();
-}
-
 /**
  * Process command + arguments
  */
@@ -90,7 +85,8 @@ bool App::Process() {
       keep_backup = Remove();
       break;
     case AppCommand::Command_Split:
-      function(keep_backup);
+      ReportFile::BackupReportTemporary();
+      keep_backup = Split();
       break;
     case AppCommand::Command_Start:
       ReportFile::BackupReportTemporary();

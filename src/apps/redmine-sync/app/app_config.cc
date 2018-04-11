@@ -6,6 +6,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <cstring>
 #include <vector>
 #include <apps/redmine-sync/report/report_file.h>
 #include <iostream>

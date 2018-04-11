@@ -217,9 +217,9 @@ int ReportParser::GetIndexBeforeMetaDate(std::string meta_date) {
 
   std::string meta_date_in_row;
   for (int i = 0; i <= last_index; i++) {
+    // Check if meta_date_in_row is after meta_date
     meta_date_in_row = parser->GetColumnContent(i, Report::ColumnIndexes::Index_Meta).substr(2, std::string::npos);
 
-    // Check if meta_date_in_row is after meta_date
     if (ReportDateTime::IsMetaDateAfter(meta_date_in_row, meta_date)) return i - 1;
   }
 

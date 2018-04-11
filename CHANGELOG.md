@@ -3,9 +3,10 @@ Tictac-Track - Changelog
 
 V1.3
 ----
-* Added config option: Clear console before viewing timesheet in console
 * Bugfix: Splitting entry by 1 hour was formatting time as 0:60
 * Changed application name to Tictac-Track (ttt)
+* Improved console timesheet view: Added option to auto-clear console before printing timesheet
+* Improved console timesheet view: Highlight end/start-times around breaks
 * Improved insertion of full-day entries
 
 V1.2
