@@ -299,22 +299,24 @@ namespace tictac_track {
     int minutes_gap = parser->GetMinutesBetweenEntryAndNext(row_index);
     if (!IsMergeableAmountMinutes(minutes_gap)) return false;
 
-    std::string time_end_second = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_End);
-    std::string comment = parser->MergeCommentByRowIndexWithNext(row_index);
-
-    std::string task = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
-    if (task.empty()) task = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Task);
-
     std::string html = parser->GetHtml();
+    int offset_tr      = parser->GetOffsetTrOpenByIndex(html, row_index);
+    int offset_tr_next = parser->GetOffsetTrOpenByIndex(html, row_index + 1);
+    
+    std::string time_end_second = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_End, offset_tr_next);
+    std::string comment = parser->GetCommentMergedWithNextByRowIndex(row_index, offset_tr, offset_tr_next);
+    
+    std::string task = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
+    if (task.empty()) task = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Task, offset_tr_next);
 
     // Merge meta: set merged entry to status of 2nd entry before merge
-    std::string meta_second = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Meta);
+    std::string meta_second = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Meta, offset_tr_next);
     if ('s' == meta_second[0]) {
-      std::string meta_first = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta);
+      std::string meta_first = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta, offset_tr);
       meta_first[0] = 's';
-      ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Meta, meta_first);
+      ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Meta, meta_first);  
     }
-
+    
     ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_End, time_end_second);
     ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Comment, comment);
     ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task);

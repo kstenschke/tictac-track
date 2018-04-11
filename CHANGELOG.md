@@ -8,6 +8,7 @@ V1.3
 * Improved console timesheet view: Added option to auto-clear console before printing timesheet
 * Improved console timesheet view: Highlight end/start-times around breaks
 * Improved insertion of full-day entries
+* Improved parser performance
 
 V1.2
 ----

@@ -177,8 +177,11 @@ std::string ReportParser::UpdateTitle() {
 }
 
 int ReportParser::GetLastIndex() {
-  // Do not count header. Subtract one more, as index is zero-based
-  return helper::String::GetSubStrCount(html_.c_str(), "<tr") - 2;
+  if (-1 == last_index_) 
+    // Do not count header. Subtract one more, as index is zero-based
+    last_index_ = helper::String::GetSubStrCount(html_.c_str(), "<tr") - 2;
+  
+  return last_index_;
 }
 
 /**
@@ -248,7 +251,6 @@ bool ReportParser::HtmlContains(std::string &str) {
 
 int ReportParser::GetOffsetTrOpenByIndex(std::string &html, int index_row) {
   size_t offset_tr;
-
   if (-1 == index_row) {
     // Get last row entry
     offset_tr = html.rfind("<tr");
@@ -307,8 +309,8 @@ size_t ReportParser::GetColumnOffset(const char *needle, unsigned long offset_in
   return offset;
 }
 
-std::string ReportParser::GetColumnContent(int row_index, ColumnIndexes index_column) {
-  int offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
+std::string ReportParser::GetColumnContent(int row_index, ColumnIndexes index_column, int offset_tr) {
+  if (-1 == offset_tr) offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
   if (-1 == offset_tr) return "";
 
   unsigned long offset_td_start = GetColumnOffset("<td", static_cast<unsigned long>(offset_tr), index_column);
@@ -347,21 +349,23 @@ bool ReportParser::IsDateOfLatestEntry(std::string &date_compare) {
 /**
  * Replace/insert content of given column of given row, return changed report HTML
  */
-void ReportParser::UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
-                                    std::string content) {
+bool ReportParser::UpdateColumn(std::string &html, int row_index, 
+                                Report::ColumnIndexes column_index, 
+                                std::string content) {
   ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index) {
-    tictac_lib::AppError::PrintError(std::string("Cannot update entry ").append(helper::Numeric::ToString(row_index))
-                             .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(".").c_str());
-    return;
+    return tictac_lib::AppError::PrintError(std::string(
+            "Cannot update entry ").append(helper::Numeric::ToString(row_index))
+            .append(", last entry is ")
+            .append(helper::Numeric::ToString(last_index)).append(".").c_str());
   }
 
   int offset_tr = GetOffsetTrOpenByIndex(html, row_index);
   if (-1 == offset_tr) {
-    tictac_lib::AppError::PrintError(std::string("Cannot update entry: Failed finding row ")
-                             .append(helper::Numeric::ToString(row_index)).c_str());
-    return;
+    return tictac_lib::AppError::PrintError(
+            std::string("Cannot update entry: Failed finding row ")
+            .append(helper::Numeric::ToString(row_index)).c_str());
   }
 
   unsigned long offset_td_content_start = parser->GetColumnOffset(
@@ -371,9 +375,12 @@ void ReportParser::UpdateColumn(std::string &html, int row_index, Report::Column
   if (column_index == ColumnIndexes::Index_Meta) offset_td_content_start += 13;
 
   size_t offset_td_content_end = html.find("</td>", offset_td_content_start);
-  if (std::string::npos == offset_td_content_start || std::string::npos == offset_td_content_end) return;
+  if (std::string::npos == offset_td_content_start || std::string::npos == offset_td_content_end) 
+    return false;
 
   html = html.replace(offset_td_content_start, offset_td_content_end - offset_td_content_start, content);
+  
+  return true;
 }
 
 /**
@@ -411,10 +418,11 @@ std::string ReportParser::AppendToColumn(int row_index, Report::ColumnIndexes co
  * Reduce given time-column by given duration
  */
 bool ReportParser::ReduceEntryTime(int row_index, std::string subtrahend_hhmm, AppCommand::Commands command) {
+  int offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
   int minutes_end = helper::DateTime::GetSumMinutesFromTime(
-      GetColumnContent(row_index, Report::ColumnIndexes::Index_End));
+      GetColumnContent(row_index, Report::ColumnIndexes::Index_End, offset_tr));
   int minutes_start = helper::DateTime::GetSumMinutesFromTime(
-      GetColumnContent(row_index, Report::ColumnIndexes::Index_Start));
+      GetColumnContent(row_index, Report::ColumnIndexes::Index_Start, offset_tr));
 
   int duration = minutes_end - minutes_start;
   int minutes_subtrahend = helper::DateTime::GetSumMinutesFromTime(std::move(subtrahend_hhmm));
@@ -439,9 +447,9 @@ bool ReportParser::ReduceEntryTime(int row_index, std::string subtrahend_hhmm, A
 /**
  * Merge comments from given row and following
  */
-std::string ReportParser::MergeCommentByRowIndexWithNext(int row_index) {
-  std::string comment_1 = GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
-  std::string comment_2 = GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Comment);
+std::string ReportParser::GetCommentMergedWithNextByRowIndex(int row_index, int offset_tr, int offset_tr_next) {
+  std::string comment_1 = GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment, offset_tr);
+  std::string comment_2 = GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Comment, offset_tr_next);
   helper::String::Trim(comment_1);
   helper::String::Trim(comment_2);
 

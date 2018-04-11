@@ -43,7 +43,6 @@ bool ReportRecalculator::Recalculate() {
   std::vector<std::string> tasks_in_day;
   std::vector<int> task_durations;
 
-  int amount_rows = parser->GetLastIndex();
   std::string balance_formatted, current_date, current_duration, current_task, sum_day_formatted, task_number;
   std::string previous_date;
   bool is_new_day;
@@ -54,52 +53,57 @@ bool ReportRecalculator::Recalculate() {
   auto *report_date_time = new ReportDateTime();
   ClearTaskMaps();
   html_ = parser->GetHtml();
-  for (int index_row = 0; index_row <= amount_rows; index_row++) {
+  std::string weekday_name;
+  std::string previous_meta;
+  for (int row_index = 0; row_index <= last_index; row_index++) {
     // Update entry duration (start to end)
-    ReportRecalculator::CalculateAndUpdateDuration(html_, index_row);
+    ReportRecalculator::CalculateAndUpdateDuration(html_, row_index);
 
     parser->SetHtml(html_);
-    std::string weekday_name = report_date_time->GetWeekdayByMeta(
-        parser->GetColumnContent(index_row, Report::ColumnIndexes::Index_Meta));
-
-    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_Day, weekday_name);
-    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_SumTaskDay, "");
-    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_SumDay, "");
-    ReportParser::UpdateColumn(html_, index_row, Report::ColumnIndexes::Index_Balance, "");
+    
+    std::string meta = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta);
+    if (meta != previous_meta || weekday_name.empty())
+      weekday_name = report_date_time->GetWeekdayByMeta(meta);
+    
+    ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_Day, weekday_name);
+    ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_SumTaskDay, "");
+    ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_SumDay, "");
+    ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_Balance, "");
 
     parser->SetHtml(html_);
 
-    current_date = parser->GetColumnContent(index_row, Report::ColumnIndexes::Index_Date);
-    current_duration = parser->GetColumnContent(index_row, Report::ColumnIndexes::Index_Duration);
+    int offset_tr = parser->GetOffsetTrOpenByIndex(html_, row_index);
+    current_date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date, offset_tr);
+    current_duration = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Duration, offset_tr);
 
     is_new_day = !previous_date.empty() && previous_date != current_date;
     if (is_new_day) {
       int debit_day = sum_minutes_day - minutes_per_day_should;
       balance += debit_day;
       balance_formatted = helper::DateTime::GetHoursFormattedFromMinutes(balance);
-      ReportParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_Balance, balance_formatted);
+      ReportParser::UpdateColumn(html_, row_index - 1, Report::ColumnIndexes::Index_Balance, balance_formatted);
 
       sum_day_formatted = helper::DateTime::GetHoursFormattedFromMinutes(sum_minutes_day);
-      ReportParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
+      ReportParser::UpdateColumn(html_, row_index - 1, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
       sum_minutes_day = 0;
 
       UpdateTaskSumsFromMaps(html_);
       ClearTaskMaps();
     } else {
-      ReportParser::UpdateColumn(html_, index_row - 1, Report::ColumnIndexes::Index_SumDay, "");
+      ReportParser::UpdateColumn(html_, row_index - 1, Report::ColumnIndexes::Index_SumDay, "");
     }
 
     parser->SetHtml(html_);
-    task_number = parser->GetColumnContent(index_row, Report::ColumnIndexes::Index_Task);
+    task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
 
     if (!current_duration.empty()) {
       int duration_minutes = helper::DateTime::GetSumMinutesFromTime(current_duration);
-      if (!task_number.empty()) {
-        AddToTaskMaps(task_number, index_row, duration_minutes);
-      }
       sum_minutes_day += duration_minutes;
+      
+      if (!task_number.empty()) AddToTaskMaps(task_number, row_index, duration_minutes);
     }
 
+    previous_meta = meta;
     previous_date = current_date;
   }
 
@@ -107,10 +111,10 @@ bool ReportRecalculator::Recalculate() {
   int debit_day = sum_minutes_day - minutes_per_day_should;
   balance += debit_day;
   balance_formatted = helper::DateTime::GetHoursFormattedFromMinutes(balance);
-  ReportParser::UpdateColumn(html_, amount_rows, Report::ColumnIndexes::Index_Balance, balance_formatted);
+  ReportParser::UpdateColumn(html_, last_index, Report::ColumnIndexes::Index_Balance, balance_formatted);
 
   sum_day_formatted = helper::DateTime::GetHoursFormattedFromMinutes(sum_minutes_day);
-  ReportParser::UpdateColumn(html_, amount_rows, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
+  ReportParser::UpdateColumn(html_, last_index, Report::ColumnIndexes::Index_SumDay, sum_day_formatted);
 
   UpdateTaskSumsFromMaps(html_);
   return ReportCrud::SaveReport(html_);
@@ -149,11 +153,12 @@ void ReportRecalculator::UpdateTaskSumsFromMaps(std::string &html) {
  */
 void ReportRecalculator::CalculateAndUpdateDuration(std::string &html, int row_index) {
   ReportParser *parser = new ReportParser(html);
-  // Still ongoing: silently abort
+  // An entry is still ongoing: silently abort
   if (parser->IsEntryRunning(row_index)) return;
 
-  std::string start = parser->GetColumnContent(row_index, ColumnIndexes::Index_Start);
-  std::string end = parser->GetColumnContent(row_index, ColumnIndexes::Index_End);
+  int offset_tr = parser->GetOffsetTrOpenByIndex(html, row_index);
+  std::string start = parser->GetColumnContent(row_index, ColumnIndexes::Index_Start, offset_tr);
+  std::string end = parser->GetColumnContent(row_index, ColumnIndexes::Index_End, offset_tr);
   std::string duration = ReportDateTime::GetDurationFormatted(start, end);
 
   ReportParser::UpdateColumn(html, row_index, ColumnIndexes::Index_Duration, duration);

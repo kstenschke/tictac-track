@@ -262,9 +262,10 @@ bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index) {
           std::string("Cannot resume entry ").append(helper::Numeric::ToString(row_index)).append(", last entry is ")
               .append(helper::Numeric::ToString(last_index)).append(".").c_str());
   }
-
-  std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
-  std::string comment = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
+  std::string html = parser->GetHtml();
+  int offset_tr = parser->GetOffsetTrOpenByIndex(html, row_index);
+  std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
+  std::string comment = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment, offset_tr);
 
   return ReportCrud::GetInstance().StartEntry(comment.c_str(), task_number.c_str());
 }
@@ -344,13 +345,14 @@ bool App::SplitAtEnd(ReportParser *parser, std::string split_duration, int row_i
   ReportRecalculator::CalculateAndUpdateDuration(html, row_index);
   parser->SetHtml(html);
 
+  int offset_tr = parser->GetOffsetTrOpenByIndex(html, row_index);
   // New entry start is end of reduced entry
-  std::string time_start = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_End);
-  std::string meta = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta);
-  std::string week_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Week);
-  std::string weekday = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Day);
-  std::string day_date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date);
-  std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
+  std::string time_start = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_End, offset_tr);
+  std::string meta = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta, offset_tr);
+  std::string week_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Week, offset_tr);
+  std::string weekday = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Day, offset_tr);
+  std::string day_date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date, offset_tr);
+  std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
 
   return ReportCrud::GetInstance().InsertEntryAfter(
       html, row_index, meta, week_number, weekday, day_date, time_start, time_end, task_number);

@@ -58,12 +58,13 @@ namespace tictac_track {
       // Get offset of given needle (e.g. "<td>" or "</td>") of given column, after given initial offset
       size_t GetColumnOffset(const char* needle, unsigned long offset_initial, ColumnIndexes column_index);
 
-      std::string GetColumnContent(int row_index, ColumnIndexes index_column);
+      std::string GetColumnContent(int row_index, ColumnIndexes index_column, 
+                                   int offset_tr = -1);
 
       bool IsDateOfLatestEntry(std::string &date_compare);
 
       // Replace/insert content of given column of given row, return changed html
-      static void UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
+      static bool UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
                                std::string content);
 
       // Load report HTML, replace given column content, save changed report, return bool: succeeded?
@@ -86,10 +87,11 @@ namespace tictac_track {
       static std::string GetTHead();
 
       // Merge comments from given row and following
-      std::string MergeCommentByRowIndexWithNext(int row_index);
+      std::string GetCommentMergedWithNextByRowIndex(int row_index, int offset_tr, int offset_tr_next);
 
     protected:
       std::string html_;
+      int last_index_ = -1;
 
     private:
       int GetIndexFirstEntryOfDate(std::string &date);
