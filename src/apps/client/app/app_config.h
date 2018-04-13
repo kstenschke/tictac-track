@@ -24,6 +24,7 @@ class AppConfig {
     Option_Locale_Key,
     Option_Max_Mergeable_Gap,
     Option_Report_File_Path,
+    Option_First_Task_Of_Day,
     Option_Invalid
   };
 
@@ -37,6 +38,8 @@ class AppConfig {
   std::string GetConfigValue(const std::string &key);
   // Get instance of config, than get value for given config option
   static std::string GetConfigValueStatic(const std::string &key);
+
+  static const char* GetDefaultFirstTaskOfDay();
 
   // Get absolute path to timesheet.html (including filename)
   std::string GetReportFilePath();

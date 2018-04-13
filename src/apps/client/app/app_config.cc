@@ -80,6 +80,8 @@ std::string AppConfig::GetDefaultConfig() {
           << "\ndebit_per_day=8:24"
           << "\n; Default daily starting time. Used for insertion of all-day entries. Format: HH:MM"
           << "\ndefault_daily_start_time=09:00"
+          << "\n; First task of day, used when starting w/o given other task number"
+          << "\nfirst_task_of_day=1234"
           << "\n"
           << "\n; Maximum gap between entries to be allowed to be merged. Format: In minutes (if not set: 0)"
           << "\n; Also used for detection before emphasis of lunch- and other longer breaks in console timesheet view"
@@ -190,24 +192,33 @@ std::string AppConfig::GetConfigValueStatic(const std::string &key) {
   return AppConfig::GetInstance().GetConfigValue(key);
 }
 
+const char* AppConfig::GetDefaultFirstTaskOfDay() {
+  return AppConfig::GetInstance().GetConfigValue("first_task_of_day").c_str();
+}
+
 /**
  * Get default value for given config option
  */
 std::string AppConfig::GetConfigValueDefault(const std::string &key) {
   switch (ResolveOption(key)) {
-    case Option_Cli_Theme:return helper::Numeric::ToString(GetDefaultThemeIdByOs());
-
-      // Date/time formats
+    case Option_Cli_Theme:
+      return helper::Numeric::ToString(GetDefaultThemeIdByOs());
     case Option_Format_Week_Of_Year:
       // %W = Week starting w/ monday, %U = Week starting w/ sunday
       return "%W";
-    case Option_Format_Date:return "%d.%m.%Y";
-    case Option_Format_Day_Of_Week:return "%A";
-
-    case Option_Locale_Key:return "en";
+    case Option_Format_Date:
+      return "%d.%m.%Y";
+    case Option_Format_Day_Of_Week:
+      return "%A";
+    case Option_First_Task_Of_Day:
+      return "";
+    case Option_Locale_Key:
+      return "en";
     case Option_Id_Column:
-    case Option_Max_Mergeable_Gap:return "0";
-    case Option_Report_File_Path:return helper::System::GetBinaryPath(argv_, std::strlen(App::kAppExecutableName.c_str()));
+    case Option_Max_Mergeable_Gap:
+      return "0";
+    case Option_Report_File_Path:
+      return helper::System::GetBinaryPath(argv_, std::strlen(App::kAppExecutableName.c_str()));
     case Option_Invalid:
     default:return "";
   }

@@ -3,12 +3,15 @@ Tictac-Track - Changelog
 
 V1.3
 ----
+* Added config: Default task number for 1st entry started in day (stored if no different one given) 
 * Bugfix: Splitting entry by 1 hour was formatting time as 0:60
 * Changed application name to Tictac-Track (ttt)
 * Improved console timesheet view: Added option to auto-clear console before printing timesheet
 * Improved console timesheet view: Highlight end/start-times around breaks
 * Improved insertion of full-day entries
 * Improved parser performance
+* Improved merge of two comments: Better placing of divider and space characters
+* Improved resume command: Now allows for optional comment to be added/appended
 
 V1.2
 ----

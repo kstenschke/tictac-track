@@ -84,6 +84,8 @@ namespace tictac_track {
 
       bool HtmlContains(std::string &str);
 
+      static std::string MergeComments(std::string &comment_1, std::string &comment_2);
+
       static std::string GetTHead();
 
       // Merge comments from given row and following

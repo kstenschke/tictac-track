@@ -133,15 +133,19 @@ related entry.
 
 #### Usage examples:
 
-`r`    - Resume latest entry (has to be not running anymore).
+`r`       - Resume latest entry (has to be not running anymore).
 
-`r 1`  - Resume entry with ID 1. Stops running entry, if any.
+`r c=foo` - Resume latest entry, append/add "foo" to/as comment.
 
-`r 2`  - Resume entry with ID 2. Stops running entry, if any.
+`r 1`     - Resume entry with ID 1. Stops running entry, if any.
 
-`r -1` - Resume entry 1 place before latest entry. Stops running entry, if any.
+`r 1 foo` - Resume entry with ID 1, append/add "foo" to/as comment. Stop running entry, if any.
 
-`r -2` - Resume entry 2 places before latest entry. Stops running entry, if any.
+`r 2`     - Resume entry with ID 2. Stops running entry, if any.
+
+`r -1`    - Resume entry 1 place before latest entry. Stops running entry, if any.
+
+`r -2`    - Resume entry 2 places before latest entry. Stops running entry, if any.
 
 ### Command: day (d) - Add all-day entry
 

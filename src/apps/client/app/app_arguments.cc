@@ -79,8 +79,9 @@ void AppArguments::Resolve(AppCommand &command) {
       ResolveAsTaskIndex(i, argument, command_resolved, is_numeric);
       continue;
     }
-    if ((helper::String::StartsWith(argv_[i], "c=") || helper::String::StartsWith(argv_[i], "comment="))
-        && ResolveAsComment(i)) continue;
+    if (((helper::String::StartsWith(argv_[i], "c=") || helper::String::StartsWith(argv_[i], "comment="))
+        || (command_resolved == AppCommand::Command_Resume && -1 == argument_index_comment_))
+          && ResolveAsComment(i)) continue;
 
     // Argument is not numeric, no command or command shortcut
     SetArgvDefaultTypeByCommand(command, i);

@@ -216,20 +216,24 @@ bool App::Resume() {
   ReportCrud &report = ReportCrud::GetInstance();
   bool is_any_running = report.IsAnyEntryRunning();
 
+  std::string comment = arguments_->GetComment();
   switch (arguments_->argc_) {
-    case 2:if (is_any_running) return tictac_lib::AppError::PrintError("Cannot resume: last entry is still running.");
+    case 2:
+      if (is_any_running) return tictac_lib::AppError::PrintError("Cannot resume: last entry is still running.");
       // Resume last entry
-      return ResumeEntryByIndexOrNegativeOffset(0);
-    case 3:if (is_any_running) report.StopEntry();
-      return ResumeEntryByIndexOrNegativeOffset(arguments_->ResolveNumber(2));
+      return ResumeEntryByIndexOrNegativeOffset(0, comment);
+    case 3:
+    case 4:
+      if (is_any_running) report.StopEntry();
+      return ResumeEntryByIndexOrNegativeOffset(arguments_->ResolveNumber(2), comment);
     default:return tictac_lib::AppError::PrintError("Too many arguments.");
   }
 }
 
 /**
- * Resume entry, if given index is positive: is row index, else: negative offset
+ * Resume entry, if given index is positive: is row index, else: negative offset. Append/add given comment
  */
-bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index) {
+bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index, std::string add_to_comment) {
   ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
@@ -265,7 +269,9 @@ bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index) {
   std::string html = parser->GetHtml();
   int offset_tr = parser->GetOffsetTrOpenByIndex(html, row_index);
   std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
-  std::string comment = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment, offset_tr);
+
+  std::string comment_old = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment, offset_tr);
+  std::string comment = ReportParser::MergeComments(comment_old, add_to_comment);
 
   return ReportCrud::GetInstance().StartEntry(comment.c_str(), task_number.c_str());
 }

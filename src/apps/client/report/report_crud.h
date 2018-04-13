@@ -52,6 +52,7 @@ namespace tictac_track {
       bool Reset();
 
       bool IsAnyEntryRunning();
+      bool CurrentDayHasTasks();
 
     private:
       enum EntryStatus {

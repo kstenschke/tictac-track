@@ -50,7 +50,7 @@ namespace tictac_track {
       // Resume a previous entry
       bool Resume();
       // Resume entry, if given index is positive: is row index, else: negative offset
-      bool ResumeEntryByIndexOrNegativeOffset(int row_index);
+      bool ResumeEntryByIndexOrNegativeOffset(int row_index, std::string add_to_comment = "");
 
       // Remove entries
       bool Remove();

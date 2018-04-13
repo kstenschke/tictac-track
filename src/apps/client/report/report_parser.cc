@@ -177,10 +177,10 @@ std::string ReportParser::UpdateTitle() {
 }
 
 int ReportParser::GetLastIndex() {
-  if (-1 == last_index_) 
+  if (-1 == last_index_)
     // Do not count header. Subtract one more, as index is zero-based
     last_index_ = helper::String::GetSubStrCount(html_.c_str(), "<tr") - 2;
-  
+
   return last_index_;
 }
 
@@ -192,7 +192,7 @@ int ReportParser::GetLatestIndexByTaskNumber(std::string task_number) {
 
   int last_index = GetLastIndex();
   for (int index = last_index; index >= 0; index--) {
-    const char* task = task_number.c_str();
+    const char *task = task_number.c_str();
     if (0 == std::strcmp(task, GetColumnContent(index, ColumnIndexes::Index_Task).c_str())) return index;
   }
 
@@ -297,7 +297,7 @@ int ReportParser::GetMinutesBetweenEntryAndNext(int row_index) {
  * Get offset of given needle (e.g. "<td>" or "</td>") of given column, after given initial offset
  */
 size_t ReportParser::GetColumnOffset(const char *needle, unsigned long offset_initial,
-                                                Report::ColumnIndexes column_index) {
+                                     Report::ColumnIndexes column_index) {
   auto column_index_int = static_cast<int>(column_index);
   size_t offset = offset_initial;
   for (int i = 0; i <= column_index_int; i++) {
@@ -349,22 +349,22 @@ bool ReportParser::IsDateOfLatestEntry(std::string &date_compare) {
 /**
  * Replace/insert content of given column of given row, return changed report HTML
  */
-bool ReportParser::UpdateColumn(std::string &html, int row_index, 
-                                Report::ColumnIndexes column_index, 
+bool ReportParser::UpdateColumn(std::string &html, int row_index,
+                                Report::ColumnIndexes column_index,
                                 std::string content) {
   ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index) {
     return tictac_lib::AppError::PrintError(std::string(
-            "Cannot update entry ").append(helper::Numeric::ToString(row_index))
-            .append(", last entry is ")
-            .append(helper::Numeric::ToString(last_index)).append(".").c_str());
+        "Cannot update entry ").append(helper::Numeric::ToString(row_index))
+                                                .append(", last entry is ")
+                                                .append(helper::Numeric::ToString(last_index)).append(".").c_str());
   }
 
   int offset_tr = GetOffsetTrOpenByIndex(html, row_index);
   if (-1 == offset_tr) {
     return tictac_lib::AppError::PrintError(
-            std::string("Cannot update entry: Failed finding row ")
+        std::string("Cannot update entry: Failed finding row ")
             .append(helper::Numeric::ToString(row_index)).c_str());
   }
 
@@ -375,11 +375,11 @@ bool ReportParser::UpdateColumn(std::string &html, int row_index,
   if (column_index == ColumnIndexes::Index_Meta) offset_td_content_start += 13;
 
   size_t offset_td_content_end = html.find("</td>", offset_td_content_start);
-  if (std::string::npos == offset_td_content_start || std::string::npos == offset_td_content_end) 
+  if (std::string::npos == offset_td_content_start || std::string::npos == offset_td_content_end)
     return false;
 
   html = html.replace(offset_td_content_start, offset_td_content_end - offset_td_content_start, content);
-  
+
   return true;
 }
 
@@ -394,8 +394,9 @@ bool ReportParser::UpdateColumn(int row_index, Report::ColumnIndexes column_inde
   int last_index = parser->GetLastIndex();
   if (row_index > last_index)
     return tictac_lib::AppError::PrintError(std::string("Cannot update entry ")
-                                    .append(helper::Numeric::ToString(row_index))
-                                    .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(".").c_str());
+                                                .append(helper::Numeric::ToString(row_index))
+                                                .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(
+            ".").c_str());
 
   UpdateColumn(html, row_index, column_index, std::move(content));
 
@@ -453,11 +454,20 @@ std::string ReportParser::GetCommentMergedWithNextByRowIndex(int row_index, int 
   helper::String::Trim(comment_1);
   helper::String::Trim(comment_2);
 
+  return MergeComments(comment_1, comment_2);
+}
+
+std::string ReportParser::MergeComments(std::string &comment_1, std::string &comment_2) {
   if (comment_1.empty() || comment_1 == comment_2) return comment_2;
   if (comment_2.empty()) return comment_1;
 
-  return helper::String::EndsWith(comment_1, ".") || helper::String::EndsWith(comment_1, ",")
+  std::string merged = helper::String::EndsWith(comment_1, ".") || helper::String::EndsWith(comment_1, ",")
+         || helper::String::StartsWith(comment_2.c_str(), ".") || helper::String::StartsWith(comment_2.c_str(), ",")
          ? comment_1.append(" ").append(comment_2)
          : comment_1.append(". ").append(comment_2);
+
+  // @todo replace: " , " by: ","
+
+  return merged;
 }
 } // namespace tictac_lib

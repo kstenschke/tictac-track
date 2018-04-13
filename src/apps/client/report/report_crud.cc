@@ -206,7 +206,9 @@ namespace tictac_track {
    * Add timesheet entry: start work
    */
   bool ReportCrud::StartEntry(const char *comment, const char *task_number) {
-    return UpsertEntry(EntryStatus::Status_Started, comment, task_number);
+    return task_number[0] == '\0' && CurrentDayHasTasks()
+           ? UpsertEntry(EntryStatus::Status_Started, comment, AppConfig::GetDefaultFirstTaskOfDay())
+           : UpsertEntry(EntryStatus::Status_Started, comment, task_number);
   }
 
   bool ReportCrud::StartEntry(const char *comment, int task_number) {
@@ -399,5 +401,12 @@ namespace tictac_track {
     std::string html = GetReportHtml();
 
     return !html.empty() && ReportParser::IsAnyEntryRunning(html);
+  }
+
+  bool ReportCrud::CurrentDayHasTasks() {
+    std::string html = GetReportHtml();
+    std::string date_cell = "<td>" + report_date_time_->GetCurrentDate() + "</td>";
+
+    return std::string::npos != html.find(date_cell);
   }
 } // namespace tictac_lib

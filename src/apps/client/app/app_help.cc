@@ -205,11 +205,13 @@ bool AppHelp::PrintHelpOnRemove() {
 bool AppHelp::PrintHelpOnResume() {
   std::cout << "resume (r): Resumes last or given entry: starts a new entry w/ same task and comment."
             << "\n"
-            << "\nUsage example 1: r    - Resume latest entry (has to be not running anymore)."
-            << "\nUsage example 2: r 1  - Resume entry with ID 1. Stop running entry, if any."
-            << "\nUsage example 3: r 2  - Resume entry with ID 2. Stop running entry, if any."
-            << "\nUsage example 4: r -1 - Resume entry 1 place before latest entry. Stop running entry, if any."
-            << "\nUsage example 5: r -2 - Resume entry 2 paces before latest entry. Stop running entry, if any."
+            << "\nUsage example 1: r       - Resume latest entry (has to be not running anymore)."
+            << "\nUsage example 2: r c=foo - Resume latest entry, append/add \"foo\" to/as comment."
+            << "\nUsage example 3: r 1     - Resume entry with ID 1. Stop running entry, if any."
+            << "\nUsage example 4: r 1 foo - Resume entry with ID 1, append/add \"foo\" to/as comment. Stop running entry, if any."
+            << "\nUsage example 5: r 2     - Resume entry with ID 2. Stop running entry, if any."
+            << "\nUsage example 6: r -1    - Resume entry 1 place before latest entry. Stop running entry, if any."
+            << "\nUsage example 7: r -2    - Resume entry 2 paces before latest entry. Stop running entry, if any."
             << "\n";
   return true;
 }
