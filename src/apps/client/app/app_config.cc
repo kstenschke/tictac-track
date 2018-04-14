@@ -164,6 +164,8 @@ AppConfig::ConfigKeys AppConfig::ResolveOption(std::string input) {
   if ("locale" == input) return Option_Locale_Key;
   if ("max_mergeable_minutes_gap" == input) return Option_Max_Mergeable_Gap;
   if ("report_path" == input) return Option_Report_File_Path;
+  if ("first_task_of_day" == input) return Option_First_Task_Of_Day;
+  if ("default_daily_start_time" == input) return Option_Default_Daily_Start_Time;
 
   return Option_Invalid;
 }
@@ -203,6 +205,10 @@ std::string AppConfig::GetConfigValueDefault(const std::string &key) {
   switch (ResolveOption(key)) {
     case Option_Cli_Theme:
       return helper::Numeric::ToString(GetDefaultThemeIdByOs());
+    case Option_Default_Daily_Start_Time:
+      return "09:00";
+    case Option_First_Task_Of_Day:
+      return "";
     case Option_Format_Week_Of_Year:
       // %W = Week starting w/ monday, %U = Week starting w/ sunday
       return "%W";
@@ -210,8 +216,6 @@ std::string AppConfig::GetConfigValueDefault(const std::string &key) {
       return "%d.%m.%Y";
     case Option_Format_Day_Of_Week:
       return "%A";
-    case Option_First_Task_Of_Day:
-      return "";
     case Option_Locale_Key:
       return "en";
     case Option_Id_Column:

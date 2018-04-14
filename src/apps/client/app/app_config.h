@@ -17,6 +17,7 @@ class AppConfig {
 
   enum ConfigKeys {
     Option_Cli_Theme,
+    Option_Default_Daily_Start_Time,
     Option_Format_Date,
     Option_Format_Day_Of_Week,
     Option_Format_Week_Of_Year,
@@ -30,7 +31,7 @@ class AppConfig {
 
   // Get object instance. Initialize at 1st call.
   static AppConfig &GetInstance(char **argv = nullptr);
-
+  
   // Resolve config option string to related enum item (which allows e.g. switch)
   static ConfigKeys ResolveOption(std::string input);
 
