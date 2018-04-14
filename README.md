@@ -354,6 +354,7 @@ The following options are available:
   Latvian (lv), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
 * `debit_per_day`: Required daily working time. Needed for calculation of overtime saldo.
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
+* `first_task_of_day`: Task number to be used for the first entry per day, when no other task-no. is given.
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
 * Arbitrary commands for opening URLs of other project-management tools, e.g. `url.edit` / `url.log` / ...
 * `clear_before_view`: Clears console before printing timesheet
