@@ -206,7 +206,7 @@ namespace tictac_track {
    * Add timesheet entry: start work
    */
   bool ReportCrud::StartEntry(const char *comment, const char *task_number) {
-    return task_number[0] == '\0' && CurrentDayHasTasks()
+    return (task_number[0] == '\0' || task_number[0] == '-') && !CurrentDayHasTasks()
            ? UpsertEntry(EntryStatus::Status_Started, comment, AppConfig::GetDefaultFirstTaskOfDay())
            : UpsertEntry(EntryStatus::Status_Started, comment, task_number);
   }

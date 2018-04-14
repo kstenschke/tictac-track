@@ -93,6 +93,7 @@ Commands Overview
 
 The new entry's status is set to ongoing. If a previous entry has been ongoing when a new entry is started,
 the previous entry is being stopped, with the current time being recorded as that task's end-time.
+For the first entry per day, a default task number to be used when none is given, can be configured in ttt.ini.
 
 #### Usage examples:
 

@@ -228,6 +228,7 @@ bool AppHelp::PrintHelpOnStart() {
   std::cout << "start (s): Adds a new entry to the timesheet report.\n"
             << "\nThe new entry's status is set to ongoing. If a previous entry has been ongoing when a new entry is started,"
             << "\nthe previous entry is being stopped, with the current time being recorded as that task's end-time."
+            << "\nFor the first entry per day, a default task number to be used when none is given, can be configured in ttt.ini."
             << "\n"
             << "\nUsage example 1: s           - Start a new entry (w/o task-no. or comment) at the current time"
             << "\nUsage example 2: s Foo       - Start a new entry commented w/ \"Foo\""
