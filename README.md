@@ -347,7 +347,7 @@ When run for the first time, tictac-track creates a default configuration file
 (".ttt.ini" in the path of the executable), which can than be edited. 
 The following options are available:
 
-* `report_path`: Path where the timesheet is stored
+* `report_path`: Path where the timesheet is stored (if not specified: path where the application executable is) 
 * `locale`: Language for calendaric and other labels (day, date, week, etc.).
   The following languages are built-in:
   German (de), Danish (dk), English (en), Spanish (es), Finnish (fi), French (fr), Hungarian (hu), Italian (it),
