@@ -81,7 +81,7 @@ std::string AppConfig::GetDefaultConfig() {
           << "\n; Default daily starting time. Used for insertion of all-day entries. Format: HH:MM"
           << "\ndefault_daily_start_time=09:00"
           << "\n; First task of day, used when starting w/o given other task number"
-          << "\nfirst_task_of_day=1234"
+          << "\n;first_task_of_day=1234"
           << "\n"
           << "\n; Maximum gap between entries to be allowed to be merged. Format: In minutes (if not set: 0)"
           << "\n; Also used for detection before emphasis of lunch- and other longer breaks in console timesheet view"
