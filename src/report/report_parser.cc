@@ -150,7 +150,7 @@ int ReportParser::GetExistingEntryOffsetBefore(int offset_start) {
   // TODO detect offset before first entry: return 0 immediately (would otherwise loop endlessly)
   std::string first_date = GetColumnContent(1, ColumnIndexes::Index_Date);
   while (true) {
-    std::string date_formatted = report_date_time->GetCurrentDate(offset);
+    std::string date_formatted = report_date_time->GetDateFormatted(offset);
     if (HtmlContains(date_formatted)) return offset;
     if (date_formatted == first_date) return 0;
 

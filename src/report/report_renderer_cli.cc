@@ -58,6 +58,31 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
   return false;
 }
 
+bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
+  render_scope_ = RenderScopes::Scope_Day;
+  
+  ReportParser *parser = new ReportParser();
+  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
+  
+  std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
+  std::vector<std::string> tasks = parser->GetTasksOfDay(date);
+  int i = 1;
+  for(auto const &task: tasks) {
+    if (!ExtractPartsFromReport(days_offset)) return false;
+    max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
+    
+    std::cout << " " << date << " - Task " << i << "/" << tasks.size() << " - " << task;
+    PrintHeader();
+    int task_number = helper::String::ToInt(task);
+    PrintRows(task_number, "", true);
+    std::cout << "\n";
+    
+    i++;
+  }
+  
+  return true;
+}
+
 std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(int lookbehind_amount) {
   ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return std::string("");
@@ -118,7 +143,8 @@ void ReportRendererCli::PrintHeaderCellForId(bool is_left_most) {
 /**
  * Output <tr>s using given filters, returns amount of rows printed
  */
-int ReportRendererCli::PrintRows(int task_number, std::string comment) {
+int ReportRendererCli::PrintRows(int task_number, std::string comment, 
+                                 bool sequential) {
   std::string task_number_str = task_number == -1 ? "" : helper::Numeric::ToString(task_number);
 
   // Pre-render grid line between content of two rows

@@ -33,7 +33,7 @@ void Report::InitScopeFilter(int offset) {
 }
 
 std::string Report::GetFilterValueForDayScope(int offset) {
-  return report_date_time_instance_.GetCurrentDate(offset);
+  return report_date_time_instance_.GetDateFormatted(offset);
 }
 
 std::string Report::GetFilterValueForWeekScope(int offset) {
@@ -41,6 +41,6 @@ std::string Report::GetFilterValueForWeekScope(int offset) {
 }
 
 std::string Report::GetFilterValueForMonthScope(int offset) {
-  return report_date_time_instance_.GetCurrentDate(offset);
+  return report_date_time_instance_.GetDateFormatted(offset);
 }
 } // namespace tictac_lib

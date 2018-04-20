@@ -21,7 +21,7 @@ namespace tictac_track {
       std::string GetCurrentWeekOfYear(int offset_weeks = 0);
 
       // Get current date as string
-      std::string GetCurrentDate(int offset_days = 0);
+      std::string GetDateFormatted(int offset_days = 0);
 
       std::string GetTimestampForMeta();
 

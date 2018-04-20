@@ -97,7 +97,7 @@ namespace tictac_track {
     html = parser->GetHtml();
 
     // Add newly started entry
-    std::string date_current = report_date_time_->GetCurrentDate();
+    std::string date_current = report_date_time_->GetDateFormatted();
     std::string meta = (status == EntryStatus::Status_Started ? "s/" : "p/") + report_date_time_->GetTimestampForMeta();
 
     const std::string &task = 0 == std::strcmp(task_number, "0") || 0 == std::strcmp(task_number, "-1")
@@ -405,7 +405,7 @@ namespace tictac_track {
 
   bool ReportCrud::CurrentDayHasTasks() {
     std::string html = GetReportHtml();
-    std::string date_cell = "<td>" + report_date_time_->GetCurrentDate() + "</td>";
+    std::string date_cell = "<td>" + report_date_time_->GetDateFormatted() + "</td>";
 
     return std::string::npos != html.find(date_cell);
   }

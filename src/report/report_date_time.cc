@@ -75,7 +75,7 @@ namespace tictac_track {
     return week;
   }
 
-  std::string ReportDateTime::GetCurrentDate(int offset_days) {
+  std::string ReportDateTime::GetDateFormatted(int offset_days) {
     return helper::DateTime::GetCurrentTimeFormatted(format_date_.c_str(), offset_days);
   }
 

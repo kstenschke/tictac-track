@@ -20,7 +20,8 @@ class ReportRendererCli : public ReportRenderer {
 
   // Pretty-print timesheet HTML (table) to CLI, using given filters
   bool PrintToCli(RenderScopes scope, int lookbehind_amount, int task_number, std::string comment = "");
-
+  bool PrintBrowseDayTasks(int days_offset = 0);
+  
  private:
   static const std::string kAnsiFormatReset;
   static const std::string kAnsiFormatBold;
@@ -49,7 +50,7 @@ class ReportRendererCli : public ReportRenderer {
   void PrintHeader();
   void PrintHeaderCellForId(bool is_left_most);
   // Output <tr>s, returns amount of rows printed
-  int PrintRows(int task_number, std::string comment = "");
+  int PrintRows(int task_number, std::string comment = "", bool sequential = false);
 
   void PrintRowCellForId(bool is_left_most, int index_row);
   // Fill cell w/ spaces to keep width of cells in column identical

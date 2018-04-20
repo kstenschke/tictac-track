@@ -159,12 +159,12 @@ bool App::DisplayDate() {
   auto *report_date_time_ = new ReportDateTime();;
 
   if (arguments_->argc_ == 2) {
-    std::cout << report_date_time_->GetCurrentDate(0) << "\n";
+    std::cout << report_date_time_->GetDateFormatted(0) << "\n";
     return true;
   }
 
   int offset_days = arguments_->ResolveNumber(2);
-  std::cout << report_date_time_->GetCurrentDate(offset_days) << "\n";
+  std::cout << report_date_time_->GetDateFormatted(offset_days) << "\n";
 
   return true;
 }
@@ -593,7 +593,6 @@ bool App::BrowseDayTasks() {
 
   // @todo implement sequential day-task browsing
 
-  return renderer.PrintToCli(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
-                             arguments_->GetNegativeNumber(), arguments_->GetTaskNumber(), arguments_->GetComment());
+  return renderer.PrintBrowseDayTasks(arguments_->GetNegativeNumber());
 }
 } // namespace tictac_lib
