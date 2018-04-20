@@ -80,6 +80,9 @@ namespace tictac_track {
       bool View();
       bool ViewWeek();
 
+      // View entries sequentially, opening related task URL at the same time
+      bool BrowseDayTasks();
+
       int GetCommentArgOffsetInTaskCommand() const;
   };
 } // namespace tictac_lib

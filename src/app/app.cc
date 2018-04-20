@@ -110,6 +110,8 @@ bool App::Process() {
       return View();
     case AppCommand::Command_ViewWeek:
       return ViewWeek();
+    case AppCommand::Command_BrowseDayTasks:
+      return BrowseDayTasks();
     case AppCommand::Command_Invalid:
     default:
       AppHelp::PrintUnknownArgumentMessage(arguments_->argv_[1]);
@@ -569,6 +571,7 @@ bool App::View() {
   return renderer.PrintToCli(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
                              arguments_->GetNegativeNumber(), arguments_->GetTaskNumber(), arguments_->GetComment());
 }
+
 bool App::ViewWeek() {
   ReportRendererCli renderer;
   
@@ -577,5 +580,20 @@ bool App::ViewWeek() {
 
   return renderer.PrintToCli(Report::RenderScopes::Scope_Week, arguments_->GetNegativeNumber(),
                              arguments_->GetTaskNumber(), arguments_->GetComment());
+}
+
+/**
+ * View entries sequentially, opening related task URL at the same time
+ */
+bool App::BrowseDayTasks() {
+  ReportRendererCli renderer;
+
+  AppConfig config = AppConfig::GetInstance();
+  if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
+
+  // @todo implement sequential day-task browsing
+
+  return renderer.PrintToCli(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
+                             arguments_->GetNegativeNumber(), arguments_->GetTaskNumber(), arguments_->GetComment());
 }
 } // namespace tictac_lib

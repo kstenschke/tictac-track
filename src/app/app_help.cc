@@ -22,26 +22,47 @@ void AppHelp::PrintVersion() {
  */
 bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
   switch (command) {
-    case AppCommand::Commands::Command_Browse:return PrintHelpOnBrowse();
-    case AppCommand::Commands::Command_Comment:return PrintHelpOnComment();
-    case AppCommand::Commands::Command_Csv:return PrintHelpOnCsv();
-    case AppCommand::Commands::Command_Day:return PrintHelpOnDay();
-    case AppCommand::Commands::Command_Date:return PrintHelpOnDate();
-    case AppCommand::Commands::Command_ExternalTaskUrl:return PrintHelpOnExternalTaskUrl();
-    case AppCommand::Commands::Command_Help:return PrintHelpOnHelp();
-    case AppCommand::Commands::Command_Merge:return PrintHelpOnMerge();
-    case AppCommand::Commands::Command_Recalculate:return PrintHelpOnRecalculate();
-    case AppCommand::Commands::Command_Resume:return PrintHelpOnResume();
-    case AppCommand::Commands::Command_Remove:return PrintHelpOnRemove();
-    case AppCommand::Commands::Command_Split:return PrintHelpOnSplit();
-    case AppCommand::Commands::Command_Start:return PrintHelpOnStart();
-    case AppCommand::Commands::Command_Stop:return PrintHelpOnStop();
-    case AppCommand::Commands::Command_Task:return PrintHelpOnTask();
-    case AppCommand::Commands::Command_Undo:return PrintHelpOnUndo();
-    case AppCommand::Commands::Command_Version:std::cout << "version (V): Displays current version number.\n";
+    case AppCommand::Commands::Command_Browse:
+      return PrintHelpOnBrowse();
+    case AppCommand::Commands::Command_Comment:
+      return PrintHelpOnComment();
+    case AppCommand::Commands::Command_Csv:
+      return PrintHelpOnCsv();
+    case AppCommand::Commands::Command_Day:
+      return PrintHelpOnDay();
+    case AppCommand::Commands::Command_Date:
+      return PrintHelpOnDate();
+    case AppCommand::Commands::Command_ExternalTaskUrl:
+      return PrintHelpOnExternalTaskUrl();
+    case AppCommand::Commands::Command_Help:
+      return PrintHelpOnHelp();
+    case AppCommand::Commands::Command_Merge:
+      return PrintHelpOnMerge();
+    case AppCommand::Commands::Command_Recalculate:
+      return PrintHelpOnRecalculate();
+    case AppCommand::Commands::Command_Resume:
+      return PrintHelpOnResume();
+    case AppCommand::Commands::Command_Remove:
+      return PrintHelpOnRemove();
+    case AppCommand::Commands::Command_Split:
+      return PrintHelpOnSplit();
+    case AppCommand::Commands::Command_Start:
+      return PrintHelpOnStart();
+    case AppCommand::Commands::Command_Stop:
+      return PrintHelpOnStop();
+    case AppCommand::Commands::Command_Task:
+      return PrintHelpOnTask();
+    case AppCommand::Commands::Command_Undo:
+      return PrintHelpOnUndo();
+    case AppCommand::Commands::Command_Version:
+      std::cout << "version (V): Displays current version number.\n";
       return true;
-    case AppCommand::Commands::Command_View:return PrintHelpOnView();
-    case AppCommand::Commands::Command_ViewWeek:return PrintHelpOnWeek();
+    case AppCommand::Commands::Command_View:
+      return PrintHelpOnView();
+    case AppCommand::Commands::Command_BrowseDayTasks:
+      return PrintHelpOnBrowseDayTasks();
+    case AppCommand::Commands::Command_ViewWeek:
+      return PrintHelpOnWeek();
     case AppCommand::Commands::Command_Invalid:
     default:
       if (withTitle) {
@@ -80,11 +101,12 @@ void AppHelp::PrintOverview() {
             << "\n    recalculate (rc)  - Recalculate all duration sums (per entry, per task per day, per day)"
             << "\n"
             << "\n  3. View and export timesheet and tasks:"
-            << "\n    browse (b)    - Open timesheet in web browser"
-            << "\n    view (v)      - Display timesheet in commandline"
-            << "\n    week (w)      - Display week out of timesheet in commandline"
-            << "\n    csv           - Export timesheet to CSV file"
-            << "\n    url (u)       - Open external task URL in web browser"
+            << "\n    browse (b)     - Open timesheet in web browser"
+            << "\n    browseDay (bd) - Displays entries per task of day sequentially in CLI, opening the rel. task-URL in browser"
+            << "\n    view (v)       - Display timesheet in commandline"
+            << "\n    week (w)       - Display week out of timesheet in commandline"
+            << "\n    csv            - Export timesheet to CSV file"
+            << "\n    url (u)        - Open external task URL in web browser"
             << "\n"
             << "\n  4. Meta commands:"
             << "\n    date (D)     - Display date at given offset of days"
@@ -294,6 +316,14 @@ bool AppHelp::PrintHelpOnView() {
             << "\nUsage example 12: v t=123 c=foo      - Display entries of task 123 with \"foo\" inside the comment"
             << "\nUsage example 13: v d t=123 c=foo    - Display entries of task 123 of current day with \"foo\" inside the comment"
             << "\nUsage example 14: v w -1 t=123 c=foo - Display entries of task 123 of previous week with \"foo\" inside the comment"
+            << "\n";
+  return true;
+}
+bool AppHelp::PrintHelpOnBrowseDayTasks() {
+  std::cout << "bd: Displays entries per task of day sequentially in CLI, opening the rel. task-URL in browser."
+            << "\n"
+            << "\nUsage example 1: bd    - Sequentially display entries per task of current day, opening rel. task-URL in browser"
+            << "\nUsage example 1: bd -1 - Sequentially display entries per task of previous day, opening rel. task-URL in browser"
             << "\n";
   return true;
 }

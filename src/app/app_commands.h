@@ -31,6 +31,7 @@ class AppCommand {
     Command_Version,
     Command_View,
     Command_ViewWeek,
+    Command_BrowseDayTasks,
     Command_Invalid
   };
 
