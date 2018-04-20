@@ -11,12 +11,12 @@
 #include "app_config.h"
 #include "app.h"
 #include "lib/helper/helper_file.h"
-#include "apps/client/report/report_file.h"
+#include "report/report_file.h"
 #include "lib/helper/helper_string.h"
 #include "lib/helper/helper_system.h"
 #include "app_locale.h"
 #include "lib/helper/helper_numeric.h"
-#include "apps/client/report/report_crud.h"
+#include "report/report_crud.h"
 
 namespace tictac_track {
 const std::string AppConfig::kFilename = ".ttt.ini";

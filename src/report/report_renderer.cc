@@ -7,7 +7,7 @@
 #include <fstream>
 #include <cstring>
 #include "report_renderer.h"
-#include "apps/client/app/app_config.h"
+#include "app/app_config.h"
 #include "lib/helper/helper_file.h"
 #include "lib/helper/helper_string.h"
 #include "lib/helper/helper_html.h"

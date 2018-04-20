@@ -10,7 +10,7 @@
 #include "app_arguments.h"
 #include "lib/helper/helper_string.h"
 #include "lib/helper/helper_html.h"
-#include "apps/client/report/report_renderer_cli.h"
+#include "report/report_renderer_cli.h"
 #include "lib/helper/helper_date_time.h"
 
 namespace tictac_track {

@@ -4,8 +4,8 @@
 //    (See accompanying file LICENSE or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "apps/client/app/app_config.h"
-#include "apps/client/report/report_crud.h"
+#include "app/app_config.h"
+#include "report/report_crud.h"
 #include "app/app.h"
 
 /**

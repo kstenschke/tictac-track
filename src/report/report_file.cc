@@ -8,7 +8,7 @@
 #include <fstream>
 #include "report_file.h"
 #include "../app/app.h"
-#include "apps/client/app/app_config.h"
+#include "app/app_config.h"
 #include "lib/helper/helper_file.h"
 #include "lib/app/app_error.h"
 

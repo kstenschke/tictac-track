@@ -13,7 +13,7 @@
 #include "report_file.h"
 #include "report_crud.h"
 #include "lib/helper/helper_string.h"
-#include "apps/client/app/app_config.h"
+#include "app/app_config.h"
 #include "../app/app_locale.h"
 #include "lib/helper/helper_date_time.h"
 #include "lib/app/app_error.h"

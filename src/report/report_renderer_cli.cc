@@ -8,7 +8,7 @@
 #include <cstring>
 #include "report_renderer_cli.h"
 #include "lib/helper/helper_string.h"
-#include "apps/client/app/app_config.h"
+#include "app/app_config.h"
 #include "lib/helper/helper_numeric.h"
 #include "report_parser.h"
 #include "lib/helper/helper_date_time.h"

@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "report_browser.h"
-#include "apps/client/app/app_config.h"
+#include "app/app_config.h"
 #include "lib/helper/helper_system.h"
 #include "lib/app/app_error.h"
 #include "report_parser.h"
