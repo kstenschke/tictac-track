@@ -7,7 +7,7 @@
 #ifndef CLASS_TIMETRACKERCL_APP_ERROR
 #define CLASS_TIMETRACKERCL_APP_ERROR
 
-namespace tictac_lib {
+namespace tictac_track {
 
 class AppError {
  public:

@@ -7,13 +7,13 @@
 #include <iostream>
 #include <cstring>
 #include "report_renderer_cli.h"
-#include "lib/helper/helper_string.h"
+#include "helper/helper_string.h"
 #include "app/app_config.h"
-#include "lib/helper/helper_numeric.h"
+#include "helper/helper_numeric.h"
 #include "report_parser.h"
-#include "lib/helper/helper_date_time.h"
-#include "lib/helper/helper_html.h"
-#include "lib/app/app_error.h"
+#include "helper/helper_date_time.h"
+#include "helper/helper_html.h"
+#include "app/app_error.h"
 
 namespace tictac_track {
 
@@ -53,7 +53,7 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
   if (RenderScopes::Scope_Day == render_scope_)
     message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
 
-  tictac_lib::AppError::PrintError(message.append("\n").c_str());
+  tictac_track::AppError::PrintError(message.append("\n").c_str());
 
   return false;
 }

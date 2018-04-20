@@ -8,11 +8,11 @@
 #include <iostream>
 #include "report_browser.h"
 #include "app/app_config.h"
-#include "lib/helper/helper_system.h"
-#include "lib/app/app_error.h"
+#include "helper/helper_system.h"
+#include "app/app_error.h"
 #include "report_parser.h"
-#include "lib/helper/helper_string.h"
-#include "lib/helper/helper_numeric.h"
+#include "helper/helper_string.h"
+#include "helper/helper_numeric.h"
 
 namespace tictac_track {
 
@@ -69,7 +69,7 @@ namespace tictac_track {
     AppConfig config = AppConfig::GetInstance();
 
     std::string url_raw = config.GetConfigValue(url_command);
-    if (url_raw.empty()) return tictac_lib::AppError::PrintError("Invalid URL.");
+    if (url_raw.empty()) return tictac_track::AppError::PrintError("Invalid URL.");
 
     if (render_scope == ReportRenderer::RenderScopes::Scope_Day) {
         ReportParser *parser = new ReportParser();
@@ -77,7 +77,7 @@ namespace tictac_track {
 
         InitScopeFilter(render_scope, offset);
         std::vector<std::string> tasks = parser->GetTasksOfDay(rows_filter_);
-        if (tasks.empty()) return tictac_lib::AppError::PrintError(
+        if (tasks.empty()) return tictac_track::AppError::PrintError(
           std::string("No tasks found in day (").append(rows_filter_).append(").").c_str());
 
         for (auto const& task : tasks) {

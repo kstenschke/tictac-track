@@ -12,12 +12,12 @@
 #include "report_parser.h"
 #include "report_file.h"
 #include "report_crud.h"
-#include "lib/helper/helper_string.h"
+#include "helper/helper_string.h"
 #include "app/app_config.h"
 #include "../app/app_locale.h"
-#include "lib/helper/helper_date_time.h"
-#include "lib/app/app_error.h"
-#include "lib/helper/helper_numeric.h"
+#include "helper/helper_date_time.h"
+#include "app/app_error.h"
+#include "helper/helper_numeric.h"
 
 namespace tictac_track {
 /**
@@ -355,7 +355,7 @@ bool ReportParser::UpdateColumn(std::string &html, int row_index,
   ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index) {
-    return tictac_lib::AppError::PrintError(std::string(
+    return tictac_track::AppError::PrintError(std::string(
         "Cannot update entry ").append(helper::Numeric::ToString(row_index))
                                                 .append(", last entry is ")
                                                 .append(helper::Numeric::ToString(last_index)).append(".").c_str());
@@ -363,7 +363,7 @@ bool ReportParser::UpdateColumn(std::string &html, int row_index,
 
   int offset_tr = GetOffsetTrOpenByIndex(html, row_index);
   if (-1 == offset_tr) {
-    return tictac_lib::AppError::PrintError(
+    return tictac_track::AppError::PrintError(
         std::string("Cannot update entry: Failed finding row ")
             .append(helper::Numeric::ToString(row_index)).c_str());
   }
@@ -393,7 +393,7 @@ bool ReportParser::UpdateColumn(int row_index, Report::ColumnIndexes column_inde
   ReportParser *parser = new ReportParser(html);
   int last_index = parser->GetLastIndex();
   if (row_index > last_index)
-    return tictac_lib::AppError::PrintError(std::string("Cannot update entry ")
+    return tictac_track::AppError::PrintError(std::string("Cannot update entry ")
                                                 .append(helper::Numeric::ToString(row_index))
                                                 .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(
             ".").c_str());
@@ -436,7 +436,7 @@ bool ReportParser::ReduceEntryTime(int row_index, std::string subtrahend_hhmm, A
     if (AppCommand::Commands::Command_Split == command)
       message = std::string("Cannot split entry: ").append(message);
 
-    return tictac_lib::AppError::PrintError(message.c_str());
+    return tictac_track::AppError::PrintError(message.c_str());
   }
 
   std::string content = helper::DateTime::GetHoursFormattedFromMinutes(minutes_end - minutes_subtrahend);

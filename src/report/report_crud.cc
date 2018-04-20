@@ -9,13 +9,13 @@
 #include <cstring>
 #include "report_crud.h"
 #include "app/app_config.h"
-#include "lib/helper/helper_file.h"
+#include "helper/helper_file.h"
 #include "report_parser.h"
 #include "report_recalculator.h"
-#include "lib/helper/helper_string.h"
-#include "lib/helper/helper_numeric.h"
-#include "lib/helper/helper_date_time.h"
-#include "lib/app/app_error.h"
+#include "helper/helper_string.h"
+#include "helper/helper_numeric.h"
+#include "helper/helper_date_time.h"
+#include "app/app_error.h"
 
 namespace tictac_track {
 
@@ -128,14 +128,14 @@ namespace tictac_track {
       // Insert before / as first entry, independent on whether there's any yet
       insertion_offset = html.find("</thead>");
       if (std::string::npos == insertion_offset) {
-        return tictac_lib::AppError::PrintError("Error: Failed finding insertion offset.");
+        return tictac_track::AppError::PrintError("Error: Failed finding insertion offset.");
       }
       insertion_offset += 8;
     } else {
       size_t offset_tr_open = ReportParser::GetOffsetTrOpenByIndex(html, row_index);
       insertion_offset = html.find(std::string("</tr>"), offset_tr_open);
       if (std::string::npos == insertion_offset) {
-        return tictac_lib::AppError::PrintError(
+        return tictac_track::AppError::PrintError(
                 std::string("Error: Failed finding insertion offset (row index: ").append(helper::Numeric::ToString(row_index))
                 .append(").").c_str());
       }
@@ -226,7 +226,7 @@ namespace tictac_track {
     std::string date_day = helper::DateTime::GetCurrentTimeFormatted(format_date.c_str(), offset_days);
 
     if (std::string::npos != html.find(date_meta + "</td>")) {
-      tictac_lib::AppError::PrintError(
+      tictac_track::AppError::PrintError(
               std::string("Cannot add full-day entry. There are entries already on ").append(date_day).append(".").c_str()
               );
       return false;
@@ -334,7 +334,7 @@ namespace tictac_track {
     std::string max_gap_str = config.GetConfigValue("max_mergeable_minutes_gap");
     int max_gap = helper::String::ToInt(max_gap_str);
 
-    return amount_minutes <= max_gap || tictac_lib::AppError::PrintError(
+    return amount_minutes <= max_gap || tictac_track::AppError::PrintError(
             std::string("Cannot merge: Entries have a gap of ")
             .append(helper::Numeric::ToString(amount_minutes))
             .append(" minutes (allowed maximum: ")
@@ -372,7 +372,7 @@ namespace tictac_track {
     ReportParser *parser = new ReportParser(html);
     int last_index = parser->GetLastIndex();
     if (id > last_index)
-      return tictac_lib::AppError::PrintError(std::string("Cannot remove entry ")
+      return tictac_track::AppError::PrintError(std::string("Cannot remove entry ")
             .append(helper::Numeric::ToString(id)).append(", last index is ")
             .append(helper::Numeric::ToString(last_index)).c_str());
 

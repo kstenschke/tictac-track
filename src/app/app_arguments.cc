@@ -8,10 +8,10 @@
 #include <iostream>
 #include <cstring>
 #include "app_arguments.h"
-#include "lib/helper/helper_string.h"
-#include "lib/helper/helper_html.h"
+#include "helper/helper_string.h"
+#include "helper/helper_html.h"
 #include "report/report_renderer_cli.h"
-#include "lib/helper/helper_date_time.h"
+#include "helper/helper_date_time.h"
 
 namespace tictac_track {
 

@@ -7,7 +7,7 @@
 #include <iostream>
 #include "app_error.h"
 
-namespace tictac_lib {
+namespace tictac_track {
 
 bool AppError::PrintError(const char *message) {
   std::cout << message << "\n";

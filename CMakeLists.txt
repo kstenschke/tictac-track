@@ -21,15 +21,15 @@ add_executable(ttt
         src/app/app_arguments.cc
         src/app/app_commands.cc
         src/app/app_config.cc
-        src/lib/app/app_error.cc
+        src/app/app_error.cc
         src/app/app_help.cc
         src/app/app_locale.cc
-        src/lib/helper/helper_date_time.cc
-        src/lib/helper/helper_file.cc
-        src/lib/helper/helper_html.cc
-        src/lib/helper/helper_numeric.cc
-        src/lib/helper/helper_string.cc
-        src/lib/helper/helper_system.cc
+        src/helper/helper_date_time.cc
+        src/helper/helper_file.cc
+        src/helper/helper_html.cc
+        src/helper/helper_numeric.cc
+        src/helper/helper_string.cc
+        src/helper/helper_system.cc
         src/report/report_browser.cc
         src/report/report_crud.cc
         src/report/report_date_time.cc

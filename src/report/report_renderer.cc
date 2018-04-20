@@ -8,11 +8,11 @@
 #include <cstring>
 #include "report_renderer.h"
 #include "app/app_config.h"
-#include "lib/helper/helper_file.h"
-#include "lib/helper/helper_string.h"
-#include "lib/helper/helper_html.h"
+#include "helper/helper_file.h"
+#include "helper/helper_string.h"
+#include "helper/helper_html.h"
 #include "report_parser.h"
-#include "lib/helper/helper_numeric.h"
+#include "helper/helper_numeric.h"
 
 namespace tictac_track {
 

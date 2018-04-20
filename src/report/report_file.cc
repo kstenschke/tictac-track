@@ -9,8 +9,8 @@
 #include "report_file.h"
 #include "../app/app.h"
 #include "app/app_config.h"
-#include "lib/helper/helper_file.h"
-#include "lib/app/app_error.h"
+#include "helper/helper_file.h"
+#include "app/app_error.h"
 
 namespace tictac_track {
 
@@ -107,7 +107,7 @@ namespace tictac_track {
     AppConfig& config = AppConfig::GetInstance();
     std::string path_report_file = config.GetReportFilePath();
     std::string path_backup      = path_report_file + ".bak";
-    if (!helper::File::FileExists(path_backup)) return tictac_lib::AppError::PrintError("Cannot undo.");
+    if (!helper::File::FileExists(path_backup)) return tictac_track::AppError::PrintError("Cannot undo.");
 
     std::ifstream src(path_backup, std::ios::binary);
     std::ofstream dst(path_report_file, std::ios::binary);
