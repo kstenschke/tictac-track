@@ -76,6 +76,7 @@ Commands Overview
 | week / w          | Display week out of timesheet in commandline
 | csv               | Export timesheet to CSV file
 | url / u           | Open external task URL in web browser
+| dayTasks / ud     | Display tasks of day sequentially in CLI and web browser
 
 
 ### 4. Meta Commands:
