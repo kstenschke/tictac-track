@@ -47,16 +47,19 @@ class ReportRendererCli : public ReportRenderer {
   int offset_id_column_;
 
   // Output <thead>
-  void PrintHeader();
+  void PrintHeader(bool display_id = true, bool display_day_sum = true, bool display_saldo = true);
   void PrintHeaderCellForId(bool is_left_most);
   // Output <tr>s, returns amount of rows printed
-  int PrintRows(int task_number, std::string comment = "", bool sequential = false);
+  int PrintRows(int task_number, std::string comment = "", 
+                bool display_sum = true, bool display_id = true,
+                bool dispay_day_sum = true, bool display_balance = true);
 
   void PrintRowCellForId(bool is_left_most, int index_row);
   // Fill cell w/ spaces to keep width of cells in column identical
   void PrintRhsCellSpaces(int index_cell, int index_column);
 
-  void PrintColumn(int index_cell, bool is_even, int index_row, int index_column, bool emphasize = false);
+  void PrintColumn(int index_cell, bool is_even, int index_row, int index_column, 
+                   bool emphasize = false, bool display_id = true);
   void PrintDurationSums(int task_number, int sum_task_minutes);
 
   // Render separator row (printed between days)

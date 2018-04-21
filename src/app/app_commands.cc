@@ -46,9 +46,9 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
   if (command == "z" || command == "undo") return Command_Undo;
   if (command == "V" || command == "version") return Command_Version;
   if (command == "v" || command == "view") return Command_View;
-  if (command == "bd" || command == "browseDay") return Command_BrowseDayTasks;
   if (command == "w" || command == "week") return Command_ViewWeek;
   if (command == "u" || command == "url") return Command_ExternalTaskUrl;
+  if (command == "ud" || command == "daytasks") return Command_BrowseDayTasks;
 
   return Command_Invalid;
 }
