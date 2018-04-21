@@ -13,6 +13,7 @@
 #include "report_parser.h"
 #include "helper/helper_date_time.h"
 #include "helper/helper_html.h"
+#include "helper/helper_system.h"
 #include "app/app_error.h"
 
 namespace tictac_track {
@@ -66,19 +67,31 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
   std::vector<std::string> tasks = parser->GetTasksOfDay(date);
+  int amount_tasks = tasks.size();
   int i = 1;
   for(auto const &task: tasks) {
+    //helper::System::ClearConsole();
+    
+    cells_.clear();
     if (!ExtractPartsFromReport(days_offset)) return false;
     max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
     
-    std::cout << " " << date << " - Task " << i << "/" << tasks.size() << " - " << task;
     PrintHeader(false, false, false);
+    
     int task_number = helper::String::ToInt(task);
     PrintRows(task_number, "", false, false, false, false);
-    std::cout << "\n";
+    
+    if (i < amount_tasks) {
+      std::cout << "\n";
+      std::cout << "[Enter]";
+      helper::System::WaitForEnterKeyPress();
+      std::cout << "\r       ";
+    }
     
     i++;
   }
+  
+  std::cout << "\n";
   
   return true;
 }

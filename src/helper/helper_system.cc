@@ -57,6 +57,24 @@ bool System::GetYesOrNoKeyPress() {
   return ch != 78 && ch != 110;
 }
 
+/**
+ * Wait for key-press: ENTER. CTRL+c aborts
+ */
+void System::WaitForEnterKeyPress() {
+  // Suppress echo, go to RAW mode
+  system("stty -echo");
+  system("stty cbreak");
+
+  int ch = getchar();
+  while (10 != ch) {
+    ch = getchar();
+  }
+
+  // Make echo work, go to COOKED mode
+  system("stty echo");
+  system("stty -cbreak");
+}
+
 void System::ClearConsole() {
   system("clear");
 }
