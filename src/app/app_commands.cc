@@ -29,7 +29,7 @@ AppCommand::Commands AppCommand::Resolve() {
 }
 
 AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
-  if (command == "b" || command == "browse") return Command_Browse;
+  if (command == "b" || command == "browse") return Command_BrowseTimesheet;
   if (command == "c" || command == "comment") return Command_Comment;
   if (command == "csv") return Command_Csv;
   if (command == "d" || command == "day") return Command_Day;
@@ -47,7 +47,7 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
   if (command == "V" || command == "version") return Command_Version;
   if (command == "v" || command == "view") return Command_View;
   if (command == "w" || command == "week") return Command_ViewWeek;
-  if (command == "u" || command == "url") return Command_ExternalTaskUrl;
+  if (command == "u" || command == "url") return Command_BrowseTaskUrl;
   if (command == "ud" || command == "daytasks") return Command_BrowseDayTasks;
 
   return Command_Invalid;

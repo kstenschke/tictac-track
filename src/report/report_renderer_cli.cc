@@ -11,6 +11,7 @@
 #include "app/app_config.h"
 #include "helper/helper_numeric.h"
 #include "report_parser.h"
+#include "report_browser.h"
 #include "helper/helper_date_time.h"
 #include "helper/helper_html.h"
 #include "helper/helper_system.h"
@@ -65,13 +66,13 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
   
+  auto *browser = new ReportBrowser();
+  
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
   std::vector<std::string> tasks = parser->GetTasksOfDay(date);
   int amount_tasks = tasks.size();
   int i = 1;
   for(auto const &task: tasks) {
-    //helper::System::ClearConsole();
-    
     cells_.clear();
     if (!ExtractPartsFromReport(days_offset)) return false;
     max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
@@ -81,6 +82,8 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
     int task_number = helper::String::ToInt(task);
     PrintRows(task_number, "", false, false, false, false);
     
+    browser->BrowseTaskUrl(task_number);
+  
     if (i < amount_tasks) {
       std::cout << "\n";
       std::cout << "[Enter]";

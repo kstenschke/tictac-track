@@ -24,7 +24,7 @@ namespace tictac_track {
 /**
    * Open URL (dafault: timehseet) in web browser
    */
-  bool ReportBrowser::Browse(std::string url) {
+  bool ReportBrowser::BrowseTimesheet(std::string url) {
     AppConfig& config = AppConfig::GetInstance();
     std::string report_file_path = config.GetReportFilePath();
 
@@ -60,12 +60,23 @@ namespace tictac_track {
 #pragma clang diagnostic pop
   }
 
+  bool ReportBrowser::BrowseTaskUrl(int task_number, std::string url_command) {
+    AppConfig config = AppConfig::GetInstance();
+    std::string url_raw = config.GetConfigValue(url_command);
+    if (url_raw.empty()) return tictac_track::AppError::PrintError("Invalid URL.");
+    
+    std::string task = task_number > 0 ? helper::Numeric::ToString(task_number) : "";
+
+    return BrowseTimesheet(helper::String::ReplaceAll(url_raw, "#TASK#", task.c_str()));
+  }
+  
   /**
-   * Open configured task action URL in web browser
-   * If in day-scope: all tasks of day
+   * Open configured task action URL in web browser. If in day-scope: all tasks of day
    */
-  bool ReportBrowser::BrowseTaskUrl(ReportRenderer::RenderScopes render_scope, int offset, int task_number,
-                                    std::string url_command) {
+  bool ReportBrowser::BrowseTaskUrlsInScope(
+    ReportRenderer::RenderScopes render_scope, int offset, int task_number,
+    std::string url_command
+  ) {
     AppConfig config = AppConfig::GetInstance();
 
     std::string url_raw = config.GetConfigValue(url_command);
@@ -83,7 +94,7 @@ namespace tictac_track {
         for (auto const& task : tasks) {
           std::cout << task << " ";
           std::string url = helper::String::ReplaceAll(url_raw.c_str(), "#TASK#", task.c_str());
-          Browse(url);
+          BrowseTimesheet(url);
         }
 
         return true;
@@ -91,7 +102,7 @@ namespace tictac_track {
 
     std::string task = task_number > 0 ? helper::Numeric::ToString(task_number) : "";
 
-    return Browse(helper::String::ReplaceAll(url_raw, "#TASK#", task.c_str()));
+    return BrowseTimesheet(helper::String::ReplaceAll(url_raw, "#TASK#", task.c_str()));
   }
 
 } // namespace tictac_lib

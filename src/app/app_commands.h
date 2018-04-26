@@ -12,12 +12,12 @@ namespace tictac_track {
 class AppCommand {
  public:
   enum Commands {
-    Command_Browse,
+    Command_BrowseTimesheet,
+    Command_BrowseTaskUrl,
     Command_Comment,
     Command_Csv,
     Command_Day,
     Command_Date,
-    Command_ExternalTaskUrl,
     Command_Help,
     Command_Merge,
     Command_Recalculate,

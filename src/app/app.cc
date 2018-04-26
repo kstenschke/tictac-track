@@ -50,8 +50,10 @@ bool App::Process() {
   bool keep_backup;
 
   switch (command_->GetResolved()) {
-    case AppCommand::Command_Browse:
-      return ReportBrowser::Browse();
+    case AppCommand::Command_BrowseTimesheet:
+      return ReportBrowser::BrowseTimesheet();
+    case AppCommand::Command_BrowseTaskUrl:
+      return BrowseTaskUrl();
     case AppCommand::Command_Comment:
       ReportFile::BackupReportTemporary();
       keep_backup = UpdateComment();
@@ -64,8 +66,6 @@ bool App::Process() {
       ReportFile::BackupReportTemporary();
       keep_backup = AddFullDayEntry();
       break;
-    case AppCommand::Command_ExternalTaskUrl:
-      return BrowseTaskUrl();
     case AppCommand::Command_Help:
       return Help();
     case AppCommand::Command_Merge:
@@ -150,7 +150,7 @@ bool App::BrowseTaskUrl() {
     url_command = std::string("url.").append(arguments_->argv_[2]);
   }
 
-  return browser->BrowseTaskUrl(
+  return browser->BrowseTaskUrlsInScope(
       static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_), arguments_->GetNegativeNumber(),
       arguments_->GetTaskNumber(), url_command);
 }
@@ -590,8 +590,6 @@ bool App::BrowseDayTasks() {
 
   AppConfig config = AppConfig::GetInstance();
   if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
-
-  // @todo implement sequential day-task browsing
 
   return renderer.PrintBrowseDayTasks(arguments_->GetNegativeNumber());
 }

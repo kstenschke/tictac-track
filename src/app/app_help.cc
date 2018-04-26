@@ -22,7 +22,7 @@ void AppHelp::PrintVersion() {
  */
 bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
   switch (command) {
-    case AppCommand::Commands::Command_Browse:
+    case AppCommand::Commands::Command_BrowseTimesheet:
       return PrintHelpOnBrowse();
     case AppCommand::Commands::Command_Comment:
       return PrintHelpOnComment();
@@ -32,7 +32,7 @@ bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
       return PrintHelpOnDay();
     case AppCommand::Commands::Command_Date:
       return PrintHelpOnDate();
-    case AppCommand::Commands::Command_ExternalTaskUrl:
+    case AppCommand::Commands::Command_BrowseTaskUrl:
       return PrintHelpOnExternalTaskUrl();
     case AppCommand::Commands::Command_Help:
       return PrintHelpOnHelp();
@@ -322,8 +322,8 @@ bool AppHelp::PrintHelpOnView() {
 bool AppHelp::PrintHelpOnBrowseDayTasks() {
   std::cout << "dayTasks (ud): Display tasks of day sequentially in CLI and in web browser."
             << "\n"
-            << "\nUsage example 1: bd    - Sequentially display entries per task of current day, opening rel. task-URL in browser"
-            << "\nUsage example 1: bd -1 - Sequentially display entries per task of previous day, opening rel. task-URL in browser"
+            << "\nUsage example 1: ud    - Sequentially display entries per task of current day, opening rel. task-URL in browser"
+            << "\nUsage example 1: ud -1 - Sequentially display entries per task of previous day, opening rel. task-URL in browser"
             << "\n";
   return true;
 }

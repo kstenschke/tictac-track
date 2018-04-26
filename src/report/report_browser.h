@@ -18,10 +18,12 @@ namespace tictac_track {
       ReportBrowser();
 
       // Open URL (default: timesheet) in web browser
-      static bool Browse(std::string url = "");
-
+      static bool BrowseTimesheet(std::string url = "");
+      
       // Open configured task action URL in web browser
-      bool BrowseTaskUrl(ReportRenderer::RenderScopes render_scope = ReportRenderer::RenderScopes::Scope_Invalid,
+      bool BrowseTaskUrl(int task_number, std::string url_command = "url.default");
+      // Open configured task action URL in web browser. If in day-scope: all tasks of day
+      bool BrowseTaskUrlsInScope(ReportRenderer::RenderScopes render_scope = ReportRenderer::RenderScopes::Scope_Invalid,
                          int offset = 0, int task_number = 0, std::string url_command = "url.default");
 
     private:

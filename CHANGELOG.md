@@ -3,6 +3,7 @@ Tictac-Track - Changelog
 
 V1.3
 ----
+* Added command: dayTasks (ud) - Sequentially view tasks of day and open related task URLs in browser
 * Added config: Default task number for 1st entry started in day (stored if no different one given) 
 * Bugfix: Splitting entry by 1 hour was formatting time as 0:60
 * Changed application name to Tictac-Track (ttt)
