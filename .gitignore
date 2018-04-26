@@ -2,6 +2,7 @@
 cmake-build-debug
 CMakeFiles
 CMakeCache.txt
+foo.txt
 Makefile
 *.o
 .*.ini
