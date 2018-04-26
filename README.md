@@ -329,7 +329,7 @@ The CSV is named automatically and stored to the current path.
 `u 123 edit`   - Open url.edit in web browser, with "#TASK#" replaced by 123
 
 
-### dayTasks (ud): Display tasks of day sequentially in CLI and in web browser
+### Command: dayTasks (ud): Display tasks of day sequentially in CLI and in web browser
 
 `ud`    - Sequentially display entries per task of current day in CLI, open rel. task-URL in browser
 
