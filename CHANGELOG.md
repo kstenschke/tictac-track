@@ -33,7 +33,6 @@ V1.1
 * Improved resume command: When user entered task-number instead entry ID, the last entry of that task is suggested to be resumed
 * Improved task command: Updating task number now accepts multiple comma-separated entry IDs 
 
-
 v1.0
 ----
 

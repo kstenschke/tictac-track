@@ -246,7 +246,7 @@ bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index, std::string a
   if (row_index > last_index) {
     bool can_resume = false;
 
-    // Check: did user pass as task-number instead the required ID?
+    // Check: did user pass a task-number instead of the required ID?
     std::string task_number = helper::Numeric::ToString(row_index);
     int row_index_by_task = parser->GetLatestIndexByTaskNumber(task_number);
     if (row_index_by_task > -1) {
