@@ -10,6 +10,7 @@ V1.3
 * Improved console timesheet view: Added option to auto-clear console before printing timesheet
 * Improved console timesheet view: Highlight end/start-times around breaks
 * Improved insertion of full-day entries
+* Improved merge: Disallow merge entries in different days
 * Improved parser performance
 * Improved merge of two comments: Better placing of divider and space characters
 * Improved resume command: Now allows for optional comment to be added/appended

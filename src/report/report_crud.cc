@@ -236,7 +236,7 @@ namespace tictac_track {
 
     ReportParser *parser = new ReportParser(html);
     int row_index = -1 == parser->GetLastIndex() ? -1 : parser->GetIndexBeforeMetaDate(date_meta);
-
+    
     std::string meta = "p/" + date_meta;
 
     auto *report_date_time = new ReportDateTime();
@@ -298,6 +298,13 @@ namespace tictac_track {
     ReportParser *parser = new ReportParser();
     if (!parser->LoadReportHtml()) return false;
 
+    std::string date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date);
+    std::string date_next = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_End);
+    if (0 != std::strcmp(date.c_str(), date_next.c_str())) {
+      tictac_track::AppError::PrintError("Cannot merge: Next entry is in different day");
+      return false;
+    }
+      
     int minutes_gap = parser->GetMinutesBetweenEntryAndNext(row_index);
     if (!IsMergeableAmountMinutes(minutes_gap)) return false;
 

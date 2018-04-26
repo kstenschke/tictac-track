@@ -226,7 +226,7 @@ int ReportParser::GetIndexBeforeMetaDate(std::string meta_date) {
     if (ReportDateTime::IsMetaDateAfter(meta_date_in_row, meta_date)) return i - 1;
   }
 
-  return -1;
+  return last_index;
 
 }
 
