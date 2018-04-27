@@ -468,6 +468,6 @@ namespace tictac_track {
             ? comment_1.append(" ").append(comment_2)
             : comment_1.append(". ").append(comment_2);
 
-    return helper::String::ReplaceAll(merged, " , ", ",");
+    return helper::String::ReplaceAll(merged, " , ", ", ");
   }
 } // namespace tictac_lib
