@@ -298,10 +298,13 @@ namespace tictac_track {
     ReportParser *parser = new ReportParser();
     if (!parser->LoadReportHtml()) return false;
 
-    std::string date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date);
-    std::string date_next = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_End);
+    std::string date      = parser->GetColumnContent(row_index,     Report::ColumnIndexes::Index_Date);
+    std::string date_next = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_Date);
     if (0 != std::strcmp(date.c_str(), date_next.c_str())) {
-      tictac_track::AppError::PrintError("Cannot merge: Next entry is in different day");
+      tictac_track::AppError::PrintError(
+        (std::string("Cannot merge: Next entry is in different day (") 
+        + date.c_str() + " / " + date_next.c_str() + ")").c_str()
+      );
       return false;
     }
       
