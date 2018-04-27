@@ -234,6 +234,8 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 
 ### Command: merge (m): Merges two successive entries
 
+Only successive entries within the same day can be merged.
+
 #### Usage examples:
  
 `m 5` - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
