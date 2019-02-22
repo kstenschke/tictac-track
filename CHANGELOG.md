@@ -1,6 +1,10 @@
 Tictac-Track - Changelog
 ========================
 
+V1.4 
+----
+* Changed license to BSD-3-Clause
+
 V1.3
 ----
 * Added command: dayTasks (ud) - Sequentially view tasks of day and open related task URLs in browser
