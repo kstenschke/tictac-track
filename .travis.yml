@@ -2,7 +2,7 @@ language: cpp
 compiler:
   - gcc
 packages:
-  - gcc-4.9
+  - gcc-3.4
 script:
   - ./bin/linux/ttt
 after_success:
