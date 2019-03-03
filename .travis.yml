@@ -1,6 +1,8 @@
 language: cpp
 compiler:
   - gcc
+packages:
+  - gcc-4.9
 before_install:
   - sudo apt-get install libjson0 libjson0-dev
 script:
