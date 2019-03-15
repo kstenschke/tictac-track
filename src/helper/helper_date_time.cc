@@ -42,7 +42,7 @@ namespace helper {
     char buffer[80];
 
     time(&raw_time);
-    time_info = localtime(&raw_time);
+    time_info = localtime_r(&raw_time);
 
     if (0 != offset_days) AddDaysToDate(time_info, offset_days);
 
