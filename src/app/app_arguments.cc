@@ -304,5 +304,4 @@ AppCommand::Commands AppArguments::ResolveCommandName(int index) {
 
   return AppCommand::ResolveCommandByName(argv_[index]);
 }
-
 } // namespace tictac_lib

@@ -124,5 +124,4 @@ namespace tictac_track {
 
     return BrowseTimesheet(helper::String::ReplaceAll(url_raw, "#TASK#", task.c_str()));
   }
-
 } // namespace tictac_lib

@@ -33,8 +33,6 @@
 namespace tictac_track {
 
 class ReportRenderer : public Report {
- public:
-
  protected:
   // Amount of <tr> report rows
   int amount_rows_;
