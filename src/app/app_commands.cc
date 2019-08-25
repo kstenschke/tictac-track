@@ -72,5 +72,4 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
 
   return Command_Invalid;
 }
-
 } // namespace tictac_lib

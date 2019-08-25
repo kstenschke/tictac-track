@@ -153,5 +153,4 @@ namespace tictac_track {
 
     return helper::File::WriteToNewFile(report_file_path, content);
   }
-
 } // namespace tictac_lib

@@ -363,5 +363,4 @@ void AppHelp::PrintUnknownArgumentMessage(const char *arg) {
 
   PrintHelp(false, AppCommand::Commands::Command_Invalid);
 }
-
 } // namespace tictac_lib

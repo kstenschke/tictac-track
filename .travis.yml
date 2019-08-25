@@ -1,0 +1,8 @@
+language: cpp
+compiler:
+  - gcc
+packages:
+  - gcc-4.8
+script:
+  - ./bin/linux/ttt
+after_success:

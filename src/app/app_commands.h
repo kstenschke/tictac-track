@@ -71,7 +71,6 @@ class AppCommand {
 
   // Resolve command string (1st argument) to related command enum item (which allows e.g. switch)
   Commands Resolve();
-
 };
 } // namespace tictac_lib
 

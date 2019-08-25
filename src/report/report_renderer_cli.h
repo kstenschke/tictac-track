@@ -33,7 +33,6 @@
 namespace tictac_track {
 
 class ReportRendererCli : public ReportRenderer {
-
  public:
   // Constructor: init CLI ANSI color theme
   ReportRendererCli();

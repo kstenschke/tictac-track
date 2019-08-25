@@ -248,7 +248,6 @@ namespace tictac_track {
     }
 
     return last_index;
-
   }
 
   /**
