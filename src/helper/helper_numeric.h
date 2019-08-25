@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -24,8 +24,8 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CLASS_TIMETRACKERCL_HELPER_NUMERIC
-#define CLASS_TIMETRACKERCL_HELPER_NUMERIC
+#ifndef CLASS_TTT_HELPER_NUMERIC
+#define CLASS_TTT_HELPER_NUMERIC
 
 namespace helper {
 namespace Numeric {

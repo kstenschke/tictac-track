@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -83,7 +83,7 @@ bool ReportRenderer::ExtractPartsFromReport(int filter_offset) {
       case Scope_Day:
         if (!helper::String::Contains(row, rows_filter_)) {
           // Row does NOT contain the date to filter for: skip to next row
-          id_first_row_rendered_++;
+          ++id_first_row_rendered_;
           continue;
         }
         break;
@@ -94,14 +94,14 @@ bool ReportRenderer::ExtractPartsFromReport(int filter_offset) {
 
         if (0 != std::strcmp(week_number.c_str(), rows_filter_.c_str())) {
           // Week-column of row does NOT contain the week to filter for: skip to next row
-          id_first_row_rendered_++;
+          ++id_first_row_rendered_;
           continue;
         }
         break;
     }
 #pragma clang diagnostic pop
 
-    amount_rows_filtered++;
+    ++amount_rows_filtered;
 
     row = helper::String::ReplaceAll(row, "<td>", "");
     row = helper::String::ReplaceAll(row, "<td class=\"meta\">", "");

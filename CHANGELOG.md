@@ -1,6 +1,13 @@
 Tictac-Track - Changelog
 ========================
 
+V1.4.1
+-------
+* Added CONTRIBUTING.md
+* Changed: Use semantic versioning (https://semver.org/)
+* Improved: Move versioning info from source code into CMakeLists.txt
+* Improved use of code convention: Use prefix form for all preincrement / predecrement
+
 V1.4 
 ----
 * Changed license to BSD-3-Clause
@@ -39,5 +46,4 @@ V1.1
 
 v1.0
 ----
-
 * Initial release

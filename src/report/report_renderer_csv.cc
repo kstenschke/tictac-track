@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -128,7 +128,7 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
         csv_stream << "\"" << helper::String::CsvEncode(cells_[index_cell]) << "\"";
         csv_stream << (index_column == last_column ? ("\"" + helper::System::kNewline) : ",");
       }
-      index_cell++;
+      ++index_cell;
     }
   }
 

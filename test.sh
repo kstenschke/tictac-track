@@ -3,7 +3,7 @@
 ########################################################################################################################
 # Run functional tests written with bats - https://github.com/sstephenson/bats                                         #
 #                                                                                                                      #
-# Copyright (c) 2018, Kay Stenschke                                                                                    #
+# Copyright (c) 2018-2019, Kay Stenschke                                                                                    #
 # All rights reserved.                                                                                                 #
 #                                                                                                                      #
 # Install bats on Linux: sudo apt-get install bats                                                                     #

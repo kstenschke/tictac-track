@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -25,6 +25,7 @@
 */
 
 #include <iostream>
+#include "../config.h"
 #include "app_help.h"
 #include "app.h"
 
@@ -34,7 +35,7 @@ namespace tictac_track {
  * Print version information
  */
 void AppHelp::PrintVersion() {
-  std::cout << App::kAppName << " " << App::kAppVersion;
+  std::cout << App::kAppName << " v" << TTT_VERSION_MAJOR << "." << TTT_VERSION_MINOR << "." << TTT_VERSION_PATCH;
 }
 
 /**

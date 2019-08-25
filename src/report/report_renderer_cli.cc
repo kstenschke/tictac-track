@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -111,7 +111,7 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
       std::cout << "\r       ";
     }
     
-    i++;
+    ++i;
   }
   
   std::cout << "\n";
@@ -220,7 +220,7 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment,
     bool do_display = (task_number == -1 || 0 == std::strcmp(task_number_in_row.c_str(), task_number_str.c_str()))
                       && (!has_comment || helper::String::Contains(comment_in_row, comment));
     if (do_display) {
-      amount_rows_printed++;
+      ++amount_rows_printed;
 
       // New day: preceded by separation row
       if (index_cell > 0 && previous_day != cells_[index_cell + 2]) std::cout << separation_row << "\n";
@@ -249,7 +249,7 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment,
       }
 
       // Skip meta cell
-      index_cell++;
+      ++index_cell;
     }
 
     if (do_display) {

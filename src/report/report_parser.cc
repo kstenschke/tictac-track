@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -175,7 +175,7 @@ namespace tictac_track {
       if (HtmlContains(date_formatted)) return offset;
       if (date_formatted == first_date) return 0;
 
-      offset--;
+      --offset;
     }
   }
 

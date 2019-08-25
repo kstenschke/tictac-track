@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,7 @@ void AppLocale::Init() {
 }
 
 void AppLocale::InitActiveDictionary() {
-       if (0 == std::strcmp("de", locale_key_)) active_dictionary_ = dictionary_de_;
+  if (0 == std::strcmp("de", locale_key_)) active_dictionary_ = dictionary_de_;
   else if (0 == std::strcmp("dk", locale_key_)) active_dictionary_ = dictionary_dk_;
   else if (0 == std::strcmp("es", locale_key_)) active_dictionary_ = dictionary_es_;
   else if (0 == std::strcmp("fi", locale_key_)) active_dictionary_ = dictionary_fi_;

@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -52,7 +52,7 @@ unsigned long Numeric::GetAmountDigits(int number) {
   unsigned long digits = 0;
   while (number) {
     number /= 10;
-    digits++;
+    ++digits;
   }
 
   return digits;

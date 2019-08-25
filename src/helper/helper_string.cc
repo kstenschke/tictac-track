@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -166,7 +166,7 @@ bool String::IsNumeric(const std::string &str, bool allow_negative) {
   int index = 0;
   while (it != str.end() && (std::isdigit(*it) || (index == 0 && str[0] == '-'))) {
     ++it;
-    index++;
+    ++index;
   }
 
   return it == str.end();

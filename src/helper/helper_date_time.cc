@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2018, Kay Stenschke
+  Copyright (c) 2018-2019, Kay Stenschke
   All rights reserved.
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are met:
@@ -110,7 +110,7 @@ namespace helper {
 
     int hours   = 0;
     while(minutes > 59) {
-      hours++;
+      ++hours;
       minutes -= 60;
       if (hours > 23) hours = 0;
     }

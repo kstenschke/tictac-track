@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(ttt
-        VERSION 1.4)
+        VERSION 1.4.1)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -11,9 +11,14 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/linux)
 endif()
 
-include_directories(
-        "${CMAKE_SOURCE_DIR}/src"
-)
+include_directories("${CMAKE_SOURCE_DIR}/src")
+
+set (TTT_EXECUTABLE_NAME "ttt")
+set (TTT_VERSION_MAJOR 1)
+set (TTT_VERSION_MINOR 4)
+set (TTT_VERSION_PATCH 1)
+# Generate config.h from config.h.in, with injected CMake values
+configure_file (src/config.h.in ../src/config.h)
 
 # tictac-track client executable
 add_executable(ttt
