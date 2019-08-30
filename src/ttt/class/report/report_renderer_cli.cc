@@ -373,32 +373,30 @@ void ReportRendererCli::InitAnsiTheme() {
 
   switch (theme_id) {
     case THEME_MAC_TERMINAL_DRACULA:
-      //theme_style_header_  = "\033[0;100m";
       theme_style_header_ = "\033[0;100m";
       theme_style_default_ = "\033[17;36m";
-      theme_style_grid_ = "\033[0m";
+      theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
     case THEME_LINUX_BASH_DRACULA:
-      // Linux Bash Dracula
       theme_style_header_ = "\033[1;40m";
       theme_style_default_ = "\033[17;34m";
-      theme_style_grid_ = "\033[0m";
+      theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
     case THEME_LINUX_BASH_ALTERNATIVE:
       theme_style_header_ = "\033[1;44m";
       theme_style_default_ = "\033[17;36m";
-      theme_style_grid_ = "\033[0m";
+      theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
     case THEME_LINUX_BASH_DEFAULT:
       theme_style_header_ = "\033[17;104m";
       theme_style_default_ = "\033[17;34m";
-      theme_style_grid_ = "\033[0m";
+      theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
     case THEME_MAC_TERMINAL_VISOR:
     default:
       theme_style_header_ = "\033[1;44m";
       theme_style_default_ = "\033[17;100m";
-      theme_style_grid_ = "\033[0m";
+      theme_style_grid_ = helper::Tui::kAnsiFormatReset;
   }
 }
-} // namespace tictac_lib
+} // namespace tictac_trac
