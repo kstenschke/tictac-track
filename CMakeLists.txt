@@ -22,13 +22,13 @@ configure_file (src/ttt/config.h.in ../src/ttt/config.h)
 
 # tictac-track client executable
 add_executable(ttt
-        src/ttt/app/app.cc
-        src/ttt/app/app_arguments.cc
-        src/ttt/app/app_commands.cc
-        src/ttt/app/app_config.cc
-        src/ttt/app/app_error.cc
-        src/ttt/app/app_help.cc
-        src/ttt/app/app_locale.cc
+        src/ttt/class/app/app.cc
+        src/ttt/class/app/app_arguments.cc
+        src/ttt/class/app/app_commands.cc
+        src/ttt/class/app/app_config.cc
+        src/ttt/class/app/app_error.cc
+        src/ttt/class/app/app_help.cc
+        src/ttt/class/app/app_locale.cc
         
         src/ttt/helper/helper_date_time.cc
         src/ttt/helper/helper_file.cc
@@ -37,16 +37,16 @@ add_executable(ttt
         src/ttt/helper/helper_string.cc
         src/ttt/helper/helper_system.cc
         
-        src/ttt/report/report_browser.cc
-        src/ttt/report/report_crud.cc
-        src/ttt/report/report_date_time.cc
-        src/ttt/report/report_file.cc
-        src/ttt/report/report_parser.cc
-        src/ttt/report/report_recalculator.cc
-        src/ttt/report/report_renderer.cc
-        src/ttt/report/report_renderer_cli.cc
-        src/ttt/report/report_renderer_csv.cc
-        src/ttt/report/report.cc
+        src/ttt/class/report/report_browser.cc
+        src/ttt/class/report/report_crud.cc
+        src/ttt/class/report/report_date_time.cc
+        src/ttt/class/report/report_file.cc
+        src/ttt/class/report/report_parser.cc
+        src/ttt/class/report/report_recalculator.cc
+        src/ttt/class/report/report_renderer.cc
+        src/ttt/class/report/report_renderer_cli.cc
+        src/ttt/class/report/report_renderer_csv.cc
+        src/ttt/class/report/report.cc
 
         src/vendor/entities/decode_html_entities_utf8.cc
         src/ttt/main.cc)

@@ -33,12 +33,12 @@
 #include "report_parser.h"
 #include "report_file.h"
 #include "report_crud.h"
-#include "../helper/helper_string.h"
+#include "../../helper/helper_string.h"
 #include "../app/app_config.h"
 #include "../app/app_locale.h"
-#include "../helper/helper_date_time.h"
+#include "../../helper/helper_date_time.h"
 #include "../app/app_error.h"
-#include "../helper/helper_numeric.h"
+#include "../../helper/helper_numeric.h"
 
 namespace tictac_track {
 

@@ -28,14 +28,14 @@
 #include <cstring>
 
 #include "report_renderer_cli.h"
-#include "../helper/helper_string.h"
+#include "../../helper/helper_string.h"
 #include "../app/app_config.h"
-#include "../helper/helper_numeric.h"
+#include "../../helper/helper_numeric.h"
 #include "report_parser.h"
 #include "report_browser.h"
-#include "../helper/helper_date_time.h"
-#include "../helper/helper_html.h"
-#include "../helper/helper_system.h"
+#include "../../helper/helper_date_time.h"
+#include "../../helper/helper_html.h"
+#include "../../helper/helper_system.h"
 #include "../app/app_error.h"
 
 namespace tictac_track {

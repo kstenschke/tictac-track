@@ -29,10 +29,10 @@
 #include <cstring>
 
 #include "app_arguments.h"
-#include "../helper/helper_string.h"
-#include "../helper/helper_html.h"
+#include "../../helper/helper_string.h"
+#include "../../helper/helper_html.h"
 #include "../report/report_renderer_cli.h"
-#include "../helper/helper_date_time.h"
+#include "../../helper/helper_date_time.h"
 
 namespace tictac_track {
 

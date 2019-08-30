@@ -38,10 +38,10 @@
 #include "../report/report_renderer_cli.h"
 #include "../app/app_error.h"
 #include "../report/report_recalculator.h"
-#include "../helper/helper_numeric.h"
-#include "../helper/helper_string.h"
-#include "../helper/helper_date_time.h"
-#include "../helper/helper_system.h"
+#include "../../helper/helper_numeric.h"
+#include "../../helper/helper_string.h"
+#include "../../helper/helper_date_time.h"
+#include "../../helper/helper_system.h"
 
 namespace tictac_track {
 

@@ -24,9 +24,9 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "app/app_config.h"
-#include "report/report_crud.h"
-#include "app/app.h"
+#include "class/app/app_config.h"
+#include "class/report/report_crud.h"
+#include "class/app/app.h"
 
 /**
   * @param argc Amount of arguments received

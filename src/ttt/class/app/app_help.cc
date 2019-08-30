@@ -25,7 +25,7 @@
 */
 
 #include <iostream>
-#include "../config.h"
+#include "../../config.h"
 #include "app_help.h"
 #include "app.h"
 
