@@ -26,6 +26,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <ttt/helper/helper_tui.h>
 
 #include "report_renderer_cli.h"
 #include "../../helper/helper_string.h"
@@ -39,11 +40,6 @@
 #include "../app/app_error.h"
 
 namespace tictac_track {
-
-const std::string ReportRendererCli::kAnsiFormatReset = "\033[0m";
-const std::string ReportRendererCli::kAnsiFormatBold = "\033[1m";
-const std::string ReportRendererCli::kAnsiFormatUnderline = "\033[4m";
-const std::string ReportRendererCli::kAnsiFormatInverted = "\033[7m";
 
 /**
  * Constructor: init CLI ANSI color theme
@@ -170,7 +166,7 @@ void ReportRendererCli::PrintHeader(bool display_id, bool display_day_sum,
 
     if (display_id && offset_id_column_ == index_column) PrintHeaderCellForId(false);
   }
-  std::cout << " " << kAnsiFormatReset << "\n";
+  std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
 }
 
 void ReportRendererCli::PrintHeaderCellForId(bool is_left_most) {
@@ -254,14 +250,14 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment,
     }
 
     if (do_display) {
-      std::cout << " " << kAnsiFormatReset << "\n";
-      if (is_even) std::cout << kAnsiFormatReset;
+      std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
+      if (is_even) std::cout << helper::Tui::kAnsiFormatReset;
     }
   }
 
   if (display_viewed_sum && 0 < sum_task_minutes) PrintDurationSums(task_number, sum_task_minutes);
 
-  std::cout << kAnsiFormatReset;
+  std::cout << helper::Tui::kAnsiFormatReset;
 
   return amount_rows_printed;
 }
@@ -295,7 +291,7 @@ void ReportRendererCli::PrintColumn(int index_cell, bool is_even, int index_row,
                                     int index_column, bool emphasize, bool display_id) {
   if (index_column > 1) {
     // Skip column 0 (meta)
-    std::cout << (is_even ? theme_style_default_ : theme_style_grid_) << "| " << kAnsiFormatReset;
+    std::cout << (is_even ? theme_style_default_ : theme_style_grid_) << "| " << helper::Tui::kAnsiFormatReset;
   } else if (index_column == 1 && offset_id_column_ > 0) std::cout << " ";
 
   if (index_column > 0) {
@@ -303,9 +299,9 @@ void ReportRendererCli::PrintColumn(int index_cell, bool is_even, int index_row,
     if (index_column == Index_Comment) content = helper::Html::Decode(content);
 
     std::cout << (is_even ? theme_style_default_ : "")
-              << (emphasize ? kAnsiFormatInverted : "")
+              << (emphasize ? helper::Tui::kAnsiFormatInverted : "")
               << content
-              << (emphasize ? kAnsiFormatReset : "")
+              << (emphasize ? helper::Tui::kAnsiFormatReset : "")
               << " ";
   }
 
@@ -336,7 +332,7 @@ std::string ReportRendererCli::RenderSeparationRow() {
   for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++)
     separation_row.append(std::string(column_content_max_len_[indexColumn] + 3, '-'));
 
-  return separation_row + kAnsiFormatReset;
+  return separation_row + helper::Tui::kAnsiFormatReset;
 }
 
 void ReportRendererCli::PrintRowCellForId(bool is_left_most, int index_row) {
@@ -376,34 +372,30 @@ void ReportRendererCli::InitAnsiTheme() {
   int theme_id = helper::String::ToInt(config.GetConfigValue("cli_theme").c_str(), 0);
 
   switch (theme_id) {
-    case 4:
-      // Mac OS Terminal Dracula
+    case THEME_MAC_TERMINAL_DRACULA:
       //theme_style_header_  = "\033[0;100m";
       theme_style_header_ = "\033[0;100m";
       theme_style_default_ = "\033[17;36m";
       theme_style_grid_ = "\033[0m";
       break;
-    case 3:
+    case THEME_LINUX_BASH_DRACULA:
       // Linux Bash Dracula
       theme_style_header_ = "\033[1;40m";
       theme_style_default_ = "\033[17;34m";
       theme_style_grid_ = "\033[0m";
       break;
-    case 2:
-      // Linux Bash alternative
+    case THEME_LINUX_BASH_ALTERNATIVE:
       theme_style_header_ = "\033[1;44m";
       theme_style_default_ = "\033[17;36m";
       theme_style_grid_ = "\033[0m";
       break;
-    case 1:
-      // Linux Bash default
+    case THEME_LINUX_BASH_DEFAULT:
       theme_style_header_ = "\033[17;104m";
       theme_style_default_ = "\033[17;34m";
       theme_style_grid_ = "\033[0m";
       break;
-    case 0:
+    case THEME_MAC_TERMINAL_VISOR:
     default:
-      // Mac OS Terminal "Visor"
       theme_style_header_ = "\033[1;44m";
       theme_style_default_ = "\033[17;100m";
       theme_style_grid_ = "\033[0m";

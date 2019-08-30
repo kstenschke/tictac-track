@@ -35,6 +35,14 @@ namespace tictac_track {
 
 class ReportRendererCli : public ReportRenderer {
  public:
+  enum Themes {
+    THEME_MAC_TERMINAL_VISOR = 0,
+    THEME_LINUX_BASH_DEFAULT = 1,
+    THEME_LINUX_BASH_ALTERNATIVE = 2,
+    THEME_LINUX_BASH_DRACULA = 3,
+    THEME_MAC_TERMINAL_DRACULA = 4,
+  };
+
   // Constructor: init CLI ANSI color theme
   ReportRendererCli();
 
@@ -43,11 +51,6 @@ class ReportRendererCli : public ReportRenderer {
   bool PrintBrowseDayTasks(int days_offset = 0);
   
  private:
-  static const std::string kAnsiFormatReset;
-  static const std::string kAnsiFormatBold;
-  static const std::string kAnsiFormatInverted;
-  static const std::string kAnsiFormatUnderline;
-
   std::string GetMessageHintClosestDayEntryBefore(int lookbehind_amount);
 
   std::string GetActiveScopeName();

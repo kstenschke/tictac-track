@@ -27,6 +27,7 @@
 #include <string>
 #include <iostream>
 #include <cstring>
+#include <ttt/helper/helper_tui.h>
 
 #include "app.h"
 #include "app_config.h"
@@ -577,7 +578,7 @@ bool App::View() {
   ReportRendererCli renderer;
   
   AppConfig config = AppConfig::GetInstance();
-  if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
+  if (config.GetConfigValue("clear_before_view") == "1") helper::Tui::ClearConsole();
   
   return renderer.PrintToCli(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
                              arguments_->GetNegativeNumber(), arguments_->GetTaskNumber(), arguments_->GetComment());
@@ -587,7 +588,7 @@ bool App::ViewWeek() {
   ReportRendererCli renderer;
   
   AppConfig config = AppConfig::GetInstance();
-  if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
+  if (config.GetConfigValue("clear_before_view") == "1") helper::Tui::ClearConsole();
 
   return renderer.PrintToCli(Report::RenderScopes::Scope_Week, arguments_->GetNegativeNumber(),
                              arguments_->GetTaskNumber(), arguments_->GetComment());
@@ -600,7 +601,7 @@ bool App::BrowseDayTasks() {
   ReportRendererCli renderer;
 
   AppConfig config = AppConfig::GetInstance();
-  if (config.GetConfigValue("clear_before_view") == "1") helper::System::ClearConsole();
+  if (config.GetConfigValue("clear_before_view") == "1") helper::Tui::ClearConsole();
 
   return renderer.PrintBrowseDayTasks(arguments_->GetNegativeNumber());
 }

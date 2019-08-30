@@ -95,8 +95,5 @@ void System::WaitForEnterKeyPress() {
   system("stty -cbreak");
 }
 
-void System::ClearConsole() {
-  system("clear");
-}
 } // namespace helper
 

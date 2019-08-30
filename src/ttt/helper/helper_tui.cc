@@ -24,47 +24,13 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CLASS_TTT_HELPER_SYSTEM
-#define CLASS_TTT_HELPER_SYSTEM
+#include <cstdlib>
+#include "helper_tui.h"
 
 namespace helper {
-namespace System {
-// OS, newline
-#ifdef _WIN32
-const std::string kOsName = "win32";
-const std::string kNewline = "\r\n";
-#ifdef _WIN64
-const std::string kOsName = "win64";
-const std::string kNewline = "\r\n";
-#else
-const std::string kOsName = "win";
-const std::string kNewline = "\r\n";
-#endif
-#elif __APPLE__
-const std::string kOsName = "macOs";
-const std::string kNewline = "\n";
-#elif __linux__
-const std::string kOsName = "linux";
-const std::string kNewline = "\n";
-#elif __unix__ // all unices not caught above
-const std::string kOsName = "unix";
-const std::string kNewline = "\n";
-#else
-const std::string kOsName = "unknown";
-const std::string kNewline = "\n";
-#endif
 
-// Get absolute path to application executable
-extern std::string GetBinaryPath(char** argv, size_t strLenExecutableName);
+void Tui::ClearConsole() {
+  system("clear");
+}
 
-// Get language key from system default locale
-extern std::string GetLanguageKey();
-
-bool GetYesOrNoKeyPress();
-void WaitForEnterKeyPress();
-
-} // namespace System
 } // namespace helper
-
-
-#endif

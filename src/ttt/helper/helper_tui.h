@@ -24,47 +24,21 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CLASS_TTT_HELPER_SYSTEM
-#define CLASS_TTT_HELPER_SYSTEM
+#ifndef CLASS_TTT_HELPER_TUI
+#define CLASS_TTT_HELPER_TUI
 
+#include <string>
 namespace helper {
-namespace System {
-// OS, newline
-#ifdef _WIN32
-const std::string kOsName = "win32";
-const std::string kNewline = "\r\n";
-#ifdef _WIN64
-const std::string kOsName = "win64";
-const std::string kNewline = "\r\n";
-#else
-const std::string kOsName = "win";
-const std::string kNewline = "\r\n";
-#endif
-#elif __APPLE__
-const std::string kOsName = "macOs";
-const std::string kNewline = "\n";
-#elif __linux__
-const std::string kOsName = "linux";
-const std::string kNewline = "\n";
-#elif __unix__ // all unices not caught above
-const std::string kOsName = "unix";
-const std::string kNewline = "\n";
-#else
-const std::string kOsName = "unknown";
-const std::string kNewline = "\n";
-#endif
+namespace Tui {
 
-// Get absolute path to application executable
-extern std::string GetBinaryPath(char** argv, size_t strLenExecutableName);
+const std::string kAnsiFormatReset = "\033[0m";
+const std::string kAnsiFormatBold = "\033[1m";
+const std::string kAnsiFormatUnderline = "\033[4m";
+const std::string kAnsiFormatInverted = "\033[7m";
 
-// Get language key from system default locale
-extern std::string GetLanguageKey();
+void ClearConsole();
 
-bool GetYesOrNoKeyPress();
-void WaitForEnterKeyPress();
-
-} // namespace System
+} // namespace Tui
 } // namespace helper
-
 
 #endif

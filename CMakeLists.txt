@@ -36,7 +36,8 @@ add_executable(ttt
         src/ttt/helper/helper_numeric.cc
         src/ttt/helper/helper_string.cc
         src/ttt/helper/helper_system.cc
-        
+        src/ttt/helper/helper_tui.cc
+
         src/ttt/class/report/report_browser.cc
         src/ttt/class/report/report_crud.cc
         src/ttt/class/report/report_date_time.cc
