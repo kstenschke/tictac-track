@@ -28,6 +28,7 @@
 #define CLASS_TTT_REPORT_RENDERER
 
 #include <vector>
+
 #include "report.h"
 
 namespace tictac_track {

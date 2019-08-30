@@ -28,15 +28,16 @@
 #include <sstream>
 #include <vector>
 #include <cstring>
+
 #include "app_config.h"
 #include "app.h"
-#include "helper/helper_file.h"
-#include "report/report_file.h"
-#include "helper/helper_string.h"
-#include "helper/helper_system.h"
+#include "../helper/helper_file.h"
+#include "../report/report_file.h"
+#include "../helper/helper_string.h"
+#include "../helper/helper_system.h"
 #include "app_locale.h"
-#include "helper/helper_numeric.h"
-#include "report/report_crud.h"
+#include "../helper/helper_numeric.h"
+#include "../report/report_crud.h"
 
 namespace tictac_track {
 const std::string AppConfig::kFilename = ".ttt.ini";

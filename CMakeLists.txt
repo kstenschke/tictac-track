@@ -18,32 +18,35 @@ set (TTT_VERSION_MAJOR 1)
 set (TTT_VERSION_MINOR 4)
 set (TTT_VERSION_PATCH 1)
 # Generate config.h from config.h.in, with injected CMake values
-configure_file (src/config.h.in ../src/config.h)
+configure_file (src/ttt/config.h.in ../src/ttt/config.h)
 
 # tictac-track client executable
 add_executable(ttt
-        src/app/app.cc
-        src/app/app_arguments.cc
-        src/app/app_commands.cc
-        src/app/app_config.cc
-        src/app/app_error.cc
-        src/app/app_help.cc
-        src/app/app_locale.cc
-        src/helper/helper_date_time.cc
-        src/helper/helper_file.cc
-        src/helper/helper_html.cc
-        src/helper/helper_numeric.cc
-        src/helper/helper_string.cc
-        src/helper/helper_system.cc
-        src/report/report_browser.cc
-        src/report/report_crud.cc
-        src/report/report_date_time.cc
-        src/report/report_file.cc
-        src/report/report_parser.cc
-        src/report/report_recalculator.cc
-        src/report/report_renderer.cc
-        src/report/report_renderer_cli.cc
-        src/report/report_renderer_csv.cc
-        src/report/report.cc
+        src/ttt/app/app.cc
+        src/ttt/app/app_arguments.cc
+        src/ttt/app/app_commands.cc
+        src/ttt/app/app_config.cc
+        src/ttt/app/app_error.cc
+        src/ttt/app/app_help.cc
+        src/ttt/app/app_locale.cc
+        
+        src/ttt/helper/helper_date_time.cc
+        src/ttt/helper/helper_file.cc
+        src/ttt/helper/helper_html.cc
+        src/ttt/helper/helper_numeric.cc
+        src/ttt/helper/helper_string.cc
+        src/ttt/helper/helper_system.cc
+        
+        src/ttt/report/report_browser.cc
+        src/ttt/report/report_crud.cc
+        src/ttt/report/report_date_time.cc
+        src/ttt/report/report_file.cc
+        src/ttt/report/report_parser.cc
+        src/ttt/report/report_recalculator.cc
+        src/ttt/report/report_renderer.cc
+        src/ttt/report/report_renderer_cli.cc
+        src/ttt/report/report_renderer_csv.cc
+        src/ttt/report/report.cc
+
         src/vendor/entities/decode_html_entities_utf8.cc
-        src/main.cc)
+        src/ttt/main.cc)

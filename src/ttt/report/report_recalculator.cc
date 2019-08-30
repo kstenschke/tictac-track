@@ -25,9 +25,10 @@
 */
 
 #include <string>
+
 #include "report_recalculator.h"
-#include "helper/helper_date_time.h"
-#include "app/app_config.h"
+#include "../helper/helper_date_time.h"
+#include "../app/app_config.h"
 #include "report_file.h"
 #include "report_crud.h"
 

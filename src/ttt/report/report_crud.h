@@ -28,6 +28,7 @@
 #define CLASS_TTT_REPORT_CRUD
 
 #include <string>
+
 #include "report_file.h"
 #include "report_date_time.h"
 

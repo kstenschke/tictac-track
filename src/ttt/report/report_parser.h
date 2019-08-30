@@ -28,8 +28,9 @@
 #define CLASS_TTT_REPORT_HTML_ANALYZER
 
 #include <vector>
+
 #include "report.h"
-#include "app/app_commands.h"
+#include "../app/app_commands.h"
 
 namespace tictac_track {
   class ReportParser : public Report {

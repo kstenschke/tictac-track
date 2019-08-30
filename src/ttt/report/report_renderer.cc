@@ -26,13 +26,14 @@
 
 #include <fstream>
 #include <cstring>
+
 #include "report_renderer.h"
-#include "app/app_config.h"
-#include "helper/helper_file.h"
-#include "helper/helper_string.h"
-#include "helper/helper_html.h"
+#include "../app/app_config.h"
+#include "../helper/helper_file.h"
+#include "../helper/helper_string.h"
+#include "../helper/helper_html.h"
 #include "report_parser.h"
-#include "helper/helper_numeric.h"
+#include "../helper/helper_numeric.h"
 
 namespace tictac_track {
 

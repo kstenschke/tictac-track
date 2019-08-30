@@ -27,15 +27,16 @@
 #include <iostream>
 #include <sstream>
 #include <cstring>
+
 #include "report_crud.h"
-#include "app/app_config.h"
-#include "helper/helper_file.h"
+#include "../app/app_config.h"
+#include "../helper/helper_file.h"
 #include "report_parser.h"
 #include "report_recalculator.h"
-#include "helper/helper_string.h"
-#include "helper/helper_numeric.h"
-#include "helper/helper_date_time.h"
-#include "app/app_error.h"
+#include "../helper/helper_string.h"
+#include "../helper/helper_numeric.h"
+#include "../helper/helper_date_time.h"
+#include "../app/app_error.h"
 
 namespace tictac_track {
 

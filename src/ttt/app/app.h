@@ -29,7 +29,7 @@
 
 #include "app_commands.h"
 #include "app_arguments.h"
-#include "report/report_parser.h"
+#include "../report/report_parser.h"
 #include "../report/report.h"
 
 namespace tictac_track {
