@@ -27,6 +27,8 @@
 #ifndef CLASS_TTT_APP_COMMAND
 #define CLASS_TTT_APP_COMMAND
 
+#include <string>
+
 namespace tictac_track {
 
 class AppCommand {

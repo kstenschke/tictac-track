@@ -70,24 +70,20 @@ bool App::Process() {
   bool keep_backup;
 
   switch (command_->GetResolved()) {
-    case AppCommand::Command_BrowseTimesheet:
-      return ReportBrowser::BrowseTimesheet();
-    case AppCommand::Command_BrowseTaskUrl:
-      return BrowseTaskUrl();
+    case AppCommand::Command_BrowseTimesheet:return ReportBrowser::BrowseTimesheet();
+    case AppCommand::Command_BrowseTaskUrl:return BrowseTaskUrl();
     case AppCommand::Command_Comment:
       ReportFile::BackupReportTemporary();
       keep_backup = UpdateComment();
       break;
-    case AppCommand::Command_Csv:
-      return ExportCsv();
+    case AppCommand::Command_Csv:return ExportCsv();
     case AppCommand::Command_Date:
       return DisplayDate();
     case AppCommand::Command_Day:
       ReportFile::BackupReportTemporary();
       keep_backup = AddFullDayEntry();
       break;
-    case AppCommand::Command_Help:
-      return Help();
+    case AppCommand::Command_Help:return Help();
     case AppCommand::Command_Merge:
       ReportFile::BackupReportTemporary();
       keep_backup = Merge();
@@ -126,12 +122,9 @@ bool App::Process() {
       AppHelp::PrintVersion();
       std::cout << "\n";
       return true;
-    case AppCommand::Command_View:
-      return View();
-    case AppCommand::Command_ViewWeek:
-      return ViewWeek();
-    case AppCommand::Command_BrowseDayTasks:
-      return BrowseDayTasks();
+    case AppCommand::Command_View:return View();
+    case AppCommand::Command_ViewWeek:return ViewWeek();
+    case AppCommand::Command_BrowseDayTasks:return BrowseDayTasks();
     case AppCommand::Command_Invalid:
     default:
       AppHelp::PrintUnknownArgumentMessage(arguments_->argv_[1]);
