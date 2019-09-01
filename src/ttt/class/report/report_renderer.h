@@ -28,6 +28,7 @@
 #define CLASS_TTT_REPORT_RENDERER
 
 #include <vector>
+#include <ttt/class/app/app_config.h>
 
 #include "report.h"
 
@@ -50,7 +51,7 @@ class ReportRenderer : public Report {
   int id_first_row_rendered_ = 0;
 
   // Extract from timesheet HTML: amount columns, column titles, column max. length, rows amount, cells content
-  bool ExtractPartsFromReport(int filter_offset);
+  bool ExtractPartsFromReport(int filter_offset, std::string html = "");
 
  private:
   std::string ExtractTheadFromTable(std::string &table);

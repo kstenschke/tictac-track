@@ -40,13 +40,15 @@ namespace tictac_track {
 /**
  * Extract from timesheet HTML: amount columns, column titles, column max. length, rows amount, cells content
  */
-bool ReportRenderer::ExtractPartsFromReport(int filter_offset) {
-  AppConfig &config = AppConfig::GetInstance();
-  std::ifstream file(config.GetReportFilePath());
-  if (!file) return false;
+bool ReportRenderer::ExtractPartsFromReport(int filter_offset, std::string html) {
+  if (html.empty()) {
+    AppConfig &config = AppConfig::GetInstance();
+    std::ifstream file(config.GetReportFilePath());
+    if (!file) return false;
 
-  std::string html = helper::File::GetFileContents(file);
-  if (html.empty()) return false;
+    html = helper::File::GetFileContents(file);
+    if (html.empty()) return false;
+  }
 
   html = helper::String::ReplaceAll(html, "\n", "");
   std::string table = helper::String::GetSubStrBetween(html, "<table border=\"1\">", "</table>");

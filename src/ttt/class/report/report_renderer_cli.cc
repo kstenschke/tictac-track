@@ -27,6 +27,8 @@
 #include <iostream>
 #include <cstring>
 #include <ttt/helper/helper_tui.h>
+#include <fstream>
+#include <ttt/helper/helper_file.h>
 
 #include "report_renderer_cli.h"
 #include "../../helper/helper_string.h"
@@ -84,14 +86,21 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
   
   auto *browser = new ReportBrowser();
-  
+
+  AppConfig &config = AppConfig::GetInstance();
+  std::ifstream file(config.GetReportFilePath());
+  if (!file) return false;
+
+  std::string html = helper::File::GetFileContents(file);
+  if (html.empty()) return false;
+
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
   std::vector<std::string> tasks = parser->GetTasksOfDay(date);
   int amount_tasks = tasks.size();
   int i = 1;
   for(auto const &task: tasks) {
     cells_.clear();
-    if (!ExtractPartsFromReport(days_offset)) return false;
+    if (!ExtractPartsFromReport(days_offset, html)) return false;
     max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
     
     PrintHeader(false, false, false);

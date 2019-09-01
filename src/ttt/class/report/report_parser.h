@@ -87,7 +87,6 @@ namespace tictac_track {
       // Replace/insert content of given column of given row, return changed html
       static bool UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
                                std::string content);
-
       // Load report HTML, replace given column content, save changed report, return bool: succeeded?
       static bool UpdateColumn(int row_index, Report::ColumnIndexes column_index, std::string content);
 
@@ -100,7 +99,6 @@ namespace tictac_track {
 
       static bool IsAnyEntryRunning(std::string &html);
       bool IsAnyEntryRunning();
-
       bool IsEntryRunning(int row_index);
 
       bool HtmlContains(std::string &str);

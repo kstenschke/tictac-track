@@ -7,7 +7,8 @@ V1.4.1
 * Changed: Use semantic versioning (https://semver.org/)
 * Changed: Use sub directory src/ttt to allow sibling projects
 * Improved: Move versioning info from source code into CMakeLists.txt
-* Improved use of code convention: Use prefix form for all preincrement / predecrement
+* Improved CLI rendering speed (reduced redundant file operations)
+* Improved use of code convention: Use prefix form for all pre-increment / -decrement
 * Improved Mac compatibility of localtime_r usage
 
 V1.4 
