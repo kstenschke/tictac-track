@@ -47,6 +47,6 @@ class ReportRendererCsv : public ReportRenderer {
   // Render timesheet to CSV
   std::string RenderCsv(RenderScopes scope);
 };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

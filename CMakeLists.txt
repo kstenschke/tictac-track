@@ -1,22 +1,22 @@
 cmake_minimum_required(VERSION 3.5)
 project(ttt
-        VERSION 1.4.1)
+        VERSION 1.5.0)
 
 set(CMAKE_CXX_STANDARD 11)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/mac)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/mac)
 else()
     # Linux
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/linux)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/linux)
 endif()
 
 include_directories("${CMAKE_SOURCE_DIR}/src")
 
 set (TTT_EXECUTABLE_NAME "ttt")
 set (TTT_VERSION_MAJOR 1)
-set (TTT_VERSION_MINOR 4)
-set (TTT_VERSION_PATCH 1)
+set (TTT_VERSION_MINOR 5)
+set (TTT_VERSION_PATCH 0)
 # Generate config.h from config.h.in, with injected CMake values
 configure_file (src/ttt/config.h.in ../src/ttt/config.h)
 

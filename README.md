@@ -102,6 +102,8 @@ Commands Overview
 | view / v          | Display timesheet in commandline
 | week / w          | Display week out of timesheet in commandline
 | csv               | Export timesheet to CSV file
+| csvdt             | Output tasks tracked in current day as CSV
+| csvrtn            | Output 50 recent task numbers as CSV
 | url / u           | Open external task URL in web browser
 | dayTasks / ud     | Display tasks of day sequentially in CLI and web browser
 
@@ -437,7 +439,7 @@ If you find a bug or have an enhancement request, please file an issue on the gi
 Author and License
 ------------------
 
-Written by Kay Stenschke in 2018.
+Written by Kay Stenschke in 2018-2019.
 Tictac-Track is licensed under the [New BSD License](http://opensource.org/licenses/BSD-3-Clause)
 
 > Copyright (c), Kay Stenschke

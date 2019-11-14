@@ -38,4 +38,4 @@ bool AppError::PrintError(const char *message, int n) {
   std::cout << message << n << "\n";
   return false;
 }
-} // namespace tictac_lib
+} // namespace tictac_track

@@ -108,6 +108,6 @@ namespace tictac_track {
 
       bool IsMergeableAmountMinutes(int amount_minutes);
   };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

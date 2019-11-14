@@ -50,6 +50,6 @@ namespace tictac_track {
       static void BrowseOnLinux(std::string url);
       static void BrowseOnMac(std::string url);
   };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

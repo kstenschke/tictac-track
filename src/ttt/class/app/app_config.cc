@@ -269,4 +269,4 @@ int AppConfig::GetDefaultThemeIdByOs() {
          // Blue theme w/ zebra-look, optimized for Linux
          : 0;
 }
-} // namespace tictac_lib
+} // namespace tictac_track

@@ -117,6 +117,6 @@ namespace tictac_track {
     private:
       int GetIndexFirstEntryOfDate(std::string &date);
   };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

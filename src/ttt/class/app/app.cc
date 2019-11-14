@@ -97,6 +97,10 @@ bool App::Process() {
       ReportFile::BackupReportTemporary();
       keep_backup = Resume();
       break;
+    case AppCommand::Command_CsvRecentTaskNumbers:
+      return CsvRecentTaskNumbers();
+    case AppCommand::Command_CsvDayTracks:
+      return CsvTodayTracks();
     case AppCommand::Command_Remove:
       ReportFile::BackupReportTemporary();
       keep_backup = Remove();
@@ -415,9 +419,8 @@ bool App::Start() {
     case AppArguments::ArgumentType_RenderScope:
     case AppArguments::ArgumentType_Time:
       return false;
+    default:return false;
   }
-
-  return false;
 }
 
 /**
@@ -554,6 +557,7 @@ bool App::UpdateTime(Report::ColumnIndexes column_index) {
     // Fallback: Try find index of time-argument now: if entry-index is argument 2, than time is 3, if entry-index is 3- time is 2.
     arguments_->argument_index_time_ = arguments_->argument_index_entry_id_ == 2 ? 3 : 2;
   }
+
   if (-1 != arguments_->argument_index_time_) {
     time = arguments_->ResolveTime(arguments_->argument_index_time_);
     if (!time.empty()) {
@@ -594,6 +598,18 @@ bool App::ViewWeek() {
                              arguments_->GetTaskNumber(), arguments_->GetComment());
 }
 
+bool App::CsvRecentTaskNumbers() {
+  int amount = arguments_->GetTaskNumber();
+
+  std::cout << "@todo implement print csv of 50 recent task numbers...";
+  return true;
+}
+
+bool App::CsvTodayTracks() {
+  std::cout << "@todo implement print csv of tracks of today...";
+  return true;
+}
+
 /**
  * View entries sequentially, opening related task URL at the same time
  */
@@ -605,4 +621,4 @@ bool App::BrowseDayTasks() {
 
   return renderer.PrintBrowseDayTasks(arguments_->GetNegativeNumber());
 }
-} // namespace tictac_lib
+} // namespace tictac_track

@@ -58,6 +58,6 @@ class ReportRecalculator : public ReportParser {
 
   void ClearTaskMaps();
 };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

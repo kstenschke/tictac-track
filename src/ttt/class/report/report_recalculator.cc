@@ -195,4 +195,4 @@ std::string ReportRecalculator::CalculateAndUpdateDuration(int row_index) {
 
   return html;
 }
-} // namespace tictac_lib
+} // namespace tictac_track

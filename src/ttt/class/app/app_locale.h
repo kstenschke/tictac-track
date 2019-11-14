@@ -247,6 +247,6 @@ namespace tictac_track {
         {"timesheet",      "Zaman planı"},
         {"week",           "Hafta"}};
   };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

@@ -83,4 +83,4 @@ std::string AppLocale::Translate(const char *label, bool html_encode) {
 
   return helper::Html::Encode(translated);
 }
-} // namespace tictac_lib
+} // namespace tictac_track

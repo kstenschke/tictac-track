@@ -60,22 +60,26 @@ void AppArguments::Resolve(AppCommand &command) {
       all_ = true;
       continue;
     }
+
     if (argument == "d" || argument == "day") {
       argv_types_[i] = ArgumentType_RenderScope;
       render_scope_ = ReportRendererCli::Scope_Day;
       continue;
     }
+
     if (argument == "i" || argument == "indexed") {
       // View w/ indexes
       argv_types_[i] = ArgumentType_RenderScope;
       indexed_ = true;
       continue;
     }
+
     if (argument == "m" || argument == "month") {
       argv_types_[i] = ArgumentType_RenderScope;
       render_scope_ = ReportRendererCli::Scope_Month;
       continue;
     }
+
     if (argument == "w" || argument == "week") {
       argv_types_[i] = ArgumentType_RenderScope;
       render_scope_ = ReportRendererCli::Scope_Week;
@@ -83,26 +87,38 @@ void AppArguments::Resolve(AppCommand &command) {
     }
 
     // Try resolve i=<number> or i=<number,number,...>
-    if (helper::String::StartsWith(argv_[i], "i=") && ResolveAsIndex(i)) continue;
+    if (helper::String::StartsWith(argv_[i], "i=")
+        && ResolveAsIndex(i)
+    ) continue;
 
-    if (helper::DateTime::IsTime(argument) && ResolveAsTime(i)) continue;
+    if (helper::DateTime::IsTime(argument)
+        && ResolveAsTime(i)
+    ) continue;
 
     AppCommand::Commands command_resolved = command.GetResolved();
     bool is_numeric = helper::String::IsNumeric(argument, true);
 
-    if (command_resolved == AppCommand::Command_Stop && is_numeric && -1 == argument_index_entry_id_) {
+    if (command_resolved == AppCommand::Command_Stop
+        && is_numeric
+        && -1 == argument_index_entry_id_
+    ) {
         argv_types_[i] = ArgumentType_Number;
         argument_index_entry_id_ = i;
         continue;
     }
 
-    if (helper::String::StartsWith(argument.c_str(), "t=") || is_numeric) {
+    if (helper::String::StartsWith(argument.c_str(), "t=")
+        || is_numeric
+    ) {
       ResolveAsTaskIndex(i, argument, command_resolved, is_numeric);
       continue;
     }
-    if (((helper::String::StartsWith(argv_[i], "c=") || helper::String::StartsWith(argv_[i], "comment="))
-        || (command_resolved == AppCommand::Command_Resume && -1 == argument_index_comment_))
-          && ResolveAsComment(i)) continue;
+
+    if (
+        ((helper::String::StartsWith(argv_[i], "c=") || helper::String::StartsWith(argv_[i], "comment="))
+         || (command_resolved == AppCommand::Command_Resume && -1 == argument_index_comment_)
+        ) && ResolveAsComment(i)
+    ) continue;
 
     // Argument is not numeric, no command or command shortcut
     SetArgvDefaultTypeByCommand(command, i);
@@ -166,16 +182,14 @@ void AppArguments::SetArgvDefaultTypeByCommand(AppCommand &command, int index) {
     case AppCommand::Command_Day:
     case AppCommand::Command_Help:
     case AppCommand::Command_Remove:
+    case AppCommand::Command_Version:
+    case AppCommand::Command_View:
       return;
     case AppCommand::Command_Comment:
     case AppCommand::Command_Start:
     case AppCommand::Command_Stop:
       argv_types_[index] = ArgumentType_Comment;
       argument_index_comment_ = index;
-      return;
-    case AppCommand::Command_Version:
-      return;
-    case AppCommand::Command_View:
       return;
     case AppCommand::Command_Invalid:
     default:argv_types_[index] = ArgumentType_Invalid;
@@ -196,22 +210,29 @@ bool AppArguments::IsTime(int index) {
 }
 
 std::string AppArguments::GetComment() {
-  return argument_index_comment_ == -1 ? "" : ResolveComment(argument_index_comment_);
+  return argument_index_comment_ == -1
+         ? ""
+         : ResolveComment(argument_index_comment_);
 }
 
 int AppArguments::GetNegativeNumber() {
-  return argument_index_negative_number_ == -1 ? 0 : ResolveNumber(argument_index_negative_number_);
+  return argument_index_negative_number_ == -1
+         ? 0
+         : ResolveNumber(argument_index_negative_number_);
 }
 
 int AppArguments::GetTaskNumber() {
-  return argument_index_task_number_ == -1 ? -1 : ResolveNumber(argument_index_task_number_);
+  return argument_index_task_number_ == -1
+         ? -1
+         : ResolveNumber(argument_index_task_number_);
 }
 
 /**
  * Was the argument given w/ an identifier prefix? e.g. "c=", "i=", etc.
  */
 bool AppArguments::Contains(int index, std::string needle) {
-  return index < argc_ && helper::String::Contains(argv_[index], needle);
+  return index < argc_
+      && helper::String::Contains(argv_[index], needle);
 }
 
 /**
@@ -293,6 +314,7 @@ std::string AppArguments::ResolvePathCsv(int index) {
   }
 
   pathCsv = std::string(argv_[index]);
+
   return pathCsv + (helper::String::EndsWith(pathCsv, ".csv") ? "" : ".csv");
 }
 
@@ -305,4 +327,4 @@ AppCommand::Commands AppArguments::ResolveCommandName(int index) {
 
   return AppCommand::ResolveCommandByName(argv_[index]);
 }
-} // namespace tictac_lib
+} // namespace tictac_track

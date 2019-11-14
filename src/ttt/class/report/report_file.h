@@ -54,6 +54,6 @@ namespace tictac_track {
     // Get input stream to report file
     static std::ifstream GetReportIfStream();
   };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

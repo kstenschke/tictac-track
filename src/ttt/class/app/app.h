@@ -99,11 +99,17 @@ namespace tictac_track {
       bool View();
       bool ViewWeek();
 
+      // Output given amount of recent tasks (having a task-number) as CSV
+      bool CsvRecentTaskNumbers();
+
+      // Output tracks of current day as CSV
+      bool CsvTodayTracks();
+
       // View entries sequentially, opening related task URL at the same time
       bool BrowseDayTasks();
 
       int GetCommentArgOffsetInTaskCommand() const;
   };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

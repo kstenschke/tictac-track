@@ -34,12 +34,16 @@ namespace helper {
 std::string Html::Encode(std::string str) {
   std::string subs[] = {";", "&", "\"", "'", "<", ">", ":", "=", "!"};
   std::string reps[] = {"&semi;", "&amp;", "&quot;", "&apos;", "&lt;", "&gt;", "&colon;", "&equals;", "&excl;"};
+
   int amount_entities = 9;
   size_t found;
+
   for (int j = 0; j < amount_entities; j++) {
     do {
       found = str.find(subs[j]);
-      if (std::string::npos != found) str.replace(found, subs[j].length(), reps[j]);
+
+      if (std::string::npos != found)
+        str.replace(found, subs[j].length(), reps[j]);
     } while (std::string::npos != found);
   }
 
@@ -314,9 +318,11 @@ std::string Html::Encode(std::string str) {
           switch ((int) str[i]) {
             case -71:
               switch ((int) str[i - 2]) {
-                case -29:wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&rsaquo;");
+                case -29:
+                  wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&rsaquo;");
                   break;
-                case -30:wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&lsaquo;");
+                case -30:
+                  wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&lsaquo;");
                   break;
               }
               break;

@@ -38,6 +38,8 @@ class AppCommand {
     Command_BrowseTaskUrl,
     Command_Comment,
     Command_Csv,
+    Command_CsvRecentTaskNumbers,
+    Command_CsvDayTracks,
     Command_Day,
     Command_Date,
     Command_Help,
@@ -74,6 +76,6 @@ class AppCommand {
   // Resolve command string (1st argument) to related command enum item (which allows e.g. switch)
   Commands Resolve();
 };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

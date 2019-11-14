@@ -86,9 +86,8 @@ bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
       return PrintHelpOnWeek();
     case AppCommand::Commands::Command_Invalid:
     default:
-      if (withTitle) {
-        PrintVersion();
-      }
+      if (withTitle) PrintVersion();
+
       PrintOverview();
   }
 
@@ -122,12 +121,14 @@ void AppHelp::PrintOverview() {
             << "\n    recalculate (rc)  - Recalculate all duration sums (per entry, per task per day, per day)"
             << "\n"
             << "\n  3. View and export timesheet and tasks:"
-            << "\n    browse (b)     - Open timesheet in web browser"
-            << "\n    view (v)       - Display timesheet in commandline"
-            << "\n    week (w)       - Display week out of timesheet in commandline"
-            << "\n    csv            - Export timesheet to CSV file"
-            << "\n    url (u)        - Open external task URL in web browser"
-            << "\n    dayTasks (ud)  - Display tasks of day sequentially in CLI and web browser"
+            << "\n    browse (b)       - Open timesheet in web browser"
+            << "\n    view (v)         - Display timesheet in commandline"
+            << "\n    week (w)         - Display week out of timesheet in commandline"
+            << "\n    csv              - Export timesheet to CSV file"
+            << "\n    csvdt            - Output tracked items of current day as CSV"
+            << "\n    csvrtn           - Output tracked items of current day as CSV"
+            << "\n    url (u)          - Open external task URL in web browser"
+            << "\n    dayTasks (ud)    - Display tasks of day sequentially in CLI and web browser"
             << "\n"
             << "\n  4. Meta commands:"
             << "\n    date (D)     - Display date at given offset of days"
@@ -363,4 +364,4 @@ void AppHelp::PrintUnknownArgumentMessage(const char *arg) {
 
   PrintHelp(false, AppCommand::Commands::Command_Invalid);
 }
-} // namespace tictac_lib
+} // namespace tictac_track

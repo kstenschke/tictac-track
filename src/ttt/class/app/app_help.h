@@ -64,6 +64,6 @@ class AppHelp {
   static bool PrintHelpOnView();
   static bool PrintHelpOnWeek();
 };
-} // namespace tictac_lib
+} // namespace tictac_track
 
 #endif

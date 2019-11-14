@@ -52,6 +52,8 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
   if (command == "b" || command == "browse") return Command_BrowseTimesheet;
   if (command == "c" || command == "comment") return Command_Comment;
   if (command == "csv") return Command_Csv;
+  if (command == "csvdt") return Command_CsvDayTracks;
+  if (command == "csvrtn") return Command_CsvRecentTaskNumbers;
   if (command == "d" || command == "day") return Command_Day;
   if (command == "D" || command == "date") return Command_Date;
   if (command == "h" || command == "help") return Command_Help;
@@ -68,8 +70,8 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
   if (command == "v" || command == "view") return Command_View;
   if (command == "w" || command == "week") return Command_ViewWeek;
   if (command == "u" || command == "url") return Command_BrowseTaskUrl;
-  if (command == "ud" || command == "daytasks") return Command_BrowseDayTasks;
+  if (command == "ud" || command == "dayTasks") return Command_BrowseDayTasks;
 
   return Command_Invalid;
 }
-} // namespace tictac_lib
+} // namespace tictac_track

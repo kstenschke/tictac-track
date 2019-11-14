@@ -135,4 +135,4 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
 
   return csv_stream.str();
 }
-} // namespace tictac_lib
+} // namespace tictac_track
