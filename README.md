@@ -1,7 +1,7 @@
 Tictac-Track
 ============
 
-Ticktac-Track is a simple CLI timetracker. 
+Ticktac-Track is a simple but powerful timetracker running on the command-line.  
 It comes without external dependencies (no server or database).
 The application records work-entries directly to a local HTML file, ready for print at any time.
 
