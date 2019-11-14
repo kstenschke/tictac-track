@@ -1,15 +1,45 @@
 Tictac-Track
 ============
 
-Simple but powerful timesheet recorder for the commandline
-----------------------------------------------------------
+Ticktac-Track is a simple CLI timetracker. 
+It comes without external dependencies (no server or database).
+The application records work-entries directly to a local HTML file, ready for print at any time.
 
-## Zero Installation, No Dependencies
+## Table of contents
 
-* The application consists from a single executable file
-* No server or database needed: Timetracking entries are recorded directly to an HTML file
-* No background processes: Starting a new entry just records the current time, than tictac-track gets out of your way
-* A default configuration file is created on first run
+* [Features](#features)
+* [Commands Overview](#commands-overview)
+  * [1. Record Work Entries](#1-record-work-entries)
+  * [2. Update recorded entries](#2-update-recorded-entries)
+  * [3. View and export timesheet and tasks](#3-view-and-export-timesheet-and-tasks)
+  * [4. Meta Commands](#4-meta-commands)
+* [Commands in detail](#commands-in-detail)
+  * [4. Meta Commands](#4-meta-commands)
+  * [Command: start (s) - Add new entry to timesheet report](command-start-s-add-new-entry-to-timesheet-report)
+  * [Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time](command-stop-pause-p-stop-ongoing-entry-storing-current-time-as-end-time)
+  * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same task and comment)](Command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-task-and-comment)
+  * [Command: day (d) - Add all-day entry](command-day-d-add-all-day-entry)
+  * [Command: comment (c) - Appends given text to comment of given or latest timesheet entry](Command-comment-c-Appends-given-text-to-comment-of-given-or-latest-timesheet-entry)
+  * [Command: task (t) - Stores given task number to given entry/entries or latest entry](command-task-t-stores-given-task-number-to-given-entry-entries-or-latest-entry)
+  * [Command: split (sp): Splits given timesheet entry into two](command-split-sp-splits-given-timesheet-entry-into-two)
+  * [Command: merge (m): Merges two successive entries](Command-merge-m-Merges-two-successive-entries)
+  * [Command: remove (rm): Removes one or multiple timesheet entries](command-remove-rm-removes-one-or-multiple-timesheet-entries)
+  * [Command: undo (z): Reverts last operation (comment, remove, start, stop, task)](command-undo-z-reverts-last-operation-comment-remove-start-stop-task)
+  * [Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day)](command-recalculate-rc-calculates-all-duration-sums-anew-per-entry-per-task-per-day-per-day)
+  * [Command: browse (b): Open timesheet in web browser](command-browse-b-open-timesheet-in-web-browser)
+  * [Command: view (v): Displays the timesheet in the command-line](command-view-v-displays-the-timesheet-in-the-command-line)
+  * [Command: csv: Exports timesheet to CSV file](command-csv-exports-timesheet-to-csv-file)
+  * [Command: url (u): Opens configured task action URLs in web browser](command-url-u-opens-configured-task-action-urls-in-web-browser)
+  * [Command: dayTasks (ud): Display tasks of day sequentially in CLI and in web browser](command-daytasks-ud-display-tasks-of-day-sequentially-in-cli-and-in-web-browser)
+  * [Command: help (h): Describes usage of the program or its commands](command-help-h-describes-usage-of-the-program-or-its-commands)
+  * [Command: version (V): Displays current version number](command-version-v-displays-current-version-number)
+* [Optional Configuration](optional-configuration)
+* [Build Instructions](build-instructions)
+* [Running Tests](running-tests)
+* [Changelog](changelog)
+* [Code Convention](code-convention)
+* [Bug Reporting and Feature Requests](bug-reporting-and-feature-requests)
+* [Author and License](author-and-license)
 
 
 Features
