@@ -139,6 +139,7 @@ bool App::Process() {
   return keep_backup ? ReportFile::ActivateTemporaryBackup() : ReportFile::RemoveTemporaryBackup();
 }
 
+/** @todo "d" command crashes when current day has less time left than a full-day entry spans  */
 bool App::AddFullDayEntry() {
   ReportCrud &report = ReportCrud::GetInstance();
 
