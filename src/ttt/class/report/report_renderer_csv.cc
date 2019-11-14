@@ -101,6 +101,20 @@ bool ReportRendererCsv::RenderToFile(std::string path, RenderScopes scope) {
   return false;
 }
 
+bool ReportRendererCsv::RenderToStdOut(RenderScopes scope) {
+  if (!ExtractPartsFromReport(0)) return false;
+
+  std::string csv = RenderCsv(scope);
+  if (!csv.empty()) {
+    std::cout << csv;
+    return true;
+  }
+
+  std::cout << "Failed export to CSV.\n";
+
+  return false;
+}
+
 /**
  * Render timesheet to CSV
  */

@@ -41,6 +41,8 @@ class ReportRendererCsv : public ReportRenderer {
   // Export timesheet HTML (table) to CSV file
   bool RenderToFile(std::string path, RenderScopes scope);
 
+  bool RenderToStdOut(RenderScopes scope);
+
  private:
   static std::string GetFilename(std::string html);
 

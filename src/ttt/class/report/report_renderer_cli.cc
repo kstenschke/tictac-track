@@ -59,20 +59,30 @@ ReportRendererCli::ReportRendererCli() {
  */
 bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, int task_number, std::string comment) {
   render_scope_ = scope;
-  if (!ExtractPartsFromReport(lookbehind_amount)) return false;
+
+  ReportParser *parser = new ReportParser();
+  std::string report_html = parser->GetHtml();
+  bool containsRows = helper::String::GetSubStrCount(report_html.c_str(), "<tr>") >= 2;
 
   max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
 
-  PrintHeader();
-  if (0 != PrintRows(task_number, std::move(comment))) return true;
+  if (!ExtractPartsFromReport(lookbehind_amount)) return false;
 
-  std::string message = rows_filter_.empty()
+  PrintHeader();
+
+  if (containsRows && 0 != PrintRows(task_number, std::move(comment)))
+    // > 0 Rows have been printed
+    return true;
+
+  std::string message = !containsRows || rows_filter_.empty()
                         ? std::string(" No entries found.")
                         : std::string(" No entries with ").append("\"").append(rows_filter_).append("\" in ")
                             .append(GetActiveScopeName()).append(" column found.");
 
-  if (RenderScopes::Scope_Day == render_scope_)
-    message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
+  if (RenderScopes::Scope_Day == render_scope_) {
+    if (containsRows)
+      message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
+  }
 
   tictac_track::AppError::PrintError(message.append("\n").c_str());
 

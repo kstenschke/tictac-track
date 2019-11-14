@@ -188,11 +188,12 @@ bool App::DisplayDate() {
 }
 
 /**
- * Export report to CSV file
+ * Export whole report to CSV file
  */
 bool App::ExportCsv() {
   ReportRendererCsv renderer;
   std::string path = helper::System::GetBinaryPath(arguments_->argv_, std::strlen(App::kAppExecutableName.c_str()));
+
   return renderer.RenderToFile(path, static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_));
 }
 
@@ -389,8 +390,10 @@ bool App::SplitAtEnd(ReportParser *parser, std::string split_duration, int row_i
  */
 bool App::Start() {
   // Detect ID out of invocation like: "s 1 0:30"
-  if (4 == arguments_->argc_ && arguments_->IsNumber(2) && arguments_->IsTime(3))
-    arguments_->argument_index_entry_id_ = 2;
+  if (4==arguments_->argc_
+      && arguments_->IsNumber(2)
+      && arguments_->IsTime(3)
+      ) arguments_->argument_index_entry_id_ = 2;
 
   if (-1 != arguments_->argument_index_entry_id_) {
     // Index given: update already existing entry
@@ -606,8 +609,9 @@ bool App::CsvRecentTaskNumbers() {
 }
 
 bool App::CsvTodayTracks() {
-  std::cout << "@todo implement print csv of tracks of today...";
-  return true;
+  ReportRendererCsv renderer;
+
+  return renderer.RenderToStdOut(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_));
 }
 
 /**
