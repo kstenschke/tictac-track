@@ -14,7 +14,6 @@ The application records work-entries directly to a local HTML file, ready for pr
   * [3. View and export timesheet and tasks](#3-view-and-export-timesheet-and-tasks)
   * [4. Meta Commands](#4-meta-commands)
 * [Commands in detail](#commands-in-detail)
-  * [4. Meta Commands](#4-meta-commands)
   * [Command: start (s) - Add new entry to timesheet report](command-start-s-add-new-entry-to-timesheet-report)
   * [Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time](command-stop-pause-p-stop-ongoing-entry-storing-current-time-as-end-time)
   * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same task and comment)](Command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-task-and-comment)
