@@ -67,7 +67,8 @@ std::string ReportRendererCsv::GetFilename(std::string html) {
   std::string title = locale.Translate("timesheet");
 
   title = title.append("_").append(date_first);
-  if (date_first != date_last) title = title.append("-").append(date_last);
+  if (date_first != date_last)
+    title = title.append("-").append(date_last);
 
   std::transform(title.begin(), title.end(), title.begin(), ::tolower);
 

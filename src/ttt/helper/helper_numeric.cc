@@ -38,7 +38,9 @@ std::string Numeric::ToString(int number) {
 std::string Numeric::ToString(int number, unsigned int amount_digits_min) {
   std::string str = std::to_string(number);
   std::string zero = "0";
-  while (str.size() < amount_digits_min) str = zero.append(str);
+
+  while (str.size() < amount_digits_min)
+    str = zero.append(str);
 
   return str;
 }

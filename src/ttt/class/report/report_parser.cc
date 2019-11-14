@@ -150,7 +150,9 @@ namespace tictac_track {
     AppLocale locale = AppLocale::GetInstance();
     std::string title = locale.Translate("timesheet");
     title = title.append(" ").append(date_first);
-    if (date_first != date_last) title = title.append(" - ").append(date_last);
+
+    if (date_first != date_last)
+      title = title.append(" - ").append(date_last);
 
     return title;
   }
@@ -378,9 +380,12 @@ namespace tictac_track {
     int last_index = parser->GetLastIndex();
     if (row_index > last_index) {
       return tictac_track::AppError::PrintError(std::string(
-              "Cannot update entry ").append(helper::Numeric::ToString(row_index))
+              "Cannot update entry ")
+              .append(helper::Numeric::ToString(row_index))
               .append(", last entry is ")
-              .append(helper::Numeric::ToString(last_index)).append(".").c_str());
+              .append(helper::Numeric::ToString(last_index))
+              .append(".")
+              .c_str());
     }
 
     int offset_tr = GetOffsetTrOpenByIndex(html, row_index);
@@ -417,8 +422,10 @@ namespace tictac_track {
     if (row_index > last_index)
       return tictac_track::AppError::PrintError(std::string("Cannot update entry ")
             .append(helper::Numeric::ToString(row_index))
-            .append(", last entry is ").append(helper::Numeric::ToString(last_index)).append(
-            ".").c_str());
+            .append(", last entry is ")
+            .append(helper::Numeric::ToString(last_index))
+            .append(".")
+            .c_str());
 
     UpdateColumn(html, row_index, column_index, std::move(content));
 
@@ -452,7 +459,8 @@ namespace tictac_track {
 
     if (duration < minutes_subtrahend) {
       std::string message = std::string("Entry duration is ")
-              .append(helper::DateTime::GetHoursFormattedFromMinutes(duration)).append(", cannot subtract ")
+              .append(helper::DateTime::GetHoursFormattedFromMinutes(duration))
+              .append(", cannot subtract ")
               .append(helper::DateTime::GetHoursFormattedFromMinutes(minutes_subtrahend).append("."));
 
       if (AppCommand::Commands::Command_Split == command)

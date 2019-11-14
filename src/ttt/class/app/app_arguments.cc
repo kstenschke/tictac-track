@@ -276,6 +276,7 @@ std::string AppArguments::ResolveTime(int index, bool allow_negative) {
 
   std::string zero = "0";
   while (hours.size() < 2) hours = zero.append(hours);
+
   while (minutes.size() < 2) minutes = zero.append(minutes);
 
   return (is_negative ? "-" : "") + hours + ":" + minutes;

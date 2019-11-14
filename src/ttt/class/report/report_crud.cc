@@ -157,8 +157,10 @@ namespace tictac_track {
       insertion_offset = html.find(std::string("</tr>"), offset_tr_open);
       if (std::string::npos == insertion_offset) {
         return tictac_track::AppError::PrintError(
-                std::string("Error: Failed finding insertion offset (row index: ").append(helper::Numeric::ToString(row_index))
-                .append(").").c_str());
+                std::string("Error: Failed finding insertion offset (row index: ")
+                    .append(helper::Numeric::ToString(row_index))
+                    .append(").")
+                    .c_str());
       }
       insertion_offset += 5;
     }
@@ -248,8 +250,12 @@ namespace tictac_track {
 
     if (std::string::npos != html.find(date_meta + "</td>")) {
       tictac_track::AppError::PrintError(
-              std::string("Cannot add full-day entry. There are entries already on ").append(date_day).append(".").c_str()
+              std::string("Cannot add full-day entry. There are entries already on ")
+                  .append(date_day)
+                  .append(".")
+                  .c_str()
               );
+
       return false;
     }
 
@@ -404,8 +410,10 @@ namespace tictac_track {
     int last_index = parser->GetLastIndex();
     if (id > last_index)
       return tictac_track::AppError::PrintError(std::string("Cannot remove entry ")
-            .append(helper::Numeric::ToString(id)).append(", last index is ")
-            .append(helper::Numeric::ToString(last_index)).c_str());
+            .append(helper::Numeric::ToString(id))
+            .append(", last index is ")
+            .append(helper::Numeric::ToString(last_index))
+            .c_str());
 
     int offset_tr_open = ReportParser::GetOffsetTrOpenByIndex(html, id);
     if (-1 == offset_tr_open) return false;

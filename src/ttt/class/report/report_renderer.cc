@@ -93,7 +93,8 @@ bool ReportRenderer::ExtractPartsFromReport(int filter_offset, std::string html)
       case Scope_Week:ReportParser *parser = new ReportParser(html);
         std::string week_number = parser->GetColumnContent(indexRow, ColumnIndexes::Index_Week);
         std::string zero = "0";
-        if (1 == week_number.size() && 2 == rows_filter_.size()) week_number = zero.append(week_number);
+        if (1 == week_number.size() && 2 == rows_filter_.size())
+          week_number = zero.append(week_number);
 
         if (0 != std::strcmp(week_number.c_str(), rows_filter_.c_str())) {
           // Week-column of row does NOT contain the week to filter for: skip to next row

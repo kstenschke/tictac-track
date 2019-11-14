@@ -110,7 +110,10 @@ namespace tictac_track {
         InitScopeFilter(render_scope, offset);
         std::vector<std::string> tasks = parser->GetTasksOfDay(rows_filter_);
         if (tasks.empty()) return tictac_track::AppError::PrintError(
-          std::string("No tasks found in day (").append(rows_filter_).append(").").c_str());
+          std::string("No tasks found in day (")
+              .append(rows_filter_)
+              .append(").")
+              .c_str());
 
         for (auto const& task : tasks) {
           std::cout << task << " ";

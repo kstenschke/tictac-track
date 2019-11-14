@@ -64,25 +64,26 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
   std::string report_html = parser->GetHtml();
   bool containsRows = helper::String::GetSubStrCount(report_html.c_str(), "<tr>") >= 2;
 
-  max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
-
   if (!ExtractPartsFromReport(lookbehind_amount)) return false;
 
+  max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
   PrintHeader();
 
   if (containsRows && 0 != PrintRows(task_number, std::move(comment)))
-    // > 0 Rows have been printed
+    // Rows exist and have been printed
     return true;
 
   std::string message = !containsRows || rows_filter_.empty()
                         ? std::string(" No entries found.")
-                        : std::string(" No entries with ").append("\"").append(rows_filter_).append("\" in ")
-                            .append(GetActiveScopeName()).append(" column found.");
+                        : std::string(" No entries with ")
+                            .append("\"")
+                            .append(rows_filter_)
+                            .append("\" in ")
+                            .append(GetActiveScopeName())
+                            .append(" column found.");
 
-  if (RenderScopes::Scope_Day == render_scope_) {
-    if (containsRows)
+  if (containsRows && RenderScopes::Scope_Day == render_scope_)
       message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
-  }
 
   tictac_track::AppError::PrintError(message.append("\n").c_str());
 
@@ -141,8 +142,10 @@ std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(int lookbehin
 
   int available_lookbehind_offset = parser->GetExistingEntryOffsetBefore(lookbehind_amount);
 
-  return std::string(" Closest entry is at: d ").append(helper::Numeric::ToString(available_lookbehind_offset))
-      .append(" (").append(helper::DateTime::GetCurrentTimeFormatted("%Y/%m/%d", available_lookbehind_offset))
+  return std::string(" Closest entry is at: d ")
+      .append(helper::Numeric::ToString(available_lookbehind_offset))
+      .append(" (")
+      .append(helper::DateTime::GetCurrentTimeFormatted("%Y/%m/%d", available_lookbehind_offset))
       .append(")");
 }
 
@@ -349,7 +352,8 @@ void ReportRendererCli::PrintDurationSums(int task_number, int sum_task_minutes)
 std::string ReportRendererCli::RenderSeparationRow() {
   std::string separation_row = theme_style_grid_ + std::string(4 + max_index_digits_, '-');
   for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++)
-    separation_row.append(std::string(column_content_max_len_[indexColumn] + 3, '-'));
+    separation_row
+        .append(std::string(column_content_max_len_[indexColumn] + 3, '-'));
 
   return separation_row + helper::Tui::kAnsiFormatReset;
 }
