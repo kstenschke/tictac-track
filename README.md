@@ -92,7 +92,7 @@ Commands Overview
 | remove / rm       | Remove given entry / given amout of latest entries / all entries
 | undo / z          | Undo last entry creation / modification
 | recalculate / rc  | Recalculate all duration sums (per entry, per task per day, per day)
-| clear (cls)       | Empty the timesheet
+| clear / cls       | Empty the timesheet
 
 
 ### 3. View and export timesheet and tasks:
