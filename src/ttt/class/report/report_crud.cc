@@ -118,7 +118,7 @@ bool ReportCrud::UpsertEntry(EntryStatus status, const char *comment, const char
 
   std::string html = parser->GetHtml();
 
-  bool hasTrackedItems = helper::String::GetSubStrCount(html.c_str(), "<tr>") > 1;
+  bool hasTrackedItems = helper::String::GetSubStrCount(html.c_str(), "<tr") > 1;
 
   if (hasTrackedItems)
     UpdateRunningEntry(html, comment, true, time_stopped);
@@ -482,7 +482,7 @@ bool ReportCrud::IsAnyEntryRunning() {
 bool ReportCrud::CurrentDayHasTasks() {
   std::string html = GetReportHtml();
 
-  if (helper::String::GetSubStrCount(html.c_str(), "<tr>")==1)
+  if (helper::String::GetSubStrCount(html.c_str(), "<tr")==1)
     // There are no items tracked at all
     return false;
 
