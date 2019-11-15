@@ -123,7 +123,9 @@ bool App::Process() {
       return false;
   }
 
-  return keep_backup ? ReportFile::ActivateTemporaryBackup() : ReportFile::RemoveTemporaryBackup();
+  return keep_backup
+         ? ReportFile::ActivateTemporaryBackup()
+         : ReportFile::RemoveTemporaryBackup();
 }
 
 /** @todo check: "d" command crashes when current day has less time left than a full-day entry spans?  */
@@ -158,8 +160,10 @@ bool App::BrowseTaskUrl() {
   }
 
   return browser->BrowseTaskUrlsInScope(
-      static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_), arguments_->GetNegativeNumber(),
-      arguments_->GetTaskNumber(), url_command);
+      static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
+      arguments_->GetNegativeNumber(),
+      arguments_->GetTaskNumber(),
+      url_command);
 }
 
 bool App::DisplayDate() {
@@ -204,7 +208,10 @@ bool App::Merge() {
   if (last_row_index==0)
     return tictac_track::AppError::PrintError("Cannot merge: There's only one entry.");
 
-  int row_index = 2==arguments_->argc_ ? last_row_index - 1 : arguments_->ResolveNumber(2);
+  int row_index = 2==arguments_->argc_
+                  ? last_row_index - 1
+                  : arguments_->ResolveNumber(2);
+
   if (row_index < 0)
     return tictac_track::AppError::PrintError("Cannot merge: Entry index cannot be < 0.");
 
@@ -700,11 +707,13 @@ bool App::CsvRecentTaskNumbers() {
 bool App::CsvTodayTracks() {
   ReportRendererCsv renderer;
 
-  return renderer.RenderToStdOut(static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_));
+  return renderer.RenderToStdOut(
+      static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_));
 }
 
 /**
  * View entries sequentially, opening related task URL at the same time
+ * @see AppConfig::GetDefaultConfig()   Base URL, e.g. redmine is set within ini
  */
 bool App::BrowseDayTasks() {
   ReportRendererCli renderer;

@@ -108,6 +108,7 @@ bool ReportRendererCsv::RenderToStdOut(RenderScopes scope) {
 
   std::string csv = RenderCsv(scope);
   if (!csv.empty()) {
+    helper::String::ReplaceAll(csv, "\"\"\n", "\"\n");
     std::cout << csv;
     return true;
   }
