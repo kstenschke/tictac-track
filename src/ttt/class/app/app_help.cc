@@ -110,7 +110,7 @@ void AppHelp::PrintOverview() {
             << "\n    week (w)         - Display week out of timesheet in commandline"
             << "\n    csv              - Export timesheet to CSV file"
             << "\n    csvdt            - Output tracked items of current day as CSV"
-            << "\n    csvrtn           - Output recent 50 tracked task numbers"
+            << "\n    csvrtn           - Output recent 30 tracked task numbers"
             << "\n    url (u)          - Open external task URL in web browser"
             << "\n    dayTasks (ud)    - Display tasks of day sequentially in CLI and web browser"
             << "\n"

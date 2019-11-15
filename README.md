@@ -104,7 +104,7 @@ Commands Overview
 | week / w          | Display week out of timesheet in commandline
 | csv               | Export timesheet to CSV file
 | csvdt             | Output tasks tracked in current day as CSV
-| csvrtn            | Output recent 50 tracked task numbers as CSV
+| csvrtn            | Output recent 30 tracked task numbers as CSV
 | url / u           | Open external task URL in web browser
 | dayTasks / ud     | Display tasks of day sequentially in CLI and web browser
 
