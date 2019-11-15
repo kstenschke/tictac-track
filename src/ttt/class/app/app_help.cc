@@ -94,7 +94,7 @@ void AppHelp::PrintOverview() {
             << "\n"
             << "\n  2. Update recorded entries:"
             << "\n    start (s)         - Update start-time of given entry"
-            << "\n    pause / stop (p)  - Update end-time of given entry"
+            << "\n    pause / stop (p)  - Set end-time of given or running entry"
             << "\n    comment (c)       - Unset or append to comment of given entry/entries or latest entry"
             << "\n    task (t)          - Update task-number of given entry/entries or latest entry"
             << "\n    split (sp)        - Split given entry at given duration into two"
