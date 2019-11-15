@@ -3,8 +3,8 @@ Tictac-Track - Changelog
 
 V1.5.0
 -------
-* Added command: recentTasks (csvd) - Output CSV of items tracked within current day
-* Added command: recentTasks (csvt) - Output CSV of 30 most recently tracked task numbers
+* Added command: "csvdt" - Output CSV of items tracked within current day
+* Added command: "csrtn" - Output CSV of 30 most recently tracked task numbers
 * Improved (simplified) output of "w" command when report is empty 
 
 V1.4.1

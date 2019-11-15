@@ -42,9 +42,9 @@ std::string Html::Encode(std::string str) {
     do {
       found = str.find(subs[j]);
 
-      if (std::string::npos != found)
+      if (std::string::npos!=found)
         str.replace(found, subs[j].length(), reps[j]);
-    } while (std::string::npos != found);
+    } while (std::string::npos!=found);
   }
 
   // Encode extended ascii characters
@@ -309,7 +309,7 @@ std::string Html::Encode(std::string str) {
         case -126:
           switch ((int) str[i]) {
             case -84:
-              if ((int) str[i - 2] == -30)
+              if ((int) str[i - 2]==-30)
                 wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&euro;");
               break;
           }
@@ -318,16 +318,14 @@ std::string Html::Encode(std::string str) {
           switch ((int) str[i]) {
             case -71:
               switch ((int) str[i - 2]) {
-                case -29:
-                  wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&rsaquo;");
+                case -29:wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&rsaquo;");
                   break;
-                case -30:
-                  wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&lsaquo;");
+                case -30:wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&lsaquo;");
                   break;
               }
               break;
             case -80:
-              if ((int) str[i - 2] == -30)
+              if ((int) str[i - 2]==-30)
                 wide_str = ReplaceWideCharByEntity(wide_str, str_len, i, i - 2, i + 1, L"&permil;");
               break;
           }
@@ -343,7 +341,7 @@ std::string Html::Encode(std::string str) {
 }
 
 std::wstring Html::ReplaceWideCharByEntity(std::wstring wstr, int str_len, int offset, int offset_left,
-                                                 int offset_right, std::wstring replacement) {
+                                           int offset_right, std::wstring replacement) {
   return offset < str_len
          ? wstr.substr(0, offset_left) + replacement + wstr.substr(offset_right, std::string::npos)
          : wstr.substr(0, offset_left) + replacement;
@@ -360,4 +358,5 @@ std::string Html::Decode(std::string str) {
 
   return std::string(dest);
 }
+
 } // namespace helper

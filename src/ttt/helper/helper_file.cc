@@ -36,7 +36,7 @@ namespace helper {
  */
 bool File::FileExists(const std::string &name) {
 //    if (access(name.c_str(), F_OK) == -1) std::cout << "Report file \"" << name << "\" does not exist.\n";
-  return access(name.c_str(), F_OK) != -1;
+  return access(name.c_str(), F_OK)!=-1;
 }
 
 /**
@@ -70,4 +70,5 @@ bool File::WriteToNewFile(const std::string &filename, std::string &content) {
 
   return File::FileExists(filename);
 }
+
 } // namespace helper

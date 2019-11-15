@@ -34,82 +34,82 @@
 
 namespace tictac_track {
 
-  class App
-  {
-    public:
-      // Meta constants
-      static const std::string kAppName;
-      static const std::string kAppExecutableName;
+class App {
+ public:
+  // Meta constants
+  static const std::string kAppName;
+  static const std::string kAppExecutableName;
 
-      // Constructor: init (resolve) command and arguments
-      App(int argc,  char** argv);
+  // Constructor: init (resolve) command and arguments
+  App(int argc, char **argv);
 
-      // Process command + arguments
-      bool Process();
+  // Process command + arguments
+  bool Process();
 
-    private:
-      AppCommand *command_;
-      AppArguments *arguments_;
+ private:
+  AppCommand *command_;
+  AppArguments *arguments_;
 
-      bool AddFullDayEntry();
+  bool AddFullDayEntry();
 
-      bool BrowseTaskUrl();
+  bool BrowseTaskUrl();
 
-      bool DisplayDate();
+  bool DisplayDate();
 
-      bool ExportCsv();
+  bool ExportCsv();
 
-      bool Help();
+  bool Help();
 
-      // Merge given task with following one
-      bool Merge();
+  // Merge given task with following one
+  bool Merge();
 
-      bool Recalculate();
+  bool Recalculate();
 
-      // Resume a previous entry
-      bool Resume();
-      // Resume entry, if given index is positive: is row index, else: negative offset
-      bool ResumeEntryByIndexOrNegativeOffset(int row_index, std::string add_to_comment = "");
+  // Resume a previous entry
+  bool Resume();
+  // Resume entry, if given index is positive: is row index, else: negative offset
+  bool ResumeEntryByIndexOrNegativeOffset(int row_index, std::string add_to_comment = "");
 
-      // Remove entries
-      bool Remove();
+  // Remove entries
+  bool Remove();
 
-      // Split entry into two
-      bool Split();
-      // Split given entry at given duration before its end into two entries
-      bool SplitAtEnd(ReportParser *parser, std::string split_duration, int row_index);
+  // Split entry into two
+  bool Split();
+  // Split given entry at given duration before its end into two entries
+  bool SplitAtEnd(ReportParser *parser, std::string split_duration, int row_index);
 
-      // Add start-entry
-      bool Start();
+  // Add start-entry
+  bool Start();
 
-      // Add end-entry
-      bool Stop();
+  // Add end-entry
+  bool Stop();
 
-      // Add/Append/Unset comment of latest or entry with given ID
-      bool UpdateComment();
-      bool UpdateCommentByEntryId(int last_index, int index, std::string comment, bool starts_with_space = false);
+  // Add/Append/Unset comment of latest or entry with given ID
+  bool UpdateComment();
+  bool UpdateCommentByEntryId(int last_index, int index, std::string comment, bool starts_with_space = false);
 
-      // Update time of row + column by arguments
-      bool UpdateTime(Report::ColumnIndexes column_index);
+  // Update time of row + column by arguments
+  bool UpdateTime(Report::ColumnIndexes column_index);
 
-      // Set task number of latest or given entry
-      bool UpdateTaskNumber();
+  // Set task number of latest or given entry
+  bool UpdateTaskNumber();
 
-      // Pretty-print report to CLI
-      bool View();
-      bool ViewWeek();
+  // Pretty-print report to CLI
+  bool View();
+  bool ViewWeek();
 
-      // Output given amount of recent tasks (having a task-number) as CSV
-      bool CsvRecentTaskNumbers();
+  // Output given amount of recent tasks (having a task-number) as CSV
+  bool CsvRecentTaskNumbers();
 
-      // Output tracks of current day as CSV
-      bool CsvTodayTracks();
+  // Output tracks of current day as CSV
+  bool CsvTodayTracks();
 
-      // View entries sequentially, opening related task URL at the same time
-      bool BrowseDayTasks();
+  // View entries sequentially, opening related task URL at the same time
+  bool BrowseDayTasks();
 
-      int GetCommentArgOffsetInTaskCommand() const;
-  };
+  int GetCommentArgOffsetInTaskCommand() const;
+};
+
 } // namespace tictac_track
 
 #endif

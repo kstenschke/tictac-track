@@ -71,6 +71,7 @@ class Report {
   std::string GetFilterValueForWeekScope(int offset = 0);
   std::string GetFilterValueForMonthScope(int offset = 0);
 };
+
 } // namespace tictac_track
 
 #endif

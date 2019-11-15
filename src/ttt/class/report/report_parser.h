@@ -33,90 +33,92 @@
 #include "../app/app_commands.h"
 
 namespace tictac_track {
-  class ReportParser : public Report {
-    public:
-      // Constructor
-      explicit ReportParser(std::string html = "");
 
-      bool LoadReportHtml();
-      std::string GetHtml();
-      void SetHtml(std::string html);
+class ReportParser : public Report {
+ public:
+  // Constructor
+  explicit ReportParser(std::string html = "");
 
-      // Get initial timesheet html
-      static std::string GetInitialReportHtml();
+  bool LoadReportHtml();
+  std::string GetHtml();
+  void SetHtml(std::string html);
 
-      // Update table head (using labels in currently configured language)
-      std::string UpdateTableHeader();
-      // Update report title (in title- and h1-tag) to: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
-      std::string UpdateTitle();
-      // Get title for timesheet HTML headline: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
-      std::string GetReportTitle();
+  // Get initial timesheet html
+  static std::string GetInitialReportHtml();
 
-      int GetLastIndex();
+  // Update table head (using labels in currently configured language)
+  std::string UpdateTableHeader();
+  // Update report title (in title- and h1-tag) to: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
+  std::string UpdateTitle();
+  // Get title for timesheet HTML headline: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
+  std::string GetReportTitle();
 
-      // Get ID of latest entry w/ given task number, or -1
-      int GetLatestIndexByTaskNumber(std::string task_number);
+  int GetLastIndex();
 
-      // Find row w/ date immediately before given one
-      int GetIndexBeforeMetaDate(std::string meta_date);
+  // Get ID of latest entry w/ given task number, or -1
+  int GetLatestIndexByTaskNumber(std::string task_number);
 
-      std::string GetDateLatestEntry();
+  // Find row w/ date immediately before given one
+  int GetIndexBeforeMetaDate(std::string meta_date);
 
-      /**
-       * Find offset (of days) of first existing entry backwards from current date, before given offset
-       * Ex: when "v d -1" does not find any entries, but there is an entry 3 days before current date, it returns: -3
-       */
-      int GetExistingEntryOffsetBefore(int offset_start);
+  std::string GetDateLatestEntry();
 
-      std::vector<std::string> GetTasksOfDay(std::string &date);
+  /**
+   * Find offset (of days) of first existing entry backwards from current date, before given offset
+   * Ex: when "v d -1" does not find any entries, but there is an entry 3 days before current date, it returns: -3
+   */
+  int GetExistingEntryOffsetBefore(int offset_start);
 
-      static int GetOffsetTrOpenByIndex(std::string &html, int index = -1);
+  std::vector<std::string> GetTasksOfDay(std::string &date);
 
-      unsigned long GetOffsetTdStartInRunningEntry();
+  static int GetOffsetTrOpenByIndex(std::string &html, int index = -1);
 
-      int GetMinutesBetweenEntryAndNext(int row_index);
+  unsigned long GetOffsetTdStartInRunningEntry();
 
-      // Get offset of given needle (e.g. "<td>" or "</td>") of given column, after given initial offset
-      size_t GetColumnOffset(const char* needle, unsigned long offset_initial, ColumnIndexes column_index);
+  int GetMinutesBetweenEntryAndNext(int row_index);
 
-      std::string GetColumnContent(int row_index, ColumnIndexes index_column, 
-                                   int offset_tr = -1);
+  // Get offset of given needle (e.g. "<td>" or "</td>") of given column, after given initial offset
+  size_t GetColumnOffset(const char *needle, unsigned long offset_initial, ColumnIndexes column_index);
 
-      bool IsDateOfLatestEntry(std::string &date_compare);
+  std::string GetColumnContent(int row_index, ColumnIndexes index_column,
+                               int offset_tr = -1);
 
-      // Replace/insert content of given column of given row, return changed html
-      static bool UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
-                               std::string content);
-      // Load report HTML, replace given column content, save changed report, return bool: succeeded?
-      static bool UpdateColumn(int row_index, Report::ColumnIndexes column_index, std::string content);
+  bool IsDateOfLatestEntry(std::string &date_compare);
 
-      // Append given content to content of column in row
-      std::string AppendToColumn(int row_index, Report::ColumnIndexes column_index, std::string content);
+  // Replace/insert content of given column of given row, return changed html
+  static bool UpdateColumn(std::string &html, int row_index, Report::ColumnIndexes column_index,
+                           std::string content);
+  // Load report HTML, replace given column content, save changed report, return bool: succeeded?
+  static bool UpdateColumn(int row_index, Report::ColumnIndexes column_index, std::string content);
 
-      // Reduce given time-column by given duration
-      bool ReduceEntryTime(int row_index, std::string subtrahend_hhmm,
-                           AppCommand::Commands command = AppCommand::Commands::Command_Invalid);
+  // Append given content to content of column in row
+  std::string AppendToColumn(int row_index, Report::ColumnIndexes column_index, std::string content);
 
-      static bool IsAnyEntryRunning(std::string &html);
-      bool IsAnyEntryRunning();
-      bool IsEntryRunning(int row_index);
+  // Reduce given time-column by given duration
+  bool ReduceEntryTime(int row_index, std::string subtrahend_hhmm,
+                       AppCommand::Commands command = AppCommand::Commands::Command_Invalid);
 
-      bool HtmlContains(std::string &str);
+  static bool IsAnyEntryRunning(std::string &html);
+  bool IsAnyEntryRunning();
+  bool IsEntryRunning(int row_index);
 
-      static std::string MergeComments(std::string &comment_1, std::string &comment_2);
+  bool HtmlContains(std::string &str);
 
-      static std::string GetTHead();
+  static std::string MergeComments(std::string &comment_1, std::string &comment_2);
 
-      // Merge comments from given row and following
-      std::string GetCommentMergedWithNextByRowIndex(int row_index, int offset_tr, int offset_tr_next);
+  static std::string GetTHead();
 
-    protected:
-      std::string html_;
-      int last_index_ = -1;
+  // Merge comments from given row and following
+  std::string GetCommentMergedWithNextByRowIndex(int row_index, int offset_tr, int offset_tr_next);
 
-    private:
-      int GetIndexFirstEntryOfDate(std::string &date);
-  };
+ protected:
+  std::string html_;
+  int last_index_ = -1;
+
+ private:
+  int GetIndexFirstEntryOfDate(std::string &date);
+};
+
 } // namespace tictac_track
 
 #endif

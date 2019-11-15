@@ -28,12 +28,14 @@
 #define CLASS_TTT_APP_ERROR
 
 namespace tictac_track {
-  class AppError {
-  public:
-    // Print error message
-    static bool PrintError(const char *message);
-    static bool PrintError(const char *message, int n);
-  };
+
+class AppError {
+ public:
+  // Print error message
+  static bool PrintError(const char *message);
+  static bool PrintError(const char *message, int n);
+};
+
 } // namespace tictac_shared
 
 #endif

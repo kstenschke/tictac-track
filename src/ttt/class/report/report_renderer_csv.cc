@@ -67,7 +67,7 @@ std::string ReportRendererCsv::GetFilename(std::string html) {
   std::string title = locale.Translate("timesheet");
 
   title = title.append("_").append(date_first);
-  if (date_first != date_last)
+  if (date_first!=date_last)
     title = title.append("-").append(date_last);
 
   std::transform(title.begin(), title.end(), title.begin(), ::tolower);
@@ -90,7 +90,8 @@ bool ReportRendererCsv::RenderToFile(std::string path, RenderScopes scope) {
   std::string csv = RenderCsv(scope);
   if (!csv.empty()) {
     std::string filename = GetFilename();
-    if (helper::File::FileExists(filename)) std::remove(ReportFile::kFilenameReport.c_str());
+    if (helper::File::FileExists(filename))
+      std::remove(ReportFile::kFilenameReport.c_str());
 
     if (helper::File::WriteToNewFile(filename, csv)) {
       std::cout << "Exported report CSV to: " << path << filename << "\n";
@@ -131,7 +132,7 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
   // Render column titles
   for (int index_column = 1; index_column < amount_columns_; index_column++) {
     csv_stream << "\"" << column_titles_[index_column] << "\""
-               << (index_column == last_column ? helper::System::kNewline : ",");
+               << (index_column==last_column ? helper::System::kNewline : ",");
   }
 
   // Render rows
@@ -142,12 +143,14 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
     for (int index_column = 0; index_column < amount_columns_ && index_cell < amountCells; index_column++) {
       if (index_column > 0) {
         csv_stream << "\"" << helper::String::CsvEncode(cells_[index_cell]) << "\"";
-        csv_stream << (index_column == last_column ? ("\"" + helper::System::kNewline) : ",");
+        csv_stream << (index_column==last_column ? ("\"" + helper::System::kNewline) : ",");
       }
+
       ++index_cell;
     }
   }
 
   return csv_stream.str();
 }
+
 } // namespace tictac_track

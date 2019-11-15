@@ -31,6 +31,7 @@
 
 namespace helper {
 namespace File {
+
 // Check whether given file exists
 extern bool FileExists(const std::string &name);
 
@@ -39,6 +40,7 @@ extern std::string GetFileContents(std::string &filename);
 extern std::string GetFileContents(std::ifstream &file);
 
 extern bool WriteToNewFile(const std::string &filename, std::string &content);
+
 } // namespace File
 } // namespace helper
 

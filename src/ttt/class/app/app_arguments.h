@@ -37,7 +37,7 @@ class AppArguments {
   enum ArgumentTypes {
     ArgumentType_Comment,
     // Task- or other (e.g. amount) number
-    ArgumentType_Number,
+        ArgumentType_Number,
     ArgumentType_RenderScope,
     ArgumentType_Time,
     ArgumentType_OptionAll,
@@ -106,6 +106,7 @@ class AppArguments {
 
   void SetArgvDefaultTypeByCommand(AppCommand &command, int index);
 };
+
 } // namespace tictac_track
 
 #endif

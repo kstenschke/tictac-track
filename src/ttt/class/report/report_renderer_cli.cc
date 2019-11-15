@@ -62,14 +62,14 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
 
   ReportParser *parser = new ReportParser();
   std::string report_html = parser->GetHtml();
-  bool containsRows = helper::String::GetSubStrCount(report_html.c_str(), "<tr>") >= 2;
+  bool containsRows = helper::String::GetSubStrCount(report_html.c_str(), "<tr") >= 2;
 
   if (!ExtractPartsFromReport(lookbehind_amount)) return false;
 
   max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
   PrintHeader();
 
-  if (containsRows && 0 != PrintRows(task_number, std::move(comment)))
+  if (containsRows && 0 < PrintRows(task_number, std::move(comment)))
     // Rows exist and have been printed
     return true;
 
@@ -82,8 +82,8 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
                             .append(GetActiveScopeName())
                             .append(" column found.");
 
-  if (containsRows && RenderScopes::Scope_Day == render_scope_)
-      message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
+  if (containsRows && RenderScopes::Scope_Day==render_scope_)
+    message = message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
 
   tictac_track::AppError::PrintError(message.append("\n").c_str());
 
@@ -92,10 +92,12 @@ bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, in
 
 bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   render_scope_ = RenderScopes::Scope_Day;
-  
+
   ReportParser *parser = new ReportParser();
-  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
-  
+  if (!parser->LoadReportHtml()
+      || -1==parser->GetLastIndex())
+    return false;
+
   auto *browser = new ReportBrowser();
 
   AppConfig &config = AppConfig::GetInstance();
@@ -108,37 +110,43 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
   std::vector<std::string> tasks = parser->GetTasksOfDay(date);
   int amount_tasks = tasks.size();
+
   int i = 1;
-  for(auto const &task: tasks) {
+  for (auto const &task: tasks) {
     cells_.clear();
+
     if (!ExtractPartsFromReport(days_offset, html)) return false;
+
     max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
-    
+
     PrintHeader(false, false, false);
-    
+
     int task_number = helper::String::ToInt(task);
     PrintRows(task_number, "", false, false, false, false);
-    
+
     browser->BrowseTaskUrl(task_number);
-  
+
     if (i < amount_tasks) {
       std::cout << "\n";
       std::cout << "[Enter]";
       helper::System::WaitForEnterKeyPress();
       std::cout << "\r       ";
     }
-    
+
     ++i;
   }
-  
+
   std::cout << "\n";
-  
+
   return true;
 }
 
 std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(int lookbehind_amount) {
   ReportParser *parser = new ReportParser();
-  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return std::string("");
+  if (!parser->LoadReportHtml()
+      || -1==parser->GetLastIndex()
+      )
+    return std::string("");
 
   int available_lookbehind_offset = parser->GetExistingEntryOffsetBefore(lookbehind_amount);
 
@@ -159,22 +167,30 @@ std::string ReportRendererCli::GetActiveScopeName() {
   }
 }
 
-void ReportRendererCli::PrintHeader(bool display_id, bool display_day_sum, 
-                                    bool display_saldo) {
+void ReportRendererCli::PrintHeader(
+    bool display_id,
+    bool display_day_sum,
+    bool display_saldo) {
   std::cout << "\n" << theme_style_header_;
-  if (display_id && offset_id_column_ == 0) {
+
+  if (display_id
+      && offset_id_column_==0)
     PrintHeaderCellForId(true);
-  } else {
+  else
     std::cout << " ";
-  }
 
   int content_len;
   // Skip meta-column (start from index 1 instead of 0)
   for (int index_column = 1; index_column < amount_columns_; index_column++) {
-    if ((display_day_sum || index_column != Report::ColumnIndexes::Index_SumDay)
-        && (display_saldo || index_column != Report::ColumnIndexes::Index_Balance)    
-            ) {
-      if (offset_id_column_ == 0 || index_column > 1) std::cout << "| ";
+    if (
+        (display_day_sum
+            || index_column!=Report::ColumnIndexes::Index_SumDay)
+            && (display_saldo
+                || index_column!=Report::ColumnIndexes::Index_Balance)
+        ) {
+      if (offset_id_column_==0
+          || index_column > 1)
+        std::cout << "| ";
 
       std::string column_title = column_titles_[index_column];
       std::cout << helper::Html::Decode(column_title) << " ";
@@ -186,27 +202,38 @@ void ReportRendererCli::PrintHeader(bool display_id, bool display_day_sum,
       }
     }
 
-    if (display_id && offset_id_column_ == index_column) PrintHeaderCellForId(false);
+    if (display_id
+        && offset_id_column_==index_column)
+      PrintHeaderCellForId(false);
   }
+
   std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
 }
 
 void ReportRendererCli::PrintHeaderCellForId(bool is_left_most) {
-  if (!is_left_most) {
-    std::cout << "|";
-  }
+  if (!is_left_most) std::cout << "|";
+
   unsigned long amount_spaces = max_index_digits_ - 1;
+
   if (amount_spaces > 0) std::cout << std::string((amount_spaces), ' ');
+
   std::cout << " ID ";
 }
 
 /**
  * Output <tr>s using given filters, returns amount of rows printed
  */
-int ReportRendererCli::PrintRows(int task_number, std::string comment, 
-                                 bool display_sum, bool display_id, 
-                                 bool dispay_day_sum, bool display_balance) {
-  std::string task_number_str = task_number == -1 ? "" : helper::Numeric::ToString(task_number);
+int ReportRendererCli::PrintRows(
+    int task_number,
+    std::string comment,
+    bool display_sum,
+    bool display_id,
+    bool dispay_day_sum,
+    bool display_balance) {
+  std::string task_number_str =
+      task_number==-1
+      ? ""
+      : helper::Numeric::ToString(task_number);
 
   // Pre-render grid line between content of two rows
   std::string separation_row = RenderSeparationRow();
@@ -222,49 +249,74 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment,
   std::string duration_in_row;
   std::string previous_day;
   bool is_entry_running;
-  bool display_viewed_sum = display_sum && (RenderScopes::Scope_All != render_scope_ || -1 != task_number);
+
+  bool display_viewed_sum =
+      display_sum
+          && (RenderScopes::Scope_All!=render_scope_ || -1!=task_number);
 
   int sum_task_minutes = 0;
   int amount_rows_printed = 0;
 
   bool is_around_break = false;
   for (int index_row = 0; index_row < amount_rows_ && index_cell < amount_cells_; index_row++) {
-    comment_in_row     = cells_[index_cell + ReportParser::ColumnIndexes::Index_Comment];
-    date_in_row        = cells_[index_cell + ReportParser::ColumnIndexes::Index_Date];
-    duration_in_row    = cells_[index_cell + ReportParser::ColumnIndexes::Index_Duration];
+    comment_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Comment];
+    date_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Date];
+    duration_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Duration];
     task_number_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Week + 5];
 
-    is_entry_running = 's' == cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0];
+    is_entry_running = 's'==cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0];
 
-    bool do_display = (task_number == -1 || 0 == std::strcmp(task_number_in_row.c_str(), task_number_str.c_str()))
-                      && (!has_comment || helper::String::Contains(comment_in_row, comment));
+    bool do_display =
+        (task_number==-1
+            || 0==std::strcmp(task_number_in_row.c_str(), task_number_str.c_str()))
+            && (!has_comment
+                || helper::String::Contains(comment_in_row, comment));
+
     if (do_display) {
       ++amount_rows_printed;
 
       // New day: preceded by separation row
-      if (index_cell > 0 && previous_day != cells_[index_cell + 2]) std::cout << separation_row << "\n";
+      if (index_cell > 0
+          && previous_day!=cells_[index_cell + 2])
+        std::cout << separation_row << "\n";
 
       if (display_viewed_sum)
-        sum_task_minutes = AddSumMinutes(index_cell, duration_in_row, is_entry_running, sum_task_minutes);
+        sum_task_minutes = AddSumMinutes(
+            index_cell,
+            duration_in_row,
+            is_entry_running,
+            sum_task_minutes);
 
-      if (display_id && offset_id_column_ == 0) PrintRowCellForId(true, index_row + id_first_row_rendered_);
+      if (display_id
+          && offset_id_column_==0)
+        PrintRowCellForId(true, index_row + id_first_row_rendered_);
 
       is_even = !is_even;
     }
+
     // Skip meta-column (start from index 1 instead of 0)
-    for (int index_column = 0; index_column < amount_columns_ && index_cell < amount_cells_; index_column++) {
-      if (index_column == 2) previous_day = cells_[index_cell];
+    for (int index_column = 0;
+         index_column < amount_columns_ && index_cell < amount_cells_;
+         index_column++) {
+      if (index_column==2) previous_day = cells_[index_cell];
 
-      if (do_display 
-          && (dispay_day_sum || index_column != Report::ColumnIndexes::Index_SumDay)
-          && (display_balance || index_column != Report::ColumnIndexes::Index_Balance)
-         ) {
+      if (do_display
+          && (dispay_day_sum || index_column!=Report::ColumnIndexes::Index_SumDay)
+          && (display_balance || index_column!=Report::ColumnIndexes::Index_Balance)
+          ) {
         // Emphasize times around e.g. lunch-break (end-time before and start-time after)
-        if (index_column == Index_End) is_around_break = IsEndTimeBeforeBreak(index_cell);
-        bool is_emphasizable_column = index_column == Index_End || index_column == Index_Start;
+        if (index_column==Index_End)
+          is_around_break = IsEndTimeBeforeBreak(index_cell);
 
-        PrintColumn(index_cell, is_even, index_row, index_column, 
-                    is_emphasizable_column && is_around_break, display_id);
+        bool is_emphasizable_column = index_column==Index_End || index_column==Index_Start;
+
+        PrintColumn(
+            index_cell,
+            is_even,
+            index_row,
+            index_column,
+            is_emphasizable_column && is_around_break,
+            display_id);
       }
 
       // Skip meta cell
@@ -273,11 +325,14 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment,
 
     if (do_display) {
       std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
+
       if (is_even) std::cout << helper::Tui::kAnsiFormatReset;
     }
   }
 
-  if (display_viewed_sum && 0 < sum_task_minutes) PrintDurationSums(task_number, sum_task_minutes);
+  if (display_viewed_sum
+      && 0 < sum_task_minutes)
+    PrintDurationSums(task_number, sum_task_minutes);
 
   std::cout << helper::Tui::kAnsiFormatReset;
 
@@ -290,35 +345,54 @@ int ReportRendererCli::PrintRows(int task_number, std::string comment,
 bool ReportRendererCli::IsEndTimeBeforeBreak(int index_cell) {
   // Last entry cannot end before a break
   if (amount_cells_ < index_cell + 11) return false;
+
   // Last entry of day is not considered to be ending before a break
-  if (amount_cells_ > index_cell + 10 && cells_[index_cell - 2] != cells_[index_cell + 10]) return false;
+  if (amount_cells_ > index_cell + 10
+      && cells_[index_cell - 2]!=cells_[index_cell + 10])
+    return false;
 
   int minutes_end_current = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell]);
-  int minutes_start_next  = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell + 11]);
+  int minutes_start_next = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell + 11]);
 
   return minutes_start_next - minutes_end_current > minutes_break_ + 1;
 }
 
-int ReportRendererCli::AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_running,
-                                     int sum_task_minutes) const {
+int ReportRendererCli::AddSumMinutes(
+    int index_cell,
+    const std::string &duration_in_row,
+    bool is_entry_running,
+    int sum_task_minutes) const {
   if (is_entry_running) {
-          int minutes_start = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell + Index_Start]);
-          int minutes_now   = helper::DateTime::GetSumMinutesFromTime();
-          sum_task_minutes += minutes_now - minutes_start;
-        } else if (!duration_in_row.empty()) sum_task_minutes += helper::DateTime::GetSumMinutesFromTime(duration_in_row);
+    int minutes_start = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell + Index_Start]);
+    int minutes_now = helper::DateTime::GetSumMinutesFromTime();
+    sum_task_minutes += minutes_now - minutes_start;
+  } else if (!duration_in_row.empty())
+    sum_task_minutes += helper::DateTime::GetSumMinutesFromTime(duration_in_row);
+
   return sum_task_minutes;
 }
 
-void ReportRendererCli::PrintColumn(int index_cell, bool is_even, int index_row, 
-                                    int index_column, bool emphasize, bool display_id) {
+void ReportRendererCli::PrintColumn(
+    int index_cell,
+    bool is_even,
+    int index_row,
+    int index_column,
+    bool emphasize,
+    bool display_id) {
   if (index_column > 1) {
     // Skip column 0 (meta)
-    std::cout << (is_even ? theme_style_default_ : theme_style_grid_) << "| " << helper::Tui::kAnsiFormatReset;
-  } else if (index_column == 1 && offset_id_column_ > 0) std::cout << " ";
+    std::cout << (is_even
+                  ? theme_style_default_
+                  : theme_style_grid_)
+              << "| " << helper::Tui::kAnsiFormatReset;
+  } else if (index_column==1
+      && offset_id_column_ > 0)
+    std::cout << " ";
 
   if (index_column > 0) {
     std::string content = cells_[index_cell];
-    if (index_column == Index_Comment) content = helper::Html::Decode(content);
+
+    if (index_column==Index_Comment) content = helper::Html::Decode(content);
 
     std::cout << (is_even ? theme_style_default_ : "")
               << (emphasize ? helper::Tui::kAnsiFormatInverted : "")
@@ -329,20 +403,28 @@ void ReportRendererCli::PrintColumn(int index_cell, bool is_even, int index_row,
 
   PrintRhsCellSpaces(index_cell, index_column);
 
-  if (display_id && offset_id_column_ == index_column && index_column > 0)
+  if (display_id
+      && offset_id_column_==index_column
+      && index_column > 0
+      )
     PrintRowCellForId(false, index_row + id_first_row_rendered_);
 }
 
 void ReportRendererCli::PrintDurationSums(int task_number, int sum_task_minutes) {
-  std::string sum_duration_formatted = helper::DateTime::GetHoursFormattedFromMinutes(sum_task_minutes);
+  std::string sum_duration_formatted =
+      helper::DateTime::GetHoursFormattedFromMinutes(sum_task_minutes);
+
   std::cout << "    ";
+
   for (int index_column = 0; index_column < Index_Duration; index_column++) {
     PrintRhsCellSpaces(-1, index_column);
     std::cout << " ";
   }
 
   std::cout << "  Σ";
-  if (-1 != task_number) std::cout << " " << task_number;
+
+  if (-1!=task_number) std::cout << " " << task_number;
+
   std::cout << ": " << sum_duration_formatted << "\n";
 }
 
@@ -360,12 +442,14 @@ std::string ReportRendererCli::RenderSeparationRow() {
 
 void ReportRendererCli::PrintRowCellForId(bool is_left_most, int index_row) {
   if (!is_left_most) std::cout << '|';
+
   std::cout << ' ';
 
   unsigned long amountDigitsInCurrentRowIndex = helper::Numeric::GetAmountDigits(index_row);
   unsigned long amountSpaces = max_index_digits_ - amountDigitsInCurrentRowIndex;
 
   if (amountSpaces > 0) std::cout << std::string(amountSpaces, ' ');
+
   std::cout << ' ' << index_row << ' ';
 
   if (is_left_most) std::cout << "| ";
@@ -377,7 +461,7 @@ void ReportRendererCli::PrintRowCellForId(bool is_left_most, int index_row) {
  * Fill cell w/ spaces to keep width of cells in column identical
  */
 void ReportRendererCli::PrintRhsCellSpaces(int index_cell, int index_column) {
-  int content_len = -1 == index_cell
+  int content_len = -1==index_cell
                     ? 0
                     : helper::String::GetAmountChars(helper::Html::Decode(cells_[index_cell]));
 
@@ -395,31 +479,27 @@ void ReportRendererCli::InitAnsiTheme() {
   int theme_id = helper::String::ToInt(config.GetConfigValue("cli_theme").c_str(), 0);
 
   switch (theme_id) {
-    case THEME_MAC_TERMINAL_DRACULA:
-      theme_style_header_ = "\033[0;100m";
+    case THEME_MAC_TERMINAL_DRACULA:theme_style_header_ = "\033[0;100m";
       theme_style_default_ = "\033[17;36m";
       theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
-    case THEME_LINUX_BASH_DRACULA:
-      theme_style_header_ = "\033[1;40m";
+    case THEME_LINUX_BASH_DRACULA:theme_style_header_ = "\033[1;40m";
       theme_style_default_ = "\033[17;34m";
       theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
-    case THEME_LINUX_BASH_ALTERNATIVE:
-      theme_style_header_ = "\033[1;44m";
+    case THEME_LINUX_BASH_ALTERNATIVE:theme_style_header_ = "\033[1;44m";
       theme_style_default_ = "\033[17;36m";
       theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
-    case THEME_LINUX_BASH_DEFAULT:
-      theme_style_header_ = "\033[17;104m";
+    case THEME_LINUX_BASH_DEFAULT:theme_style_header_ = "\033[17;104m";
       theme_style_default_ = "\033[17;34m";
       theme_style_grid_ = helper::Tui::kAnsiFormatReset;
       break;
     case THEME_MAC_TERMINAL_VISOR:
-    default:
-      theme_style_header_ = "\033[1;44m";
+    default:theme_style_header_ = "\033[1;44m";
       theme_style_default_ = "\033[17;100m";
       theme_style_grid_ = helper::Tui::kAnsiFormatReset;
   }
 }
+
 } // namespace tictac_trac

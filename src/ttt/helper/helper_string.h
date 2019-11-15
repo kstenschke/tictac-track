@@ -31,6 +31,7 @@
 
 namespace helper {
 namespace String {
+
 // Check whether given string ends w/ given string
 bool EndsWith(std::string const &value, std::string const &ending);
 // Check whether given string starts w/ given prefix
@@ -74,6 +75,7 @@ extern std::wstring ReduceWideChar(std::wstring wstr, int str_len, int offset);
 extern void LTrim(std::string &s);
 extern void RTrim(std::string &s);
 extern void Trim(std::string &s);
+
 } // namespace String
 } // namespace helper
 

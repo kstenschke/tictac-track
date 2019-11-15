@@ -59,7 +59,7 @@ AppConfig &AppConfig::GetInstance(char **argv) {
 void AppConfig::Init(char **argv) {
   is_initialized_ = true;
 
-  if (argv != nullptr) argv_ = argv;
+  if (argv!=nullptr) argv_ = argv;
 
   path_binary_ = helper::System::GetBinaryPath(argv_, std::strlen(App::kAppExecutableName.c_str()));
   std::string path_config_file = path_binary_ + AppConfig::kFilename;
@@ -159,12 +159,12 @@ void AppConfig::InitConfigMap() {
   config_map_.erase(config_map_.begin(), config_map_.end());
 
   std::vector<std::string> lines = helper::String::Explode(config_file_content_, '\n');
-  for (std::vector<int>::size_type i = 0; i != lines.size(); i++) {
+  for (std::vector<int>::size_type i = 0; i!=lines.size(); i++) {
     std::string line = lines[i];
     if (helper::String::StartsWith(line.c_str(), ";")) continue;
 
     size_t offset_equals = line.find('=');
-    if (std::string::npos == offset_equals) continue;
+    if (std::string::npos==offset_equals) continue;
 
     std::string key = line.substr(0, offset_equals);
     std::string value = line.substr(offset_equals + 1, std::string::npos);
@@ -177,16 +177,25 @@ void AppConfig::InitConfigMap() {
  * Resolve config option string to related enum item (which allows e.g. switch)
  */
 AppConfig::ConfigKeys AppConfig::ResolveOption(std::string input) {
-  if ("cli_theme" == input) return Option_Cli_Theme;
-  if ("format_week_of_year" == input) return Option_Format_Week_Of_Year;
-  if ("format_date" == input) return Option_Format_Date;
-  if ("format_day_of_week" == input) return Option_Format_Day_Of_Week;
-  if ("id_column" == input) return Option_Id_Column;
-  if ("locale" == input) return Option_Locale_Key;
-  if ("max_mergeable_minutes_gap" == input) return Option_Max_Mergeable_Gap;
-  if ("report_path" == input) return Option_Report_File_Path;
-  if ("first_task_of_day" == input) return Option_First_Task_Of_Day;
-  if ("default_daily_start_time" == input) return Option_Default_Daily_Start_Time;
+  if ("cli_theme"==input) return Option_Cli_Theme;
+
+  if ("format_week_of_year"==input) return Option_Format_Week_Of_Year;
+
+  if ("format_date"==input) return Option_Format_Date;
+
+  if ("format_day_of_week"==input) return Option_Format_Day_Of_Week;
+
+  if ("id_column"==input) return Option_Id_Column;
+
+  if ("locale"==input) return Option_Locale_Key;
+
+  if ("max_mergeable_minutes_gap"==input) return Option_Max_Mergeable_Gap;
+
+  if ("report_path"==input) return Option_Report_File_Path;
+
+  if ("first_task_of_day"==input) return Option_First_Task_Of_Day;
+
+  if ("default_daily_start_time"==input) return Option_Default_Daily_Start_Time;
 
   return Option_Invalid;
 }
@@ -206,7 +215,7 @@ std::string AppConfig::GetDefaultLanguageKey() {
  * Get value of given key from .tictac-track.conf, or default value
  */
 std::string AppConfig::GetConfigValue(const std::string &key) {
-  return 0 == config_map_.count(key) ? GetConfigValueDefault(key) : config_map_[key];
+  return 0==config_map_.count(key) ? GetConfigValueDefault(key) : config_map_[key];
 }
 /**
  * Get instance of config, than get value for given config option
@@ -215,8 +224,12 @@ std::string AppConfig::GetConfigValueStatic(const std::string &key) {
   return AppConfig::GetInstance().GetConfigValue(key);
 }
 
-const char* AppConfig::GetDefaultFirstTaskOfDay() {
-  return AppConfig::GetInstance().GetConfigValue("first_task_of_day").c_str();
+const char *AppConfig::GetDefaultFirstTaskOfDay() {
+  const char *defaultTaskId = AppConfig::GetInstance().GetConfigValue("first_task_of_day").c_str();
+
+  return strcmp(defaultTaskId, "")==0
+         ? "0"
+         : defaultTaskId;
 }
 
 /**
@@ -224,26 +237,20 @@ const char* AppConfig::GetDefaultFirstTaskOfDay() {
  */
 std::string AppConfig::GetConfigValueDefault(const std::string &key) {
   switch (ResolveOption(key)) {
-    case Option_Cli_Theme:
-      return helper::Numeric::ToString(GetDefaultThemeIdByOs());
-    case Option_Default_Daily_Start_Time:
-      return "09:00";
-    case Option_First_Task_Of_Day:
-      return "";
+    case Option_Cli_Theme:return helper::Numeric::ToString(GetDefaultThemeIdByOs());
+    case Option_Default_Daily_Start_Time:return "09:00";
+    case Option_First_Task_Of_Day:return "";
     case Option_Format_Week_Of_Year:
       // %W = Week starting w/ monday, %U = Week starting w/ sunday
       return "%W";
-    case Option_Format_Date:
-      return "%d.%m.%Y";
-    case Option_Format_Day_Of_Week:
-      return "%A";
-    case Option_Locale_Key:
-      return "en";
+    case Option_Format_Date:return "%d.%m.%Y";
+    case Option_Format_Day_Of_Week:return "%A";
+    case Option_Locale_Key:return "en";
     case Option_Id_Column:
-    case Option_Max_Mergeable_Gap:
-      return "0";
+    case Option_Max_Mergeable_Gap:return "0";
     case Option_Report_File_Path:
-      return helper::System::GetBinaryPath(argv_, std::strlen(App::kAppExecutableName.c_str()));
+      return helper::System::GetBinaryPath(argv_,
+                                           std::strlen(App::kAppExecutableName.c_str()));
     case Option_Invalid:
     default:return "";
   }
@@ -263,10 +270,11 @@ std::string AppConfig::GetReportFilePath() {
  * Get ID of default (ANSI coloring in CLI) theme by operating system
  */
 int AppConfig::GetDefaultThemeIdByOs() {
-  return helper::System::kOsName == "macOs"
+  return helper::System::kOsName=="macOs"
          // Blue theme, optimized for Mac
          ? 1
          // Blue theme w/ zebra-look, optimized for Linux
          : 0;
 }
+
 } // namespace tictac_track

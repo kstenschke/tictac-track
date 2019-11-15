@@ -39,7 +39,7 @@ namespace helper {
  * Check whether given string starts w/ given prefix
  */
 bool String::StartsWith(const char *str, const char *prefix) {
-  return 0 == strncmp(str, prefix, strlen(prefix));
+  return 0==strncmp(str, prefix, strlen(prefix));
 }
 
 /**
@@ -53,19 +53,19 @@ bool String::EndsWith(std::string const &value, std::string const &ending) {
  * Check whether given haystack contains given straw
  */
 bool String::Contains(std::string &haystack, std::string &needle) {
-  return std::string::npos != haystack.find(needle);
+  return std::string::npos!=haystack.find(needle);
 }
 
 bool String::Contains(std::string &haystack, const char *needle) {
-  return std::string::npos != haystack.find(needle);
+  return std::string::npos!=haystack.find(needle);
 }
 
 bool String::Contains(const char *haystack, std::string &needle) {
-  return std::string::npos != std::string(haystack, strlen(haystack)).find(needle);
+  return std::string::npos!=std::string(haystack, strlen(haystack)).find(needle);
 }
 
 bool String::Contains(char *haystack, const char *needle) {
-  return std::string::npos != std::string(haystack, strlen(haystack)).find(needle);
+  return std::string::npos!=std::string(haystack, strlen(haystack)).find(needle);
 }
 
 /**
@@ -83,7 +83,7 @@ int String::GetUtf8Size(std::string str) {
  */
 int String::GetSubStrCount(const char *str, const char *sub) {
   auto length = static_cast<int>(strlen(sub));
-  if (length == 0) return 0;
+  if (length==0) return 0;
 
   int count = 0;
   for (str = strstr(str, sub); str; str = strstr(str + length, sub)) ++count;
@@ -105,7 +105,7 @@ std::string String::ReplaceAll(std::string &haystack, const char *needle, const 
   size_t index = 0;
   while (true) {
     index = haystack.find(needle, index);
-    if (std::string::npos == index) break;
+    if (std::string::npos==index) break;
 
     haystack.replace(index, needle_len, replacement);
   }
@@ -120,7 +120,7 @@ void String::ReplaceAllByReference(std::string &str, const char *needle, const c
   if (str.empty() || to.empty()) return;
 
   std::string::size_type start_pos = 0;
-  while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
+  while ((start_pos = str.find(from, start_pos))!=std::string::npos) {
     str.replace(start_pos, from.length(), to);
     start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
   }
@@ -142,12 +142,11 @@ std::string String::CsvEncode(std::string str) {
  */
 std::string String::GetSubStrBetween(std::string &str, const char *lhs, const char *rhs) {
   size_t offsetStart = str.find(lhs);
-  if (std::string::npos != offsetStart) {
+  if (std::string::npos!=offsetStart) {
     size_t offsetEnd = str.find(rhs, offsetStart);
 
-    if (std::string::npos != offsetEnd) {
+    if (std::string::npos!=offsetEnd)
       return str.substr(offsetStart, offsetEnd - offsetStart + strlen(rhs));
-    }
   }
 
   return "";
@@ -171,20 +170,24 @@ bool String::IsNumeric(const std::string &str, bool allow_negative) {
 
   std::string::const_iterator it = str.begin();
   int index = 0;
-  while (it != str.end() && (std::isdigit(*it) || (index == 0 && str[0] == '-'))) {
+  while (it!=str.end() && (std::isdigit(*it) || (index==0 && str[0]=='-'))) {
     ++it;
     ++index;
   }
 
-  return it == str.end();
+  return it==str.end();
 }
 
 int String::ToInt(const char *str, int defaultValue) {
-  return String::IsNumeric(str) ? std::stoi(str) : defaultValue;
+  return String::IsNumeric(str)
+         ? std::stoi(str)
+         : defaultValue;
 }
 
 int String::ToInt(std::string str, int defaultValue) {
-  return String::IsNumeric(str) ? std::stoi(str) : defaultValue;
+  return String::IsNumeric(str)
+         ? std::stoi(str)
+         : defaultValue;
 }
 
 /**
@@ -262,10 +265,10 @@ int String::GetAmountChars(std::string str) {
 }
 
 std::wstring String::ReduceWideChar(std::wstring wstr,
-                                          int str_len,
-                                          int offset,
-                                          int offset_left,
-                                          int offset_right) {
+                                    int str_len,
+                                    int offset,
+                                    int offset_left,
+                                    int offset_right) {
   return offset < str_len
          ? wstr.substr(0, offset_left) + L"X" + wstr.substr(offset_right, std::string::npos)
          : wstr.substr(0, offset_left) + L"x";
@@ -298,4 +301,5 @@ void String::Trim(std::string &s) {
   LTrim(s);
   RTrim(s);
 }
+
 } // namespace helper

@@ -96,6 +96,7 @@ class ReportRendererCli : public ReportRenderer {
 
   int AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_running, int sum_task_minutes) const;
 };
+
 } // namespace tictac_track
 
 #endif

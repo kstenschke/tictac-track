@@ -65,7 +65,7 @@ bool System::GetYesOrNoKeyPress() {
   system("stty cbreak");
 
   int ch = getchar();
-  while (10 != ch && 78 != ch && 89 != ch && 110 != ch && 121 != ch) {
+  while (10!=ch && 78!=ch && 89!=ch && 110!=ch && 121!=ch) {
     ch = getchar();
   }
 
@@ -74,7 +74,7 @@ bool System::GetYesOrNoKeyPress() {
   system("stty -cbreak");
 
   // Everything but "n" / "N" means yes
-  return ch != 78 && ch != 110;
+  return ch!=78 && ch!=110;
 }
 
 /**
@@ -86,7 +86,7 @@ void System::WaitForEnterKeyPress() {
   system("stty cbreak");
 
   int ch = getchar();
-  while (10 != ch) {
+  while (10!=ch) {
     ch = getchar();
   }
 

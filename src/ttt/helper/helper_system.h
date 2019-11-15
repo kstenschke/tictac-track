@@ -29,6 +29,7 @@
 
 namespace helper {
 namespace System {
+
 // OS, newline
 #ifdef _WIN32
 const std::string kOsName = "win32";
@@ -55,7 +56,7 @@ const std::string kNewline = "\n";
 #endif
 
 // Get absolute path to application executable
-extern std::string GetBinaryPath(char** argv, size_t strLenExecutableName);
+extern std::string GetBinaryPath(char **argv, size_t strLenExecutableName);
 
 // Get language key from system default locale
 extern std::string GetLanguageKey();
@@ -65,6 +66,5 @@ void WaitForEnterKeyPress();
 
 } // namespace System
 } // namespace helper
-
 
 #endif

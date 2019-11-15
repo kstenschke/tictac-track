@@ -28,32 +28,34 @@
 #define CLASS_TTT_REPORT_FILE
 
 namespace tictac_track {
-  class ReportFile {
-    public:
-      static const std::string kFilenameReport;
 
-      static std::string GetReportHtml();
+class ReportFile {
+ public:
+  static const std::string kFilenameReport;
 
-      // Save given HTML to timesheet, replacing any previous content
-      static bool SaveReport(std::string html);
+  static std::string GetReportHtml();
 
-      // Backup timesheet.html to timesheet.html.bak.tmp
-      static bool BackupReportTemporary();
-      // Remove timesheet.html.bak, rename timesheet.html.bak to timesheet.html.bak
-      static bool ActivateTemporaryBackup();
-      // Remove timesheet.html.bak.tmp
-      static bool RemoveTemporaryBackup();
-      // Overwrite timesheet.html with timesheet.html.bak
-      static bool RestoreBackup();
+  // Save given HTML to timesheet, replacing any previous content
+  static bool SaveReport(std::string html);
 
-    protected:
-      // Create initial timesheet HTML file
-      static bool InitReportFile(bool removeIfExists);
+  // Backup timesheet.html to timesheet.html.bak.tmp
+  static bool BackupReportTemporary();
+  // Remove timesheet.html.bak, rename timesheet.html.bak to timesheet.html.bak
+  static bool ActivateTemporaryBackup();
+  // Remove timesheet.html.bak.tmp
+  static bool RemoveTemporaryBackup();
+  // Overwrite timesheet.html with timesheet.html.bak
+  static bool RestoreBackup();
 
-   private:
-    // Get input stream to report file
-    static std::ifstream GetReportIfStream();
-  };
+ protected:
+  // Create initial timesheet HTML file
+  static bool InitReportFile(bool removeIfExists);
+
+ private:
+  // Get input stream to report file
+  static std::ifstream GetReportIfStream();
+};
+
 } // namespace tictac_track
 
 #endif

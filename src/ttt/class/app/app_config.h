@@ -51,7 +51,7 @@ class AppConfig {
 
   // Get object instance. Initialize at 1st call.
   static AppConfig &GetInstance(char **argv = nullptr);
-  
+
   // Resolve config option string to related enum item (which allows e.g. switch)
   static ConfigKeys ResolveOption(std::string input);
 
@@ -60,7 +60,7 @@ class AppConfig {
   // Get instance of config, than get value for given config option
   static std::string GetConfigValueStatic(const std::string &key);
 
-  static const char* GetDefaultFirstTaskOfDay();
+  static const char *GetDefaultFirstTaskOfDay();
 
   // Get absolute path to timesheet.html (including filename)
   std::string GetReportFilePath();
@@ -92,6 +92,7 @@ class AppConfig {
 
   static int GetDefaultThemeIdByOs();
 };
+
 } // namespace tictac_track
 
 #endif

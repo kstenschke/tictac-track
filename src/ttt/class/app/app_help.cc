@@ -43,50 +43,33 @@ void AppHelp::PrintVersion() {
  */
 bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
   switch (command) {
-    case AppCommand::Commands::Command_BrowseTimesheet:
-      return PrintHelpOnBrowse();
-    case AppCommand::Commands::Command_Comment:
-      return PrintHelpOnComment();
-    case AppCommand::Commands::Command_Csv:
-      return PrintHelpOnCsv();
-    case AppCommand::Commands::Command_Day:
-      return PrintHelpOnDay();
-    case AppCommand::Commands::Command_Date:
-      return PrintHelpOnDate();
-    case AppCommand::Commands::Command_BrowseTaskUrl:
-      return PrintHelpOnExternalTaskUrl();
-    case AppCommand::Commands::Command_Help:
-      return PrintHelpOnHelp();
-    case AppCommand::Commands::Command_Merge:
-      return PrintHelpOnMerge();
-    case AppCommand::Commands::Command_Recalculate:
-      return PrintHelpOnRecalculate();
-    case AppCommand::Commands::Command_Resume:
-      return PrintHelpOnResume();
-    case AppCommand::Commands::Command_Remove:
-      return PrintHelpOnRemove();
-    case AppCommand::Commands::Command_Split:
-      return PrintHelpOnSplit();
-    case AppCommand::Commands::Command_Start:
-      return PrintHelpOnStart();
-    case AppCommand::Commands::Command_Stop:
-      return PrintHelpOnStop();
-    case AppCommand::Commands::Command_Task:
-      return PrintHelpOnTask();
-    case AppCommand::Commands::Command_Undo:
-      return PrintHelpOnUndo();
-    case AppCommand::Commands::Command_Version:
-      std::cout << "version (V): Displays current version number.\n";
+    case AppCommand::Commands::Command_BrowseTimesheet:return PrintHelpOnBrowse();
+    case AppCommand::Commands::Command_Comment:return PrintHelpOnComment();
+    case AppCommand::Commands::Command_Csv:return PrintHelpOnCsv();
+    case AppCommand::Commands::Command_Day:return PrintHelpOnDay();
+    case AppCommand::Commands::Command_Date:return PrintHelpOnDate();
+    case AppCommand::Commands::Command_BrowseTaskUrl:return PrintHelpOnExternalTaskUrl();
+    case AppCommand::Commands::Command_Help:return PrintHelpOnHelp();
+    case AppCommand::Commands::Command_Merge:return PrintHelpOnMerge();
+    case AppCommand::Commands::Command_Recalculate:return PrintHelpOnRecalculate();
+    case AppCommand::Commands::Command_Resume:return PrintHelpOnResume();
+    case AppCommand::Commands::Command_Remove:return PrintHelpOnRemove();
+    case AppCommand::Commands::Command_Split:return PrintHelpOnSplit();
+    case AppCommand::Commands::Command_Start:return PrintHelpOnStart();
+    case AppCommand::Commands::Command_Stop:return PrintHelpOnStop();
+    case AppCommand::Commands::Command_Task:return PrintHelpOnTask();
+    case AppCommand::Commands::Command_Undo:return PrintHelpOnUndo();
+    case AppCommand::Commands::Command_Version:std::cout << "version (V): Displays current version number.\n";
       return true;
-    case AppCommand::Commands::Command_View:
-      return PrintHelpOnView();
-    case AppCommand::Commands::Command_BrowseDayTasks:
-      return PrintHelpOnBrowseDayTasks();
-    case AppCommand::Commands::Command_ViewWeek:
-      return PrintHelpOnWeek();
+    case AppCommand::Commands::Command_CsvDayTracks:std::cout << "csvdt: Output tracked items of current day as CSV.\n";
+      return true;
+    case AppCommand::Commands::Command_CsvRecentTaskNumbers:std::cout << "csvrtn: Output recent (up to) 50 tracked task numbers.\n";
+      return true;
+    case AppCommand::Commands::Command_View:return PrintHelpOnView();
+    case AppCommand::Commands::Command_BrowseDayTasks:return PrintHelpOnBrowseDayTasks();
+    case AppCommand::Commands::Command_ViewWeek:return PrintHelpOnWeek();
     case AppCommand::Commands::Command_Invalid:
-    default:
-      if (withTitle) PrintVersion();
+    default:if (withTitle) PrintVersion();
 
       PrintOverview();
   }
@@ -126,7 +109,7 @@ void AppHelp::PrintOverview() {
             << "\n    week (w)         - Display week out of timesheet in commandline"
             << "\n    csv              - Export timesheet to CSV file"
             << "\n    csvdt            - Output tracked items of current day as CSV"
-            << "\n    csvrtn           - Output tracked items of current day as CSV"
+            << "\n    csvrtn           - Output recent 50 tracked task numbers"
             << "\n    url (u)          - Open external task URL in web browser"
             << "\n    dayTasks (ud)    - Display tasks of day sequentially in CLI and web browser"
             << "\n"
@@ -364,4 +347,5 @@ void AppHelp::PrintUnknownArgumentMessage(const char *arg) {
 
   PrintHelp(false, AppCommand::Commands::Command_Invalid);
 }
+
 } // namespace tictac_track

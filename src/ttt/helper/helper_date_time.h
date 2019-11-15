@@ -29,6 +29,7 @@
 
 namespace helper {
 namespace DateTime {
+
 const int kMinutesPerDay = 1440;
 
 // Get string of current time, w/ given offset in days added, in given format
@@ -54,6 +55,7 @@ std::string GetWeekdayEnByIndex(int day_index);
 extern bool IsTime(std::string str);
 
 static constexpr const char *FORMAT_TIME = "%H:%M";
+
 } // namespace DateTime
 } // namespace helper
 

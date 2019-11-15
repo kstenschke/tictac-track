@@ -3,7 +3,7 @@
 ########################################################################################################################
 # Run functional tests written with bats - https://github.com/sstephenson/bats                                         #
 #                                                                                                                      #
-# Copyright (c) 2018-2019, Kay Stenschke                                                                                    #
+# Copyright (c) 2018-2019, Kay Stenschke                                                                               #
 # All rights reserved.                                                                                                 #
 #                                                                                                                      #
 # Install bats on Linux: sudo apt-get install bats                                                                     #
@@ -48,4 +48,3 @@ bats ./test/functional/undo-backup.bats.sh
 
 printf "\n\033[4mTest view command\033[0m\n"
 bats ./test/functional/view.bats.sh
-

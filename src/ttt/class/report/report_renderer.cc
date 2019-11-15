@@ -165,4 +165,5 @@ std::vector<std::string> ReportRenderer::ExtractRowsFromTable(std::string table)
 
   return helper::String::Explode(table, '|');
 }
+
 } // namespace tictac_track

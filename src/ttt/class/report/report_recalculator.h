@@ -31,6 +31,7 @@
 #include "report_parser.h"
 
 namespace tictac_track {
+
 class ReportRecalculator : public ReportParser {
  public:
   // Constructor
@@ -58,6 +59,7 @@ class ReportRecalculator : public ReportParser {
 
   void ClearTaskMaps();
 };
+
 } // namespace tictac_track
 
 #endif

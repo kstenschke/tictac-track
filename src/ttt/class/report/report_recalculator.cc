@@ -56,7 +56,9 @@ bool ReportRecalculator::RecalculateAndUpdate() {
 bool ReportRecalculator::Recalculate() {
   ReportParser *parser = new ReportParser(html_);
   int last_index = parser->GetLastIndex();
-  if (last_index == -1 || (last_index == 0 && parser->IsAnyEntryRunning())) return false;
+  if (last_index==-1
+      || (last_index==0 && parser->IsAnyEntryRunning()))
+    return false;
 
   parser->UpdateTitle();
   parser->UpdateTableHeader();
@@ -68,7 +70,8 @@ bool ReportRecalculator::Recalculate() {
   std::string previous_date;
   bool is_new_day;
   int sum_minutes_day = 0;
-  int minutes_per_day_should = helper::DateTime::GetSumMinutesFromTime(AppConfig::GetConfigValueStatic("debit_per_day"));
+  int minutes_per_day_should =
+      helper::DateTime::GetSumMinutesFromTime(AppConfig::GetConfigValueStatic("debit_per_day"));
   int balance = 0;
 
   auto *report_date_time = new ReportDateTime();
@@ -81,11 +84,12 @@ bool ReportRecalculator::Recalculate() {
     ReportRecalculator::CalculateAndUpdateDuration(html_, row_index);
 
     parser->SetHtml(html_);
-    
+
     std::string meta = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta);
-    if (meta != previous_meta || weekday_name.empty())
+    if (meta!=previous_meta
+        || weekday_name.empty())
       weekday_name = report_date_time->GetWeekdayByMeta(meta);
-    
+
     ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_Day, weekday_name);
     ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_SumTaskDay, "");
     ReportParser::UpdateColumn(html_, row_index, Report::ColumnIndexes::Index_SumDay, "");
@@ -97,7 +101,7 @@ bool ReportRecalculator::Recalculate() {
     current_date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date, offset_tr);
     current_duration = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Duration, offset_tr);
 
-    is_new_day = !previous_date.empty() && previous_date != current_date;
+    is_new_day = !previous_date.empty() && previous_date!=current_date;
     if (is_new_day) {
       int debit_day = sum_minutes_day - minutes_per_day_should;
       balance += debit_day;
@@ -120,7 +124,7 @@ bool ReportRecalculator::Recalculate() {
     if (!current_duration.empty()) {
       int duration_minutes = helper::DateTime::GetSumMinutesFromTime(current_duration);
       sum_minutes_day += duration_minutes;
-      
+
       if (!task_number.empty()) AddToTaskMaps(task_number, row_index, duration_minutes);
     }
 
@@ -150,7 +154,8 @@ void ReportRecalculator::AddToTaskMaps(std::string task_number, int index_row, i
   task_in_day_last_index_[task_number] = index_row;
 
   auto it = task_in_day_duration_sum_.find(task_number);
-  if (it == task_in_day_duration_sum_.end()) task_in_day_duration_sum_[task_number] = 0;
+  if (it==task_in_day_duration_sum_.end()) task_in_day_duration_sum_[task_number] = 0;
+
   task_in_day_duration_sum_[task_number] += duration_minutes;
 }
 
@@ -195,4 +200,5 @@ std::string ReportRecalculator::CalculateAndUpdateDuration(int row_index) {
 
   return html;
 }
+
 } // namespace tictac_track

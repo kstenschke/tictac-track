@@ -28,6 +28,7 @@
 #include "helper_numeric.h"
 
 namespace helper {
+
 unsigned int Numeric::ToUnsignedInt(int number) {
   return static_cast<unsigned int>(number);
 }
@@ -49,7 +50,7 @@ std::string Numeric::ToString(int number, unsigned int amount_digits_min) {
  * @note Supports positive numbers only
  */
 unsigned long Numeric::GetAmountDigits(int number) {
-  if (number == 0) return 1;
+  if (number==0) return 1;
 
   unsigned long digits = 0;
   while (number) {
@@ -59,4 +60,5 @@ unsigned long Numeric::GetAmountDigits(int number) {
 
   return digits;
 }
+
 } // namespace helper
