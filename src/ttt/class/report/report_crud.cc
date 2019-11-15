@@ -357,7 +357,7 @@ bool ReportCrud::Merge(int row_index) {
   if (0!=std::strcmp(date.c_str(), date_next.c_str())) {
     tictac_track::AppError::PrintError(
         (std::string("Cannot merge: Next entry is in different day (")
-            + date.c_str() + " / " + date_next.c_str() + ")").c_str()
+            + date + " / " + date_next + ")").c_str()
     );
 
     return false;

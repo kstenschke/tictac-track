@@ -41,7 +41,6 @@
 #include "../report/report_recalculator.h"
 #include "../../helper/helper_numeric.h"
 #include "../../helper/helper_string.h"
-#include "../../helper/helper_date_time.h"
 #include "../../helper/helper_system.h"
 
 namespace tictac_track {

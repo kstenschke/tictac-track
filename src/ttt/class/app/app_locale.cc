@@ -81,7 +81,7 @@ const char *AppLocale::Translate(const char *label) {
 std::string AppLocale::Translate(const char *label, bool html_encode) {
   std::string translated = Translate(label);
 
-  return helper::Html::Encode(translated);
+  return html_encode ? helper::Html::Encode(translated) : translated;
 }
 
 } // namespace tictac_track
