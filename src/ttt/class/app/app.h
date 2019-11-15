@@ -50,6 +50,8 @@ class App {
   AppCommand *command_;
   AppArguments *arguments_;
 
+  bool ClearTimesheet();
+
   bool AddFullDayEntry();
 
   bool BrowseTaskUrl();

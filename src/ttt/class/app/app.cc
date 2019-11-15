@@ -71,6 +71,10 @@ bool App::Process() {
   bool keep_backup;
 
   switch (command_->GetResolved()) {
+    case AppCommand::Command_ClearTimesheet:
+      ReportFile::BackupReportTemporary();
+      ClearTimesheet();
+      break;
     case AppCommand::Command_BrowseTimesheet:return ReportBrowser::BrowseTimesheet();
     case AppCommand::Command_BrowseTaskUrl:return BrowseTaskUrl();
     case AppCommand::Command_Comment:ReportFile::BackupReportTemporary();
@@ -513,6 +517,11 @@ bool App::UpdateComment() {
   }
 
   return res;
+}
+
+bool App::ClearTimesheet() {
+  tictac_track::ReportCrud report_crud = tictac_track::ReportCrud::GetInstance(true);
+  return true;
 }
 
 bool App::UpdateCommentByEntryId(int last_index, int index, std::string comment, bool starts_with_space) {

@@ -41,6 +41,8 @@ extern std::string GetFileContents(std::ifstream &file);
 
 extern bool WriteToNewFile(const std::string &filename, std::string &content);
 
+extern bool Remove(const char *file_path);
+
 } // namespace File
 } // namespace helper
 

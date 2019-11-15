@@ -43,20 +43,21 @@ namespace tictac_track {
 /**
  * Get object instance. Initialize at 1st call: ensure config file exists, load contents to attribute
  */
-ReportCrud &ReportCrud::GetInstance() {
+ReportCrud &ReportCrud::GetInstance(bool clear) {
   // Instantiated on first use
   static ReportCrud instance;
 
-  if (!instance.is_initialized_) instance.Init();
+  if (!instance.is_initialized_ || clear) instance.Init(clear);
 
   return instance;
 }
 
 /**
  * Initialize: ensure report file exists, setup attributes
+ * Optional: reset the timesheet file
  */
-void ReportCrud::Init() {
-  report_exists_ = EnsureReportExists();
+void ReportCrud::Init(bool clear) {
+  report_exists_ = EnsureReportExists(clear);
   report_date_time_ = new ReportDateTime();
   is_initialized_ = true;
 }
@@ -65,9 +66,13 @@ bool ReportCrud::ReportExists() {
   return report_exists_;
 }
 
-bool ReportCrud::EnsureReportExists() {
+bool ReportCrud::EnsureReportExists(bool clear) {
   AppConfig &config = AppConfig::GetInstance();
   std::string report_file_path = config.GetReportFilePath();
+
+  if (clear && helper::File::FileExists(report_file_path))
+    helper::File::Remove(report_file_path.c_str());
+
   if (helper::File::FileExists(report_file_path) || InitReportFile(false))
     return true;
 

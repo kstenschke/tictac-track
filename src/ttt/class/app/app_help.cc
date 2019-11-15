@@ -102,6 +102,7 @@ void AppHelp::PrintOverview() {
             << "\n    remove (rm)       - Remove given entry / given amout of latest entries / all entries"
             << "\n    undo (z)          - Undo last entry creation / modification"
             << "\n    recalculate (rc)  - Recalculate all duration sums (per entry, per task per day, per day)"
+            << "\n    clear (cls)       - Empty the timesheet"
             << "\n"
             << "\n  3. View and export timesheet and tasks:"
             << "\n    browse (b)       - Open timesheet in web browser"

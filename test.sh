@@ -16,6 +16,9 @@ bats ./test/functional/help.bats.sh
 printf "\n\033[4mTest initialization\033[0m\n"
 bats ./test/functional/initialization.bats.sh
 
+printf "\n\033[4mTest clear command\033[0m\n"
+bats ./test/functional/clear.bats.sh
+
 printf "\n\033[4mTest start command\033[0m\n"
 bats ./test/functional/start.bats.sh
 

@@ -3,9 +3,9 @@ Tictac-Track - Changelog
 
 V1.5.0
 -------
-* Added command: "csvdt" - Output CSV of items tracked within current day
-* Added command: "csrtn" - Output CSV of 30 most recently tracked task numbers
-* Improved (simplified) output of "w" command when report is empty 
+* Added command: csvdt - Output CSV of items tracked within current day
+* Added command: csrtn - Output CSV of 30 most recently tracked task numbers
+* Added command: clear (cls) - Empty the timesheet 
 
 V1.4.1
 -------

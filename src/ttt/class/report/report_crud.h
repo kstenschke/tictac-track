@@ -37,7 +37,7 @@ namespace tictac_track {
 class ReportCrud : public ReportFile {
  public:
   // Get object instance. Initialize at 1st call
-  static ReportCrud &GetInstance();
+  static ReportCrud &GetInstance(bool clear = false);
 
   bool ReportExists();
 
@@ -92,8 +92,8 @@ class ReportCrud : public ReportFile {
   ReportCrud() = default;;
 
   // Create initial report file if missing.
-  void Init();
-  static bool EnsureReportExists();
+  void Init(bool clear);
+  static bool EnsureReportExists(bool clear);
 
   static std::string RenderEntryHtml(
       bool is_new_day, std::string meta, std::string week_number, std::string weekday, std::string day_date,

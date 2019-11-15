@@ -71,4 +71,8 @@ bool File::WriteToNewFile(const std::string &filename, std::string &content) {
   return File::FileExists(filename);
 }
 
+bool File::Remove(const char *file_path) {
+  return remove(file_path) == 0;
+}
+
 } // namespace helper

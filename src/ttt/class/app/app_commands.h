@@ -36,6 +36,7 @@ class AppCommand {
   enum Commands {
     Command_BrowseTimesheet,
     Command_BrowseTaskUrl,
+    Command_ClearTimesheet,
     Command_Comment,
     Command_Csv,
     Command_CsvRecentTaskNumbers,

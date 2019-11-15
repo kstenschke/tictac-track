@@ -94,6 +94,8 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
 
   if (command=="csv") return Command_Csv;
 
+  if (command=="cls" || command=="clear") return Command_ClearTimesheet;
+
   return Command_Invalid;
 }
 
