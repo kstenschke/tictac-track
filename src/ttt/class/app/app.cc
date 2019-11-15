@@ -664,9 +664,36 @@ bool App::ViewWeek() {
 }
 
 bool App::CsvRecentTaskNumbers() {
-  int amount = arguments_->GetTaskNumber();
+  ReportParser *parser = new ReportParser();
+  parser->LoadReportHtml();
+  int amount_rows = parser->GetAmountRows();
 
-  std::cout << "@todo implement print csv of 50 recent task numbers...";
+  std::string task_numbers = "|";
+
+  // Iterate over tracked rows backwards, starting with latest
+  bool is_first = true;
+  int amount_task_numbers_found = 0;
+  for (int row_offset = 0;
+       amount_task_numbers_found < 30 && row_offset < amount_rows;
+       row_offset++) {
+    std::string task_number = parser->GetLatestTaskNumber(row_offset);
+
+    if (helper::String::IsNumeric(task_number)
+        && !helper::String::Contains(task_numbers, task_number)) {
+      if (!is_first)
+        std::cout << ",";
+
+      std::cout << task_number;
+      amount_task_numbers_found++;
+
+      task_numbers
+          .append(task_number)
+          .append("|");
+
+      if (is_first) is_first = false;
+    }
+  }
+
   return true;
 }
 

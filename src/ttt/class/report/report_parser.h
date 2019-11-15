@@ -53,10 +53,15 @@ class ReportParser : public Report {
   // Get title for timesheet HTML headline: "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
   std::string GetReportTitle();
 
+  int GetAmountRows();
+
   int GetLastIndex();
 
   // Get ID of latest entry w/ given task number, or -1
   int GetLatestIndexByTaskNumber(std::string task_number);
+
+  // Get task number of (latest entry - offset)
+  std::string GetLatestTaskNumber(int offset = 0);
 
   // Find row w/ date immediately before given one
   int GetIndexBeforeMetaDate(std::string meta_date);

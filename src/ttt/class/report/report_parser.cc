@@ -204,17 +204,14 @@ std::string ReportParser::UpdateTitle() {
   return html_;
 }
 
+int ReportParser::GetAmountRows() {
+  return helper::String::GetSubStrCount(html_.c_str(), "<tr") - 1;
+}
+
 int ReportParser::GetLastIndex() {
-  int amountTRs = helper::String::GetSubStrCount(html_.c_str(), "<tr");
-
-  if (amountTRs==1) {
-    last_index_ = -1;
-    return last_index_;
-  }
-
-  if (-1==last_index_)
+  if (-1 == last_index_)
     // Do not count header. Subtract one more, as index is zero-based
-    last_index_ = amountTRs - 2;
+    last_index_ = helper::String::GetSubStrCount(html_.c_str(), "<tr") - 2;
 
   return last_index_;
 }
@@ -233,6 +230,12 @@ int ReportParser::GetLatestIndexByTaskNumber(std::string task_number) {
   }
 
   return -1;
+}
+
+std::string ReportParser::GetLatestTaskNumber(int offset) {
+  int row_index = GetLastIndex() - offset;
+
+  return GetColumnContent(row_index, ColumnIndexes::Index_Task).c_str();
 }
 
 int ReportParser::GetIndexFirstEntryOfDate(std::string &date) {
