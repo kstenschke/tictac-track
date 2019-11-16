@@ -7,8 +7,8 @@ V1.5.0 - Released 2019/11/16
 * Added command: csrtn - Output CSV of 30 most recently tracked task numbers
 * Added command: clear (cls) - Empty the timesheet 
 
-V1.4.1
--------
+V1.4.1 2019/02/26
+-----------------
 * Added CONTRIBUTING.md
 * Changed: Use semantic versioning (https://semver.org/)
 * Changed: Use sub directory src/ttt to allow sibling projects
