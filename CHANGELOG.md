@@ -1,8 +1,8 @@
 Tictac-Track - Changelog
 ========================
 
-V1.5.0
--------
+V1.5.0 2019/11/16
+-----------------
 * Added command: csvdt - Output CSV of items tracked within current day
 * Added command: csrtn - Output CSV of 30 most recently tracked task numbers
 * Added command: clear (cls) - Empty the timesheet 
@@ -53,6 +53,6 @@ V1.1
 * Improved resume command: When user entered task-number instead entry ID, the last entry of that task is suggested to be resumed
 * Improved task command: Updating task number now accepts multiple comma-separated entry IDs 
 
-v1.0
-----
+v1.0 2018/03/18
+----—----------
 * Initial release
