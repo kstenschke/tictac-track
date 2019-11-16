@@ -49,7 +49,7 @@ Features
 * Stores all work entries into an HTML file, ready to be printed
 * CLI viewer: The timesheet can be viewed pretty-printed user-friendly formatted and colored, directly within CLI
 * No external editor needed: Entries can be edited directly from CLI (start/end-time, comment, task)
-* Task-reference and comments: Timesheet entries contain start- and end-time and optionally a task-number and comment
+* Issue-reference and comments: Timesheet entries contain start- and end-time and optionally an issue reference-number and comment
 * Search filter: The CLI viewer can use search filters (by date, week, month, task-number, comment)
 * Time sum calculation: Recorded work times are additionally summed: per entry / task per day / day / filtered view / in total
 * Overtime saldo: Required vs. recorded work time per day is calculated automatically
