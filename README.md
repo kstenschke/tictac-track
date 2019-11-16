@@ -159,7 +159,7 @@ For the first entry per day, a default task number to be used when none is given
 `p i=3 08:30` - Update end-time of entry 3 to 08:30
 
 
-### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same task and comment)
+### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue nr and comment)
 
 If the given argument is no existing ID, but there is an entry w/ such a task number, the system suggests to resume the
 related entry.
@@ -233,27 +233,27 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 `c i=3,6,7 "Foo bar"` - Append "Foo bar" to comments of entries with IDs 3, 6 and 7
 
 
-### Command: task (t) - Stores given task number to given entry/entries or latest entry
+### Command: task (t) - Stores given issue number to given entry/entries or latest entry
                       
 #### Usage examples:
  
-`t`                     - Unset the task number of the latest entry
+`t`                     - Unset issue number of the latest entry
 
-`t 123`                 - Set the task number of the latest entry to 123
+`t 123`                 - Set issue number of the latest entry to 123
 
-`t 123 foo`             - Set the task number of the latest entry to 123 and append "foo" to its comment
+`t 123 foo`             - Set issue number of the latest entry to 123 and append "foo" to its comment
 
-`t i=3`                 - Unset the task number of the entry with ID 3
+`t i=3`                 - Unset issue number of the entry with ID 3
 
-`t i=3 123`             - Set the task number of the entry with ID 3 to 123
+`t i=3 123`             - Set issue number of the entry with ID 3 to 123
 
-`t i=3,5,7`             - Unset the task number of the entries with IDs 3, 5 and 7
+`t i=3,5,7`             - Unset issue number of the entries with IDs 3, 5 and 7
 
-`t i=3,5,7 1234`        - Set the task number of entries with IDs 3, 5 and 7 to 1234
+`t i=3,5,7 1234`        - Set issue number of entries with IDs 3, 5 and 7 to 1234
 
-`t i=3 1234 " foo bar"` - Set the task number of the entry with ID 3 to 1234 and append " foo bar" to its comment
+`t i=3 1234 " foo bar"` - Set issue number of the entry with ID 3 to 1234 and append " foo bar" to its comment
 
-`t i=3,5,7 1234 foo`    - Set the task number of the entries with IDs 3, 5 and 7 to 1234 and append " foo bar" to their comments
+`t i=3,5,7 1234 foo`    - Set issue number of the entries with IDs 3, 5 and 7 to 1234 and append " foo bar" to their comments
 
 
 ### Command: split (sp): Splits given timesheet entry into two
