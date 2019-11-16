@@ -1,7 +1,7 @@
 Tictack-track (ttt)
 ===================
 
-A simple but powerful personal timetracker, running on the command-line.  
+A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS).  
 It comes without external dependencies (no server or database).
 The application records work-entries directly to an HTML file, ready for print at any time.
 The API provides options to export tracked data, and to send it to external issue tracking systems (e.g. Redmine).
@@ -60,6 +60,7 @@ Features
 * Export: Timesheets can be exported to CSV: whole timesheet, current day, recent referenced issue numbers
 * External URL-linking: Referenced items can be dynamically opened in web-browser: all tasks of a day / week / month
 * Timesheet can be recorded in multiple languages (de, dk, en, es, fi, fr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
+* Stable: The majority of commands and options is covered by functional tests
 
 
 Commands Overview
