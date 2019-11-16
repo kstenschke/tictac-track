@@ -74,7 +74,7 @@ Commands Overview
 
 | Command          | Description
 |------------------|-------------------------------------------------------------------------------
-| start / s        | Start tracking new work entry
+| start / s        | Start tracking new work entry or update Start-time of given entry
 | pause / stop / p | Stop currently running entry
 | resume / r       | Start new work entry at current time, w/ task and comment from previous entry
 
@@ -121,7 +121,7 @@ Commands Overview
 
 ## Commands in detail
 
-### Command: start (s) - Add new entry to timesheet report
+### Command: start (s) - Add new entry to timesheet report or update Start-time of given entry
 
 The new entry's status is set to ongoing. If a previous entry has been ongoing when a new entry is started,
 the previous entry is being stopped, with the current time being recorded as that task's end-time.
