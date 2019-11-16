@@ -47,7 +47,7 @@ Features
 
 * Works directly from CLI, on Linux and Mac OS (not tested on Windows)
 * Stores all work entries into an HTML file, ready to be printed
-* CLI viewer: The timesheet can be viewed pretty-printed user-friendly formatted, directly within CLI
+* CLI viewer: The timesheet can be viewed pretty-printed user-friendly formatted and colored, directly within CLI
 * No external editor needed: Entries can be edited directly from CLI (start/end-time, comment, task)
 * Task-reference and comments: Timesheet entries contain start- and end-time and optionally a task-number and comment
 * Search filter: The CLI viewer can use search filters (by date, week, month, task-number, comment)
