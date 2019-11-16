@@ -21,8 +21,8 @@ V1.4 - 2019/02/22
 -----------------
 * Changed license to BSD-3-Clause
 
-V1.3
-----
+V1.3 - 2018/26/04
+-----------------
 * Added command: dayTasks (ud) - Sequentially view tasks of day and open related task URLs in browser
 * Added config: Default task number for 1st entry started in day (stored if no different one given) 
 * Bugfix: Splitting entry by 1 hour was formatting time as 0:60
