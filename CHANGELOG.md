@@ -17,8 +17,8 @@ V1.4.1
 * Improved use of code convention: Use prefix form for all pre-increment / -decrement
 * Improved Mac compatibility of localtime_r usage
 
-V1.4 
-----
+V1.4 Released 2019/02/22
+------------------------
 * Changed license to BSD-3-Clause
 
 V1.3
