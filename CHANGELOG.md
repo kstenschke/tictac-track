@@ -1,14 +1,14 @@
 Tictac-Track - Changelog
 ========================
 
-V1.5.0 - Released 2019/11/16
-----------------------------
+V1.5.0 - 2019/11/16
+-------------------
 * Added command: csvdt - Output CSV of items tracked within current day
 * Added command: csrtn - Output CSV of 30 most recently tracked task numbers
 * Added command: clear (cls) - Empty the timesheet 
 
-V1.4.1 2019/02/26
------------------
+V1.4.1 - 2019/02/26
+-------------------
 * Added CONTRIBUTING.md
 * Changed: Use semantic versioning (https://semver.org/)
 * Changed: Use sub directory src/ttt to allow sibling projects
@@ -17,8 +17,8 @@ V1.4.1 2019/02/26
 * Improved use of code convention: Use prefix form for all pre-increment / -decrement
 * Improved Mac compatibility of localtime_r usage
 
-V1.4 Released 2019/02/22
-------------------------
+V1.4 - 2019/02/22
+-----------------
 * Changed license to BSD-3-Clause
 
 V1.3
@@ -53,6 +53,6 @@ V1.1
 * Improved resume command: When user entered task-number instead entry ID, the last entry of that task is suggested to be resumed
 * Improved task command: Updating task number now accepts multiple comma-separated entry IDs 
 
-v1.0 Released 2018/03/18
-------------------------
+v1.0 - 2018/03/18
+-----------------
 * Initial release
