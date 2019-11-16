@@ -54,5 +54,5 @@ V1.1
 * Improved task command: Updating task number now accepts multiple comma-separated entry IDs 
 
 v1.0 Released 2018/03/18
-----—-------------------
+------------------------
 * Initial release
