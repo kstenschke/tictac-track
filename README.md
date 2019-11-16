@@ -4,6 +4,7 @@ Tictac-Track
 Ticktac-Track is a simple but powerful personal timetracker running on the command-line.  
 It comes without external dependencies (no server or database).
 The application records work-entries directly to a local HTML file, ready for print at any time.
+The API provides options to export tracked data, and to send it to external issue tracking systems (e.g. Redmine).
 
 ## Table of contents
 
