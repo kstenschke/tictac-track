@@ -76,7 +76,7 @@ Commands Overview
 | Command          | Description
 |------------------|-------------------------------------------------------------------------------
 | start / s        | Start tracking new work entry or update Start-time of given entry
-| pause / stop / p | Stop currently running entry
+| pause / stop / p | Stop currently ongoing entry
 | resume / r       | Start new work entry at current time, w/ task and comment from previous entry
 
 
@@ -85,7 +85,7 @@ Commands Overview
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
 | start / s         | Update start-time of given entry
-| stop / pause / p  | Set end-time of given or running entry
+| stop / pause / p  | Set end-time of given or ongoing entry
 | day / d           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc.
 | comment / c       | Unset or append to comment of given entry
 | task / t          | Update task-number of given entry
@@ -167,19 +167,19 @@ related entry.
 
 #### Usage examples:
 
-`r`       - Resume latest entry (has to be not running anymore).
+`r`       - Resume latest entry (has to be not onging anymore).
 
 `r c=foo` - Resume latest entry, append/add "foo" to/as comment.
 
-`r 1`     - Resume entry with ID 1. Stops running entry, if any.
+`r 1`     - Resume entry with ID 1. Stops ongoing entry, if any.
 
-`r 1 foo` - Resume entry with ID 1, append/add "foo" to/as comment. Stop running entry, if any.
+`r 1 foo` - Resume entry with ID 1, append/add "foo" to/as comment. Stop ongoing entry, if any.
 
-`r 2`     - Resume entry with ID 2. Stops running entry, if any.
+`r 2`     - Resume entry with ID 2. Stops ongoing entry, if any.
 
-`r -1`    - Resume entry 1 place before latest entry. Stops running entry, if any.
+`r -1`    - Resume entry 1 place before latest entry. Stops ongoing entry, if any.
 
-`r -2`    - Resume entry 2 places before latest entry. Stops running entry, if any.
+`r -2`    - Resume entry 2 places before latest entry. Stops ongoing entry, if any.
 
 ### Command: day (d) - Add all-day entry
 

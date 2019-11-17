@@ -37,7 +37,7 @@ load test_helper
 @test 'After starting a new entry, there is 1 more entry in timesheet than in the backup' {
   # Add entry, create timesheet.html
   run $BATS_TEST_DIRNAME/ttt s
-  # There is 1 running entry now
+  # There is 1 ongoing entry now
   run grep -c '<td class="meta">s/' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 1 ]]
 

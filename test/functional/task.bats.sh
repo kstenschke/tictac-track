@@ -12,7 +12,7 @@ load test_helper
 }
 
 @test 'A task-number can be added to an existing entry' {
-  # Create running entry
+  # Create ongoing entry
   $BATS_TEST_DIRNAME/ttt s
   $BATS_TEST_DIRNAME/ttt p
 
@@ -30,7 +30,7 @@ load test_helper
 }
 
 @test 'At the same time with updating a task-number, a comment can be added to an entry' {
-  # Create running entry
+  # Create ongoing entry
   $BATS_TEST_DIRNAME/ttt s
   $BATS_TEST_DIRNAME/ttt p
 
@@ -44,7 +44,7 @@ load test_helper
 }
 
 @test 'At the same time with updating the task-number of the latest entry, a comment can be added to it' {
-  # Create running entry
+  # Create ongoing entry
   $BATS_TEST_DIRNAME/ttt s
   $BATS_TEST_DIRNAME/ttt p
 

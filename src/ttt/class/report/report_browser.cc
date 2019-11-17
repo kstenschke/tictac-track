@@ -93,9 +93,9 @@ bool ReportBrowser::BrowseTaskUrl(int task_number, std::string url_command) {
 }
 
 /**
- * Open configured task action URL in web browser. If in day-scope: all tasks of day
+ * Open configured task action URL in web browser. If in day-scope: all issues of day
  */
-bool ReportBrowser::BrowseTaskUrlsInScope(
+bool ReportBrowser::BrowseIssueUrlsInScope(
     ReportRenderer::RenderScopes render_scope, int offset, int task_number,
     std::string url_command
 ) {
@@ -111,17 +111,17 @@ bool ReportBrowser::BrowseTaskUrlsInScope(
       return false;
 
     InitScopeFilter(render_scope, offset);
-    std::vector<std::string> tasks = parser->GetTasksOfDay(rows_filter_);
-    if (tasks.empty())
+    std::vector<std::string> issues = parser->GetIssueNumbersOfDay(rows_filter_);
+    if (issues.empty())
       return tictac_track::AppError::PrintError(
-          std::string("No tasks found in day (")
+          std::string("No related issues found in day (")
               .append(rows_filter_)
               .append(").")
               .c_str());
 
-    for (auto const &task : tasks) {
-      std::cout << task << " ";
-      std::string url = helper::String::ReplaceAll(url_raw.c_str(), "#TASK#", task.c_str());
+    for (auto const &issue : issues) {
+      std::cout << issue << " ";
+      std::string url = helper::String::ReplaceAll(url_raw.c_str(), "#TASK#", issue.c_str());
       BrowseTimesheet(url);
     }
 

@@ -13,7 +13,7 @@ load test_helper
   [[ "$output" = 0 ]]
 }
 
-@test 'Resuming a running entry fails w/ error message' {
+@test 'Resuming an ongoing entry fails w/ error message' {
   $BATS_TEST_DIRNAME/ttt s
   $BATS_TEST_DIRNAME/ttt r | grep 'Cannot resume'
   # There is still no entry

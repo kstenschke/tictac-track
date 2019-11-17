@@ -110,15 +110,15 @@ load test_helper
   [[ "$output" = 1 ]]
 }
 
-@test 'Merging a stopped w/ a running entry, sets the merged entry running' {
+@test 'Merging a stopped w/ an ongoing entry, sets the merged entry ongoing' {
   run $BATS_TEST_DIRNAME/ttt s foo
   run $BATS_TEST_DIRNAME/ttt s
-  # There is 1 running entry
+  # There is 1 ongoing entry
   run grep -c '<td class="meta">s/' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 1 ]]
   # Merge
   run $BATS_TEST_DIRNAME/ttt m 1
-  # There is 1 running entry
+  # There is 1 ongoing entry
   run grep -c '<td class="meta">s' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 1 ]]
 }

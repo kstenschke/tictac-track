@@ -27,6 +27,8 @@
 #include <iostream>
 #include <sstream>
 #include <cstring>
+#include <ttt/helper/helper_system.h>
+#include <ttt/class/app/app.h>
 
 #include "report_crud.h"
 #include "../app/app_config.h"
@@ -121,7 +123,7 @@ bool ReportCrud::UpsertEntry(EntryStatus status, const char *comment, const char
   bool hasTrackedItems = helper::String::GetSubStrCount(html.c_str(), "<tr") > 1;
 
   if (hasTrackedItems)
-    UpdateRunningEntry(html, comment, true, time_stopped);
+    UpdateOngoingEntry(html, comment, true, time_stopped);
 
   if (status!=EntryStatus::Status_Started) return SaveReport(html);
 
@@ -203,17 +205,17 @@ bool ReportCrud::InsertEntryAfter(std::string html, int row_index, std::string m
 }
 
 /**
- * Update running entry: append text to comment, set stop-time, set stopped
+ * Update ongoing entry: append text to comment, set stop-time, set stopped
  */
-void ReportCrud::UpdateRunningEntry(std::string &html, std::string add_to_comment, bool do_stop,
+void ReportCrud::UpdateOngoingEntry(std::string &html, std::string add_to_comment, bool do_stop,
                                     std::string time_stopped) {
   bool has_comment = !add_to_comment.empty();
 
   ReportParser *parser = new ReportParser(html);
-  if (!parser->IsAnyEntryRunning() || (!do_stop && !has_comment))
+  if (!parser->IsAnyEntryOngoing() || (!do_stop && !has_comment))
     return;
 
-  unsigned long offset_td_start = parser->GetOffsetTdStartInRunningEntry();
+  unsigned long offset_td_start = parser->GetOffsetTdStartInOngoingEntry();
   unsigned long offset_td_end = html.find("<td>", offset_td_start + 1);
 
   std::string duration;
@@ -310,10 +312,33 @@ bool ReportCrud::AddFullDayEntry(int offset_days, std::string comment, std::stri
 }
 
 /**
- * Add timesheet entry: stop work
+ * Add timesheet entry: stop currently ongoing entry
  */
 bool ReportCrud::StopEntry(const char *comment) {
+  ReportParser *parser = new ReportParser();
+  if (!parser->LoadReportHtml()) return false;
+
+  SafeguardToAddIssueNumber(parser);
+
   return UpsertEntry(EntryStatus::Status_Stopped, comment);
+}
+
+void ReportCrud::SafeguardToAddIssueNumber(ReportParser *parser) {
+  if (parser->OngoingEntryContainsIssueNumber()) return;
+
+  std::cout << "Please enter the related issue number of the entry to be stopped: ";
+
+  int issue_number = 0;
+  std::string issue_number_str;
+
+  while (0 == issue_number) {
+    std::cin >> issue_number_str;
+
+    if (helper::String::IsNumeric(issue_number_str) && issue_number_str!="0") {
+      issue_number = helper::String::ToInt(issue_number_str);
+      UpdateIssueNumber(issue_number);
+    } else std::cout << "Invalid issue number (must be numeric).\nPlease enter issue number: ";
+  }
 }
 
 /**
@@ -334,12 +359,12 @@ bool ReportCrud::AppendComment(std::string &comment, int row_index, bool start_w
 /**
  * Set task number of latest or given entry
  */
-bool ReportCrud::UpdateTaskNumber(int task_number, int row_index) {
+bool ReportCrud::UpdateIssueNumber(int task_number, int row_index) {
   std::string html = GetReportHtml();
   if (html.empty()) return false;
 
   std::string task_number_str = task_number > 0 ? helper::Numeric::ToString(task_number) : "";
-  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task_number_str);
+  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Issue, task_number_str);
 
   return SaveReport(html);
 }
@@ -374,11 +399,11 @@ bool ReportCrud::Merge(int row_index) {
       time_end_second = parser->GetColumnContent(row_index + 1, Report::ColumnIndexes::Index_End, offset_tr_next);
   std::string comment = parser->GetCommentMergedWithNextByRowIndex(row_index, offset_tr, offset_tr_next);
 
-  std::string task = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
+  std::string task = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Issue, offset_tr);
   if (task.empty())
     task = parser->GetColumnContent(
         row_index + 1,
-        Report::ColumnIndexes::Index_Task,
+        Report::ColumnIndexes::Index_Issue,
         offset_tr_next);
 
   // Merge meta: set merged entry to status of 2nd entry before merge
@@ -391,7 +416,7 @@ bool ReportCrud::Merge(int row_index) {
 
   ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_End, time_end_second);
   ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Comment, comment);
-  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Task, task);
+  ReportParser::UpdateColumn(html, row_index, Report::ColumnIndexes::Index_Issue, task);
 
   ReportRecalculator::CalculateAndUpdateDuration(html, row_index);
 
@@ -473,10 +498,10 @@ bool ReportCrud::Reset() {
   return InitReportFile(true);
 }
 
-bool ReportCrud::IsAnyEntryRunning() {
+bool ReportCrud::IsAnyEntryOngoing() {
   std::string html = GetReportHtml();
 
-  return !html.empty() && ReportParser::IsAnyEntryRunning(html);
+  return !html.empty() && ReportParser::IsAnyEntryOngoing(html);
 }
 
 bool ReportCrud::CurrentDayHasTasks() {

@@ -57,7 +57,7 @@ bool ReportRecalculator::Recalculate() {
   ReportParser *parser = new ReportParser(html_);
   int last_index = parser->GetLastIndex();
   if (last_index==-1
-      || (last_index==0 && parser->IsAnyEntryRunning()))
+      || (last_index==0 && parser->IsAnyEntryOngoing()))
     return false;
 
   parser->UpdateTitle();
@@ -119,7 +119,7 @@ bool ReportRecalculator::Recalculate() {
     }
 
     parser->SetHtml(html_);
-    task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task);
+    task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Issue);
 
     if (!current_duration.empty()) {
       int duration_minutes = helper::DateTime::GetSumMinutesFromTime(current_duration);
@@ -180,7 +180,7 @@ void ReportRecalculator::UpdateTaskSumsFromMaps(std::string &html) {
 void ReportRecalculator::CalculateAndUpdateDuration(std::string &html, int row_index) {
   ReportParser *parser = new ReportParser(html);
   // An entry is still ongoing: silently abort
-  if (parser->IsEntryRunning(row_index)) return;
+  if (parser->IsEntryOngoing(row_index)) return;
 
   int offset_tr = parser->GetOffsetTrOpenByIndex(html, row_index);
   std::string start = parser->GetColumnContent(row_index, ColumnIndexes::Index_Start, offset_tr);

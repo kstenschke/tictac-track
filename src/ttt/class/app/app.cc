@@ -159,7 +159,7 @@ bool App::BrowseTaskUrl() {
     url_command = std::string("url.").append(arguments_->argv_[2]);
   }
 
-  return browser->BrowseTaskUrlsInScope(
+  return browser->BrowseIssueUrlsInScope(
       static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
       arguments_->GetNegativeNumber(),
       arguments_->GetTaskNumber(),
@@ -235,17 +235,17 @@ bool App::Resume() {
     return tictac_track::AppError::PrintError("Cannot resume: there are no entries.");
 
   ReportCrud &report = ReportCrud::GetInstance();
-  bool is_any_running = report.IsAnyEntryRunning();
+  bool is_any_ongoing = report.IsAnyEntryOngoing();
 
   std::string comment = arguments_->GetComment();
   switch (arguments_->argc_) {
     case 2:
-      return is_any_running
-             ? tictac_track::AppError::PrintError("Cannot resume: last entry is still running.")
+      return is_any_ongoing
+             ? tictac_track::AppError::PrintError("Cannot resume: last entry is still ongoing.")
              // Resume last entry
              : ResumeEntryByIndexOrNegativeOffset(0, comment);
     case 3:
-    case 4:if (is_any_running) report.StopEntry();
+    case 4:if (is_any_ongoing) report.StopEntry();
 
       return ResumeEntryByIndexOrNegativeOffset(arguments_->ResolveNumber(2), comment);
     default:return tictac_track::AppError::PrintError("Too many arguments.");
@@ -296,10 +296,11 @@ bool App::ResumeEntryByIndexOrNegativeOffset(signed int row_index, std::string a
               .append(".")
               .c_str());
   }
+
   std::string html = parser->GetHtml();
   int offset_tr = parser->GetOffsetTrOpenByIndex(html, row_index);
   std::string task_number =
-      parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
+      parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Issue, offset_tr);
 
   std::string comment_old = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment, offset_tr);
   std::string comment = ReportParser::MergeComments(comment_old, add_to_comment);
@@ -359,8 +360,8 @@ bool App::Split() {
   if (last_index==-1)
     return tictac_track::AppError::PrintError("Cannot split: there are no entries yet.");
 
-  if (parser->IsEntryRunning(row_index))
-    return tictac_track::AppError::PrintError("Cannot split: Entry is still running.");
+  if (parser->IsEntryOngoing(row_index))
+    return tictac_track::AppError::PrintError("Cannot split: Entry is still ongoing.");
 
   if (last_index < row_index)
     return tictac_track::AppError::PrintError(
@@ -407,7 +408,7 @@ bool App::SplitAtEnd(ReportParser *parser, std::string split_duration, int row_i
   std::string week_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Week, offset_tr);
   std::string weekday = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Day, offset_tr);
   std::string day_date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date, offset_tr);
-  std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Task, offset_tr);
+  std::string task_number = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Issue, offset_tr);
 
   return ReportCrud::GetInstance().InsertEntryAfter(
       html, row_index, meta, week_number, weekday, day_date, time_start, time_end, task_number);
@@ -432,7 +433,7 @@ bool App::Start() {
   ReportCrud &report = ReportCrud::GetInstance();
 
   // Stop currently ongoing entry if any
-  if (report.IsAnyEntryRunning()) report.StopEntry();
+  if (report.IsAnyEntryOngoing()) report.StopEntry();
 
   // No arguments given: Add start entry w/o comment or task number
   if (arguments_->argc_==2) return report.StartEntry("", "");
@@ -463,13 +464,13 @@ bool App::Stop() {
     return UpdateTime(Report::ColumnIndexes::Index_End);
 
   ReportCrud &report = ReportCrud::GetInstance();
-  if (report.IsAnyEntryRunning())
+  if (report.IsAnyEntryOngoing())
     return report.StopEntry(
         // TODO encode comment special chars to HTML entities
         arguments_->ResolveComment(2).c_str()
     );
 
-  return tictac_track::AppError::PrintError("Cannot stop: No entry is currently running.");
+  return tictac_track::AppError::PrintError("Cannot stop: No entry is currently ongoing.");
 }
 
 /**
@@ -578,7 +579,7 @@ bool App::UpdateTaskNumber() {
 
   bool res = true;
   for (auto const &index: row_ids) {
-    res = reportCrud.UpdateTaskNumber(task_number, index) && res;
+    res = reportCrud.UpdateIssueNumber(task_number, index) && res;
 
     if (has_comment)
       reportCrud.AppendComment(comment, index, comment_starts_with_space);
@@ -683,7 +684,7 @@ bool App::CsvRecentTaskNumbers() {
   for (int row_offset = 0;
        amount_task_numbers_found < 30 && row_offset < amount_rows;
        row_offset++) {
-    std::string task_number = parser->GetLatestTaskNumber(row_offset);
+    std::string task_number = parser->GetLatestIssueNumber(row_offset);
 
     if (helper::String::IsNumeric(task_number)
         && !helper::String::Contains(task_numbers, task_number)) {

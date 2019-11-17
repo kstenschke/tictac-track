@@ -12,7 +12,7 @@ load test_helper
 }
 
 @test 'A comment can be added to an existing entry' {
-  # Create running entry
+  # Create ongoing entry
   $BATS_TEST_DIRNAME/ttt s
   # Stop entry
   $BATS_TEST_DIRNAME/ttt p

@@ -94,7 +94,7 @@ class ReportRendererCli : public ReportRenderer {
   // Check end-time at given cell: is there an unmergeable gap (lunch- or other break) between the start-time of the next entry?
   bool IsEndTimeBeforeBreak(int index_cell);
 
-  int AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_running, int sum_task_minutes) const;
+  int AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_ongoing, int sum_task_minutes) const;
 };
 
 } // namespace tictac_track

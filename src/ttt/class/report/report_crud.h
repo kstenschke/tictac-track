@@ -54,7 +54,7 @@ class ReportCrud : public ReportFile {
   bool AppendComment(std::string &comment, int row_index = -1, bool starts_with_space = false);
 
   // Set task number of latest or given entry
-  bool UpdateTaskNumber(int task_number, int row_index = -1);
+  bool UpdateIssueNumber(int task_number, int row_index = -1);
 
   // Insert stopped entry w/ given attributes, after entry w/ given index. If given index == -1: insert before 1st entry
   bool InsertEntryAfter(
@@ -73,7 +73,7 @@ class ReportCrud : public ReportFile {
 
   bool Reset();
 
-  bool IsAnyEntryRunning();
+  bool IsAnyEntryOngoing();
   bool CurrentDayHasTasks();
 
  private:
@@ -104,10 +104,11 @@ class ReportCrud : public ReportFile {
   // Insert/update timesheet entry to report file
   bool UpsertEntry(EntryStatus status, const char *comment = "", const char *task_number = "");
 
-  // Update running entry: add to comment, set stop-time, set stopped
-  void UpdateRunningEntry(std::string &html, std::string add_to_comment, bool do_stop, std::string time_stopped);
+  // Update ongoing entry: add to comment, set stop-time, set stopped
+  void UpdateOngoingEntry(std::string &html, std::string add_to_comment, bool do_stop, std::string time_stopped);
 
   bool IsMergeableAmountMinutes(int amount_minutes);
+  void SafeguardToAddIssueNumber(ReportParser *parser);
 };
 
 } // namespace tictac_track

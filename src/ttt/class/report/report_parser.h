@@ -61,7 +61,7 @@ class ReportParser : public Report {
   int GetLatestIndexByTaskNumber(std::string task_number);
 
   // Get task number of (latest entry - offset)
-  std::string GetLatestTaskNumber(int offset = 0);
+  std::string GetLatestIssueNumber(int offset = 0);
 
   // Find row w/ date immediately before given one
   int GetIndexBeforeMetaDate(std::string meta_date);
@@ -74,11 +74,11 @@ class ReportParser : public Report {
    */
   int GetExistingEntryOffsetBefore(int offset_start);
 
-  std::vector<std::string> GetTasksOfDay(std::string &date);
+  std::vector<std::string> GetIssueNumbersOfDay(std::string &date);
 
   static int GetOffsetTrOpenByIndex(std::string &html, int index = -1);
 
-  unsigned long GetOffsetTdStartInRunningEntry();
+  unsigned long GetOffsetTdStartInOngoingEntry();
 
   int GetMinutesBetweenEntryAndNext(int row_index);
 
@@ -103,9 +103,11 @@ class ReportParser : public Report {
   bool ReduceEntryTime(int row_index, std::string subtrahend_hhmm,
                        AppCommand::Commands command = AppCommand::Commands::Command_Invalid);
 
-  static bool IsAnyEntryRunning(std::string &html);
-  bool IsAnyEntryRunning();
-  bool IsEntryRunning(int row_index);
+  static bool IsAnyEntryOngoing(std::string &html);
+  bool IsAnyEntryOngoing();
+  bool IsEntryOngoing(int row_index);
+
+  bool OngoingEntryContainsIssueNumber();
 
   bool HtmlContains(std::string &str);
 

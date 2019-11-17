@@ -23,7 +23,7 @@ load test_helper
 @test 'If an entry runs, "stop" stops it, and adds no new entry' {
   run $BATS_TEST_DIRNAME/ttt s
   [ "$status" -eq 0 ]
-  # There is 1 running entry
+  # There is 1 ongoing entry
   run grep -c '<td class="meta">s/' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 1 ]]
   # There is no stopped entry
@@ -31,7 +31,7 @@ load test_helper
   [[ "$output" = 0 ]]
 
   run $BATS_TEST_DIRNAME/ttt p
-  # There is no running entry
+  # There is no ongoing entry
   run grep -c '<td class="meta">s/' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 0 ]]
   # There is 1 stopped entry

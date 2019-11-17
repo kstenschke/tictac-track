@@ -225,17 +225,17 @@ int ReportParser::GetLatestIndexByTaskNumber(std::string task_number) {
   int last_index = GetLastIndex();
   for (int index = last_index; index >= 0; index--) {
     const char *task = task_number.c_str();
-    if (0==std::strcmp(task, GetColumnContent(index, ColumnIndexes::Index_Task).c_str()))
+    if (0==std::strcmp(task, GetColumnContent(index, ColumnIndexes::Index_Issue).c_str()))
       return index;
   }
 
   return -1;
 }
 
-std::string ReportParser::GetLatestTaskNumber(int offset) {
+std::string ReportParser::GetLatestIssueNumber(int offset) {
   int row_index = GetLastIndex() - offset;
 
-  return GetColumnContent(row_index, ColumnIndexes::Index_Task).c_str();
+  return GetColumnContent(row_index, ColumnIndexes::Index_Issue).c_str();
 }
 
 int ReportParser::GetIndexFirstEntryOfDate(std::string &date) {
@@ -273,17 +273,23 @@ int ReportParser::GetIndexBeforeMetaDate(std::string meta_date) {
 /**
  * Check whether given timesheet HTML contains any in-progress (= w/o end time) entry
  */
-bool ReportParser::IsAnyEntryRunning(std::string &html) {
+bool ReportParser::IsAnyEntryOngoing(std::string &html) {
   return helper::String::Contains(html, "<td class=\"meta\">s/");
 }
 
-bool ReportParser::IsAnyEntryRunning() {
+bool ReportParser::IsAnyEntryOngoing() {
   return helper::String::Contains(html_, "<td class=\"meta\">s/");
 }
 
-bool ReportParser::IsEntryRunning(int row_index) {
+bool ReportParser::IsEntryOngoing(int row_index) {
   std::string row_meta = GetColumnContent(row_index, ColumnIndexes::Index_Meta);
   return 's'==row_meta[0];
+}
+
+bool ReportParser::OngoingEntryContainsIssueNumber() {
+  std::string issue_number = GetLatestIssueNumber();
+
+  return helper::String::IsNumeric(issue_number);
 }
 
 bool ReportParser::HtmlContains(std::string &str) {
@@ -312,9 +318,9 @@ int ReportParser::GetOffsetTrOpenByIndex(std::string &html, int index_row) {
 }
 
 /**
- * Get offset of <td> tag of start-time column of currently running entry in given html
+ * Get offset of <td> tag of start-time column of currently ongoing entry in given html
  */
-unsigned long ReportParser::GetOffsetTdStartInRunningEntry() {
+unsigned long ReportParser::GetOffsetTdStartInOngoingEntry() {
   unsigned long offsetTdMeta = html_.find("<td class=\"meta\">s/");
 
   unsigned long offsetTdWeek = html_.find("<td>", offsetTdMeta + 1);
@@ -362,7 +368,7 @@ std::string ReportParser::GetColumnContent(int row_index, ColumnIndexes index_co
   return html_.substr(offset_content_start, offset_content_end - offset_content_start);
 }
 
-std::vector<std::string> ReportParser::GetTasksOfDay(std::string &date) {
+std::vector<std::string> ReportParser::GetIssueNumbersOfDay(std::string &date) {
   int index_row_day_start = GetIndexFirstEntryOfDate(date);
   if (-1==index_row_day_start) return {};
 
@@ -373,7 +379,7 @@ std::vector<std::string> ReportParser::GetTasksOfDay(std::string &date) {
     if (date!=GetColumnContent(i, ColumnIndexes::Index_Date))
       return tasks;
 
-    task = GetColumnContent(i, ColumnIndexes::Index_Task);
+    task = GetColumnContent(i, ColumnIndexes::Index_Issue);
     if (task.empty()
         || (tasks.end()!=find(tasks.begin(), tasks.end(), task)))
       continue;

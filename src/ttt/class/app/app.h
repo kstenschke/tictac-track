@@ -46,6 +46,9 @@ class App {
   // Process command + arguments
   bool Process();
 
+  // Set issue number of latest or given entry
+  bool UpdateTaskNumber();
+
  private:
   AppCommand *command_;
   AppArguments *arguments_;
@@ -92,9 +95,6 @@ class App {
 
   // Update time of row + column by arguments
   bool UpdateTime(Report::ColumnIndexes column_index);
-
-  // Set task number of latest or given entry
-  bool UpdateTaskNumber();
 
   // Pretty-print report to CLI
   bool View();

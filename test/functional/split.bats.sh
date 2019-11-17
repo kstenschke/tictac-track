@@ -38,7 +38,7 @@ load test_helper
   [[ "$output" = 2 ]]
 }
 
-@test 'Splitting a running entry fails w/ an error message' {
+@test 'Splitting an ongoing entry fails w/ an error message' {
   run $BATS_TEST_DIRNAME/ttt s
 
   $BATS_TEST_DIRNAME/ttt sp 0 0:10 | grep 'Cannot split'

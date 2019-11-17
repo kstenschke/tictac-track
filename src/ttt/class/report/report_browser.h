@@ -44,8 +44,8 @@ class ReportBrowser : public Report {
   // Open configured task action URL in web browser
   bool BrowseTaskUrl(int task_number, std::string url_command = "url.default");
   // Open configured task action URL in web browser. If in day-scope: all tasks of day
-  bool BrowseTaskUrlsInScope(ReportRenderer::RenderScopes render_scope = ReportRenderer::RenderScopes::Scope_Invalid,
-                             int offset = 0, int task_number = 0, std::string url_command = "url.default");
+  bool BrowseIssueUrlsInScope(ReportRenderer::RenderScopes render_scope = ReportRenderer::RenderScopes::Scope_Invalid,
+                              int offset = 0, int task_number = 0, std::string url_command = "url.default");
 
  private:
   static void BrowseOnLinux(std::string url);

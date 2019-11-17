@@ -47,7 +47,7 @@ class Report {
     Index_Date = 3,
     Index_Start = 4,
     Index_End = 5,
-    Index_Task = 6,
+    Index_Issue = 6,
     Index_Comment = 7,
     Index_Duration = 8,
     Index_SumTaskDay = 9,

@@ -101,7 +101,7 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   if (html.empty()) return false;
 
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
-  std::vector<std::string> tasks = parser->GetTasksOfDay(date);
+  std::vector<std::string> tasks = parser->GetIssueNumbersOfDay(date);
   int amount_tasks = tasks.size();
 
   int i = 1;
@@ -241,7 +241,7 @@ int ReportRendererCli::PrintRows(
   std::string date_in_row;
   std::string duration_in_row;
   std::string previous_day;
-  bool is_entry_running;
+  bool is_entry_ongoing;
 
   bool display_viewed_sum =
       display_sum
@@ -257,7 +257,7 @@ int ReportRendererCli::PrintRows(
     duration_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Duration];
     task_number_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Week + 5];
 
-    is_entry_running = 's'==cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0];
+    is_entry_ongoing = 's'==cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0];
 
     bool do_display =
         (task_number==-1
@@ -277,7 +277,7 @@ int ReportRendererCli::PrintRows(
         sum_task_minutes = AddSumMinutes(
             index_cell,
             duration_in_row,
-            is_entry_running,
+            is_entry_ongoing,
             sum_task_minutes);
 
       if (display_id
@@ -353,9 +353,9 @@ bool ReportRendererCli::IsEndTimeBeforeBreak(int index_cell) {
 int ReportRendererCli::AddSumMinutes(
     int index_cell,
     const std::string &duration_in_row,
-    bool is_entry_running,
+    bool is_entry_ongoing,
     int sum_task_minutes) const {
-  if (is_entry_running) {
+  if (is_entry_ongoing) {
     int minutes_start = helper::DateTime::GetSumMinutesFromTime(cells_[index_cell + Index_Start]);
     int minutes_now = helper::DateTime::GetSumMinutesFromTime();
     sum_task_minutes += minutes_now - minutes_start;
