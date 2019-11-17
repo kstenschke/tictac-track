@@ -12,25 +12,25 @@ The API provides options to export tracked data, and to send it to external issu
 * [Commands Overview](#commands-overview)
   * [1. Record Work Entries](#1-record-work-entries)
   * [2. Update recorded entries](#2-update-recorded-entries)
-  * [3. View and export timesheet and tasks](#3-view-and-export-timesheet-and-tasks)
+  * [3. View and export timesheet](#3-view-and-export-timesheet)
   * [4. Meta Commands](#4-meta-commands)
 * [Commands in detail](#commands-in-detail)
   * [Command: start (s) - Add new entry to timesheet report](command-start-s-add-new-entry-to-timesheet-report)
   * [Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time](command-stop-pause-p-stop-ongoing-entry-storing-current-time-as-end-time)
-  * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same task and comment)](Command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-task-and-comment)
+  * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue and comment)](Command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-issue-and-comment)
   * [Command: day (d) - Add all-day entry](command-day-d-add-all-day-entry)
   * [Command: comment (c) - Appends given text to comment of given or latest timesheet entry](Command-comment-c-Appends-given-text-to-comment-of-given-or-latest-timesheet-entry)
-  * [Command: task (t) - Stores given task number to given entry/entries or latest entry](command-task-t-stores-given-task-number-to-given-entry-entries-or-latest-entry)
+  * [Command: task (t) - Stores given issue number to given entry/entries or latest entry](command-task-t-stores-given-issue-number-to-given-entry-entries-or-latest-entry)
   * [Command: split (sp): Splits given timesheet entry into two](command-split-sp-splits-given-timesheet-entry-into-two)
   * [Command: merge (m): Merges two successive entries](Command-merge-m-Merges-two-successive-entries)
   * [Command: remove (rm): Removes one or multiple timesheet entries](command-remove-rm-removes-one-or-multiple-timesheet-entries)
   * [Command: undo (z): Reverts last operation (comment, remove, start, stop, task)](command-undo-z-reverts-last-operation-comment-remove-start-stop-task)
-  * [Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day)](command-recalculate-rc-calculates-all-duration-sums-anew-per-entry-per-task-per-day-per-day)
+  * [Command: recalculate (rc): Calculates all duration sums anew (per entry, per issue per day, per day)](command-recalculate-rc-calculates-all-duration-sums-anew-per-entry-per-issue-per-day-per-day)
   * [Command: browse (b): Open timesheet in web browser](command-browse-b-open-timesheet-in-web-browser)
   * [Command: view (v): Displays the timesheet in the command-line](command-view-v-displays-the-timesheet-in-the-command-line)
   * [Command: csv: Exports timesheet to CSV file](command-csv-exports-timesheet-to-csv-file)
-  * [Command: url (u): Opens configured task action URLs in web browser](command-url-u-opens-configured-task-action-urls-in-web-browser)
-  * [Command: dayTasks (ud): Display tasks of day sequentially in CLI and in web browser](command-daytasks-ud-display-tasks-of-day-sequentially-in-cli-and-in-web-browser)
+  * [Command: url (u): Opens configured issue action URLs in web browser](command-url-u-opens-configured-issue-action-urls-in-web-browser)
+  * [Command: dayTasks (ud): Display issues of day sequentially in CLI and in web browser](command-daytasks-ud-display-issues-of-day-sequentially-in-cli-and-in-web-browser)
   * [Command: help (h): Describes usage of the program or its commands](command-help-h-describes-usage-of-the-program-or-its-commands)
   * [Command: version (V): Displays current version number](command-version-v-displays-current-version-number)
 * [Optional Configuration](optional-configuration)
@@ -48,17 +48,17 @@ Features
 * Works directly from CLI, on Linux and Mac OS (not tested on Windows)
 * Stores all work entries into an HTML file, ready to be printed
 * CLI viewer: The timesheet can be viewed pretty-printed user-friendly formatted and colored, directly within CLI
-* No external editor needed: Entries can be edited directly from CLI (start/end-time, comment, task)
+* No external editor needed: Entries can be edited directly from CLI (start/end-time, comment, issue)
 * Issue-reference and comments: Timesheet entries contain start- and end-time and optionally an issue reference-number and comment
-* Search filter: The CLI viewer can use search filters (by date, week, month, task-number, comment)
-* Time sum calculation: Recorded work times are additionally summed: per entry / task per day / day / filtered view / in total
+* Search filter: The CLI viewer can use search filters (by date, week, month, issue-number, comment)
+* Time sum calculation: Recorded work times are additionally summed: per entry / issue per day / day / filtered view / in total
 * Overtime saldo: Required vs. recorded work time per day is calculated automatically
 * Timesheet entries can be merged, split and deleted from the commandline
 * Automatic backup / undo option: Before modifications are done, a backup of the timesheet is recorded,
   every modification command can be undone. Note: currently only one previous command can be undone.
 * Terminal color themes: There are several color presets built-in to support different terminal color palettes
 * Export: Timesheets can be exported to CSV: whole timesheet, current day, recent referenced issue numbers
-* External URL-linking: Referenced items can be dynamically opened in web-browser: all tasks of a day / week / month
+* External URL-linking: Referenced items can be dynamically opened in web-browser: all issues of a day / week / month
 * Timesheet can be recorded in multiple languages (de, dk, en, es, fi, fr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
 * Stable: The majority of commands and options is covered by functional tests
 
@@ -77,7 +77,7 @@ Commands Overview
 |------------------|-------------------------------------------------------------------------------
 | start / s        | Start tracking new work entry or update Start-time of given entry
 | pause / stop / p | Stop currently ongoing entry
-| resume / r       | Start new work entry at current time, w/ task and comment from previous entry
+| resume / r       | Start new work entry at current time, w/ issue no. and comment from previous entry
 
 
 ### 2. Update recorded entries:
@@ -88,16 +88,16 @@ Commands Overview
 | stop / pause / p  | Set end-time of given or ongoing entry
 | day / d           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc.
 | comment / c       | Unset or append to comment of given entry
-| task / t          | Update task-number of given entry
+| task / t          | Update issue-number of given entry
 | split / sp        | Split given entry at given duration into two
 | merge / m         | Merge given entry w/ the following entry
 | remove / rm       | Remove given entry / given amout of latest entries / all entries
 | undo / z          | Undo last entry creation / modification
-| recalculate / rc  | Recalculate all duration sums (per entry, per task per day, per day)
+| recalculate / rc  | Recalculate all duration sums (per entry, per issue per day, per day)
 | clear / cls       | Empty the timesheet
 
 
-### 3. View and export timesheet and tasks:
+### 3. View and export timesheet:
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
@@ -105,10 +105,10 @@ Commands Overview
 | view / v          | Display timesheet in commandline
 | week / w          | Display week out of timesheet in commandline
 | csv               | Export timesheet to CSV file
-| csvdt             | Output tasks tracked in current day as CSV
-| csvrtn            | Output recent 30 tracked task numbers as CSV
-| url / u           | Open external task URL in web browser
-| dayTasks / ud     | Display tasks of day sequentially in CLI and web browser
+| csvdt             | Output issue numbers tracked in current day as CSV
+| csvrtn            | Output recent 30 tracked issue numbers as CSV
+| url / u           | Open external issue URL in web browser
+| dayTasks / ud     | Display issues of day sequentially in CLI and web browser
 
 
 ### 4. Meta Commands:
@@ -125,20 +125,20 @@ Commands Overview
 ### Command: start (s) - Add new entry to timesheet or update start-time of given entry
 
 The new entry's status is set to ongoing. If a previous entry has been ongoing when a new entry is started,
-the previous entry is being stopped, with the current time being recorded as that task's end-time.
-For the first entry per day, a default task number to be used when none is given, can be configured in ttt.ini.
+the previous entry is being stopped, with the current time being recorded as that entry's end-time.
+For the first entry per day, a default issue number to be used when none is given, can be configured in ttt.ini.
 
 #### Usage examples:
 
-`s`           - Start a new entry (w/o task-no. or comment) at the current time
+`s`           - Start a new entry (w/o issue-no. or comment) at the current time
 
 `s Foo`       - Start a new entry commented w/ "Foo"
 
 `s "Foo bar"` - Start a new entry commented w/ "Foo bar"
 
-`s Foo 123`   - Start a new entry commented w/ "Foo" and task number: 123
+`s Foo 123`   - Start a new entry commented w/ "Foo" and issue number: 123
 
-`s 123`       - Start task 123 w/o comment
+`s 123`       - Start entry w/ issue no. 123 w/o comment
 
 `s 3 08:30`   - Update start-time of entry 3 to 08:30
 
@@ -162,7 +162,7 @@ For the first entry per day, a default task number to be used when none is given
 
 ### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue nr and comment)
 
-If the given argument is no existing ID, but there is an entry w/ such a task number, the system suggests to resume the
+If the given argument is no existing ID, but there is an entry w/ such a issue number, the system suggests to resume the
 related entry.
 
 #### Usage examples:
@@ -192,9 +192,9 @@ Useful to log full days of e.g. external work, conferences, sickness, etc.
 
 `d`                    - Add all-day entry at current day
 
-`d t=123`              - Add all-day entry at current day, for task 123
+`d t=123`              - Add all-day entry at current day, for issue 123
 
-`d 123`                - Add all-day entry at current day, for task 123
+`d 123`                - Add all-day entry at current day, for issue 123
 
 `d c=foo`              - Add all-day entry at current day, commented "foo"
 
@@ -270,7 +270,8 @@ Only successive entries within the same day can be merged.
 
 #### Usage examples:
  
-`m 5` - Remove entry 6, set end-time of 5 to that of 6, set task to first given, merge comments if different
+`m 5` - Remove entry 6, set end-time of 5 to that of 6, set issue number to first given,
+merge comments if different
 
 `m`   - Merge last two entries
 
@@ -295,7 +296,7 @@ Only successive entries within the same day can be merged.
 Please note: Only one operation can be undone.
 
 
-### Command: recalculate (rc): Calculates all duration sums anew (per entry, per task per day, per day)
+### Command: recalculate (rc): Calculates all duration sums anew (per entry, per issue per day, per day)
   
 Helpful after manual editing of timesheet entries in an external editor.
 Recalculate also updates all localizable labels (column titles, day of week, etc) into the configured language's translation.
@@ -318,23 +319,23 @@ Recalculate also updates all localizable labels (column titles, day of week, etc
 
 `v w -1`             - Display entries of previous week
 
-`v t=123`            - Display entries of task 123
+`v t=123`            - Display entries of issue 123
 
-`v d t=123`          - Display entries of task 123 in current day
+`v d t=123`          - Display entries of issue 123 in current day
 
-`v d -1 t=123`       - Display entries of task 123 in previous day
+`v d -1 t=123`       - Display entries of issue 123 in previous day
 
-`v w t=123`          - Display entries of task 123 in current week
+`v w t=123`          - Display entries of issue 123 in current week
 
 `v c=foo`            - Display entries with "foo" inside the comment
 
 `v d c=foo`          - Display entries of current day with "foo" inside the comment
 
-`v t=123 c=foo`      - Display entries of task 123 with "foo" inside the comment
+`v t=123 c=foo`      - Display entries of issue 123 with "foo" inside the comment
 
-`v d t=123 c=foo`    - Display entries of task 123 of current day with "foo" inside the comment
+`v d t=123 c=foo`    - Display entries of issue 123 of current day with "foo" inside the comment
 
-`v w -1 t=123 c=foo` - Display entries of task 123 of previous week with "foo" inside the comment
+`v w -1 t=123 c=foo` - Display entries of issue 123 of previous week with "foo" inside the comment
 
 
 ### Command: csv: Exports timesheet to CSV file
@@ -342,7 +343,7 @@ Recalculate also updates all localizable labels (column titles, day of week, etc
 The CSV is named automatically and stored to the current path.
 
 
-### Command: url (u): Opens configured task action URLs in web browser
+### Command: url (u): Opens configured issue action URLs in web browser
 
 #### Usage examples:
  
@@ -352,22 +353,22 @@ The CSV is named automatically and stored to the current path.
 
 `u 123`        - Open url.default in web browser, with "#TASK#" replaced by 123
 
-`u d`          - Open url.default for all tasks in current day, with "#TASK#" replaced by task numbers
+`u d`          - Open url.default for all issues in current day, with "#TASK#" replaced by issue numbers
 
-`u d -1`       - Open url.default for all tasks in previous day, with "#TASK#" replaced by task numbers
+`u d -1`       - Open url.default for all issues in previous day, with "#TASK#" replaced by issue numbers
 
-`u d edit`     - Open url.edit in web browser, for all tasks in current day, with "#TASK#" replaced by task numbers
+`u d edit`     - Open url.edit in web browser, for all issues in current day, with "#TASK#" replaced by issue numbers
 
-`u d -1 edit`  - Open url.edit in web browser, for all tasks in previous day, with "#TASK#" replaced by task numbers
+`u d -1 edit`  - Open url.edit in web browser, for all issues in previous day, with "#TASK#" replaced by issue numbers
 
 `u 123 edit`   - Open url.edit in web browser, with "#TASK#" replaced by 123
 
 
-### Command: dayTasks (ud): Display tasks of day sequentially in CLI and in web browser
+### Command: dayTasks (ud): Display issues of day sequentially in CLI and in web browser
 
-`ud`    - Sequentially display entries per referenced issue of current day in CLI, open rel. task-URL in browser
+`ud`    - Sequentially display entries per referenced issue of current day in CLI, open rel. issue-URL in browser
 
-`ud -1` - Sequentially display entries per referenced issue of previous day in CLI, open rel. task-URL in browser
+`ud -1` - Sequentially display entries per referenced issue of previous day in CLI, open rel. issue-URL in browser
 
 
 ### Command: help (h): Describes usage of the program or its commands
@@ -396,7 +397,7 @@ The following options are available:
   Latvian (lv), Dutch (nl), Norwegian (no), Polish (pl), Portuguese (pt), Romanian (ro), Russian (ru), Swedish (sv), Turkish (tr)
 * `debit_per_day`: Required daily working time. Needed for calculation of overtime saldo.
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
-* `first_task_of_day`: Task number to be used for the first entry per day, when no other task-no. is given.
+* `first_task_of_day`: Issue number to be used for the first entry per day, when no other issue-no. is given.
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
 * Arbitrary commands for opening URLs of other project-management tools, e.g. `url.edit` / `url.log` / ...
 * `clear_before_view`: Clears console before printing timesheet
