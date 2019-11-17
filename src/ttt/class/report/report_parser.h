@@ -60,8 +60,10 @@ class ReportParser : public Report {
   // Get ID of latest entry w/ given task number, or -1
   int GetLatestIndexByTaskNumber(std::string task_number);
 
-  // Get task number of (latest entry - offset)
+  // Get issue number of (latest entry - offset)
   std::string GetLatestIssueNumber(int offset = 0);
+  // Get comment of (latest entry - offset)
+  std::string GetLatestComment(int offset = 0);
 
   // Find row w/ date immediately before given one
   int GetIndexBeforeMetaDate(std::string meta_date);
@@ -108,6 +110,7 @@ class ReportParser : public Report {
   bool IsEntryOngoing(int row_index);
 
   bool OngoingEntryContainsIssueNumber();
+  bool OngoingEntryContainsComment();
 
   bool HtmlContains(std::string &str);
 

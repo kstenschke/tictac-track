@@ -238,6 +238,12 @@ std::string ReportParser::GetLatestIssueNumber(int offset) {
   return GetColumnContent(row_index, ColumnIndexes::Index_Issue).c_str();
 }
 
+std::string ReportParser::GetLatestComment(int offset) {
+  int row_index = GetLastIndex() - offset;
+
+  return GetColumnContent(row_index, ColumnIndexes::Index_Comment).c_str();
+}
+
 int ReportParser::GetIndexFirstEntryOfDate(std::string &date) {
   int last_index = GetLastIndex();
 
@@ -290,6 +296,12 @@ bool ReportParser::OngoingEntryContainsIssueNumber() {
   std::string issue_number = GetLatestIssueNumber();
 
   return helper::String::IsNumeric(issue_number);
+}
+
+bool ReportParser::OngoingEntryContainsComment() {
+  std::string comment = GetLatestComment();
+
+  return !comment.empty();
 }
 
 bool ReportParser::HtmlContains(std::string &str) {

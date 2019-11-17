@@ -108,7 +108,9 @@ class ReportCrud : public ReportFile {
   void UpdateOngoingEntry(std::string &html, std::string add_to_comment, bool do_stop, std::string time_stopped);
 
   bool IsMergeableAmountMinutes(int amount_minutes);
-  void SafeguardToAddIssueNumber(ReportParser *parser);
+
+  void SafeguardToAddIssueNumber();
+  void SafeguardToAddComment(std::string html);
 };
 
 } // namespace tictac_track

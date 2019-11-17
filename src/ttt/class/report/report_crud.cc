@@ -212,7 +212,9 @@ void ReportCrud::UpdateOngoingEntry(std::string &html, std::string add_to_commen
   bool has_comment = !add_to_comment.empty();
 
   ReportParser *parser = new ReportParser(html);
-  if (!parser->IsAnyEntryOngoing() || (!do_stop && !has_comment))
+  if (!parser->IsAnyEntryOngoing()
+      || (!do_stop && !has_comment)
+      )
     return;
 
   unsigned long offset_td_start = parser->GetOffsetTdStartInOngoingEntry();
@@ -318,14 +320,18 @@ bool ReportCrud::StopEntry(const char *comment) {
   ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
-  SafeguardToAddIssueNumber(parser);
+  if (!parser->OngoingEntryContainsIssueNumber())
+    SafeguardToAddIssueNumber();
+
+  if (!parser->OngoingEntryContainsComment()) {
+    parser->LoadReportHtml();
+    SafeguardToAddComment(parser->GetHtml());
+  }
 
   return UpsertEntry(EntryStatus::Status_Stopped, comment);
 }
 
-void ReportCrud::SafeguardToAddIssueNumber(ReportParser *parser) {
-  if (parser->OngoingEntryContainsIssueNumber()) return;
-
+void ReportCrud::SafeguardToAddIssueNumber() {
   std::cout << "Please enter the related issue number of the entry to be stopped: ";
 
   int issue_number = 0;
@@ -338,6 +344,28 @@ void ReportCrud::SafeguardToAddIssueNumber(ReportParser *parser) {
       issue_number = helper::String::ToInt(issue_number_str);
       UpdateIssueNumber(issue_number);
     } else std::cout << "Invalid issue number (must be numeric).\nPlease enter issue number: ";
+  }
+}
+
+void ReportCrud::SafeguardToAddComment(std::string html) {
+  std::cout << "Please enter a comment for the entry to be stopped: ";
+
+  std::string comment;
+  char input[100];
+  int i=-1;
+
+  while (comment.empty()) {
+    i++;
+
+    std::cin.getline(input, sizeof(input));
+    comment = input;
+
+    if (!comment.empty()) {
+      UpdateOngoingEntry(html, comment, false, "");
+      SaveReport(html);
+    } else if (i > 0)
+      // @todo use more elegant way to only after 1st getline-invocation execute validation/output
+      std::cout << "Invalid comment (cannot be empty).\nPlease enter comment: ";
   }
 }
 
