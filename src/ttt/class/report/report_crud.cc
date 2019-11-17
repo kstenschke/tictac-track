@@ -320,10 +320,14 @@ bool ReportCrud::StopEntry(const char *comment) {
   ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
-  if (!parser->OngoingEntryContainsIssueNumber())
+  AppConfig config = AppConfig::GetInstance();
+
+  std::string do_safeguard_issue_number = config.GetConfigValue("require_issue_no_when_stopping_entry");
+  if ("1" == do_safeguard_issue_number && !parser->OngoingEntryContainsIssueNumber())
     SafeguardToAddIssueNumber();
 
-  if (!parser->OngoingEntryContainsComment()) {
+  std::string do_safeguard_comment = config.GetConfigValue("require_comment_when_stopping_entry");
+  if ("1" == do_safeguard_comment && !parser->OngoingEntryContainsComment()) {
     parser->LoadReportHtml();
     SafeguardToAddComment(parser->GetHtml());
   }

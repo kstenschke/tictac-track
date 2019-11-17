@@ -3,10 +3,8 @@ Tictac-Track - Changelog
 
 V1.6.0 - Not released yet
 -------------------------
-* Added config options for automatical storing of time entries to external systems upon ending tracking
-* In progress: Add optional safeguard that tracks have an issue number before adding being allowed to be ended 
-* In progress: Add optional safeguard that tracks must be commented before being allowed to be ended
-* In progress: Add optional pushing of time entry to external issue tracker upon set to end (via s or p)
+* Added optional safeguard (prompt) for entries to require an issue number when being stopped
+* Added optional safeguard (prompt) for entries to require a comment when being stopped
 
 V1.5.0 - 2019/11/16
 -------------------
