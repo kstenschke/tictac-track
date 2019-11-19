@@ -40,16 +40,16 @@ V1.3 - 2018/04/26
 * Improved merge of two comments: Better placing of divider and space characters
 * Improved resume command: Now allows for optional comment to be added/appended
 
-V1.2
-----
+V1.2 - 2018/03/27
+-----------------
 * Bugfix: Parsing "c i=<number>" caused segmentation fault
 * Improved removal stability: Attempting to remove more entries than available corrupted timesheet
 * Improved start command: Updating start-time of existing entry now accepts ID argument w/o "i=" prefix
 * Improved stop command: Updating end-time of existing entry now accepts ID argument w/o "i=" prefix
 * Improved task command: Added option to also append to entry comment while updating the task number 
 
-V1.1
-----
+V1.1 - 2018/03/19
+-----------------
 * Bugfix: Viewing empty timesheet w/ filter was stuck in loop
 * Improved CLI timesheet view: Exclamation mark HTML entity was not decoded 
 * Improved comment command: Appending to existing comment allows text in double quotes to start w/ a space character
