@@ -399,8 +399,8 @@ The following options are available:
 * `default_daily_start_time`: Default daily starting time. Used for insertion of all-day entries. Format: HH:MM
 * `first_task_of_day`: Issue number to be used for the first entry per day, when no other issue-no. is given.
 * `max_mergeable_minutes_gap`: Maximum mergeable time gap between two entries, allowed to be merged. Prevents accidentally removing lunch breaks.
-* `require_issue_no_when_stopping_entry`:
-* `require_comment_when_stopping_entry`:
+* `require_issue_no_when_stopping_entry`: Entries require an issue number when being stopped, ttt otherwise prompts for input of issue no
+* `require_comment_when_stopping_entry`: Entries require a comment when being stopped, ttt otherwise prompts for input of comment
 * Arbitrary commands for opening URLs of other project-management tools, e.g. `url.edit` / `url.log` / ...
 * `clear_before_view`: Clears console before printing timesheet
 * `cli_theme`: Theme for commandline timesheet viewer. There are several color themes built-in, allowing to view timesheets
