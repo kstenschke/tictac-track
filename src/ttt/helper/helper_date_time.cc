@@ -27,6 +27,7 @@
 #include <string>
 #include <ctime>
 #include <iostream>
+#include <cstring>
 
 #include "helper_date_time.h"
 #include "helper_string.h"

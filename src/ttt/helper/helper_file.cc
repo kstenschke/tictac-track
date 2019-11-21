@@ -27,7 +27,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <zconf.h>
+//#include <zconf.h>
+#include "vendor/zlib/zconf.h"
 #include "helper_file.h"
 
 namespace helper {
