@@ -160,7 +160,7 @@ For the first entry per day, a default issue number to be used when none is give
 `p i=3 08:30` - Update end-time of entry 3 to 08:30
 
 
-### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue nr and comment)
+### Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue no. and comment)
 
 If the given argument is no existing ID, but there is an entry w/ such a issue number, the system suggests to resume the
 related entry.
