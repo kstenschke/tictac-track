@@ -123,7 +123,7 @@ std::string AppConfig::GetDefaultConfig() {
           << "\n; 1                          = Linux Bash default theme"
           << "\n; 2                          = Linux Bash alternative theme"
           << "\n; 3                          = Linux Bash Gogh/Dracula theme"
-          << "\n; 4                          = Mac OS Terminal Dracula theme"
+          << "\n; 4                          = Mac OS Terminal Dracula theme (zebra-striped)"
           << "\n;cli_theme=" << GetDefaultThemeIdByOs()
           << "\n"
           << "\n; At which column the ID is rendered, can be set for TUI and HTML timesheet."

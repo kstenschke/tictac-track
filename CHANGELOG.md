@@ -1,8 +1,8 @@
 Tictac-Track - Changelog
 ========================
 
-V1.6.0 - Not released yet
--------------------------
+V1.6.0 - 2019/11/22
+-------------------
 * Added optional safeguard (prompt) for entries to require an issue number when being stopped
 * Added optional safeguard (prompt) for entries to require a comment when being stopped
 
