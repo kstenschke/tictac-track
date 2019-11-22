@@ -1,6 +1,10 @@
 Tictac-Track - Changelog
 ========================
 
+V1.6.1 - Not released yet
+-------------------------
+* Added config option: Which web-browser to be used for opening issues in online issue management system 
+
 V1.6.0 - 2019/11/22
 -------------------
 * Added optional safeguard (prompt) for entries to require an issue number when being stopped

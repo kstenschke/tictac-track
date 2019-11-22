@@ -160,6 +160,9 @@ std::string AppConfig::GetDefaultConfig() {
           << "\nurl.default=http://redmine.yourdomain.net/task/#TASK#"
           << "\nurl.edit=http://redmine.yourdomain.net/task/#TASK#/edit"
           << "\nurl.log=http://redmine.yourdomain.net/task/#TASK#/log"
+          << "\n"
+          << "\n; Browser for opening online issue tracking system in (e.g. firefox, chromium-browser, etc.)"
+          << "\nbrowser=chromium-browser"
       << "\n";
 
   return content.str();

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(ttt
-        VERSION 1.6.0)
+        VERSION 1.6.1)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -16,7 +16,7 @@ include_directories("${CMAKE_SOURCE_DIR}/src")
 set (TTT_EXECUTABLE_NAME "ttt")
 set (TTT_VERSION_MAJOR 1)
 set (TTT_VERSION_MINOR 6)
-set (TTT_VERSION_PATCH 0)
+set (TTT_VERSION_PATCH 1)
 # Generate config.h from config.h.in, with injected CMake values
 configure_file (src/ttt/config.h.in ../src/ttt/config.h)
 

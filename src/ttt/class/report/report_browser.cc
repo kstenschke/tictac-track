@@ -66,7 +66,8 @@ bool ReportBrowser::BrowseTimesheet(std::string url) {
 }
 
 void ReportBrowser::BrowseOnLinux(std::string url) {
-  std::string cmd = "firefox " + url;
+  AppConfig config = AppConfig::GetInstance();
+  std::string cmd = config.GetConfigValue("browser") + " " + url;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   system(cmd.c_str());
