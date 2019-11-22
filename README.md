@@ -33,7 +33,7 @@ ttt provides options to quickly transfer time log entries to external issue trac
   * [Command: dayTasks (ud): Display issues of day sequentially in CLI and in web browser](command-daytasks-ud-display-issues-of-day-sequentially-in-cli-and-in-web-browser)
   * [Command: help (h): Describes usage of the program or its commands](command-help-h-describes-usage-of-the-program-or-its-commands)
   * [Command: version (V): Displays current version number](command-version-v-displays-current-version-number)
-* [Optional Configuration](optional-configuration)
+* [Configuration](configuration)
 * [Build Instructions](build-instructions)
 * [Running Tests](running-tests)
 * [Changelog](changelog)
@@ -383,8 +383,8 @@ The CSV is named automatically and stored to the current path.
 ### Command: version (V): Displays current version number
 
 
-Optional Configuration
-----------------------
+Configuration
+-------------
 
 When run for the first time, tictac-track creates a default configuration file 
 (".ttt.ini" in the path of the executable), which can than be edited. 
@@ -407,6 +407,7 @@ The following options are available:
   with various different color palettes in different CLI applications (bash, terminal, etc.).
 * Date formatting: `format_week_of_year`, `format_day_of_week`
 * `id_column`: Offset of index-column within CLI viewer
+* `browser`: Web-browser to open related issue in (e.g. `firefox` / `chromium-browser` / etc.)
 
 
 Build Instructions
