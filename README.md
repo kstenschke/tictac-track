@@ -2,9 +2,9 @@ Tictack-track (ttt)
 ===================
 
 A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS).  
-It comes without external dependencies (no server or database).
-The application records work-entries directly to an HTML file, ready for print at any time.
-The API provides options to export tracked data, to be able to script sending time logs to external issue tracking systems.
+It comes without external dependencies (no server nor database).
+Work-entries are recorded directly to an HTML file, ready for print at any time.
+ttt provides options to quickly transfer time log entries to external issue tracking systems.
 
 ## Table of contents
 
