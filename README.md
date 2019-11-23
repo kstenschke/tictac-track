@@ -1,6 +1,8 @@
 Tictack-track (ttt)
 ===================
 
+[![Build Status](https://travis-ci.org/kstenschke/tictac-track.svg?branch=master)](https://travis-ci.org/kstenschke/tictac-track)
+
 A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS).  
 It comes without external dependencies (no server nor database).
 Work-entries are recorded directly to an HTML file, ready for print at any time.
