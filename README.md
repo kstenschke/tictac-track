@@ -3,9 +3,7 @@ Tictack-track (ttt)
 
 [![Build Status](https://travis-ci.org/kstenschke/tictac-track.svg?branch=master)](https://travis-ci.org/kstenschke/tictac-track)
 
-A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS).  
-It comes without external dependencies (no server nor database).
-Work-entries are recorded directly to an HTML file, ready for print at any time.
+A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS), w/o any external dependencies (no server nor database used). Work-entries are recorded directly to an HTML file, ready for print at any time.
 ttt provides options to quickly transfer time log entries to external issue tracking systems.
 
 ## Table of contents
@@ -17,7 +15,7 @@ ttt provides options to quickly transfer time log entries to external issue trac
   * [3. View and export timesheet](#3-view-and-export-timesheet)
   * [4. Meta Commands](#4-meta-commands)
 * [Commands in detail](#commands-in-detail)
-  * [Command: start (s) - Add new entry to timesheet report](#command-start-s-add-new-entry-to-timesheet-report)
+  * [Command: start (s) - Add new entry to timesheet or update start-time of given entry](#command-start-s-add-new-entry-to-timesheet-or-update-start-time-of-given-entry)
   * [Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time](#command-stop-pause-p-stop-ongoing-entry-storing-current-time-as-end-time)
   * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue and comment)](#command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-issue-and-comment)
   * [Command: day (d) - Add all-day entry](#command-day-d-add-all-day-entry)
