@@ -6,7 +6,6 @@ addons:
   apt:
     packages:
       - cppcheck
-    packages:
       - cmake
       - gcc-4.8
 
