@@ -26,6 +26,7 @@
 
 #include <string>
 #include <cstring>
+#include <utility>
 #include "helper_html.h"
 #include "vendor/entities/decode_html_entities_utf8.h"
 
@@ -350,8 +351,7 @@ std::wstring Html::ReplaceWideCharByEntity(
 }
 
 std::wstring Html::ReplaceWideCharByEntity(std::wstring wstr, int str_len, int offset, std::wstring replacement) {
-  return ReplaceWideCharByEntity(std::move(wstr), str_len, offset, offset - 1, offset + 1,
-                                 (std::wstring &) std::move(replacement));
+  return ReplaceWideCharByEntity(std::move(wstr), str_len, offset, offset - 1, offset + 1, std::move(replacement));
 }
 
 std::string Html::Decode(std::string str) {
