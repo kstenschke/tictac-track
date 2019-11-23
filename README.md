@@ -408,7 +408,7 @@ The following options are available:
   with various different color palettes in different CLI applications (bash, terminal, etc.).
 * Date formatting: `format_week_of_year`, `format_day_of_week`
 * `id_column`: Offset of index-column within CLI viewer
-* `browser`: Web-browser to open related issue in (e.g. `firefox` / `chromium-browser` / etc.)
+* `browser`: (Linux-only, Mac uses default web browser) Web-browser to open related issue in (e.g. `firefox` / `chromium-browser` / etc.)
 
 
 Build Instructions

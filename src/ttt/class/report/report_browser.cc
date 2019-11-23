@@ -75,7 +75,6 @@ void ReportBrowser::BrowseOnLinux(std::string &url) {
 }
 
 void ReportBrowser::BrowseOnMac(std::string &url) {
-  // @todo use configured browser
   std::string cmd = "open " + url;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
