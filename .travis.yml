@@ -1,8 +1,19 @@
 language: cpp
+
+os: linux
+
+addons:
+  apt:
+    packages:
+    - cmake
+    - gcc-4.8
+
 compiler:
   - gcc
-packages:
-  - gcc-4.8
+
 script:
+  - cmake CMakeLists.txt
+  - make
+
+after_script:
   - ./bin/linux/ttt
-after_success:
