@@ -5,6 +5,8 @@ V1.6.1 - Not released yet
 -------------------------
 * Added config option `browser`: Web-browser to open related issues in 
 * Added command `calendarweek` / `W`: Displays current- or number of calendar week at given offset  
+* Added to Bats functional testing: Measure and output total duration of tests
+* Added cppcheck into travis CI config   
 
 V1.6.0 - 2019/11/22
 -------------------

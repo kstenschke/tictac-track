@@ -5,8 +5,10 @@ os: linux
 addons:
   apt:
     packages:
-    - cmake
-    - gcc-4.8
+      - cppcheck
+    packages:
+      - cmake
+      - gcc-4.8
 
 compiler:
   - gcc
@@ -19,8 +21,8 @@ before_install:
 script:
   - cmake CMakeLists.txt
   - make
+  - cppcheck ./src
 
-after_script:
+after_success:
   - ./bin/linux/ttt
   - ./test.sh
-  
