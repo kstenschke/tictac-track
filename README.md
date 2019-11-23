@@ -1,6 +1,8 @@
 Tictack-track (ttt)
 ===================
 
+[![Build Status](https://travis-ci.org/kstenschke/tictac-track.svg?branch=master)](https://travis-ci.org/kstenschke/tictac-track)
+
 A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS).  
 It comes without external dependencies (no server nor database).
 Work-entries are recorded directly to an HTML file, ready for print at any time.
@@ -15,31 +17,31 @@ ttt provides options to quickly transfer time log entries to external issue trac
   * [3. View and export timesheet](#3-view-and-export-timesheet)
   * [4. Meta Commands](#4-meta-commands)
 * [Commands in detail](#commands-in-detail)
-  * [Command: start (s) - Add new entry to timesheet report](command-start-s-add-new-entry-to-timesheet-report)
-  * [Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time](command-stop-pause-p-stop-ongoing-entry-storing-current-time-as-end-time)
-  * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue and comment)](Command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-issue-and-comment)
-  * [Command: day (d) - Add all-day entry](command-day-d-add-all-day-entry)
-  * [Command: comment (c) - Appends given text to comment of given or latest timesheet entry](Command-comment-c-Appends-given-text-to-comment-of-given-or-latest-timesheet-entry)
-  * [Command: task (t) - Stores given issue number to given entry/entries or latest entry](command-task-t-stores-given-issue-number-to-given-entry-entries-or-latest-entry)
-  * [Command: split (sp): Splits given timesheet entry into two](command-split-sp-splits-given-timesheet-entry-into-two)
-  * [Command: merge (m): Merges two successive entries](Command-merge-m-Merges-two-successive-entries)
-  * [Command: remove (rm): Removes one or multiple timesheet entries](command-remove-rm-removes-one-or-multiple-timesheet-entries)
-  * [Command: undo (z): Reverts last operation (comment, remove, start, stop, task)](command-undo-z-reverts-last-operation-comment-remove-start-stop-task)
-  * [Command: recalculate (rc): Calculates all duration sums anew (per entry, per issue per day, per day)](command-recalculate-rc-calculates-all-duration-sums-anew-per-entry-per-issue-per-day-per-day)
-  * [Command: browse (b): Open timesheet in web browser](command-browse-b-open-timesheet-in-web-browser)
-  * [Command: view (v): Displays the timesheet in the command-line](command-view-v-displays-the-timesheet-in-the-command-line)
-  * [Command: csv: Exports timesheet to CSV file](command-csv-exports-timesheet-to-csv-file)
-  * [Command: url (u): Opens configured issue action URLs in web browser](command-url-u-opens-configured-issue-action-urls-in-web-browser)
-  * [Command: dayTasks (ud): Display issues of day sequentially in CLI and in web browser](command-daytasks-ud-display-issues-of-day-sequentially-in-cli-and-in-web-browser)
-  * [Command: help (h): Describes usage of the program or its commands](command-help-h-describes-usage-of-the-program-or-its-commands)
-  * [Command: version (V): Displays current version number](command-version-v-displays-current-version-number)
-* [Configuration](configuration)
-* [Build Instructions](build-instructions)
-* [Running Tests](running-tests)
-* [Changelog](changelog)
-* [Code Convention](code-convention)
-* [Bug Reporting and Feature Requests](bug-reporting-and-feature-requests)
-* [Author and License](author-and-license)
+  * [Command: start (s) - Add new entry to timesheet report](#command-start-s-add-new-entry-to-timesheet-report)
+  * [Command: stop / pause (p) - Stop ongoing entry, storing current time as end-time](#command-stop-pause-p-stop-ongoing-entry-storing-current-time-as-end-time)
+  * [Command: resume (r) - Resumes last or given entry (starts a new entry w/ same issue and comment)](#command-resume-r-Resumes-last-or-given-entry-starts-a-new-entry-w-same-issue-and-comment)
+  * [Command: day (d) - Add all-day entry](#command-day-d-add-all-day-entry)
+  * [Command: comment (c) - Appends given text to comment of given or latest timesheet entry](#command-comment-c-appends-given-text-to-comment-of-given-or-latest-timesheet-entry)
+  * [Command: task (t) - Stores given issue number to given entry/entries or latest entry](#command-task-t-stores-given-issue-number-to-given-entry-entries-or-latest-entry)
+  * [Command: split (sp): Splits given timesheet entry into two](#command-split-sp-splits-given-timesheet-entry-into-two)
+  * [Command: merge (m): Merges two successive entries](#command-merge-m-Merges-two-successive-entries)
+  * [Command: remove (rm): Removes one or multiple timesheet entries](#command-remove-rm-removes-one-or-multiple-timesheet-entries)
+  * [Command: undo (z): Reverts last operation (comment, remove, start, stop, task)](#command-undo-z-reverts-last-operation-comment-remove-start-stop-task)
+  * [Command: recalculate (rc): Calculates all duration sums anew (per entry, per issue per day, per day)](#command-recalculate-rc-calculates-all-duration-sums-anew-per-entry-per-issue-per-day-per-day)
+  * [Command: browse (b): Open timesheet in web browser](#command-browse-b-open-timesheet-in-web-browser)
+  * [Command: view (v): Displays the timesheet in the command-line](#command-view-v-displays-the-timesheet-in-the-command-line)
+  * [Command: csv: Exports timesheet to CSV file](#command-csv-exports-timesheet-to-csv-file)
+  * [Command: url (u): Opens configured issue action URLs in web browser](#command-url-u-opens-configured-issue-action-urls-in-web-browser)
+  * [Command: dayTasks (ud): Display issues of day sequentially in CLI and in web browser](#command-daytasks-ud-display-issues-of-day-sequentially-in-cli-and-in-web-browser)
+  * [Command: help (h): Describes usage of the program or its commands](#command-help-h-describes-usage-of-the-program-or-its-commands)
+  * [Command: version (V): Displays current version number](#command-version-v-displays-current-version-number)
+* [Configuration](#configuration)
+* [Build Instructions](#build-instructions)
+* [Running Tests](#running-tests)
+* [Changelog](#changelog)
+* [Code Convention](#code-convention)
+* [Bug Reporting and Feature Requests](#bug-reporting-and-feature-requests)
+* [Author and License](#author-and-license)
 
 
 Features
@@ -434,7 +436,7 @@ See: https://github.com/kstenschke/tictac-track/blob/master/CHANGELOG.md
 Code Convention
 ---------------
 
-The source code of tictac-track mostly follows the Google C++ Style Guide,
+The source code of tictac-track follows the Google C++ Style Guide,
 see: https://google.github.io/styleguide/cppguide.html
 
 
