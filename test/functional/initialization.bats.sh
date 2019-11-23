@@ -7,6 +7,8 @@
 load test_helper
 
 @test "Running creates ini-file if not there" {
+  # Delete ini if exists
+  if [ -f $BATS_TEST_DIRNAME/.ttt.ini ] ; then rm $BATS_TEST_DIRNAME/.ttt.ini; fi
   # Assert ini doesn't exist
   run ls $BATS_TEST_DIRNAME/.ttt.ini
   [ "$status" -eq 1 ]
