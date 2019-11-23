@@ -31,9 +31,14 @@ namespace helper {
 namespace Html {
 
 extern std::string Encode(std::string str);
-extern std::wstring ReplaceWideCharByEntity(std::wstring wstr, int str_len, int offset, int offset_left,
-                                            int offset_right, std::wstring replacement);
-extern std::wstring ReplaceWideCharByEntity(std::wstring wstr, int str_len, int offset, std::wstring replacement);
+
+extern std::wstring ReplaceWideCharByEntity(
+    std::wstring wstr, int str_len,
+    int offset, int offset_left, int offset_right,
+    std::wstring &replacement);
+
+extern std::wstring ReplaceWideCharByEntity(
+    std::wstring wstr, int str_len, int offset, std::wstring replacement);
 
 extern std::string Decode(std::string str);
 

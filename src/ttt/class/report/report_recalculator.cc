@@ -63,16 +63,19 @@ bool ReportRecalculator::Recalculate() {
   parser->UpdateTitle();
   parser->UpdateTableHeader();
 
-  std::vector<std::string> tasks_in_day;
-  std::vector<int> task_durations;
+  std::string
+      balance_formatted,
+      current_date,
+      current_duration,
+      sum_day_formatted,
+      task_number,
+      previous_date;
 
-  std::string balance_formatted, current_date, current_duration, current_task, sum_day_formatted, task_number;
-  std::string previous_date;
-  bool is_new_day;
   int sum_minutes_day = 0;
+  int balance = 0;
+
   int minutes_per_day_should =
       helper::DateTime::GetSumMinutesFromTime(AppConfig::GetConfigValueStatic("debit_per_day"));
-  int balance = 0;
 
   auto *report_date_time = new ReportDateTime();
   ClearTaskMaps();
@@ -101,10 +104,11 @@ bool ReportRecalculator::Recalculate() {
     current_date = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Date, offset_tr);
     current_duration = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Duration, offset_tr);
 
-    is_new_day = !previous_date.empty() && previous_date!=current_date;
-    if (is_new_day) {
+    if (!previous_date.empty() && previous_date!=current_date) {
+      // New day: Update balance, sum per day, sum per task per day
       int debit_day = sum_minutes_day - minutes_per_day_should;
       balance += debit_day;
+
       balance_formatted = helper::DateTime::GetHoursFormattedFromMinutes(balance);
       ReportParser::UpdateColumn(html_, row_index - 1, Report::ColumnIndexes::Index_Balance, balance_formatted);
 

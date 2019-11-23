@@ -57,7 +57,8 @@ ReportRendererCli::ReportRendererCli() {
 /**
  * Pretty-print timesheet HTML (table) to CLI, using given filters
  */
-bool ReportRendererCli::PrintToCli(RenderScopes scope, int lookbehind_amount, int task_number, std::string comment) {
+bool ReportRendererCli::PrintToCli(
+    RenderScopes scope, int lookbehind_amount, int task_number, std::string comment) {
   render_scope_ = scope;
   if (!ExtractPartsFromReport(lookbehind_amount)) return false;
 
@@ -238,10 +239,8 @@ int ReportRendererCli::PrintRows(
 
   std::string comment_in_row;
   std::string task_number_in_row;
-  std::string date_in_row;
   std::string duration_in_row;
   std::string previous_day;
-  bool is_entry_ongoing;
 
   bool display_viewed_sum =
       display_sum
@@ -253,11 +252,8 @@ int ReportRendererCli::PrintRows(
   bool is_around_break = false;
   for (int index_row = 0; index_row < amount_rows_ && index_cell < amount_cells_; index_row++) {
     comment_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Comment];
-    date_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Date];
     duration_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Duration];
     task_number_in_row = cells_[index_cell + ReportParser::ColumnIndexes::Index_Week + 5];
-
-    is_entry_ongoing = 's'==cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0];
 
     bool do_display =
         (task_number==-1
@@ -277,7 +273,7 @@ int ReportRendererCli::PrintRows(
         sum_task_minutes = AddSumMinutes(
             index_cell,
             duration_in_row,
-            is_entry_ongoing,
+            's'==cells_[index_cell + ReportParser::ColumnIndexes::Index_Meta][0],
             sum_task_minutes);
 
       if (display_id

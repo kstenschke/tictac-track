@@ -139,6 +139,7 @@ std::string ReportRenderer::ExtractTheadFromTable(std::string &table) {
 
   unsigned long cut_off_lhs_Len = strlen("<thead><tr>");
   tHead = tHead.substr(cut_off_lhs_Len, tHead.size() - cut_off_lhs_Len - strlen("</tr></thead>"));
+
   if (tHead.empty()) return "";
 
   amount_columns_ = helper::String::GetSubStrCount(tHead.c_str(), "<th");

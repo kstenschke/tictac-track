@@ -7,6 +7,7 @@ V1.6.1 - Not released yet
 * Added command `calendarweek` / `W`: Displays current- or number of calendar week at given offset  
 * Added to Bats functional testing: Measure and output total duration of tests
 * Added cppcheck into travis CI config   
+* Improved: Performance and memory usage
 
 V1.6.0 - 2019/11/22
 -------------------

@@ -53,7 +53,7 @@ class AppConfig {
   static AppConfig &GetInstance(char **argv = nullptr);
 
   // Resolve config option string to related enum item (which allows e.g. switch)
-  static ConfigKeys ResolveOption(std::string input);
+  static ConfigKeys ResolveOption(const std::string &input);
 
   // Get value for given config option
   std::string GetConfigValue(const std::string &key);
@@ -81,7 +81,7 @@ class AppConfig {
   std::string GetDefaultConfig();
 
   // Save given content to file of given name in directory where also the binary is
-  void SaveConfig(std::string filename, std::string content);
+  void SaveConfig(std::string filename, std::string &content);
 
   // Read config from .ttt.ini into associative map
   void InitConfigMap();

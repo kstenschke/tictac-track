@@ -36,7 +36,7 @@ class ReportFile {
   static std::string GetReportHtml();
 
   // Save given HTML to timesheet, replacing any previous content
-  static bool SaveReport(std::string html);
+  static bool SaveReport(std::string &html);
 
   // Backup timesheet.html to timesheet.html.bak.tmp
   static bool BackupReportTemporary();

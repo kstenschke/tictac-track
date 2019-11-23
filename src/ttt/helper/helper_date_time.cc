@@ -68,8 +68,9 @@ void DateTime::AddDaysToDate(struct tm *date, int days) {
   *date = *localtime(&date_seconds);
 }
 
-std::string DateTime::ReformatDateAsYyyyMmDd(std::string date_str, std::string source_format) {
+std::string DateTime::ReformatDateAsYyyyMmDd(std::string date_str, std::string &source_format) {
   size_t strlen = date_str.size();
+
   if (0==strlen
       || std::string::npos==strlen)
     return "";

@@ -58,7 +58,7 @@ std::string ReportFile::GetReportHtml() {
 /**
  * Save given HTML to timesheet, replacing any previous content
  */
-bool ReportFile::SaveReport(std::string html) {
+bool ReportFile::SaveReport(std::string &html) {
   AppConfig &config = AppConfig::GetInstance();
   std::string report_file_path = config.GetReportFilePath();
 

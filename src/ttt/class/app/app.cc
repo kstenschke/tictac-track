@@ -646,7 +646,8 @@ bool App::UpdateTime(Report::ColumnIndexes column_index) {
                 .append(")").c_str()
         );
 
-      ReportFile::SaveReport(ReportRecalculator::CalculateAndUpdateDuration(row_index));
+      const std::string &html = ReportRecalculator::CalculateAndUpdateDuration(row_index);
+      ReportFile::SaveReport(const_cast<std::string &>(html));
 
       return true;
     }

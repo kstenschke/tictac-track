@@ -38,7 +38,7 @@ extern std::string GetCurrentTimeFormatted(const char *format, int offset_days =
 // Adjust date by given number of days
 extern void AddDaysToDate(struct tm *date, int days);
 
-extern std::string ReformatDateAsYyyyMmDd(std::string date_first, std::string source_format);
+extern std::string ReformatDateAsYyyyMmDd(std::string date_first, std::string &source_format);
 
 // Calculate minutes since 0:00 from given formatted time label
 extern int GetSumMinutesFromTime(std::string time_str = "", const char *separator = ":");

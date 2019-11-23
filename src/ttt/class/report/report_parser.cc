@@ -45,8 +45,8 @@ namespace tictac_track {
 /**
  * Constructor
  */
-ReportParser::ReportParser(std::string html) {
-  html_ = std::move(html);
+ReportParser::ReportParser(std::string html): html_(std::move(html)) {
+  //html_ = std::move(html);
 }
 
 bool ReportParser::LoadReportHtml() {
@@ -235,13 +235,13 @@ int ReportParser::GetLatestIndexByTaskNumber(std::string task_number) {
 std::string ReportParser::GetLatestIssueNumber(int offset) {
   int row_index = GetLastIndex() - offset;
 
-  return GetColumnContent(row_index, ColumnIndexes::Index_Issue).c_str();
+  return GetColumnContent(row_index, ColumnIndexes::Index_Issue);
 }
 
 std::string ReportParser::GetLatestComment(int offset) {
   int row_index = GetLastIndex() - offset;
 
-  return GetColumnContent(row_index, ColumnIndexes::Index_Comment).c_str();
+  return GetColumnContent(row_index, ColumnIndexes::Index_Comment);
 }
 
 int ReportParser::GetIndexFirstEntryOfDate(std::string &date) {

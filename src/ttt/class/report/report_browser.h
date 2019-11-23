@@ -48,8 +48,8 @@ class ReportBrowser : public Report {
                               int offset = 0, int task_number = 0, std::string url_command = "url.default");
 
  private:
-  static void BrowseOnLinux(std::string url);
-  static void BrowseOnMac(std::string url);
+  static void BrowseOnLinux(std::string &url);
+  static void BrowseOnMac(std::string &url);
 };
 
 } // namespace tictac_track

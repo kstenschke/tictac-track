@@ -84,7 +84,7 @@ std::string ReportRendererCsv::GetFilename() {
 /**
  * Export timesheet HTML (table) to CSV file
  */
-bool ReportRendererCsv::RenderToFile(std::string path, RenderScopes scope) {
+bool ReportRendererCsv::RenderToFile(std::string &path, RenderScopes scope) {
   if (!ExtractPartsFromReport(0)) return false;
 
   std::string csv = RenderCsv(scope);
@@ -139,7 +139,8 @@ std::string ReportRendererCsv::RenderCsv(RenderScopes scope) {
   // Render rows
   int index_cell = 0;
   auto amountCells = static_cast<int>(cells_.size());
-  std::string previousDay;
+  //std::string previousDay;
+
   for (int index_row = 0; index_row < amount_rows_ && index_cell < amountCells; index_row++) {
     for (int index_column = 0; index_column < amount_columns_ && index_cell < amountCells; index_column++) {
       if (index_column > 0) {

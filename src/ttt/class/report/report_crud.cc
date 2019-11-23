@@ -382,10 +382,11 @@ bool ReportCrud::AppendComment(std::string &comment, int row_index, bool start_w
   ReportParser *parser = new ReportParser();
   if (!parser->LoadReportHtml()) return false;
 
-  std::string comment_lhs = parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Comment);
   std::string append = std::string(start_with_space ? " " : "").append(comment);
 
-  return SaveReport(parser->AppendToColumn(row_index, Report::ColumnIndexes::Index_Comment, append));
+  const std::string &html = parser->AppendToColumn(row_index, Report::ColumnIndexes::Index_Comment, append);
+
+  return SaveReport(const_cast<std::string &>(html));
 }
 
 /**

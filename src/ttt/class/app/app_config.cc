@@ -80,7 +80,7 @@ void AppConfig::Init(char **argv) {
 /**
  * Save given content to file of given name in directory where also the binary is
  */
-void AppConfig::SaveConfig(std::string path_config_file, std::string content) {
+void AppConfig::SaveConfig(std::string path_config_file, std::string &content) {
   std::ofstream outfile(path_config_file);
   outfile << content;
   outfile.close();
@@ -192,7 +192,7 @@ void AppConfig::InitConfigMap() {
 /**
  * Resolve config option string to related enum item (which allows e.g. switch)
  */
-AppConfig::ConfigKeys AppConfig::ResolveOption(std::string input) {
+AppConfig::ConfigKeys AppConfig::ResolveOption(const std::string &input) {
   if ("cli_theme"==input) return Option_Cli_Theme;
 
   if ("format_week_of_year"==input) return Option_Format_Week_Of_Year;

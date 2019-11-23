@@ -32,8 +32,8 @@ namespace tictac_track {
 /**
  * Constructor
  */
-AppCommand::AppCommand(std::string argc) {
-  argc_ = std::move(argc);
+AppCommand::AppCommand(std::string argc): argc_(std::move(argc)) {
+  //argc_ = std::move(argc);
   resolved_ = Resolve();
 }
 
@@ -48,7 +48,7 @@ AppCommand::Commands AppCommand::Resolve() {
   return ResolveCommandByName(argc_);
 }
 
-AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
+AppCommand::Commands AppCommand::ResolveCommandByName(const std::string &command) {
   // Commands are sorted by assumed average usage frequency
   if (command=="w" || command=="week") return Command_ViewWeek;
 

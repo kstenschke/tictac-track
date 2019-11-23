@@ -214,10 +214,6 @@ void AppArguments::SetArgvDefaultTypeByCommand(AppCommand &command, int index) {
   }
 }
 
-bool AppArguments::IsComment(int index) {
-  return index < argc_ && argv_types_[index]==ArgumentType_Comment;
-}
-
 bool AppArguments::IsNumber(int index) {
   return index < argc_ && argv_types_[index]==ArgumentType_Number;
 }
@@ -319,23 +315,6 @@ std::string AppArguments::ResolveComment(int index) {
   if (!comment.empty()) helper::String::Trim(comment);
 
   return comment;
-}
-
-/**
- * Validate CSV path from argument at given index
- */
-std::string AppArguments::ResolvePathCsv(int index) {
-  std::string pathCsv;
-  if (index >= argc_) return pathCsv;
-
-  if (helper::String::Contains(argv_[index], " ")) {
-    std::cout << "Error: Space is not allowed in CSV path.\n";
-    return pathCsv;
-  }
-
-  pathCsv = std::string(argv_[index]);
-
-  return pathCsv + (helper::String::EndsWith(pathCsv, ".csv") ? "" : ".csv");
 }
 
 /**

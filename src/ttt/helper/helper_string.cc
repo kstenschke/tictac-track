@@ -73,7 +73,7 @@ bool String::Contains(char *haystack, const char *needle) {
  */
 int String::GetUtf8Size(std::string str) {
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-  std::wstring wide = converter.from_bytes(str);
+  /*std::wstring wide =*/ converter.from_bytes(str);
 
   return static_cast<int>(std::strlen(str.c_str()));
 }

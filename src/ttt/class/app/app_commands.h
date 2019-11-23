@@ -64,7 +64,7 @@ class AppCommand {
   // Constructor
   explicit AppCommand(std::string argc);
 
-  static Commands ResolveCommandByName(std::string command);
+  static Commands ResolveCommandByName(const std::string &command);
 
   Commands GetResolved();
 

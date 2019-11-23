@@ -65,7 +65,7 @@ bool ReportBrowser::BrowseTimesheet(std::string url) {
   return true;
 }
 
-void ReportBrowser::BrowseOnLinux(std::string url) {
+void ReportBrowser::BrowseOnLinux(std::string &url) {
   AppConfig config = AppConfig::GetInstance();
   std::string cmd = config.GetConfigValue("browser") + " " + url;
 #pragma clang diagnostic push
@@ -74,7 +74,8 @@ void ReportBrowser::BrowseOnLinux(std::string url) {
 #pragma clang diagnostic pop
 }
 
-void ReportBrowser::BrowseOnMac(std::string url) {
+void ReportBrowser::BrowseOnMac(std::string &url) {
+  // @todo use configured browser
   std::string cmd = "open " + url;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

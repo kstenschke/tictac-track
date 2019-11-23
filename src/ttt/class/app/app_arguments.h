@@ -72,7 +72,6 @@ class AppArguments {
   // Constructor
   AppArguments(int argc, char **argv, AppCommand &command);
 
-  bool IsComment(int index);
   bool IsNumber(int index);
   bool IsTime(int index);
   bool Contains(int index, std::string needle);
@@ -87,8 +86,6 @@ class AppArguments {
   std::string ResolveTime(int index, bool allow_negative = false);
   // Remove possible prefix from comment ("c=" or "comment=")
   std::string ResolveComment(int index);
-  // Validate CSV path from argument at given index
-  std::string ResolvePathCsv(int index);
   // Validate command-name from argument at given index
   AppCommand::Commands ResolveCommandName(int index);
 
