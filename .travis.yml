@@ -11,9 +11,16 @@ addons:
 compiler:
   - gcc
 
+before_install:
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq bats
+
 script:
   - cmake CMakeLists.txt
   - make
 
 after_script:
   - ./bin/linux/ttt
+  - ./test.sh
+  
