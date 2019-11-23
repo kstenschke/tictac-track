@@ -10,6 +10,8 @@
 # Install bats on Mac: brew install bats                                                                               #
 ########################################################################################################################
 
+START_TIME=$SECONDS
+
 printf "\033[4mTest commands recognition and display of help\033[0m\n"
 bats ./test/functional/help.bats.sh
 
@@ -51,3 +53,6 @@ bats ./test/functional/undo-backup.bats.sh
 
 printf "\n\033[4mTest view command\033[0m\n"
 bats ./test/functional/view.bats.sh
+
+ELAPSED_TIME=$(($SECONDS - $START_TIME))
+printf "\nDone. Bats tests ran for $ELAPSED_TIME seconds.\n\n";
