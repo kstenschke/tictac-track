@@ -115,7 +115,8 @@ Commands Overview
 
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
-| date / D          | Display date at given offset of days
+| calendarweek / W  | Display number of current- or calendar week at given offset of weeks
+| date / D          | Display current- or date at given offset of days
 | help / h          | Describe usage of this program
 | version / V       | Display installed version of this program
 

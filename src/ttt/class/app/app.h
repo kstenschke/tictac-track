@@ -59,6 +59,8 @@ class App {
 
   bool BrowseTaskUrl();
 
+  bool DisplayCalendarWeek();
+
   bool DisplayDate();
 
   bool ExportCsv();

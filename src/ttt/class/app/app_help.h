@@ -48,8 +48,9 @@ class AppHelp {
   static bool PrintHelpOnBrowseDayTasks();
   static bool PrintHelpOnCsv();
   static bool PrintHelpOnComment();
-  static bool PrintHelpOnDate();
   static bool PrintHelpOnDay();
+  static bool PrintHelpOnDisplayCalendarWeek();
+  static bool PrintHelpOnDisplayDate();
   static bool PrintHelpOnExternalTaskUrl();
   static bool PrintHelpOnHelp();
   static bool PrintHelpOnMerge();

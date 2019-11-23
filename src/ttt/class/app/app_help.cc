@@ -47,7 +47,8 @@ bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
     case AppCommand::Commands::Command_Comment:return PrintHelpOnComment();
     case AppCommand::Commands::Command_Csv:return PrintHelpOnCsv();
     case AppCommand::Commands::Command_Day:return PrintHelpOnDay();
-    case AppCommand::Commands::Command_Date:return PrintHelpOnDate();
+    case AppCommand::Commands::Command_DisplayCalendarWeek:return PrintHelpOnDisplayCalendarWeek();
+    case AppCommand::Commands::Command_DisplayDate:return PrintHelpOnDisplayDate();
     case AppCommand::Commands::Command_BrowseTaskUrl:return PrintHelpOnExternalTaskUrl();
     case AppCommand::Commands::Command_Help:return PrintHelpOnHelp();
     case AppCommand::Commands::Command_Merge:return PrintHelpOnMerge();
@@ -115,9 +116,10 @@ void AppHelp::PrintOverview() {
             << "\n    dayTasks (ud)    - Display tasks of day sequentially in CLI and web browser"
             << "\n"
             << "\n  4. Meta commands:"
-            << "\n    date (D)     - Display date at given offset of days"
-            << "\n    help (h)     - Describe usage of this program"
-            << "\n    version (V)  - Display installed version of this program";
+            << "\n    calendarweek (W) - Display number of current- or calendar week at given offset of weeks"
+            << "\n    date (D)         - Display current- or date at given offset of days"
+            << "\n    help (h)         - Describe usage of this program"
+            << "\n    version (V)      - Display installed version of this program";
 }
 
 bool AppHelp::PrintHelpOnBrowse() {
@@ -148,8 +150,18 @@ bool AppHelp::PrintHelpOnComment() {
   return true;
 }
 
-bool AppHelp::PrintHelpOnDate() {
-  std::cout << "date (D): Display date at given offset of days"
+bool AppHelp::PrintHelpOnDisplayCalendarWeek() {
+  std::cout << "calendarweek (W): Display number of current- or calendar week at given offset of weeks"
+            << "\n"
+            << "\nUsage example 1:  W    - Display number of current calendar week"
+            << "\nUsage example 2:  D -1 - Display number of previous calendar week"
+            << "\nUsage example 3:  D 1  - Display number of next calendar week"
+            << "\n";
+  return true;
+}
+
+bool AppHelp::PrintHelpOnDisplayDate() {
+  std::cout << "date (D): Display current- or date at given offset of days"
             << "\n"
             << "\nUsage example 1:  D    - Display date of current day"
             << "\nUsage example 2:  D -1 - Display yesterday's date"

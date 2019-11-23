@@ -70,7 +70,9 @@ AppCommand::Commands AppCommand::ResolveCommandByName(std::string command) {
 
   if (command=="v" || command=="view") return Command_View;
 
-  if (command=="D" || command=="date") return Command_Date;
+  if (command=="W" || command=="calendarweek") return Command_DisplayCalendarWeek;
+
+  if (command=="D" || command=="date") return Command_DisplayDate;
 
   if (command=="h" || command=="help") return Command_Help;
 

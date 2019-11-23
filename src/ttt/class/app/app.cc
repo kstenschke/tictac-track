@@ -79,8 +79,9 @@ bool App::Process() {
     case AppCommand::Command_Comment:ReportFile::BackupReportTemporary();
       keep_backup = UpdateComment();
       break;
+    case AppCommand::Command_DisplayCalendarWeek:return DisplayCalendarWeek();
     case AppCommand::Command_Csv:return ExportCsv();
-    case AppCommand::Command_Date:return DisplayDate();
+    case AppCommand::Command_DisplayDate:return DisplayDate();
     case AppCommand::Command_Day:ReportFile::BackupReportTemporary();
       keep_backup = AddFullDayEntry();
       break;
@@ -164,6 +165,18 @@ bool App::BrowseTaskUrl() {
       arguments_->GetNegativeNumber(),
       arguments_->GetTaskNumber(),
       url_command);
+}
+
+bool App::DisplayCalendarWeek() {
+  auto *report_date_time_ = new ReportDateTime();
+
+  int offset_weeks = arguments_->argc_ > 2 ? arguments_->ResolveNumber(2) : 0;
+
+  int week_number = helper::String::ToInt(report_date_time_->GetCurrentWeekOfYear(offset_weeks));
+
+  std::cout << (offset_weeks == 0 ? "Current " : "") << "Week Number: " << week_number << "\n";
+
+  return true;
 }
 
 bool App::DisplayDate() {

@@ -3,7 +3,8 @@ Tictac-Track - Changelog
 
 V1.6.1 - Not released yet
 -------------------------
-* Added `browser` config option: Web-browser to open related issues in 
+* Added config option `browser`: Web-browser to open related issues in 
+* Added command `calendarweek` / `W`: Displays current- or number of calendar week at given offset  
 
 V1.6.0 - 2019/11/22
 -------------------
