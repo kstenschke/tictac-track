@@ -4,16 +4,9 @@ os:
   - linux
   - osx
 
-#jobs:
-#  include:
-#    - os: linux
-#      dist: trusty
-#    - os: osx
-#      osx_image: xcode6.4
-
 compiler:
   - gcc
-#  - clang
+  - clang
 
 addons:
   apt:
