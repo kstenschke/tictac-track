@@ -16,13 +16,9 @@ addons:
       - gcc-4.8
 
 before_install:
-  # install dependencies on osx
-  #- if [ "$TRAVIS_OS_NAME" = "osx" ]; git clone https://github.com/sstephenson/bats.git; fi
-  #- if [ "$TRAVIS_OS_NAME" = "osx" ]; ./bats/install.sh /usr/local; fi
-  # install dependencies on linux
-  #- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:duggan/bats --yes; fi
-  #- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -qq; fi
-  #- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -qq bats; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:duggan/bats --yes; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -qq; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -qq bats; fi
 
 script:
   - cmake CMakeLists.txt && make
@@ -30,5 +26,5 @@ script:
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then ./bin/linux/ttt ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo ./test.sh; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./bin/mac/ttt ; fi
-  #- if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./test.sh; fi
