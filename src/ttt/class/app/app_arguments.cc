@@ -87,14 +87,10 @@ void AppArguments::Resolve(AppCommand &command) {
     }
 
     // Try resolve i=<number> or i=<number,number,...>
-    if (helper::String::StartsWith(argv_[i], "i=")
-        && ResolveAsIndex(i)
-        )
+    if (helper::String::StartsWith(argv_[i], "i=") && ResolveAsIndex(i))
       continue;
 
-    if (helper::DateTime::IsTime(argument)
-        && ResolveAsTime(i)
-        )
+    if (helper::DateTime::IsTime(argument) && ResolveAsTime(i))
       continue;
 
     AppCommand::Commands command_resolved = command.GetResolved();
@@ -110,8 +106,7 @@ void AppArguments::Resolve(AppCommand &command) {
     }
 
     if (helper::String::StartsWith(argument.c_str(), "t=")
-        || is_numeric
-        ) {
+        || is_numeric) {
       ResolveAsTaskIndex(i, argument, command_resolved, is_numeric);
       continue;
     }
@@ -146,6 +141,7 @@ void AppArguments::ResolveAsTaskIndex(
     const AppCommand::Commands &command_resolved,
     bool is_numeric) {
   argv_types_[i] = ArgumentType_Number;
+
   if ('-'==argument[0]) {
     argument_index_negative_number_ = i;
     return;
@@ -173,6 +169,7 @@ bool AppArguments::ResolveAsTime(int i) {
  */
 bool AppArguments::ResolveAsIndex(int i) {
   argument_index_entry_id_ = i;
+
   if (!helper::String::Contains(argv_[i], ",")) {
     // Single index given
     argv_types_[i] = ArgumentType_Number;
@@ -321,9 +318,9 @@ std::string AppArguments::ResolveComment(int index) {
  * Validate command-name from argument at given index
  */
 AppCommand::Commands AppArguments::ResolveCommandName(int index) {
-  if (index >= argc_) return AppCommand::Commands::Command_Invalid;
-
-  return AppCommand::ResolveCommandByName(argv_[index]);
+  return index >= argc_
+         ? AppCommand::Commands::Command_Invalid
+         : AppCommand::ResolveCommandByName(argv_[index]);
 }
 
 } // namespace tictac_track
