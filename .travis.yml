@@ -37,4 +37,4 @@ script:
 
 after_success:
   - ./bin/linux/ttt
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; ./test.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./test.sh; fi
