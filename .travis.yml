@@ -20,7 +20,7 @@ before_install:
 script:
   - cmake CMakeLists.txt
   - make
-  - cppcheck ./src
+  - cppcheck --enable=all ./src
 
 after_success:
   - ./bin/linux/ttt
