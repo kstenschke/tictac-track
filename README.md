@@ -3,7 +3,7 @@ Tictack-track (ttt)
 
 [![Build Status](https://travis-ci.org/kstenschke/tictac-track.svg?branch=master)](https://travis-ci.org/kstenschke/tictac-track)
 
-A simple but powerful personal timetracker, running on the command-line (Linux, Mac OS), w/o any external dependencies (no server nor database used). Work-entries are recorded directly to an HTML file, ready for print at any time.
+A simple but powerful personal time tracker, running on the command-line (Linux, Mac OS), w/o any external dependencies (no server nor database used). Work-entries are recorded directly to an HTML file, ready for print at any time.
 ttt provides options to quickly transfer time log entries to external issue tracking systems.
 
 ## Table of contents
@@ -52,13 +52,13 @@ Features
 * Issue-reference and comments: Timesheet entries contain start- and end-time and optionally an issue reference-number and comment
 * Search filter: The CLI viewer can use search filters (by date, week, month, issue-number, comment)
 * Time sum calculation: Recorded work times are additionally summed: per entry / issue per day / day / filtered view / in total
-* Overtime saldo: Required vs. recorded work time per day is calculated automatically
+* Overtime Saldo: Required vs. recorded work time per day is calculated automatically
 * Timesheet entries can be merged, split and deleted from the commandline
 * Automatic backup / undo option: Before modifications are done, a backup of the timesheet is recorded,
   every modification command can be undone. Note: currently only one previous command can be undone.
 * Terminal color themes: There are several color presets built-in to support different terminal color palettes
 * Export: Timesheets can be exported to CSV: whole timesheet, current day, recent referenced issue numbers
-* External URL-linking: Referenced items can be dynamically opened in web-browser: all issues of a day / week / month
+* External URL-linking: Referenced items can be dynamically opened in web-browser: all issues of a day/week/month
 * Timesheet can be recorded in multiple languages (de, dk, en, es, fi, fr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)
 * Stable: The majority of commands and options is covered by functional tests
 
@@ -66,8 +66,8 @@ Features
 Commands Overview
 -----------------
 
-* For every command there is also a 1 or 2 letter shortcut.
-* For every command there is a help topic with more detailed information and various usage examples.
+* For every command, there is also a 1 or 2 letter shortcut.
+* For every command, there is a help topic with more detailed information and various usage examples.
   Example: More detailed help on the `start` (or `s`) command is displayed via: `./ttt h s`
 
 
@@ -77,7 +77,7 @@ Commands Overview
 |------------------|-------------------------------------------------------------------------------
 | start / s        | Start tracking new work entry or update Start-time of given entry
 | pause / stop / p | Stop currently ongoing entry
-| resume / r       | Start new work entry at current time, w/ issue no. and comment from previous entry
+| resume / r       | Start new work entry at current time, w/ issue no. and comment from the previous entry
 
 
 ### 2. Update recorded entries:
@@ -102,10 +102,10 @@ Commands Overview
 | Command           | Description
 |-------------------|-------------------------------------------------------------------------------
 | browse / b        | Open timesheet in web browser
-| view / v          | Display timesheet in commandline
-| week / w          | Display week out of timesheet in commandline
+| view / v          | Display timesheet in command-line
+| week / w          | Display week out of timesheet in command-line
 | csv               | Export timesheet to CSV file
-| csvdt             | Output issue numbers tracked in current day as CSV
+| csvdt             | Output issue numbers tracked in the current day as CSV
 | csvrtn            | Output recent 30 tracked issue numbers as CSV
 | url / u           | Open external issue URL in web browser
 | dayTasks / ud     | Display issues of day sequentially in CLI and web browser
