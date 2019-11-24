@@ -36,6 +36,6 @@ script:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cppcheck --enable=all ./src; fi
 
 after_success:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; ./bin/linux/ttt ; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; ./bin/mac/ttt ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then ./bin/linux/ttt ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./bin/mac/ttt ; fi
   #- if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./test.sh; fi
