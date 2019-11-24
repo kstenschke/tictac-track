@@ -321,8 +321,7 @@ std::string AppArguments::ResolveComment(int index) {
  * Validate command-name from argument at given index
  */
 AppCommand::Commands AppArguments::ResolveCommandName(int index) {
-  AppCommand::Commands command = AppCommand::Commands::Command_Invalid;
-  if (index >= argc_) return command;
+  if (index >= argc_) return AppCommand::Commands::Command_Invalid;
 
   return AppCommand::ResolveCommandByName(argv_[index]);
 }
