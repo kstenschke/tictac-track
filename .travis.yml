@@ -26,5 +26,5 @@ script:
 
 after_success:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then ./bin/linux/ttt ; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo ./test.sh; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then ./test.sh; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./bin/mac/ttt ; fi
