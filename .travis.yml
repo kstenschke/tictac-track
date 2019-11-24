@@ -18,8 +18,7 @@ before_install:
   - sudo apt-get install -qq bats
 
 script:
-  - cmake CMakeLists.txt
-  - make
+  - cmake CMakeLists.txt && make
   - cppcheck --enable=all ./src
 
 after_success:
