@@ -4,12 +4,12 @@ os:
   - linux
   - osx
 
-jobs:
-  include:
+#jobs:
+#  include:
 #    - os: linux
 #      dist: trusty
-    - os: osx
-      osx_image: xcode6.4
+#    - os: osx
+#      osx_image: xcode6.4
 
 compiler:
   - gcc

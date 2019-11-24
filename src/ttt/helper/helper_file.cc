@@ -27,6 +27,8 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <unistd.h>
+
 //#include <zconf.h>
 #include "vendor/zlib/zconf.h"
 #include "helper_file.h"
@@ -36,7 +38,6 @@ namespace helper {
  * Check whether given file exists
  */
 bool File::FileExists(const std::string &name) {
-//    if (access(name.c_str(), F_OK) == -1) std::cout << "Report file \"" << name << "\" does not exist.\n";
   return access(name.c_str(), F_OK)!=-1;
 }
 
