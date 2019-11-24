@@ -4,18 +4,16 @@ os:
   - linux
   - osx
 
-osx_image: xcode6.4
-
-#jobs:
-#  include:
+jobs:
+  include:
 #    - os: linux
 #      dist: trusty
-#    - os: osx
-#      osx_image: xcode7.2
+    - os: osx
+      osx_image: xcode6.4
 
 compiler:
   - gcc
-  - clang
+#  - clang
 
 addons:
   apt:
@@ -26,8 +24,8 @@ addons:
 
 before_install:
   # install dependencies on osx
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; git clone https://github.com/sstephenson/bats.git; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; ./bats/install.sh /usr/local; fi
+  #- if [ "$TRAVIS_OS_NAME" = "osx" ]; git clone https://github.com/sstephenson/bats.git; fi
+  #- if [ "$TRAVIS_OS_NAME" = "osx" ]; ./bats/install.sh /usr/local; fi
   # install dependencies on linux
   #- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:duggan/bats --yes; fi
   #- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -qq; fi
@@ -39,4 +37,4 @@ script:
 
 after_success:
   - ./bin/linux/ttt
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./test.sh; fi
+  #- if [ "$TRAVIS_OS_NAME" = "osx" ]; then ./test.sh; fi
