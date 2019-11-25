@@ -283,15 +283,47 @@ int ReportRendererCli::PrintRows(
       is_even = !is_even;
     }
 
-    // Skip meta-column (start from index 1 instead of 0)
-    for (int index_column = 0;
+    PrintRow(display_id, dispay_day_sum, display_balance,
+             is_even, is_around_break,
+             index_row,
+             do_display,
+             index_cell,
+             previous_day);
+
+    if (do_display) {
+      std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
+
+      if (is_even) std::cout << helper::Tui::kAnsiFormatReset;
+    }
+  }
+
+  if (display_viewed_sum
+      && 0 < sum_task_minutes)
+    PrintDurationSums(task_number, sum_task_minutes);
+
+  std::cout << helper::Tui::kAnsiFormatReset;
+
+  return amount_rows_printed;
+}
+
+void ReportRendererCli::PrintRow(bool display_id,
+                                 bool dispay_day_sum,
+                                 bool display_balance,
+                                 bool is_even,
+                                 bool is_around_break,
+                                 int index_row,
+                                 bool do_display,
+                                 int &index_cell,
+                                 std::string &previous_day) {
+  // Skip meta-column (start from index 1 instead of 0)
+  for (int index_column = 0;
          index_column < amount_columns_ && index_cell < amount_cells_;
          index_column++) {
       if (index_column==2) previous_day = cells_[index_cell];
 
       if (do_display
-          && (dispay_day_sum || index_column!=Report::ColumnIndexes::Index_SumDay)
-          && (display_balance || index_column!=Report::ColumnIndexes::Index_Balance)
+          && (dispay_day_sum || index_column!=Index_SumDay)
+          && (display_balance || index_column!=Index_Balance)
           ) {
         // Emphasize times around e.g. lunch-break (end-time before and start-time after)
         if (index_column==Index_End)
@@ -311,21 +343,6 @@ int ReportRendererCli::PrintRows(
       // Skip meta cell
       ++index_cell;
     }
-
-    if (do_display) {
-      std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
-
-      if (is_even) std::cout << helper::Tui::kAnsiFormatReset;
-    }
-  }
-
-  if (display_viewed_sum
-      && 0 < sum_task_minutes)
-    PrintDurationSums(task_number, sum_task_minutes);
-
-  std::cout << helper::Tui::kAnsiFormatReset;
-
-  return amount_rows_printed;
 }
 
 /**

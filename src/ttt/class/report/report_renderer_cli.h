@@ -95,6 +95,15 @@ class ReportRendererCli : public ReportRenderer {
   bool IsEndTimeBeforeBreak(int index_cell);
 
   int AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_ongoing, int sum_task_minutes) const;
+  void PrintRow(bool display_id,
+                bool dispay_day_sum,
+                bool display_balance,
+                bool is_even,
+                bool is_around_break,
+                int index_row,
+                bool do_display,
+                int &index_cell,
+                std::string &previous_day);
 };
 
 } // namespace tictac_track
