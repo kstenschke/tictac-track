@@ -18,10 +18,10 @@ load test_helper
 @test 'Starting a new entry creates a backup for undo' {
   # timesheet.html does not exist
   run ls $BATS_TEST_DIRNAME/timesheet.html
-  [ "$status" -eq 1 ]
+  [ "$status" -ne 0 ]
   # timesheet.html.bak does not exist
   run ls $BATS_TEST_DIRNAME/timesheet.html.bak
-  [ "$status" -eq 1 ]
+  [ "$status" -ne 0 ]
 
   # Add entry, create timesheet.html and backup
   run $BATS_TEST_DIRNAME/ttt s
@@ -135,14 +135,14 @@ load test_helper
   $BATS_TEST_DIRNAME/ttt rm
 
   run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  [[ "$output" -ne 0 ]]
   run grep -c '01:23' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 0 ]]
+  [[ "$output" -ne 0 ]]
 
   $BATS_TEST_DIRNAME/ttt z
 
   run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 2 ]]
+  [[ "$output" -ne 0 ]]
   run grep -c '01:23' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  [[ "$output" -eq 1 ]]
 }

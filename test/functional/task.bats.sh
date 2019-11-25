@@ -36,11 +36,11 @@ load test_helper
 
   $BATS_TEST_DIRNAME/ttt t i=0 12345 "foo bar"
 
-  run grep -c '>1234<' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  run grep -c '>12345<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" -eq 1 ]]
 
   run grep -c '>foo bar<' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  [[ "$output" -eq 1 ]]
 }
 
 @test 'At the same time with updating the task-number of the latest entry, a comment can be added to it' {
@@ -50,9 +50,9 @@ load test_helper
 
   $BATS_TEST_DIRNAME/ttt t 12345 "foo bar"
 
-  run grep -c '>1234<' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  run grep -c '>12345<' $BATS_TEST_DIRNAME/timesheet.html
+  [[ "$output" -eq 1 ]]
 
   run grep -c '>foo bar<' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  [[ "$output" -eq 1 ]]
 }

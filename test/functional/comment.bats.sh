@@ -71,43 +71,33 @@ load test_helper
 
 @test 'Multiple items comments can be appended by passing comma-separated indexes' {
   # Create 6 entries commented w/ "foo"
-  $BATS_TEST_DIRNAME/ttt s a
-  $BATS_TEST_DIRNAME/ttt p
-  $BATS_TEST_DIRNAME/ttt s b
-  $BATS_TEST_DIRNAME/ttt p
-  $BATS_TEST_DIRNAME/ttt s c
-  $BATS_TEST_DIRNAME/ttt p
-  $BATS_TEST_DIRNAME/ttt s d
-  $BATS_TEST_DIRNAME/ttt p
-  $BATS_TEST_DIRNAME/ttt s e
-  $BATS_TEST_DIRNAME/ttt p
-  $BATS_TEST_DIRNAME/ttt s f
+  $BATS_TEST_DIRNAME/ttt s aaa
+  $BATS_TEST_DIRNAME/ttt s bbb
+  $BATS_TEST_DIRNAME/ttt s ccc
+  $BATS_TEST_DIRNAME/ttt s ddd
+  $BATS_TEST_DIRNAME/ttt s eee
+  $BATS_TEST_DIRNAME/ttt s fff
   $BATS_TEST_DIRNAME/ttt p
 
   # Append to multiple comments
   run $BATS_TEST_DIRNAME/ttt c i=1,3,5 oo
 
   # Check comments
-  amount_boo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "boo" -o | wc -l | xargs)
-  amount_doo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "doo" -o | wc -l | xargs)
-  amount_foo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "foo" -o | wc -l | xargs)
-  [[ "$amount_boo" = 1 ]]
-  [[ "$amount_doo" = 1 ]]
-  [[ "$amount_foo" = 1 ]]
+  amount_boo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "bbboo" -o | wc -l | xargs)
+  amount_doo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "dddoo" -o | wc -l | xargs)
+  amount_foo=$(cat $BATS_TEST_DIRNAME/timesheet.html | grep "fffoo" -o | wc -l | xargs)
+  [[ "$amount_boo" -eq 1 ]]
+  [[ "$amount_doo" -eq 1 ]]
+  [[ "$amount_foo" -eq 1 ]]
 }
 
 @test 'Multiple items comments can be removed by passing comma-separated indexes' {
   # Create 6 entries commented w/ "foo"
   $BATS_TEST_DIRNAME/ttt s foo
-  $BATS_TEST_DIRNAME/ttt p
   $BATS_TEST_DIRNAME/ttt s foo
-  $BATS_TEST_DIRNAME/ttt p
   $BATS_TEST_DIRNAME/ttt s foo
-  $BATS_TEST_DIRNAME/ttt p
   $BATS_TEST_DIRNAME/ttt s foo
-  $BATS_TEST_DIRNAME/ttt p
   $BATS_TEST_DIRNAME/ttt s foo
-  $BATS_TEST_DIRNAME/ttt p
   $BATS_TEST_DIRNAME/ttt s foo
   $BATS_TEST_DIRNAME/ttt p
 

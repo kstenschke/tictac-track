@@ -8,6 +8,7 @@ V1.6.1 - Not released yet
 * Added to Bats functional testing: Measure and output total duration of tests
 * Improved Travis CI config: Build (on Linux and also) on MacOS w/ gcc and clang, run cppcheck and Bats functional tests   
 * Improved: Performance and memory usage
+* Improved: Made Bats functional tests Linux/GNU grep compliant (was: MacOs)
 
 V1.6.0 - 2019/11/22
 -------------------

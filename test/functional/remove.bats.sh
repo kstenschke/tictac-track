@@ -81,15 +81,15 @@ load test_helper
 
   # there are 2 entries now
   run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 4 ]]
+  [[ "$output" -eq 2 ]]
 
   run $BATS_TEST_DIRNAME/ttt rm -10
 
   # there are 0 entries now
   run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 0 ]]
+  [[ "$output" -eq 0 ]]
 
   # viewing in CLI displays 12 columns
-  amount_separators=$($BATS_TEST_DIRNAME/ttt v | grep "\|" -o | wc -l | xargs)
-  [[ "$amount_separators" = 11 ]]
+  amount_separators=$($BATS_TEST_DIRNAME/ttt v | grep "|" -o | wc -l | xargs)
+  [[ "$amount_separators" -eq 11 ]]
 }

@@ -11,7 +11,7 @@ load test_helper
   if [ -f $BATS_TEST_DIRNAME/.ttt.ini ] ; then rm $BATS_TEST_DIRNAME/.ttt.ini; fi
   # Assert ini doesn't exist
   run ls $BATS_TEST_DIRNAME/.ttt.ini
-  [ "$status" -eq 1 ]
+  [ "$status" -ne 0 ]
   # Assert running the program creates ini
   run $BATS_TEST_DIRNAME/ttt
   run ls $BATS_TEST_DIRNAME/.ttt.ini
@@ -21,7 +21,7 @@ load test_helper
 @test "Running creates timesheet.html file if not there" {
   # Assert timesheet doesn't exist
   run ls $BATS_TEST_DIRNAME/timesheet.html
-  [ "$status" -eq 1 ]
+  [ "$status" -ne 0 ]
   # Assert running the program creates timesheet
   run $BATS_TEST_DIRNAME/ttt
   run ls $BATS_TEST_DIRNAME/timesheet.html

@@ -53,14 +53,14 @@ load test_helper
 }
 
 @test '"d 123 c=\"foo bar\"" adds an entry with task and comment' {
-  run $BATS_TEST_DIRNAME/ttt d c="foo bar"
+  run $BATS_TEST_DIRNAME/ttt d 123 c="foo bar"
   [ "$status" -eq 0 ]
 
   run grep -c '<td>123</td>' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  [[ "$output" -eq 1 ]]
 
   run grep -c '<td>foo bar</td>' $BATS_TEST_DIRNAME/timesheet.html
-  [[ "$output" = 1 ]]
+  [[ "$output" -eq 1 ]]
 }
 
 @test 'Adding a full-day entry into a day that has entries already, fails' {
