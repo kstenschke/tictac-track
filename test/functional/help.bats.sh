@@ -113,6 +113,16 @@ load test_helper
   $BATS_TEST_DIRNAME/ttt h csv | grep 'csv:'
 }
 
+@test "\"help csvdt\" and \"h csvdt\" display help on csvdt command" {
+  $BATS_TEST_DIRNAME/ttt help csvdt | grep 'csvdt:'
+  $BATS_TEST_DIRNAME/ttt h csvdt | grep 'csvdt:'
+}
+
+@test "\"help csvrtn\" and \"h csvrtn\" display help on csvrtn command" {
+  $BATS_TEST_DIRNAME/ttt help csvrtn | grep 'csvrtn:'
+  $BATS_TEST_DIRNAME/ttt h csvrtn | grep 'csvrtn:'
+}
+
 @test "\"help url\" (and variations) display help on url command" {
   $BATS_TEST_DIRNAME/ttt help url | grep 'url (u):'
   $BATS_TEST_DIRNAME/ttt help u | grep 'url (u):'

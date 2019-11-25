@@ -42,6 +42,7 @@ namespace tictac_track {
 bool ReportRenderer::ExtractPartsFromReport(int filter_offset, std::string html) {
   if (html.empty()) {
     AppConfig &config = AppConfig::GetInstance();
+
     std::ifstream file(config.GetReportFilePath());
     if (!file) return false;
 

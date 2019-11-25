@@ -48,10 +48,11 @@ namespace tictac_track {
  */
 ReportRendererCli::ReportRendererCli() {
   InitAnsiTheme();
-  offset_id_column_ = helper::String::ToInt(AppConfig::GetInstance().GetConfigValue("id_column"));
 
   AppConfig config = AppConfig::GetInstance();
-  minutes_break_ = helper::String::ToInt(config.GetConfigValue("max_mergeable_minutes_gap"));
+
+  offset_id_column_ = helper::String::ToInt(config.GetConfigValue("id_column"));
+  minutes_break_    = helper::String::ToInt(config.GetConfigValue("max_mergeable_minutes_gap"));
 }
 
 /**
@@ -60,11 +61,13 @@ ReportRendererCli::ReportRendererCli() {
 bool ReportRendererCli::PrintToCli(
     RenderScopes scope, int lookbehind_amount, int task_number, std::string comment) {
   render_scope_ = scope;
+
   if (!ExtractPartsFromReport(lookbehind_amount)) return false;
 
   max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
 
   PrintHeader();
+
   if (0 != PrintRows(task_number, std::move(comment))) return true;
 
   std::string message = rows_filter_.empty()

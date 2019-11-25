@@ -79,6 +79,7 @@ bool ReportCrud::EnsureReportExists(bool clear) {
     return true;
 
   std::cout << "Failed create report file at: " << report_file_path << "\n";
+
   return false;
 }
 
