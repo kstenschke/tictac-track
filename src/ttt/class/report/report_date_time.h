@@ -47,7 +47,7 @@ class ReportDateTime {
   std::string GetTimestampForMeta();
 
   // Get day of week as string, localized into configured language
-  std::string GetCurrentDayOfWeek();
+  std::string GetCurrentDayOfWeek(int offset_days = 0);
   // Get localized name of day of week, from given meta data
   std::string GetWeekdayByMeta(std::string meta);
 

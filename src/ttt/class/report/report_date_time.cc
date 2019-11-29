@@ -122,8 +122,8 @@ std::string ReportDateTime::GetTimestampForMeta() {
 /**
  * Get day of week as string, localized into configured language
  */
-std::string ReportDateTime::GetCurrentDayOfWeek() {
-  std::string weekdayNameEnglish = helper::DateTime::GetCurrentTimeFormatted(format_day_of_week_.c_str());
+std::string ReportDateTime::GetCurrentDayOfWeek(int offset_days) {
+  std::string weekdayNameEnglish = helper::DateTime::GetCurrentTimeFormatted(format_day_of_week_.c_str(), offset_days);
 
   return TranslateWeekday(weekdayNameEnglish.c_str());
 }

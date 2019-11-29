@@ -108,7 +108,15 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
 
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
   std::vector<std::string> tasks = parser->GetIssueNumbersOfDay(date);
-  int amount_tasks = tasks.size();
+  int amount_tasks = static_cast<int>(tasks.size());
+
+  if (amount_tasks == 0) {
+    auto *reportDateTime = new ReportDateTime();
+    std::cout << "No entries or related issues found on "
+              << reportDateTime->GetCurrentDayOfWeek(days_offset) << ", " << date << ".\n";
+
+    return false;
+  }
 
   int i = 1;
   for (auto const &task: tasks) {
