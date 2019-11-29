@@ -6,7 +6,7 @@ V1.6.1 - Not released yet
 * Added config option `browser`: Web-browser to open related issues in (Linux-only, Mac uses default web browser)
 * Added command `calendarweek` / `W`: Displays current- or number of calendar week at given offset  
 * Added to Bats functional testing: Measure and output total duration of tests
-* Added: CLI-Renderer now detects max. chars per line and truncates long comments w/ ellipsis 
+* Added: CLI-Renderer now detects max. chars per line and displays long comments truncated w/ ellipsis 
 * Improved Travis CI config: Build (on Linux and also) on MacOS w/ gcc and clang, run cppcheck and Bats functional tests   
 * Improved: Performance and memory usage
 * Improved: Made Bats functional tests Linux/GNU grep compliant (was: MacOs)
