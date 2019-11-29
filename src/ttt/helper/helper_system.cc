@@ -28,6 +28,8 @@
 #include <clocale>
 #include <iostream>
 #include <cstdlib>
+#include <sys/ttycom.h>
+#include <sys/ioctl.h>
 #include "helper_system.h"
 #include "helper_string.h"
 
@@ -45,6 +47,16 @@ std::string System::GetBinaryPath(char **argv, size_t strLenExecutableName) {
   unsigned long len_without_binary = std::strlen(absolute_path) - strLenExecutableName;
 
   return std::string(ptr).substr(0, len_without_binary);
+}
+
+/**
+ * @return Amount of columns in current terminal
+ */
+int System::GetMaxCharsPerTerminalRow() {
+  struct winsize w;
+  ioctl(0, TIOCGWINSZ, &w);
+
+  return w.ws_col;
 }
 
 /**

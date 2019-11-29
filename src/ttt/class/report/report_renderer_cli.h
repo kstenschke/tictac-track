@@ -64,6 +64,9 @@ class ReportRendererCli : public ReportRenderer {
   // Maximum mergeable amount of minutes between to entries (lunch- or other long break)
   int minutes_break_;
 
+  // Currently available max. amount of characters per comment within terminal
+  int max_chars_per_comment_;
+
   // Amount of digits in maximum index
   unsigned long max_index_digits_;
   int amount_cells_;

@@ -51,6 +51,8 @@ ReportRendererCli::ReportRendererCli() {
 
   AppConfig config = AppConfig::GetInstance();
 
+  max_chars_per_comment_ = helper::System::GetMaxCharsPerTerminalRow() - 105;
+
   offset_id_column_ = helper::String::ToInt(config.GetConfigValue("id_column"));
   minutes_break_    = helper::String::ToInt(config.GetConfigValue("max_mergeable_minutes_gap"));
 }
@@ -193,8 +195,15 @@ void ReportRendererCli::PrintHeader(
       std::cout << helper::Html::Decode(column_title) << " ";
 
       content_len = helper::String::GetAmountChars(helper::Html::Decode(column_title));
-      if (content_len < column_content_max_len_[index_column]) {
-        int column_len_diff = column_content_max_len_[index_column] - content_len;
+
+      int &max_chars_in_column = column_content_max_len_[index_column];
+
+      if (content_len < max_chars_in_column) {
+        int column_len_diff = max_chars_in_column - content_len;
+
+        if (index_column==Index_Comment && max_chars_in_column >= max_chars_per_comment_)
+          column_len_diff = max_chars_per_comment_ - content_len;
+
         std::cout << std::string(static_cast<unsigned long>(column_len_diff), ' ');
       }
     }
@@ -322,7 +331,7 @@ void ReportRendererCli::PrintRow(bool display_id,
   for (int index_column = 0;
          index_column < amount_columns_ && index_cell < amount_cells_;
          index_column++) {
-      if (index_column==2) previous_day = cells_[index_cell];
+      if (index_column==Index_Day) previous_day = cells_[index_cell];
 
       if (do_display
           && (dispay_day_sum || index_column!=Index_SumDay)
@@ -394,14 +403,14 @@ void ReportRendererCli::PrintColumn(
                   ? theme_style_default_
                   : theme_style_grid_)
               << "| " << helper::Tui::kAnsiFormatReset;
-  } else if (index_column==1
-      && offset_id_column_ > 0)
-    std::cout << " ";
+  } else if (index_column==1 && offset_id_column_ > 0) std::cout << " ";
 
   if (index_column > 0) {
     std::string content = cells_[index_cell];
 
     if (index_column==Index_Comment) content = helper::Html::Decode(content);
+    
+    helper::String::Ellipsis(content, max_chars_per_comment_ + 1);
 
     std::cout << (is_even ? theme_style_default_ : "")
               << (emphasize ? helper::Tui::kAnsiFormatInverted : "")
@@ -442,9 +451,14 @@ void ReportRendererCli::PrintDurationSums(int task_number, int sum_task_minutes)
  */
 std::string ReportRendererCli::RenderSeparationRow() {
   std::string separation_row = theme_style_grid_ + std::string(4 + max_index_digits_, '-');
-  for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++)
-    separation_row
-        .append(std::string(column_content_max_len_[indexColumn] + 3, '-'));
+  for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++) {
+    int amount_characters = column_content_max_len_[indexColumn] + 3;
+
+    if (indexColumn==Index_Comment && amount_characters > max_chars_per_comment_)
+      amount_characters = max_chars_per_comment_;
+
+    separation_row.append(std::string(amount_characters, '-'));
+  }
 
   return separation_row + helper::Tui::kAnsiFormatReset;
 }
@@ -474,8 +488,11 @@ void ReportRendererCli::PrintRhsCellSpaces(int index_cell, int index_column) {
                     ? 0
                     : helper::String::GetAmountChars(helper::Html::Decode(cells_[index_cell]));
 
-  if (content_len < column_content_max_len_[index_column]) {
-    int column_len_diff = column_content_max_len_[index_column] - content_len;
+  int max_used_len = column_content_max_len_[index_column];
+  if (max_used_len > max_chars_per_comment_) max_used_len = max_chars_per_comment_;
+
+  if (content_len < max_used_len) {
+    int column_len_diff = max_used_len - content_len;
     std::cout << std::string(static_cast<unsigned long>(column_len_diff), ' ');
   }
 }

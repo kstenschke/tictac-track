@@ -27,6 +27,8 @@
 #ifndef CLASS_TTT_HELPER_SYSTEM
 #define CLASS_TTT_HELPER_SYSTEM
 
+#include <string>
+
 namespace helper {
 namespace System {
 
@@ -57,6 +59,9 @@ const std::string kNewline = "\n";
 
 // Get absolute path to application executable
 extern std::string GetBinaryPath(char **argv, size_t strLenExecutableName);
+
+// Get amount of columns in current terminal
+int GetMaxCharsPerTerminalRow();
 
 // Get language key from system default locale
 extern std::string GetLanguageKey();
