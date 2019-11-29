@@ -303,11 +303,14 @@ int ReportRendererCli::PrintRows(
       is_even = !is_even;
     }
 
-    PrintRow(display_id, dispay_day_sum, display_balance,
-             is_even, is_around_break,
-             index_row,
-             do_display,
+    PrintRow(index_row,
              index_cell,
+             display_balance,
+             is_even,
+             is_around_break,
+             dispay_day_sum,
+             do_display,
+             display_id,
              previous_day);
 
     if (do_display) {
@@ -317,23 +320,21 @@ int ReportRendererCli::PrintRows(
     }
   }
 
-  if (display_viewed_sum
-      && 0 < sum_task_minutes)
-    PrintDurationSums(task_number, sum_task_minutes);
+  if (display_viewed_sum && 0 < sum_task_minutes) PrintDurationSums(task_number, sum_task_minutes);
 
   std::cout << helper::Tui::kAnsiFormatReset;
 
   return amount_rows_printed;
 }
 
-void ReportRendererCli::PrintRow(bool display_id,
-                                 bool dispay_day_sum,
+void ReportRendererCli::PrintRow(int index_row,
+                                 int &index_cell,
                                  bool display_balance,
                                  bool is_even,
                                  bool is_around_break,
-                                 int index_row,
+                                 bool dispay_day_sum,
                                  bool do_display,
-                                 int &index_cell,
+                                 bool display_id,
                                  std::string &previous_day) {
   // Skip meta-column (start from index 1 instead of 0)
   for (int index_column = 0;
@@ -351,13 +352,7 @@ void ReportRendererCli::PrintRow(bool display_id,
 
         bool is_emphasizable_column = index_column==Index_End || index_column==Index_Start;
 
-        PrintColumn(
-            index_cell,
-            is_even,
-            index_row,
-            index_column,
-            is_emphasizable_column && is_around_break,
-            display_id);
+        PrintColumn(index_row, index_column, index_cell, display_id, is_emphasizable_column && is_around_break, is_even);
       }
 
       // Skip meta cell
@@ -366,7 +361,8 @@ void ReportRendererCli::PrintRow(bool display_id,
 }
 
 /**
- * Check end-time at given cell: is there an unmergeable gap (lunch- or other break) between the start-time of the next entry?
+ * Check end-time at given cell:
+ * is there an unmergeable gap (lunch- or other break) between the start-time of the next entry?
  */
 bool ReportRendererCli::IsEndTimeBeforeBreak(int index_cell) {
   // Last entry cannot end before a break
@@ -399,12 +395,8 @@ int ReportRendererCli::AddSumMinutes(
 }
 
 void ReportRendererCli::PrintColumn(
-    int index_cell,
-    bool is_even,
-    int index_row,
-    int index_column,
-    bool emphasize,
-    bool display_id) {
+    int index_row, int index_column, int index_cell,
+    bool display_id, bool emphasize, bool is_even) {
   if (index_column > 1) {
     // Skip column 0 (meta)
     std::cout << (is_even

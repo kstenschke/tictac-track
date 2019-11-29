@@ -84,8 +84,9 @@ class ReportRendererCli : public ReportRenderer {
   // Fill cell w/ spaces to keep width of cells in column identical
   void PrintRhsCellSpaces(int index_cell, int index_column);
 
-  void PrintColumn(int index_cell, bool is_even, int index_row, int index_column, 
-                   bool emphasize = false, bool display_id = true);
+  void PrintColumn(int index_row, int index_column, int index_cell,
+                   bool display_id, bool emphasize, bool is_even);
+
   void PrintDurationSums(int task_number, int sum_task_minutes);
 
   // Render separator row (printed between days)
@@ -98,15 +99,13 @@ class ReportRendererCli : public ReportRenderer {
   bool IsEndTimeBeforeBreak(int index_cell);
 
   int AddSumMinutes(int index_cell, const std::string &duration_in_row, bool is_entry_ongoing, int sum_task_minutes) const;
-  void PrintRow(bool display_id,
-                bool dispay_day_sum,
-                bool display_balance,
-                bool is_even,
-                bool is_around_break,
-                int index_row,
-                bool do_display,
-                int &index_cell,
-                std::string &previous_day);
+
+  void PrintRow(
+      int index_row, int &index_cell,
+      bool display_balance, bool is_even, bool is_around_break, bool dispay_day_sum,
+                  bool do_display,
+                  bool display_id,
+                  std::string &previous_day);
 };
 
 } // namespace tictac_track
