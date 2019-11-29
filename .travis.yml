@@ -19,9 +19,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo add-apt-repository ppa:duggan/bats --yes; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update -qq; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -qq bats; fi
-  # ensure having libc6-dev installed, required so sys/ioctl.h is available for include
-  #- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install --reinstall libc6-dev; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo cd /usr/src && sudo ln -sfn linux-headers-2.6.35-28-generic linux; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install build-essential; fi
 
 script:
   - cmake CMakeLists.txt && make
