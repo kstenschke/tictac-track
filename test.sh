@@ -42,6 +42,9 @@ bats ./test/functional/merge.bats.sh
 printf "\n\033[4mTest split command\033[0m\n"
 bats ./test/functional/split.bats.sh
 
+printf "\n\033[4mTest day-tasks (ud) command\033[0m\n"
+bats ./test/functional/day-tasks.bats.sh
+
 printf "\n\033[4mTest (all-)day command\033[0m\n"
 bats ./test/functional/day.bats.sh
 
