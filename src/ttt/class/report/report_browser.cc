@@ -51,16 +51,8 @@ bool ReportBrowser::BrowseTimesheet(std::string url) {
 
   if (url.empty()) url = "file://" + report_file_path;
 
-  if (helper::System::kOsName=="linux" || helper::System::kOsName=="unix") {
-    // Linux/Unix
-    BrowseOnLinux(url);
-  } else if (helper::System::kOsName=="macOs") {
-    // Mac OS
-    BrowseOnMac(url);
-  } else {
-    // Windows
-    // TODO implement open in browser for windows
-  }
+  if (helper::System::kOsName=="linux" || helper::System::kOsName=="unix") BrowseOnLinux(url);
+  else if (helper::System::kOsName=="macOs") BrowseOnMac(url);
 
   return true;
 }

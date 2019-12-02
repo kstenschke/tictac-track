@@ -28,8 +28,14 @@
 #include <clocale>
 #include <iostream>
 #include <cstdlib>
-#include <sys/ttycom.h>
 #include <sys/ioctl.h>
+#include <unistd.h>
+
+#ifdef __APPLE__
+  // Required to fetch columns amount in current terminal window
+  #include <sys/ttycom.h>
+#endif
+
 #include "helper_system.h"
 #include "helper_string.h"
 
@@ -54,7 +60,10 @@ std::string System::GetBinaryPath(char **argv, size_t strLenExecutableName) {
  */
 int System::GetMaxCharsPerTerminalRow() {
   struct winsize w;
-  ioctl(0, TIOCGWINSZ, &w);
+  ioctl(
+      helper::System::kOsName == "macOs" ? 0 : STDOUT_FILENO,
+      TIOCGWINSZ,
+      &w);
 
   return w.ws_col;
 }

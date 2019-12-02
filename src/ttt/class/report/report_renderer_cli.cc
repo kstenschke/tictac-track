@@ -409,7 +409,8 @@ void ReportRendererCli::PrintColumn(
     std::string content = cells_[index_cell];
 
     if (index_column==Index_Comment) content = helper::Html::Decode(content);
-    
+
+    // @todo adjust max-length language specific (currently correct is: de: +1, en: +2)
     helper::String::Ellipsis(content, max_chars_per_comment_ + 1);
 
     std::cout << (is_even ? theme_style_default_ : "")
