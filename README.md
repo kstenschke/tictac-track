@@ -417,6 +417,9 @@ Build Instructions
 * run: `./make.sh`
 * or: `cmake CMakeLists.txt; make`
 
+When building for productive use, ensure having checked-out the latest released tag.
+
+
 Running tests
 -------------
 
