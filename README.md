@@ -447,7 +447,7 @@ If you find a bug or have an enhancement request, please file an issue on the gi
 Author and License
 ------------------
 
-Written by Kay Stenschke in 2018-2019.
+Written by Kay Stenschke in 2018-2020.
 Tictac-Track is licensed under the [New BSD License](http://opensource.org/licenses/BSD-3-Clause)
 
 > Copyright (c), Kay Stenschke
