@@ -82,7 +82,6 @@ void AppArguments::Resolve(AppCommand &command) {
 
     // Try resolve i=<number> or i=<number,number,...>
     if (helper::String::StartsWith(argv_[i], "i=") && ResolveAsIndex(i))
-
       continue;
 
     if (helper::DateTime::IsTime(argument) && ResolveAsTime(i)) continue;

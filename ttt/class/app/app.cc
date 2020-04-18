@@ -32,7 +32,6 @@
 #include <ttt/class/report/report_browser.h>
 #include <ttt/class/report/report_renderer_csv.h>
 #include <ttt/class/report/report_renderer_cli.h>
-#include <ttt/class/app/app_error.h>
 #include <ttt/class/report/report_recalculator.h>
 
 namespace tictac_track {
@@ -46,63 +45,77 @@ App::App(int argc, char **argv) {
   if (argc == 1) {
     // No command given
     AppHelp::PrintHelp(true, AppCommand::Commands::Command_Invalid);
+
     return;
   }
 
   command_ = new AppCommand(argc > 0 ? argv[1] : "");
+
   arguments_ = new AppArguments(argc, argv, *command_);
 }
 
 // Process command + arguments
 bool App::Process() {
-  bool keep_backup;
+  bool keep_backup = false;
 
   switch (command_->GetResolved()) {
     case AppCommand::Command_ClearTimesheet:ReportFile::BackupReportTemporary();
       ClearTimesheet();
+
       break;
     case AppCommand::Command_BrowseTimesheet:
       return ReportBrowser::BrowseTimesheet();
     case AppCommand::Command_BrowseTaskUrl:return BrowseTaskUrl();
     case AppCommand::Command_Comment:ReportFile::BackupReportTemporary();
       keep_backup = UpdateComment();
+
       break;
     case AppCommand::Command_DisplayCalendarWeek:return DisplayCalendarWeek();
     case AppCommand::Command_Csv:return ExportCsv();
     case AppCommand::Command_DisplayDate:return DisplayDate();
     case AppCommand::Command_Day:ReportFile::BackupReportTemporary();
       keep_backup = AddFullDayEntry();
+
       break;
     case AppCommand::Command_Help:return Help();
     case AppCommand::Command_Merge:ReportFile::BackupReportTemporary();
       keep_backup = Merge();
+
       break;
     case AppCommand::Command_Recalculate:ReportFile::BackupReportTemporary();
       keep_backup = Recalculate();
+
       break;
     case AppCommand::Command_Resume:ReportFile::BackupReportTemporary();
       keep_backup = Resume();
+
       break;
     case AppCommand::Command_CsvRecentTaskNumbers:return CsvRecentTaskNumbers();
     case AppCommand::Command_CsvDayTracks:return CsvTodayTracks();
     case AppCommand::Command_Remove:ReportFile::BackupReportTemporary();
       keep_backup = Remove();
+
       break;
     case AppCommand::Command_Split:ReportFile::BackupReportTemporary();
       keep_backup = Split();
+
       break;
     case AppCommand::Command_Start:ReportFile::BackupReportTemporary();
       keep_backup = Start();
+
       break;
     case AppCommand::Command_Stop:ReportFile::BackupReportTemporary();
       keep_backup = Stop();
+
       break;
     case AppCommand::Command_Task:ReportFile::BackupReportTemporary();
       keep_backup = UpdateTaskNumber();
+
       break;
     case AppCommand::Command_Undo:return ReportFile::RestoreBackup();
     case AppCommand::Command_Version:AppHelp::PrintVersion();
       std::cout << "\n";
+
       return true;
     case AppCommand::Command_View:return View();
     case AppCommand::Command_ViewWeek:return ViewWeek();
@@ -128,6 +141,7 @@ bool App::AddFullDayEntry() {
     return tictac_track::ReportCrud::AddFullDayEntry();
 
   int offset_days = arguments_->GetNegativeNumber();
+
   std::string comment = arguments_->GetComment();
 
   std::string task_number = helper::Numeric::ToString(
@@ -186,6 +200,7 @@ bool App::DisplayDate() {
 
   if (arguments_->argc_ == 2) {
     std::cout << report_date_time_->GetDateFormatted(0) << "\n";
+
     return true;
   }
 
@@ -260,6 +275,7 @@ bool App::Resume() {
   bool is_any_ongoing = tictac_track::ReportCrud::IsAnyEntryOngoing();
 
   std::string comment = arguments_->GetComment();
+
   switch (arguments_->argc_) {
     case 2:
       return is_any_ongoing
@@ -297,7 +313,9 @@ bool App::ResumeEntryByIndexOrNegativeOffset(
 
     // Check: did user pass a task-number instead of the required ID?
     std::string task_number = helper::Numeric::ToString(row_index);
+
     int row_index_by_task = parser->GetLatestIndexByTaskNumber(task_number);
+
     if (row_index_by_task > -1) {
       // Suggest resuming the last entry of that task
       std::cout
@@ -308,6 +326,7 @@ bool App::ResumeEntryByIndexOrNegativeOffset(
           << ")?\nY/n";
 
       bool do_resume_by_task = helper::System::GetYesOrNoKeyPress();
+
       std::cout << "\n";
 
       if (!do_resume_by_task) return false;
@@ -327,6 +346,7 @@ bool App::ResumeEntryByIndexOrNegativeOffset(
   }
 
   std::string html = parser->GetHtml();
+
   int offset_tr =
       tictac_track::ReportParser::GetOffsetTrOpenByIndex(html, row_index);
 
@@ -537,7 +557,7 @@ bool App::Start() {
     case AppArguments::ArgumentType_OptionAll:
     case AppArguments::ArgumentType_OptionIndex:
     case AppArguments::ArgumentType_RenderScope:
-    case AppArguments::ArgumentType_Time:return false;
+    case AppArguments::ArgumentType_Time:
     default:return false;
   }
 }
@@ -656,6 +676,7 @@ bool App::UpdateCommentByEntryId(
 
 bool App::UpdateTaskNumber() {
   int task_argument_offset = 2;
+
   std::vector<int> row_ids{-1};
 
   if (arguments_->has_multiple_ids_) {
