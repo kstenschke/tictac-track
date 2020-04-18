@@ -82,9 +82,13 @@ class AppConfig {
 
  private:
   char **argv_{};
+
   std::string path_binary_;
+
   bool is_initialized_ = false;
+
   std::string config_file_content_;
+
   std::map<std::string, std::string> config_map_;
 
   // Prevent construction from outside (singleton)

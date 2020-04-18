@@ -42,10 +42,6 @@ namespace tictac_track {
 
 class App {
  public:
-  // Meta constants
-  static const std::string kAppName;
-  static const std::string kAppExecutableName;
-
   // Constructor: init (resolve) command and arguments
   App(int argc, char **argv);
 

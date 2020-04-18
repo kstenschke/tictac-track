@@ -34,10 +34,9 @@
   */
 int main(int argc, char **argv) {
   // Ensure config and timesheet HTML files exist
-  tictac_track::AppConfig::GetInstance(argv);
+  auto config = tictac_track::AppConfig::GetInstance(argv);
 
-  tictac_track::ReportCrud report_crud =
-      tictac_track::ReportCrud::GetInstance();
+  auto report_crud = tictac_track::ReportCrud::GetInstance();
 
   if (!report_crud.ReportExists()) {
     return -1;

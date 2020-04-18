@@ -47,9 +47,7 @@ void AppConfig::Init(char **argv) {
 
   if (argv != nullptr) argv_ = argv;
 
-  path_binary_ = helper::System::GetBinaryPath(
-      argv_,
-      std::strlen(App::kAppExecutableName.c_str()));
+  path_binary_ = helper::System::GetBinaryPath(argv_, 3);
 
   std::string path_config_file = path_binary_ + AppConfig::kFilename;
 
@@ -88,9 +86,7 @@ std::string AppConfig::GetDefaultConfig() {
     << "\n"
     << "\n; Absolute directory path to timesheet.html. "
        "If not set: directory where executable is"
-    << "\n;report_path=" << helper::System::GetBinaryPath(
-        argv_,
-        std::strlen(App::kAppExecutableName.c_str()))
+    << "\n;report_path=" << helper::System::GetBinaryPath(argv_, 3)
     << "\n"
     << "\n; Maximum gap between entries to be allowed to be merged. "
        "Format: In minutes (if not set: 0)"
@@ -189,11 +185,14 @@ void AppConfig::InitConfigMap() {
 
   std::vector<std::string>
       lines = helper::String::Explode(config_file_content_, '\n');
+
   for (std::vector<int>::size_type i = 0; i != lines.size(); i++) {
     std::string line = lines[i];
+
     if (helper::String::StartsWith(line.c_str(), ";")) continue;
 
     size_t offset_equals = line.find('=');
+
     if (std::string::npos == offset_equals) continue;
 
     std::string key = line.substr(0, offset_equals);
@@ -265,9 +264,7 @@ std::string AppConfig::GetConfigValueDefault(const std::string &key) {
     case Option_Id_Column:
     case Option_Max_Mergeable_Gap:return "0";
     case Option_Report_File_Path:
-      return helper::System::GetBinaryPath(
-          argv_,
-          std::strlen(App::kAppExecutableName.c_str()));
+      return helper::System::GetBinaryPath(argv_, 3);
     case Option_Invalid:
     default:return "";
   }

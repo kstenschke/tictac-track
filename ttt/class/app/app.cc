@@ -36,10 +36,6 @@
 
 namespace tictac_track {
 
-// Meta constants
-const std::string App::kAppName = "tictac-track";
-const std::string App::kAppExecutableName = "ttt";
-
 // Constructor: init (resolve) command and arguments
 App::App(int argc, char **argv) {
   if (argc == 1) {
@@ -213,9 +209,7 @@ bool App::DisplayDate() {
 // Export whole report to CSV file
 bool App::ExportCsv() {
   ReportRendererCsv renderer;
-  std::string path = helper::System::GetBinaryPath(
-      arguments_->argv_,
-      std::strlen(App::kAppExecutableName.c_str()));
+  std::string path = helper::System::GetBinaryPath(arguments_->argv_, 3);
 
   return renderer.RenderToFile(
       path,
@@ -648,7 +642,7 @@ bool App::UpdateComment() {
 }
 
 bool App::ClearTimesheet() {
-  auto report_crud = tictac_track::ReportCrud::GetInstance(true);
+  tictac_track::ReportCrud::GetInstance(true);
 
   return true;
 }

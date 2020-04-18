@@ -31,7 +31,7 @@ namespace tictac_track {
 // Print version information
 void AppHelp::PrintVersion() {
   std::cout
-    << App::kAppName
+    << "tictac-track"
     << " v" << TTT_VERSION_MAJOR << "."
     << TTT_VERSION_MINOR << "."
     << TTT_VERSION_PATCH;
@@ -90,11 +90,9 @@ bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
 }
 
 void AppHelp::PrintOverview() {
-  std::string exe = std::string(App::kAppExecutableName);
-
   std::cout
-    << "\nUsage: " << exe << " <command> [args]"
-    << "\nType '" << exe << " help <command>' "
+    << "\nUsage: ttt <command> [args]"
+    << "\nType 'ttt help <command>' "
        "for detailed help w/ usage examples for a specific command."
     << "\n"
     << "\nAvailable commands:"
