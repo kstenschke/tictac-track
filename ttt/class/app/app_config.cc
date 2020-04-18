@@ -34,6 +34,7 @@ const char AppConfig::kFilename[9] = ".ttt.ini";
 AppConfig &AppConfig::GetInstance(char **argv) {
   // Instantiated on first use
   static AppConfig instance;
+
   if (!instance.is_initialized_) instance.Init(argv);
 
   return instance;
@@ -58,8 +59,8 @@ void AppConfig::Init(char **argv) {
   } else {
     // Config does not exist: Create default config
     config_file_content_ = GetDefaultConfig();
+
     SaveConfig(path_config_file, config_file_content_);
-//      std::cout << "Saved config: " << path_config_file << "\n\n";
   }
 
   InitConfigMap();

@@ -454,8 +454,7 @@ void ReportRendererCli::PrintColumn(
 
   if (display_id
       && offset_id_column_ == index_column
-      && index_column > 0
-      )
+      && index_column > 0)
     PrintRowCellForId(false, index_row + id_first_row_rendered_);
 }
 
@@ -469,6 +468,7 @@ void ReportRendererCli::PrintDurationSums(
 
   for (int index_column = 0; index_column < Index_Duration; index_column++) {
     PrintRhsCellSpaces(-1, index_column);
+
     std::cout << " ";
   }
 
@@ -484,14 +484,15 @@ std::string ReportRendererCli::RenderSeparationRow() {
   std::string separation_row =
       theme_style_grid_ + std::string(4 + max_index_digits_, '-');
 
-  for (int indexColumn = 1; indexColumn < amount_columns_; indexColumn++) {
-    int amount_characters = column_content_max_len_[indexColumn] + 3;
+  for (int index_column = 1; index_column < amount_columns_; index_column++) {
+    int amount_characters = column_content_max_len_[index_column] + 3;
 
-    if (indexColumn == Index_Comment
+    if (index_column == Index_Comment
         && amount_characters > max_chars_per_comment_)
       amount_characters = max_chars_per_comment_;
 
-    separation_row.append(std::string(amount_characters, '-'));
+    if (amount_characters > 0)
+      separation_row.append(std::string(amount_characters, '-'));
   }
 
   return separation_row + helper::Tui::kAnsiFormatReset;
@@ -502,12 +503,12 @@ void ReportRendererCli::PrintRowCellForId(bool is_left_most, int index_row) {
 
   std::cout << ' ';
 
-  auto amountDigitsInCurrentRowIndex =
+  auto amount_digits_in_current_row_index =
       helper::Numeric::GetAmountDigits(index_row);
 
-  auto amountSpaces = max_index_digits_ - amountDigitsInCurrentRowIndex;
+  auto amount_spaces = max_index_digits_ - amount_digits_in_current_row_index;
 
-  if (amountSpaces > 0) std::cout << std::string(amountSpaces, ' ');
+  if (amount_spaces > 0) std::cout << std::string(amount_spaces, ' ');
 
   std::cout << ' ' << index_row << ' ';
 
