@@ -22,6 +22,8 @@ set (TTT_VERSION_PATCH 2)
 # Generate config.h from config.h.in, with injected CMake values
 configure_file (ttt/config.h.in ../ttt/config.h)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
+
 # tictac-track client executable
 add_executable(ttt
         ttt/class/app/app.cc

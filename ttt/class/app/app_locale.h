@@ -52,7 +52,7 @@ class AppLocale {
   bool is_initialized_ = false;
 
   // Prevent construction from outside (singleton)
-  AppLocale() = default;;
+  AppLocale() = default;
 
   void Init();
   std::map<std::string, std::string> GetDictionaryByLocaleKey();

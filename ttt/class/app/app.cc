@@ -129,7 +129,7 @@ bool App::Process() {
 // TODO(kay): cmd d crashes when current day has < time left than
 //  a full-day entry spans
 bool App::AddFullDayEntry() {
-  ReportCrud &report = ReportCrud::GetInstance();
+  ReportCrud::GetInstance();
 
   // "ttt d" - No arguments given:
   // Add start entry w/o comment or task number at current day
@@ -374,7 +374,7 @@ bool App::Remove() {
     return tictac_track::AppError::PrintError(
         "Cannot remove: there are no entries.");
 
-  ReportCrud &report = ReportCrud::GetInstance();
+  ReportCrud::GetInstance();
 
   // No arguments: remove last entry
   if (arguments_->argc_ < 3) return tictac_track::ReportCrud::RemoveEntries(1);
@@ -694,7 +694,7 @@ bool App::UpdateTaskNumber() {
 
   int task_number = arguments_->ResolveNumber(task_argument_offset);
 
-  ReportCrud &reportCrud = ReportCrud::GetInstance();
+  ReportCrud::GetInstance();
 
   int argument_index_comment = GetCommentArgOffsetInTaskCommand();
 

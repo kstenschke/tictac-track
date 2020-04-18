@@ -82,7 +82,7 @@ int String::GetSubStrCount(const char *str, const char *sub) {
   return count;
 }
 
-extern void String::Ellipsis(std::string &str, int max_length) {
+extern void String::Ellipsis(std::string &str, unsigned int max_length) {
   if (str.length() < max_length) return;
 
   str = str.substr(0, static_cast<unsigned long>(max_length - 4)) + "...";

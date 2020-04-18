@@ -59,7 +59,7 @@ extern int GetUtf8Size(std::string str);
 // Get amount of sub string occurrences
 extern int GetSubStrCount(const char *str, const char *sub);
 
-extern void Ellipsis(std::string &content, int length);
+extern void Ellipsis(std::string &content, unsigned int length);
 
 // Replace all needle occurrences in haystack
 extern std::string ReplaceAll(

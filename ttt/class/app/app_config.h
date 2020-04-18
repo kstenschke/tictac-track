@@ -92,7 +92,7 @@ class AppConfig {
   std::map<std::string, std::string> config_map_;
 
   // Prevent construction from outside (singleton)
-  AppConfig() = default;;
+  AppConfig() = default;
 
   // Create default ".tictac-track.conf" if it does not exist, store in property
   void Init(char **argv = nullptr);

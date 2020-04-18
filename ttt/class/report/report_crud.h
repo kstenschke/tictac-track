@@ -109,7 +109,7 @@ class ReportCrud : public ReportFile {
   bool report_exists_ = false;
 
   // Prevent construction from outside (singleton)
-  ReportCrud() = default;;
+  ReportCrud() = default;
 
   // Create initial report file if missing.
   void Init(bool clear);
