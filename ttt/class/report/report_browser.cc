@@ -66,6 +66,7 @@ bool ReportBrowser::BrowseTaskUrl(
     int task_number,
     const std::string& url_command) {
   AppConfig config = AppConfig::GetInstance();
+
   std::string url_raw = config.GetConfigValue(url_command);
 
   if (url_raw.empty())
@@ -99,8 +100,13 @@ bool ReportBrowser::BrowseIssueUrlsInScope(
   if (render_scope == ReportRenderer::RenderScopes::Scope_Day) {
     auto *parser = new ReportParser();
 
-    if (!parser->LoadReportHtml())
+    if (!parser->LoadReportHtml()) {
+      delete parser;
+
       return false;
+    }
+
+    delete parser;
 
     InitScopeFilter(render_scope, offset);
 

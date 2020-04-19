@@ -79,13 +79,11 @@ class AppArguments {
 
   // Multiple comma-separated IDs, if given stored as ints
   std::vector<int> ids_{-1};
+
   bool has_multiple_ids_ = false;
 
   // Constructor
-  AppArguments(
-      int argc,
-      char **argv,
-      AppCommand &command);
+  AppArguments(int argc, char **argv, AppCommand &command);
 
   bool IsNumber(int index);
   bool IsTime(int index);

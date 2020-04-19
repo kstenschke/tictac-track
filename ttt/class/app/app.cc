@@ -30,6 +30,7 @@
 #include <ttt/class/app/app_config.h>
 #include <ttt/class/app/app_help.h>
 #include <ttt/class/report/report_browser.h>
+#include <ttt/class/report/report_file.h>
 #include <ttt/class/report/report_renderer_csv.h>
 #include <ttt/class/report/report_renderer_cli.h>
 #include <ttt/class/report/report_recalculator.h>
@@ -50,63 +51,49 @@ App::App(int argc, char **argv) {
   arguments_ = new AppArguments(argc, argv, *command_);
 }
 
+App::~App() {
+  delete command_;
+  //delete arguments_;
+}
+
 // Process command + arguments
 bool App::Process() {
-  bool keep_backup = false;
+  AppCommand::Commands kCommand = command_->GetResolved();
 
-  switch (command_->GetResolved()) {
-    case AppCommand::Command_ClearTimesheet:ReportFile::BackupReportTemporary();
-      ClearTimesheet();
+  bool keep_backup;
+  ReportFile::BackupReportBeforeProcessCommand(kCommand);
 
+  switch (kCommand) {
+    case AppCommand::Command_ClearTimesheet:keep_backup = ClearTimesheet();
       break;
     case AppCommand::Command_BrowseTimesheet:
       return ReportBrowser::BrowseTimesheet();
     case AppCommand::Command_BrowseTaskUrl:return BrowseTaskUrl();
-    case AppCommand::Command_Comment:ReportFile::BackupReportTemporary();
-      keep_backup = UpdateComment();
-
+    case AppCommand::Command_Comment:keep_backup = UpdateComment();
       break;
     case AppCommand::Command_DisplayCalendarWeek:return DisplayCalendarWeek();
     case AppCommand::Command_Csv:return ExportCsv();
     case AppCommand::Command_DisplayDate:return DisplayDate();
-    case AppCommand::Command_Day:ReportFile::BackupReportTemporary();
-      keep_backup = AddFullDayEntry();
-
+    case AppCommand::Command_Day:keep_backup = AddFullDayEntry();
       break;
     case AppCommand::Command_Help:return Help();
-    case AppCommand::Command_Merge:ReportFile::BackupReportTemporary();
-      keep_backup = Merge();
-
+    case AppCommand::Command_Merge:keep_backup = Merge();
       break;
-    case AppCommand::Command_Recalculate:ReportFile::BackupReportTemporary();
-      keep_backup = Recalculate();
-
+    case AppCommand::Command_Recalculate:keep_backup = Recalculate();
       break;
-    case AppCommand::Command_Resume:ReportFile::BackupReportTemporary();
-      keep_backup = Resume();
-
+    case AppCommand::Command_Resume:keep_backup = Resume();
       break;
     case AppCommand::Command_CsvRecentTaskNumbers:return CsvRecentTaskNumbers();
     case AppCommand::Command_CsvDayTracks:return CsvTodayTracks();
-    case AppCommand::Command_Remove:ReportFile::BackupReportTemporary();
-      keep_backup = Remove();
-
+    case AppCommand::Command_Remove:keep_backup = Remove();
       break;
-    case AppCommand::Command_Split:ReportFile::BackupReportTemporary();
-      keep_backup = Split();
-
+    case AppCommand::Command_Split:keep_backup = Split();
       break;
-    case AppCommand::Command_Start:ReportFile::BackupReportTemporary();
-      keep_backup = Start();
-
+    case AppCommand::Command_Start:keep_backup = Start();
       break;
-    case AppCommand::Command_Stop:ReportFile::BackupReportTemporary();
-      keep_backup = Stop();
-
+    case AppCommand::Command_Stop:keep_backup = Stop();
       break;
-    case AppCommand::Command_Task:ReportFile::BackupReportTemporary();
-      keep_backup = UpdateTaskNumber();
-
+    case AppCommand::Command_Task:keep_backup = UpdateTaskNumber();
       break;
     case AppCommand::Command_Undo:return ReportFile::RestoreBackup();
     case AppCommand::Command_Version:AppHelp::PrintVersion();
@@ -169,39 +156,49 @@ bool App::BrowseTaskUrl() {
     url_command = std::string("url.").append(arguments_->argv_[2]);
   }
 
-  return browser->BrowseIssueUrlsInScope(
+  auto result = browser->BrowseIssueUrlsInScope(
       static_cast<ReportRendererCli::RenderScopes>(arguments_->render_scope_),
       arguments_->GetNegativeNumber(),
       arguments_->GetTaskNumber(),
       url_command);
+
+  delete browser;
+
+  return result;
 }
 
 bool App::DisplayCalendarWeek() {
-  auto *report_date_time_ = new ReportDateTime();
+  auto *report_date_time = new ReportDateTime();
 
   int offset_weeks = arguments_->argc_ > 2 ? arguments_->ResolveNumber(2) : 0;
 
   int week_number = helper::String::ToInt(
-      report_date_time_->GetCurrentWeekOfYear(offset_weeks));
+      report_date_time->GetCurrentWeekOfYear(offset_weeks));
 
   std::cout
       << (offset_weeks == 0 ? "Current " : "")
       << "Week Number: " << week_number << "\n";
 
+  delete report_date_time;
+
   return true;
 }
 
 bool App::DisplayDate() {
-  auto *report_date_time_ = new ReportDateTime();
+  auto *report_date_time = new ReportDateTime();
 
   if (arguments_->argc_ == 2) {
-    std::cout << report_date_time_->GetDateFormatted(0) << "\n";
+    std::cout << report_date_time->GetDateFormatted(0) << "\n";
+
+    delete report_date_time;
 
     return true;
   }
 
   int offset_days = arguments_->ResolveNumber(2);
-  std::cout << report_date_time_->GetDateFormatted(offset_days) << "\n";
+  std::cout << report_date_time->GetDateFormatted(offset_days) << "\n";
+
+  delete report_date_time;
 
   return true;
 }
@@ -227,9 +224,15 @@ bool App::Help() {
 bool App::Merge() {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   int last_row_index = parser->GetLastIndex();
+
+  delete parser;
 
   if (last_row_index == 0)
     return tictac_track::AppError::PrintError(
@@ -258,7 +261,13 @@ bool App::Recalculate() {
 bool App::Resume() {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
+
+  delete parser;
 
   if (-1 == parser->GetLastIndex())
     return tictac_track::AppError::PrintError(
@@ -295,12 +304,18 @@ bool App::ResumeEntryByIndexOrNegativeOffset(
     std::string add_to_comment) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   // Negative offset: Convert to index
   if (0 >= row_index) row_index = parser->GetLastIndex() + row_index;
 
   int last_index = parser->GetLastIndex();
+
+  delete parser;
 
   if (row_index > last_index) {
     bool can_resume = false;
@@ -366,9 +381,15 @@ bool App::ResumeEntryByIndexOrNegativeOffset(
 bool App::Remove() {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   int last_index = parser->GetLastIndex();
+
+  delete parser;
 
   if (-1 == last_index)
     return tictac_track::AppError::PrintError(
@@ -411,9 +432,15 @@ bool App::Split() {
 
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   int last_index = parser->GetLastIndex();
+
+  delete parser;
 
   if (last_index == -1)
     return tictac_track::AppError::PrintError(
@@ -578,9 +605,15 @@ bool App::Stop() {
 bool App::UpdateComment() {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   int last_index = parser->GetLastIndex();
+
+  delete parser;
 
   if (-1 == last_index)
     return tictac_track::AppError::PrintError(
@@ -820,6 +853,8 @@ bool App::CsvRecentTaskNumbers() {
   parser->LoadReportHtml();
 
   int amount_rows = parser->GetAmountRows();
+
+  delete parser;
 
   std::string task_numbers = "|";
 

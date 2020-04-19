@@ -111,7 +111,11 @@ bool ReportCrud::UpsertEntry(
     const char *task_number) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   std::string time_stopped = status == EntryStatus::Status_Started
     ? "..."
@@ -125,7 +129,11 @@ bool ReportCrud::UpsertEntry(
   if (hasTrackedItems)
     UpdateOngoingEntry(html, comment, true, time_stopped);
 
-  if (status != EntryStatus::Status_Started) return SaveReport(html);
+  if (status != EntryStatus::Status_Started) {
+    delete parser;
+
+    return SaveReport(html);
+  }
 
   parser->SetHtml(html);
 
@@ -155,6 +163,8 @@ bool ReportCrud::UpsertEntry(
       tictac_track::ReportDateTime::GetCurrentTime(),
       time_stopped,
       task, comment);
+
+  delete parser;
 
   // Replace "</table>" by new entry + "</table>"
   auto offset = html.find("</table>", 0);
@@ -246,7 +256,13 @@ void ReportCrud::UpdateOngoingEntry(
 
   auto *parser = new ReportParser(html);
 
-  if (!parser->IsAnyEntryOngoing() || (!do_stop && !has_comment)) return;
+  if (
+      !parser->IsAnyEntryOngoing()
+      || (!do_stop && !has_comment)) {
+    delete parser;
+
+    return;
+  }
 
   auto offset_td_start = parser->GetOffsetTdStartInOngoingEntry();
   auto offset_td_end = html.find("<td>", offset_td_start + 1);
@@ -295,6 +311,8 @@ void ReportCrud::UpdateOngoingEntry(
         html,
         "<td class=\"meta\">s/", "<td class=\"meta\">p/");
   }
+
+  delete parser;
 }
 
 // Add timesheet entry: start work
@@ -355,10 +373,13 @@ bool ReportCrud::AddFullDayEntry(
         ? -1
         : tictac_track::ReportParser::GetIndexBeforeMetaDate(date_meta);
 
+  delete parser;
+
   std::string meta = "p/" + date_meta;
 
   auto *report_date_time = new ReportDateTime();
   std::string weekday = report_date_time->GetWeekdayByMeta(meta);
+  delete report_date_time;
 
   std::string time_start = config.GetConfigValue("default_daily_start_time");
 
@@ -393,7 +414,11 @@ bool ReportCrud::AddFullDayEntry(
 bool ReportCrud::StopEntry(const char *comment) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   AppConfig config = AppConfig::GetInstance();
 
@@ -413,6 +438,8 @@ bool ReportCrud::StopEntry(const char *comment) {
 
     SafeguardToAddComment(parser->GetHtml());
   }
+
+  delete parser;
 
   return UpsertEntry(EntryStatus::Status_Stopped, comment);
 }
@@ -474,7 +501,11 @@ bool ReportCrud::AppendComment(
 
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   std::string append = std::string(start_with_space ? " " : "").append(comment);
 
@@ -482,6 +513,8 @@ bool ReportCrud::AppendComment(
       row_index,
       Report::ColumnIndexes::Index_Comment,
       append);
+
+  delete parser;
 
   return SaveReport(const_cast<std::string &>(html));
 }
@@ -509,7 +542,11 @@ bool ReportCrud::UpdateIssueNumber(int task_number, int row_index) {
 bool ReportCrud::Merge(int row_index) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   std::string date = parser->GetColumnContent(
       row_index,
@@ -524,12 +561,18 @@ bool ReportCrud::Merge(int row_index) {
         (std::string("Cannot merge: Next entry is in different day (")
             + date + " / " + date_next + ")").c_str());
 
+    delete parser;
+
     return false;
   }
 
   int minutes_gap = parser->GetMinutesBetweenEntryAndNext(row_index);
 
-  if (!IsMergeableAmountMinutes(minutes_gap)) return false;
+  if (!IsMergeableAmountMinutes(minutes_gap)) {
+    delete parser;
+
+    return false;
+  }
 
   std::string html = parser->GetHtml();
 
@@ -574,6 +617,8 @@ bool ReportCrud::Merge(int row_index) {
         offset_tr);
 
     meta_first[0] = 's';
+
+    delete parser;
 
     ReportParser::UpdateColumn(
         html,
@@ -625,11 +670,21 @@ bool ReportCrud::IsMergeableAmountMinutes(int amount_minutes) {
 bool ReportCrud::RemoveEntries(int amount) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
+  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) {
+    delete parser;
 
-  if (amount - 1 >= parser->GetLastIndex()) return Reset();
+    return false;
+  }
+
+  if (amount - 1 >= parser->GetLastIndex()) {
+    delete parser;
+
+    return Reset();
+  }
 
   std::string html = parser->GetHtml();
+
+  delete parser;
 
   for (int i = 0; i < amount; i++) {
     std::size_t offset_last_tr = html.rfind("\n<tr");
@@ -654,6 +709,8 @@ bool ReportCrud::RemoveEntryById(std::string &html, int id) {
   auto *parser = new ReportParser(html);
 
   int last_index = parser->GetLastIndex();
+
+  delete parser;
 
   if (id > last_index) {
     return tictac_track::AppError::PrintError(

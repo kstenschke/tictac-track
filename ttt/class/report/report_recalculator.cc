@@ -39,7 +39,11 @@ ReportRecalculator::ReportRecalculator(std::string html) {
 bool ReportRecalculator::RecalculateAndUpdate() {
   auto *recalculator = new ReportRecalculator();
 
-  return recalculator->LoadReportHtml() && recalculator->Recalculate();
+  auto result = recalculator->LoadReportHtml() && recalculator->Recalculate();
+
+  delete recalculator;
+
+  return result;
 }
 
 // Non-static recalculate:
@@ -51,7 +55,11 @@ bool ReportRecalculator::Recalculate() {
   int last_index = parser->GetLastIndex();
 
   if (last_index == -1
-      || (last_index == 0 && parser->IsAnyEntryOngoing())) return false;
+      || (last_index == 0 && parser->IsAnyEntryOngoing())) {
+    delete parser;
+
+    return false;
+  }
 
   parser->UpdateTitle();
   parser->UpdateTableHeader();
@@ -209,6 +217,10 @@ bool ReportRecalculator::Recalculate() {
       sum_day_formatted);
 
   UpdateTaskSumsFromMaps(html_);
+
+  delete parser;
+  delete report_date_time;
+
   return ReportCrud::SaveReport(html_);
 }
 
@@ -259,7 +271,11 @@ void ReportRecalculator::CalculateAndUpdateDuration(
   auto *parser = new ReportParser(html);
 
   // An entry is still ongoing: silently abort
-  if (parser->IsEntryOngoing(row_index)) return;
+  if (parser->IsEntryOngoing(row_index)) {
+    delete parser;
+
+    return;
+  }
 
   int offset_tr =
       tictac_track::ReportParser::GetOffsetTrOpenByIndex(html, row_index);
@@ -273,6 +289,8 @@ void ReportRecalculator::CalculateAndUpdateDuration(
       row_index,
       ColumnIndexes::Index_End,
       offset_tr);
+
+  delete parser;
 
   std::string duration = ReportDateTime::GetDurationFormatted(start, end);
 

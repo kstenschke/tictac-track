@@ -24,9 +24,10 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <ttt/class/report/report_file.h>
 #include <ttt/class/app/app.h>
 #include <ttt/class/app/app_config.h>
+#include <ttt/class/report/report_file.h>
+#include <ttt/helper/helper_tui.h>
 
 namespace tictac_track {
 const char ReportFile::kFilenameReport[15] = "timesheet.html";
@@ -57,6 +58,40 @@ bool ReportFile::SaveReport(const std::string &html) {
   outfile.close();
 
   return true;
+}
+
+bool ReportFile::BackupReportBeforeProcessCommand(AppCommand::Commands kCommand) {
+  switch (kCommand) {
+    case AppCommand::Command_ClearTimesheet:
+    case AppCommand::Command_Comment:
+    case AppCommand::Command_Day:
+    case AppCommand::Command_Merge:
+    case AppCommand::Command_Recalculate:
+    case AppCommand::Command_Resume:
+    case AppCommand::Command_Remove:
+    case AppCommand::Command_Split:
+    case AppCommand::Command_Start:
+    case AppCommand::Command_Stop:
+    case AppCommand::Command_Task:
+      ReportFile::BackupReportTemporary();
+      return true;
+    case AppCommand::Command_BrowseTimesheet:
+    case AppCommand::Command_BrowseTaskUrl:
+    case AppCommand::Command_DisplayCalendarWeek:
+    case AppCommand::Command_Csv:
+    case AppCommand::Command_DisplayDate:
+    case AppCommand::Command_Help:
+    case AppCommand::Command_CsvRecentTaskNumbers:
+    case AppCommand::Command_CsvDayTracks:
+    case AppCommand::Command_Undo:
+    case AppCommand::Command_Version:
+    case AppCommand::Command_View:
+    case AppCommand::Command_ViewWeek:
+    case AppCommand::Command_BrowseDayTasks:
+    case AppCommand::Command_Invalid:
+    default:
+      return false;
+  }
 }
 
 // Backup timesheet.html to timesheet.html.bak.tmp

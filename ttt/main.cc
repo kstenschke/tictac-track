@@ -24,9 +24,9 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "class/app/app_config.h"
-#include "class/report/report_crud.h"
-#include "class/app/app.h"
+#include <ttt/class/app/app_config.h>
+#include <ttt/class/report/report_crud.h>
+#include <ttt/class/app/app.h>
 
 /**
   * @param argc Amount of arguments received
@@ -38,9 +38,7 @@ int main(int argc, char **argv) {
 
   auto report_crud = tictac_track::ReportCrud::GetInstance();
 
-  if (!report_crud.ReportExists()) {
-    return -1;
-  }
+  if (!report_crud.ReportExists()) return -1;
 
   // Process command arguments, display help if no valid command given
   auto *app = new tictac_track::App(argc, argv);

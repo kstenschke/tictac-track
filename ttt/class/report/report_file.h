@@ -27,6 +27,8 @@
 #ifndef TTT_CLASS_REPORT_REPORT_FILE_H_
 #define TTT_CLASS_REPORT_REPORT_FILE_H_
 
+#include <ttt/class/app/app_commands.h>
+
 #include <iostream>
 #include <string>
 
@@ -41,8 +43,7 @@ class ReportFile {
   // Save given HTML to timesheet, replacing any previous content
   static bool SaveReport(const std::string &html);
 
-  // Backup timesheet.html to timesheet.html.bak.tmp
-  static bool BackupReportTemporary();
+  static bool BackupReportBeforeProcessCommand(AppCommand::Commands kCommand);
 
   // Remove timesheet.html.bak, rename timesheet.html.bak to timesheet.html.bak
   static bool ActivateTemporaryBackup();
@@ -60,6 +61,9 @@ class ReportFile {
  private:
   // Get input stream to report file
   static std::ifstream GetReportIfStream();
+
+  // Backup timesheet.html to timesheet.html.bak.tmp
+  static bool BackupReportTemporary();
 };
 
 }  // namespace tictac_track

@@ -101,9 +101,13 @@ bool ReportRenderer::ExtractPartsFromReport(
         }
 
         break;
-      case Scope_Week:auto *parser = new ReportParser(html);
+      case Scope_Week:
+        auto *parser = new ReportParser(html);
+
         std::string week_number =
             parser->GetColumnContent(indexRow, ColumnIndexes::Index_Week);
+
+        delete parser;
 
         std::string zero = "0";
 

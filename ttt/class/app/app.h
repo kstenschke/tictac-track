@@ -45,6 +45,9 @@ class App {
   // Constructor: init (resolve) command and arguments
   App(int argc, char **argv);
 
+  // Destructor
+  ~App();
+
   // Process command + arguments
   bool Process();
 

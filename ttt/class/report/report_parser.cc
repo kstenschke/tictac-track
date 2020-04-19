@@ -157,20 +157,32 @@ std::string ReportParser::GetDateLatestEntry() {
 // but there is an entry 3 days before current date, it returns: -3
 int ReportParser::GetExistingEntryOffsetBefore(int offset_start) {
   int offset = offset_start;
+
   auto *report_date_time = new ReportDateTime();
 
   // TODO(kay): detect offset before first entry:
   //  return 0 immediately (would otherwise loop endlessly)
   std::string first_date = GetColumnContent(1, ColumnIndexes::Index_Date);
+
   while (true) {
     std::string date_formatted = report_date_time->GetDateFormatted(offset);
 
-    if (HtmlContains(date_formatted)) return offset;
+    if (HtmlContains(date_formatted)) {
+      delete report_date_time;
 
-    if (date_formatted == first_date) return 0;
+      return offset;
+    }
+
+    if (date_formatted == first_date) {
+      delete report_date_time;
+
+      return 0;
+    }
 
     --offset;
   }
+
+  delete report_date_time;
 }
 
 // Update report title (in title- and h1-tag) to:
@@ -255,11 +267,16 @@ int ReportParser::GetIndexFirstEntryOfDate(const std::string &date) {
 int ReportParser::GetIndexBeforeMetaDate(const std::string& meta_date) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml()) return false;
+  if (!parser->LoadReportHtml()) {
+    delete parser;
+
+    return false;
+  }
 
   int last_index = parser->GetLastIndex();
 
   std::string meta_date_in_row;
+
   for (int i = 0; i <= last_index; i++) {
     // Check if meta_date_in_row is after meta_date
     meta_date_in_row =
@@ -267,9 +284,14 @@ int ReportParser::GetIndexBeforeMetaDate(const std::string& meta_date) {
             i,
             Report::ColumnIndexes::Index_Meta).substr(2, std::string::npos);
 
-    if (ReportDateTime::IsMetaDateAfter(meta_date_in_row, meta_date))
+    if (ReportDateTime::IsMetaDateAfter(meta_date_in_row, meta_date)) {
+      delete parser;
+
       return i - 1;
+    }
   }
+
+  delete parser;
 
   return last_index;
 }
@@ -447,28 +469,38 @@ bool ReportParser::UpdateColumn(std::string &html, int row_index,
                                 Report::ColumnIndexes column_index,
                                 const std::string& content) {
   auto *parser = new ReportParser(html);
+
   int last_index = parser->GetLastIndex();
 
-  if (row_index > last_index)
+  if (row_index > last_index) {
+    delete parser;
+
     return
-    tictac_track::AppError::PrintError(std::string("Cannot update entry ")
-      .append(helper::Numeric::ToString(row_index))
-      .append(", last entry is ")
-      .append(helper::Numeric::ToString(last_index))
-      .append(".")
-      .c_str());
+        tictac_track::AppError::PrintError(
+            std::string("Cannot update entry ")
+                .append(helper::Numeric::ToString(row_index))
+                .append(", last entry is ")
+                .append(helper::Numeric::ToString(last_index))
+                .append(".")
+                .c_str());
+  }
 
   int offset_tr = GetOffsetTrOpenByIndex(html, row_index);
 
-  if (-1 == offset_tr)
+  if (-1 == offset_tr) {
+    delete parser;
+
     return tictac_track::AppError::PrintError(
         std::string("Cannot update entry: Failed finding row ")
             .append(helper::Numeric::ToString(row_index)).c_str());
+  }
 
   auto offset_td_content_start = parser->GetColumnOffset(
       "<td",
       static_cast<uint32_t> (offset_tr),
       column_index) + 4;
+
+  delete parser;
 
   // Meta-column td contains also class name
   if (column_index == ColumnIndexes::Index_Meta) offset_td_content_start += 13;
@@ -502,14 +534,19 @@ bool ReportParser::UpdateColumn(
 
   int last_index = parser->GetLastIndex();
 
-  if (row_index > last_index)
+  if (row_index > last_index) {
+    delete parser;
+
     return tictac_track::AppError::PrintError(
         std::string("Cannot update entry ")
-          .append(helper::Numeric::ToString(row_index))
-          .append(", last entry is ")
-          .append(helper::Numeric::ToString(last_index))
-          .append(".")
-          .c_str());
+            .append(helper::Numeric::ToString(row_index))
+            .append(", last entry is ")
+            .append(helper::Numeric::ToString(last_index))
+            .append(".")
+            .c_str());
+  }
+
+  delete parser;
 
   UpdateColumn(html, row_index, column_index, content);
 

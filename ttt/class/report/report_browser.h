@@ -47,7 +47,7 @@ class ReportBrowser : public Report {
   static bool BrowseTimesheet(std::string url = "");
 
   // Open configured task action URL in web browser
-  bool BrowseTaskUrl(
+  static bool BrowseTaskUrl(
       int task_number,
       const std::string& url_command = "url.default");
 

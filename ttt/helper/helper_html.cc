@@ -508,10 +508,15 @@ std::wstring Html::ReplaceWideCharByEntity(
 
 std::string Html::Decode(const std::string& str) {
   auto *dest = new char[str.length() + 1];
+
   strcpy(dest, str.c_str());
   decode_html_entities_utf8(dest, nullptr);
 
-  return std::string(dest);
+  auto result = std::string(dest);
+
+  delete[] dest;
+
+  return result;
 }
 
 }  // namespace helper

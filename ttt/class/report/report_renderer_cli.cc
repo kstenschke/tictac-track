@@ -36,6 +36,10 @@ ReportRendererCli::ReportRendererCli() {
 
   max_chars_per_comment_ = helper::System::GetMaxCharsPerTerminalRow() - 105;
 
+  if (max_chars_per_comment_ < 6)
+    // Ensure minimum length
+    max_chars_per_comment_ = 6;
+
   offset_id_column_ = helper::String::ToInt(config.GetConfigValue("id_column"));
 
   minutes_break_ =
@@ -81,21 +85,33 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
 
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) return false;
+  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) {
+    delete parser;
 
-  auto *browser = new ReportBrowser();
+    return false;
+  }
 
   AppConfig &config = AppConfig::GetInstance();
   std::ifstream file(config.GetReportFilePath());
 
-  if (!file) return false;
+  if (!file) {
+    delete parser;
+
+    return false;
+  }
 
   std::string html = helper::File::GetFileContents(file);
 
-  if (html.empty()) return false;
+  if (html.empty()) {
+    delete parser;
+
+    return false;
+  }
 
   std::string date = report_date_time_instance_.GetDateFormatted(days_offset);
   std::vector<std::string> tasks = parser->GetIssueNumbersOfDay(date);
+
+  delete parser;
 
   int amount_tasks = static_cast<int>(tasks.size());
 
@@ -106,6 +122,8 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
       << "No entries or related issues found on "
       << reportDateTime->GetCurrentDayOfWeek(days_offset) << ", "
       << date << ".\n";
+
+    delete reportDateTime;
 
     return false;
   }
@@ -125,7 +143,7 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
 
     PrintRows(task_number, "", false, false, false, false);
 
-    browser->BrowseTaskUrl(task_number);
+    tictac_track::ReportBrowser::BrowseTaskUrl(task_number);
 
     if (i < amount_tasks) {
       std::cout << "\n";
@@ -148,11 +166,16 @@ std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(
     int lookbehind_amount) {
   auto *parser = new ReportParser();
 
-  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex())
+  if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) {
+    delete parser;
+
     return std::string("");
+  }
 
   int available_lookbehind_offset =
       parser->GetExistingEntryOffsetBefore(lookbehind_amount);
+
+  delete parser;
 
   return std::string(" Closest entry is at: d ")
       .append(helper::Numeric::ToString(available_lookbehind_offset))

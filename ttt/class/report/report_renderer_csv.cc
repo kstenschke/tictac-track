@@ -65,6 +65,9 @@ std::string ReportRendererCsv::GetFilename(std::string html) {
 
   std::transform(title.begin(), title.end(), title.begin(), ::tolower);
 
+  delete parser;
+  delete report_date_time;
+
   return title.append(".csv");
 }
 
