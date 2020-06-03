@@ -5,6 +5,7 @@ V1.6.2 - not released yet
 -------------------------
 * More closely follow code standards
 * Improve performance, RAM usage
+* Improve commands recognition: allow uppercase
 
 V1.6.1 - 2020/03/10
 -------------------
