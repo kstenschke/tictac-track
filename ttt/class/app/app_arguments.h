@@ -86,21 +86,21 @@ class AppArguments {
   AppArguments(int argc, char **argv, AppCommand &command);
 
   bool IsNumber(int index);
-  bool IsTime(int index);
-  bool Contains(int index, std::string needle);
+  bool IsTime(int index) const;
+  bool Contains(int index, std::string needle) const;
 
-  std::string GetComment();
-  int GetNegativeNumber();
-  int GetTaskNumber();
+  std::string GetComment() const;
+  int GetNegativeNumber() const;
+  int GetTaskNumber() const;
 
   // Get numeric value of number-argument (can be prefixed w/ e.g. "t=")
-  int ResolveNumber(int index);
+  int ResolveNumber(int index) const;
   // Validate given time-string in format "hh:mm", or if allowed "-hh:mm"
-  std::string ResolveTime(int index, bool allow_negative = false);
+  std::string ResolveTime(int index, bool allow_negative = false) const;
   // Remove possible prefix from comment ("c=" or "comment=")
-  std::string ResolveComment(int index);
+  std::string ResolveComment(int index) const;
   // Validate command-name from argument at given index
-  AppCommand::Commands ResolveCommandName(int index);
+  AppCommand::Commands ResolveCommandName(int index) const;
 
  private:
   // Set attributes from arguments

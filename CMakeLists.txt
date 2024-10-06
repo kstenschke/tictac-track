@@ -4,7 +4,7 @@ project(ttt
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin/mac)
@@ -17,8 +17,8 @@ include_directories("${CMAKE_SOURCE_DIR}/src")
 
 set (TTT_EXECUTABLE_NAME "ttt")
 set (TTT_VERSION_MAJOR 1)
-set (TTT_VERSION_MINOR 6)
-set (TTT_VERSION_PATCH 2)
+set (TTT_VERSION_MINOR 7)
+set (TTT_VERSION_PATCH 0)
 # Generate config.h from config.h.in, with injected CMake values
 configure_file (ttt/config.h.in ../ttt/config.h)
 

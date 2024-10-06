@@ -81,13 +81,16 @@ std::string ReportRendererCsv::GetFilename() {
 bool ReportRendererCsv::RenderToFile(
     const std::string &path,
     RenderScopes scope) {
-  if (!ExtractPartsFromReport(0)) return false;
+  if (!ExtractPartsFromReport(0)) {
+    return false;
+  }
 
   std::string csv = RenderCsv(scope);
   if (!csv.empty()) {
     std::string filename = GetFilename();
-    if (helper::File::FileExists(filename))
+    if (helper::File::FileExists(filename)) {
       std::remove(ReportFile::kFilenameReport);
+    }
 
     if (helper::File::WriteToNewFile(filename, csv)) {
       std::cout << "Exported report CSV to: " << path << filename << "\n";
@@ -96,13 +99,17 @@ bool ReportRendererCsv::RenderToFile(
   }
 
   std::cout << "Failed export report to CSV.\n";
+
   return false;
 }
 
 bool ReportRendererCsv::RenderToStdOut(RenderScopes scope) {
-  if (!ExtractPartsFromReport(0)) return false;
+  if (!ExtractPartsFromReport(0)) {
+    return false;
+  }
 
   std::string csv = RenderCsv(scope);
+
   if (!csv.empty()) {
     helper::String::ReplaceAll(csv, "\"\"\n", "\"\n");
     std::cout << csv;

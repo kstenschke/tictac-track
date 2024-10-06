@@ -39,15 +39,18 @@ std::string Numeric::ToString(int number, unsigned int amount_digits_min) {
   std::string str = std::to_string(number);
   std::string zero = "0";
 
-  while (str.size() < amount_digits_min)
+  while (str.size() < amount_digits_min) {
     str = zero.append(str);
+  }
 
   return str;
 }
 
 // @note Supports positive numbers only
 unsigned long Numeric::GetAmountDigits(int number) {
-  if (number == 0) return 1;
+  if (number == 0) {
+    return 1;
+  }
 
   unsigned long digits = 0;
 

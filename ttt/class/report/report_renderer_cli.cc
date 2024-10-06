@@ -36,9 +36,10 @@ ReportRendererCli::ReportRendererCli() {
 
   max_chars_per_comment_ = helper::System::GetMaxCharsPerTerminalRow() - 105;
 
-  if (max_chars_per_comment_ < 6)
+  if (max_chars_per_comment_ < 6) {
     // Ensure minimum length
     max_chars_per_comment_ = 6;
+  }
 
   offset_id_column_ = helper::String::ToInt(config.GetConfigValue("id_column"));
 
@@ -54,13 +55,17 @@ bool ReportRendererCli::PrintToCli(
     std::string comment) {
   render_scope_ = scope;
 
-  if (!ExtractPartsFromReport(lookbehind_amount)) return false;
+  if (!ExtractPartsFromReport(lookbehind_amount)) {
+    return false;
+  }
 
   max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
 
   PrintHeader();
 
-  if (0 != PrintRows(task_number, std::move(comment))) return true;
+  if (0 != PrintRows(task_number, std::move(comment))) {
+    return true;
+  }
 
   std::string message = rows_filter_.empty()
                         ? std::string(" No entries found.")
@@ -71,9 +76,10 @@ bool ReportRendererCli::PrintToCli(
                             .append(GetActiveScopeName())
                             .append(" column found.");
 
-  if (RenderScopes::Scope_Day == render_scope_)
-    message =
-        message.append(GetMessageHintClosestDayEntryBefore(lookbehind_amount));
+  if (RenderScopes::Scope_Day == render_scope_) {
+    message = message.append(
+        GetMessageHintClosestDayEntryBefore(lookbehind_amount));
+  }
 
   tictac_track::AppError::PrintError(message.append("\n").c_str());
 
@@ -133,7 +139,9 @@ bool ReportRendererCli::PrintBrowseDayTasks(int days_offset) {
   for (auto const &task : tasks) {
     cells_.clear();
 
-    if (!ExtractPartsFromReport(days_offset, html)) return false;
+    if (!ExtractPartsFromReport(days_offset, html)) {
+      return false;
+    }
 
     max_index_digits_ = helper::Numeric::GetAmountDigits(amount_rows_);
 
@@ -169,7 +177,7 @@ std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(
   if (!parser->LoadReportHtml() || -1 == parser->GetLastIndex()) {
     delete parser;
 
-    return std::string("");
+    return {""};
   }
 
   int available_lookbehind_offset =
@@ -188,11 +196,11 @@ std::string ReportRendererCli::GetMessageHintClosestDayEntryBefore(
 
 std::string ReportRendererCli::GetActiveScopeName() {
   switch (render_scope_) {
-    case RenderScopes::Scope_Day:return std::string("day");
-    case RenderScopes::Scope_Week:return std::string("week");
-    case RenderScopes::Scope_Month:return std::string("month");
+    case RenderScopes::Scope_Day:return {"day"};
+    case RenderScopes::Scope_Week:return {"week"};
+    case RenderScopes::Scope_Month:return {"month"};
     case RenderScopes::Scope_Invalid:
-    default:return std::string("");
+    default:return {""};
   }
 }
 
@@ -202,10 +210,11 @@ void ReportRendererCli::PrintHeader(
     bool display_saldo) {
   std::cout << "\n" << theme_style_header_;
 
-  if (display_id && offset_id_column_ == 0)
+  if (display_id && offset_id_column_ == 0) {
     PrintHeaderCellForId(true);
-  else
+  } else {
     std::cout << " ";
+  }
 
   int content_len;
 
@@ -216,7 +225,9 @@ void ReportRendererCli::PrintHeader(
             || index_column != Report::ColumnIndexes::Index_SumDay)
             && (display_saldo
                 || index_column != Report::ColumnIndexes::Index_Balance)) {
-      if (offset_id_column_ == 0 || index_column > 1) std::cout << "| ";
+      if (offset_id_column_ == 0 || index_column > 1) {
+        std::cout << "| ";
+      }
 
       std::string column_title = column_titles_[index_column];
       std::cout << helper::Html::Decode(column_title) << " ";
@@ -230,8 +241,9 @@ void ReportRendererCli::PrintHeader(
         int column_len_diff = max_chars_in_column - content_len;
 
         if (index_column == Index_Comment
-            && max_chars_in_column >= max_chars_per_comment_)
+            && max_chars_in_column >= max_chars_per_comment_) {
           column_len_diff = max_chars_per_comment_ - content_len;
+        }
 
         std::cout
           << std::string(static_cast<u_int32_t>(column_len_diff), ' ');
@@ -245,12 +257,16 @@ void ReportRendererCli::PrintHeader(
   std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
 }
 
-void ReportRendererCli::PrintHeaderCellForId(bool is_left_most) {
-  if (!is_left_most) std::cout << "|";
+void ReportRendererCli::PrintHeaderCellForId(bool is_left_most) const {
+  if (!is_left_most) {
+    std::cout << "|";
+  }
 
   auto amount_spaces = max_index_digits_ - 1;
 
-  if (amount_spaces > 0) std::cout << std::string((amount_spaces), ' ');
+  if (amount_spaces > 0) {
+    std::cout << std::string((amount_spaces), ' ');
+  }
 
   std::cout << " ID ";
 }
@@ -314,20 +330,22 @@ int ReportRendererCli::PrintRows(
 
       // New day: preceded by separation row
       if (index_cell > 0
-          && previous_day != cells_[index_cell + 2])
+          && previous_day != cells_[index_cell + 2]) {
         std::cout << separation_row << "\n";
+      }
 
-      if (display_viewed_sum)
+      if (display_viewed_sum) {
         sum_task_minutes = AddSumMinutes(
             index_cell,
             duration_in_row,
             's' == cells_[
                 index_cell + ReportParser::ColumnIndexes::Index_Meta][0],
             sum_task_minutes);
+      }
 
-      if (display_id
-          && offset_id_column_ == 0)
+      if (display_id && offset_id_column_ == 0) {
         PrintRowCellForId(true, index_row + id_first_row_rendered_);
+      }
 
       is_even = !is_even;
     }
@@ -345,12 +363,15 @@ int ReportRendererCli::PrintRows(
     if (do_display) {
       std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
 
-      if (is_even) std::cout << helper::Tui::kAnsiFormatReset;
+      if (is_even) {
+        std::cout << helper::Tui::kAnsiFormatReset;
+      }
     }
   }
 
-  if (display_viewed_sum && 0 < sum_task_minutes)
+  if (display_viewed_sum && 0 < sum_task_minutes) {
     PrintDurationSums(task_number, sum_task_minutes);
+  }
 
   std::cout << helper::Tui::kAnsiFormatReset;
 
@@ -370,15 +391,18 @@ void ReportRendererCli::PrintRow(int index_row,
   for (int index_column = 0;
          index_column < amount_columns_ && index_cell < amount_cells_;
          index_column++) {
-      if (index_column == Index_Day) previous_day = cells_[index_cell];
+      if (index_column == Index_Day) {
+        previous_day = cells_[index_cell];
+      }
 
       if (do_display
           && (display_day_sum || index_column != Index_SumDay)
           && (display_balance || index_column != Index_Balance)) {
         // Emphasize times around e.g. lunch-break
         // (end-time before and start-time after)
-        if (index_column == Index_End)
+        if (index_column == Index_End) {
           is_around_break = IsEndTimeBeforeBreak(index_cell);
+        }
 
         bool is_emphasizable_column =
             index_column == Index_End
@@ -403,11 +427,15 @@ void ReportRendererCli::PrintRow(int index_row,
 // between the start-time of the next entry?
 bool ReportRendererCli::IsEndTimeBeforeBreak(int index_cell) {
   // Last entry cannot end before a break
-  if (amount_cells_ < index_cell + 11) return false;
+  if (amount_cells_ < index_cell + 11) {
+    return false;
+  }
 
   // Last entry of day is not considered to be ending before a break
   if (amount_cells_ > index_cell + 10
-      && cells_[index_cell - 2] != cells_[index_cell + 10]) return false;
+      && cells_[index_cell - 2] != cells_[index_cell + 10]) {
+    return false;
+  }
 
   int minutes_end_current =
       helper::DateTime::GetSumMinutesFromTime(cells_[index_cell]);
@@ -460,7 +488,9 @@ void ReportRendererCli::PrintColumn(
   if (index_column > 0) {
     std::string content = cells_[index_cell];
 
-    if (index_column == Index_Comment) content = helper::Html::Decode(content);
+    if (index_column == Index_Comment) {
+      content = helper::Html::Decode(content);
+    }
 
     // TODO(kay): adjust max-length language specific
     // currently correct is: de: +1, en: +2
@@ -477,8 +507,9 @@ void ReportRendererCli::PrintColumn(
 
   if (display_id
       && offset_id_column_ == index_column
-      && index_column > 0)
+      && index_column > 0) {
     PrintRowCellForId(false, index_row + id_first_row_rendered_);
+  }
 }
 
 void ReportRendererCli::PrintDurationSums(
@@ -497,7 +528,9 @@ void ReportRendererCli::PrintDurationSums(
 
   std::cout << "  Σ";
 
-  if (-1 != task_number) std::cout << " " << task_number;
+  if (-1 != task_number) {
+    std::cout << " " << task_number;
+  }
 
   std::cout << ": " << sum_duration_formatted << "\n";
 }
@@ -511,18 +544,22 @@ std::string ReportRendererCli::RenderSeparationRow() {
     int amount_characters = column_content_max_len_[index_column] + 3;
 
     if (index_column == Index_Comment
-        && amount_characters > max_chars_per_comment_)
+        && amount_characters > max_chars_per_comment_) {
       amount_characters = max_chars_per_comment_;
+    }
 
-    if (amount_characters > 0)
+    if (amount_characters > 0) {
       separation_row.append(std::string(amount_characters, '-'));
+    }
   }
 
   return separation_row + helper::Tui::kAnsiFormatReset;
 }
 
 void ReportRendererCli::PrintRowCellForId(bool is_left_most, int index_row) {
-  if (!is_left_most) std::cout << '|';
+  if (!is_left_most) {
+    std::cout << '|';
+  }
 
   std::cout << ' ';
 
@@ -531,11 +568,15 @@ void ReportRendererCli::PrintRowCellForId(bool is_left_most, int index_row) {
 
   auto amount_spaces = max_index_digits_ - amount_digits_in_current_row_index;
 
-  if (amount_spaces > 0) std::cout << std::string(amount_spaces, ' ');
+  if (amount_spaces > 0) {
+    std::cout << std::string(amount_spaces, ' ');
+  }
 
   std::cout << ' ' << index_row << ' ';
 
-  if (is_left_most) std::cout << "| ";
+  if (is_left_most) {
+    std::cout << "| ";
+  }
 
   std::cout << theme_style_grid_;
 }
@@ -548,8 +589,9 @@ void ReportRendererCli::PrintRhsCellSpaces(int index_cell, int index_column) {
 
   int max_used_len = column_content_max_len_[index_column];
 
-  if (max_used_len > max_chars_per_comment_)
+  if (max_used_len > max_chars_per_comment_) {
     max_used_len = max_chars_per_comment_;
+  }
 
   if (content_len < max_used_len) {
     int column_len_diff = max_used_len - content_len;

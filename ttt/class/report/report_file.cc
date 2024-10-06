@@ -149,8 +149,9 @@ bool ReportFile::RestoreBackup() {
   std::string path_report_file = config.GetReportFilePath();
   std::string path_backup = path_report_file + ".bak";
 
-  if (!helper::File::FileExists(path_backup))
+  if (!helper::File::FileExists(path_backup)) {
     return tictac_track::AppError::PrintError("Cannot undo.");
+  }
 
   std::ifstream src(path_backup, std::ios::binary);
   std::ofstream dst(path_report_file, std::ios::binary);

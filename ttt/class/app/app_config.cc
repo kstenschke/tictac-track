@@ -35,7 +35,9 @@ AppConfig &AppConfig::GetInstance(char **argv) {
   // Instantiated on first use
   static AppConfig instance;
 
-  if (!instance.is_initialized_) instance.Init(argv);
+  if (!instance.is_initialized_) {
+    instance.Init(argv);
+  }
 
   return instance;
 }
@@ -45,7 +47,9 @@ AppConfig &AppConfig::GetInstance(char **argv) {
 void AppConfig::Init(char **argv) {
   is_initialized_ = true;
 
-  if (argv != nullptr) argv_ = argv;
+  if (argv != nullptr) {
+    argv_ = argv;
+  }
 
   path_binary_ = helper::System::GetBinaryPath(argv_, 3);
 
@@ -189,11 +193,15 @@ void AppConfig::InitConfigMap() {
   for (std::vector<int>::size_type i = 0; i != lines.size(); i++) {
     std::string line = lines[i];
 
-    if (helper::String::StartsWith(line.c_str(), ";")) continue;
+    if (helper::String::StartsWith(line.c_str(), ";")) {
+      continue;
+    }
 
     size_t offset_equals = line.find('=');
 
-    if (std::string::npos == offset_equals) continue;
+    if (std::string::npos == offset_equals) {
+      continue;
+    }
 
     std::string key = line.substr(0, offset_equals);
     std::string value = line.substr(offset_equals + 1, std::string::npos);
@@ -222,7 +230,6 @@ AppConfig::ConfigKeys AppConfig::ResolveOption(const std::string &input) {
 // Get system language, if translations not available in app: default to english
 std::string AppConfig::GetDefaultLanguageKey() {
   std::string languageKey = helper::System::GetLanguageKey();
-
   AppLocale &locale = AppLocale::GetInstance();
 
   return locale.IsSupportedLanguageKey(languageKey) ? languageKey : "en";
@@ -272,8 +279,7 @@ std::string AppConfig::GetConfigValueDefault(const std::string &key) {
 
 // Get absolute path to timesheet.html (including filename)
 std::string AppConfig::GetReportFilePath() {
-  AppConfig config = GetInstance();
-  std::string report_dir_path = config.GetConfigValue("report_path");
+  std::string report_dir_path = GetConfigValue("report_path");
 
   return report_dir_path + ReportCrud::kFilenameReport;
 }

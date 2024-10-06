@@ -47,7 +47,7 @@ class ReportDateTime {
   // Get current date as string
   std::string GetDateFormatted(int offset_days = 0);
 
-  std::string GetTimestampForMeta();
+  static std::string GetTimestampForMeta();
 
   // Get day of week as string, localized into configured language
   std::string GetCurrentDayOfWeek(int offset_days = 0);

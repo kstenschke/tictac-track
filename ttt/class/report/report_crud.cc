@@ -51,7 +51,7 @@ void ReportCrud::Init(bool clear) {
   is_initialized_ = true;
 }
 
-bool ReportCrud::ReportExists() {
+bool ReportCrud::ReportExists() const {
   return report_exists_;
 }
 

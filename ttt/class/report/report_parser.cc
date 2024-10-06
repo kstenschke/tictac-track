@@ -131,7 +131,9 @@ std::string ReportParser::UpdateTableHeader() {
 // Get title for timesheet HTML headline:
 // "timesheet <DATE_FIRST_ENTRY> - <DATE_LAST_ENTRY>"
 std::string ReportParser::GetReportTitle() {
-  if (-1 == GetLastIndex()) return std::string("");
+  if (-1 == GetLastIndex()) {
+    return {""};
+  }
 
   std::string date_first = GetColumnContent(0, ColumnIndexes::Index_Date);
   std::string date_last = GetDateLatestEntry();
@@ -224,7 +226,7 @@ int ReportParser::GetLastIndex() {
 }
 
 // Get ID of latest entry w/ given task number, or -1
-int ReportParser::GetLatestIndexByTaskNumber(std::string task_number) {
+int ReportParser::GetLatestIndexByTaskNumber(const std::string& task_number) {
   if (!HtmlContains(task_number)) return -1;
 
   int last_index = GetLastIndex();

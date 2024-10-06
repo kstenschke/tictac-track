@@ -44,21 +44,66 @@ void AppLocale::Init() {
 }
 
 std::map<std::string, std::string> AppLocale::GetDictionaryByLocaleKey() {
-  if (0 == std::strcmp("de", locale_key_)) return dictionary_de_;
-  if (0 == std::strcmp("dk", locale_key_)) return dictionary_dk_;
-  if (0 == std::strcmp("es", locale_key_)) return dictionary_es_;
-  if (0 == std::strcmp("fi", locale_key_)) return dictionary_fi_;
-  if (0 == std::strcmp("fr", locale_key_)) return dictionary_fr_;
-  if (0 == std::strcmp("hu", locale_key_)) return dictionary_hu_;
-  if (0 == std::strcmp("it", locale_key_)) return dictionary_it_;
-  if (0 == std::strcmp("lv", locale_key_)) return dictionary_lv_;
-  if (0 == std::strcmp("nl", locale_key_)) return dictionary_nl_;
-  if (0 == std::strcmp("no", locale_key_)) return dictionary_no_;
-  if (0 == std::strcmp("pl", locale_key_)) return dictionary_pl_;
-  if (0 == std::strcmp("pt", locale_key_)) return dictionary_pt_;
-  if (0 == std::strcmp("ro", locale_key_)) return dictionary_ro_;
-  if (0 == std::strcmp("sv", locale_key_)) return dictionary_sv_;
-  if (0 == std::strcmp("tr", locale_key_)) return dictionary_tr_;
+  if (0 == std::strcmp("de", locale_key_)) {
+    return dictionary_de_;
+  }
+
+  if (0 == std::strcmp("dk", locale_key_)) {
+    return dictionary_dk_;
+  }
+
+  if (0 == std::strcmp("es", locale_key_)) {
+    return dictionary_es_;
+  }
+
+  if (0 == std::strcmp("fi", locale_key_)) {
+    return dictionary_fi_;
+  }
+
+  if (0 == std::strcmp("fr", locale_key_)) {
+    return dictionary_fr_;
+  }
+
+  if (0 == std::strcmp("hu", locale_key_)) {
+    return dictionary_hu_;
+  }
+
+  if (0 == std::strcmp("it", locale_key_)) {
+    return dictionary_it_;
+  }
+
+  if (0 == std::strcmp("lv", locale_key_)) {
+    return dictionary_lv_;
+  }
+
+  if (0 == std::strcmp("nl", locale_key_)) {
+    return dictionary_nl_;
+  }
+
+  if (0 == std::strcmp("no", locale_key_)) {
+    return dictionary_no_;
+  }
+
+  if (0 == std::strcmp("pl", locale_key_)) {
+    return dictionary_pl_;
+  }
+
+  if (0 == std::strcmp("pt", locale_key_)) {
+    return dictionary_pt_;
+  }
+
+  if (0 == std::strcmp("ro", locale_key_)) {
+    return dictionary_ro_;
+  }
+
+  if (0 == std::strcmp("sv", locale_key_)) {
+    return dictionary_sv_;
+  }
+
+  if (0 == std::strcmp("tr", locale_key_)) {
+    return dictionary_tr_;
+  }
+
   return dictionary_en_;
 }
 

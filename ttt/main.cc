@@ -38,12 +38,16 @@ int main(int argc, char **argv) {
 
   auto report_crud = tictac_track::ReportCrud::GetInstance();
 
-  if (!report_crud.ReportExists()) return -1;
+  if (!report_crud.ReportExists()) {
+    return -1;
+  }
 
   // Process command arguments, display help if no valid command given
   auto *app = new tictac_track::App(argc, argv);
 
-  if (argc > 1) app->Process();
+  if (argc > 1) {
+    app->Process();
+  }
 
   delete app;
 

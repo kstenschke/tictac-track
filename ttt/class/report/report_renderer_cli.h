@@ -94,7 +94,7 @@ class ReportRendererCli : public ReportRenderer {
       bool display_day_sum = true,
       bool display_saldo = true);
 
-  void PrintHeaderCellForId(bool is_left_most);
+  void PrintHeaderCellForId(bool is_left_most) const;
 
   // Output <tr>s, returns amount of rows printed
   int PrintRows(

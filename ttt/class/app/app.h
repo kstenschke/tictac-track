@@ -64,13 +64,13 @@ class App {
 
   bool BrowseTaskUrl();
 
-  bool DisplayCalendarWeek();
+  void DisplayCalendarWeek();
 
-  bool DisplayDate();
+  void DisplayDate();
 
   bool ExportCsv();
 
-  bool Help();
+  void Help();
 
   // Merge given task with following one
   bool Merge();

@@ -54,7 +54,7 @@ extern bool Contains(char *haystack, const char *needle);
 
 // Get utf8 string length
 // (special chars like umlauts would otherwise be two bytes, not one)
-extern int GetUtf8Size(std::string str);
+extern int GetUtf8Size(const std::string& str);
 
 // Get amount of sub string occurrences
 extern int GetSubStrCount(const char *str, const char *sub);
@@ -88,10 +88,10 @@ extern std::string GetSubStrBetween(
 // Split given string by given character delimiter into vector of strings
 extern std::vector<std::string> Explode(std::string const &str, char delimiter);
 
-extern bool IsNumeric(const std::string &str, bool allow_negative = true);
+extern bool IsNumeric(const std::string &str);
 
 extern int ToInt(const char *str, int defaultValue = 0);
-extern int ToInt(std::string str, int defaultValue = 0);
+extern int ToInt(const std::string& str, int defaultValue = 0);
 
 // Get amount characters in given string,
 // counting wide-ascii characters as 1 character (not 2 or 3)

@@ -30,11 +30,13 @@ namespace tictac_track {
 
 bool AppError::PrintError(const char *message) {
   std::cout << message << "\n";
+
   return false;
 }
 
 bool AppError::PrintError(const char *message, int n) {
   std::cout << message << n << "\n";
+
   return false;
 }
 

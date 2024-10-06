@@ -40,7 +40,9 @@ std::string DateTime::GetCurrentTimeFormatted(
   time(&raw_time);
   time_info = localtime(&raw_time);
 
-  if (0 != offset_days) AddDaysToDate(time_info, offset_days);
+  if (0 != offset_days) {
+    AddDaysToDate(time_info, offset_days);
+  }
 
   strftime(buffer, sizeof(buffer), format, time_info);
   std::string str(buffer);
@@ -65,9 +67,9 @@ std::string DateTime::ReformatDateAsYyyyMmDd(
     std::string &source_format) {
   size_t strlen = date_str.size();
 
-  if (0 == strlen
-      || std::string::npos == strlen)
+  if (0 == strlen || std::string::npos == strlen) {
     return "";
+  }
 
   if (source_format == "%d.%m.%Y") {
     std::string day = date_str.substr(0, 2);
@@ -89,11 +91,15 @@ std::string DateTime::ReformatDateAsYyyyMmDd(
 int DateTime::GetSumMinutesFromTime(
     std::string time_str,
     const char *separator) {
-  if (time_str.empty()) time_str = GetCurrentTimeFormatted(FORMAT_TIME);
+  if (time_str.empty()) {
+    time_str = GetCurrentTimeFormatted(FORMAT_TIME);
+  }
 
   size_t offset_separator = time_str.find(separator);
 
-  if (std::string::npos == offset_separator) return 0;
+  if (std::string::npos == offset_separator) {
+    return 0;
+  }
 
   int hours = String::ToInt(time_str.substr(0, offset_separator).c_str());
 
@@ -107,7 +113,10 @@ int DateTime::GetSumMinutesFromTime(
 // Hours >= 24 are treated as being in next day (begin from 0 again)
 std::string DateTime::GetHoursFormattedFromMinutes(int minutes) {
   bool is_negative = minutes < 0;
-  if (is_negative) minutes *= -1;
+
+  if (is_negative) {
+    minutes *= -1;
+  }
 
   int hours = 0;
   while (minutes > 59) {
@@ -138,34 +147,34 @@ int DateTime::GetWeekdayIndexByDate(int year, int month, int day) {
 // Get index of day of week from english name of weekday:
 // sunday == 0, monday == 1, etc.
 int DateTime::GetWeekdayIndexByName(const char *weekday_name_en) {
-  if (0 == std::strcmp(weekday_name_en, "Monday")) return 0;
-  if (0 == std::strcmp(weekday_name_en, "Tuesday")) return 1;
-  if (0 == std::strcmp(weekday_name_en, "Wednesday")) return 2;
-  if (0 == std::strcmp(weekday_name_en, "Thursday")) return 3;
-  if (0 == std::strcmp(weekday_name_en, "Friday")) return 4;
-  if (0 == std::strcmp(weekday_name_en, "Saturday")) return 5;
-  if (0 == std::strcmp(weekday_name_en, "Sunday")) return 6;
+  static const std::unordered_map<std::string, int> weekday_map = {
+      {"Monday", 0}, {"Tuesday", 1}, {"Wednesday", 2}, {"Thursday", 3},
+      {"Friday", 4}, {"Saturday", 5}, {"Sunday", 6}
+  };
 
-  return 8;
+  auto it = weekday_map.find(weekday_name_en);
+
+  return (it != weekday_map.end()) ? it->second : 8;  // Return 8 if not found
 }
 
 std::string DateTime::GetWeekdayEnByIndex(int day_index) {
-  switch (day_index) {
-    case 0: return "Sunday";
-    case 1: return "Monday";
-    case 2: return "Tuesday";
-    case 3: return "Wednesday";
-    case 4: return "Thursday";
-    case 5: return "Friday";
-    case 6: return "Saturday";
-    case 7: return "Sunday";
-    default: return "";
+  static const std::array<std::string, 7> weekdays = {
+      "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+      "Saturday"
+  };
+
+  if (day_index >= 0 && day_index < weekdays.size()) {
+    return weekdays[day_index];
   }
+
+  return "";  // Return empty string for invalid indices
 }
 
 bool DateTime::IsTime(std::string str) {
   unsigned long offsetColon = str.find(':');
-  if (std::string::npos == offsetColon) return false;
+  if (std::string::npos == offsetColon) {
+    return false;
+  }
 
   str = str.replace(offsetColon, 1, "");
 

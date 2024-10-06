@@ -38,11 +38,15 @@ bool ReportRenderer::ExtractPartsFromReport(
 
     std::ifstream file(config.GetReportFilePath());
 
-    if (!file) return false;
+    if (!file) {
+      return false;
+    }
 
     html = helper::File::GetFileContents(file);
 
-    if (html.empty()) return false;
+    if (html.empty()) {
+      return false;
+    }
   }
 
   html = helper::String::ReplaceAll(html, "\n", "");
@@ -52,11 +56,15 @@ bool ReportRenderer::ExtractPartsFromReport(
     "<table border=\"1\">",
     "</table>");
 
-  if (table.empty()) return false;
+  if (table.empty()) {
+    return false;
+  }
 
   std::string tHead = ExtractTheadFromTable(table);
 
-  if (tHead.empty()) return false;
+  if (tHead.empty()) {
+    return false;
+  }
 
   SetColumnTitlesExtractedFromTHead(tHead);
 
@@ -111,8 +119,9 @@ bool ReportRenderer::ExtractPartsFromReport(
 
         std::string zero = "0";
 
-        if (1 == week_number.size() && 2 == rows_filter_.size())
+        if (1 == week_number.size() && 2 == rows_filter_.size()) {
           week_number = zero.append(week_number);
+        }
 
         if (0 != std::strcmp(week_number.c_str(), rows_filter_.c_str())) {
           // Week-column of row does NOT contain the week to filter for:
@@ -170,7 +179,9 @@ std::string ReportRenderer::ExtractTheadFromTable(const std::string &table) {
       cut_off_lhs_Len,
       tHead.size() - cut_off_lhs_Len - strlen("</tr></thead>"));
 
-  if (tHead.empty()) return "";
+  if (tHead.empty()) {
+    return "";
+  }
 
   amount_columns_ = helper::String::GetSubStrCount(tHead.c_str(), "<th");
 

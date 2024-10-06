@@ -46,55 +46,101 @@ AppCommand::Commands AppCommand::Resolve() {
 AppCommand::Commands AppCommand::ResolveCommandByName(
     const std::string &command) {
   // Commands are sorted by assumed average usage frequency
-  if (command == "w" || command == "week") return Command_ViewWeek;
+  if (command == "w" || command == "week") {
+    return Command_ViewWeek;
+  }
 
-  if (command == "s" || command == "start") return Command_Start;
+  if (command == "s" || command == "start") {
+    return Command_Start;
+  }
 
-  if (command == "p" || command == "pause" || command == "stop")
+  if (command == "p" || command == "pause" || command == "stop") {
     return Command_Stop;
+  }
 
-  if (command == "r" || command == "resume") return Command_Resume;
+  if (command == "r" || command == "resume") {
+    return Command_Resume;
+  }
 
-  if (command == "c" || command == "comment") return Command_Comment;
+  if (command == "c" || command == "comment") {
+    return Command_Comment;
+  }
 
-  if (command == "t" || command == "task") return Command_Task;
+  if (command == "t" || command == "task") {
+    return Command_Task;
+  }
 
-  if (command == "sp" || command == "split") return Command_Split;
+  if (command == "sp" || command == "split") {
+    return Command_Split;
+  }
 
-  if (command == "m" || command == "merge") return Command_Merge;
+  if (command == "m" || command == "merge") {
+    return Command_Merge;
+  }
 
-  if (command == "d" || command == "day") return Command_Day;
+  if (command == "d" || command == "day") {
+    return Command_Day;
+  }
 
-  if (command == "v" || command == "view") return Command_View;
+  if (command == "v" || command == "view") {
+    return Command_View;
+  }
 
-  if (command == "W" || command == "calendarweek")
+  if (command == "W" || command == "calendarweek") {
     return Command_DisplayCalendarWeek;
+  }
 
-  if (command == "D" || command == "date") return Command_DisplayDate;
+  if (command == "D" || command == "date") {
+    return Command_DisplayDate;
+  }
 
-  if (command == "h" || command == "help") return Command_Help;
+  if (command == "h" || command == "help") {
+    return Command_Help;
+  }
 
-  if (command == "rc" || command == "recalculate") return Command_Recalculate;
+  if (command == "rc" || command == "recalculate") {
+    return Command_Recalculate;
+  }
 
-  if (command == "rm" || command == "remove") return Command_Remove;
+  if (command == "rm" || command == "remove") {
+    return Command_Remove;
+  }
 
-  if (command == "z" || command == "undo") return Command_Undo;
+  if (command == "z" || command == "undo") {
+    return Command_Undo;
+  }
 
-  if (command == "V" || command == "version") return Command_Version;
+  if (command == "V" || command == "version") {
+    return Command_Version;
+  }
 
-  if (command == "b" || command == "browse") return Command_BrowseTimesheet;
+  if (command == "b" || command == "browse") {
+    return Command_BrowseTimesheet;
+  }
 
-  if (command == "u" || command == "url") return Command_BrowseTaskUrl;
+  if (command == "u" || command == "url") {
+    return Command_BrowseTaskUrl;
+  }
 
-  if (command == "ud" || command == "dayTasks") return Command_BrowseDayTasks;
+  if (command == "ud" || command == "dayTasks") {
+    return Command_BrowseDayTasks;
+  }
 
-  if (command == "csvdt") return Command_CsvDayTracks;
+  if (command == "csvdt") {
+    return Command_CsvDayTracks;
+  }
 
-  if (command == "csvrtn") return Command_CsvRecentTaskNumbers;
+  if (command == "csvrtn") {
+    return Command_CsvRecentTaskNumbers;
+  }
 
-  if (command == "csv") return Command_Csv;
+  if (command == "csv") {
+    return Command_Csv;
+  }
 
-  if (command == "cls" || command == "clear") return Command_ClearTimesheet;
+  if (command == "cls" || command == "clear") {
+    return Command_ClearTimesheet;
+  }
 
   return Command_Invalid;
 }

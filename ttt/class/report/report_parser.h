@@ -72,7 +72,7 @@ class ReportParser : public Report {
   int GetLastIndex();
 
   // Get ID of latest entry w/ given task number, or -1
-  int GetLatestIndexByTaskNumber(std::string task_number);
+  int GetLatestIndexByTaskNumber(const std::string& task_number);
 
   // Get issue number of (latest entry - offset)
   std::string GetLatestIssueNumber(int offset = 0);

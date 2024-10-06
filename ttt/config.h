@@ -30,7 +30,7 @@
 #define TTT_EXECUTABLE_NAME "ttt"
 
 #define TTT_VERSION_MAJOR 1
-#define TTT_VERSION_MINOR 6
-#define TTT_VERSION_PATCH 2
+#define TTT_VERSION_MINOR 7
+#define TTT_VERSION_PATCH 0
 
 #endif  // TTT_CONFIG_H_

@@ -60,7 +60,7 @@ class Report {
  protected:
   // Render scope (all or filtered by current: day / week / month)
   int render_scope_;
-  std::string rows_filter_ = "";
+  std::string rows_filter_{};
 
   ReportDateTime report_date_time_instance_;
 

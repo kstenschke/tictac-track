@@ -66,7 +66,7 @@ class ReportRenderer : public Report {
   // than split and assign to attribute: column_titles_
   void SetColumnTitlesExtractedFromTHead(std::string t_head);
 
-  std::vector<std::string> ExtractRowsFromTable(std::string table);
+  static std::vector<std::string> ExtractRowsFromTable(std::string table);
 };
 
 }  // namespace tictac_track

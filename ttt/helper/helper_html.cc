@@ -42,14 +42,16 @@ std::string Html::Encode(std::string str) {
     do {
       found = str.find(subs[j]);
 
-      if (std::string::npos != found)
+      if (std::string::npos != found) {
         str.replace(found, subs[j].length(), reps[j]);
+      }
     } while (std::string::npos != found);
   }
 
   // Encode extended ascii characters
   std::wstring wide_str = std::wstring(str.begin(), str.end());
   auto str_len = static_cast<int>(wide_str.size());
+
   for (int i = str_len; i >= 0; i--) {
     char ch = str[i];
     if (ch & 128) {

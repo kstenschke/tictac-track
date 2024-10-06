@@ -93,7 +93,9 @@ void System::WaitForEnterKeyPress() {
 
   int ch = getchar();
 
-  while (10 != ch) ch = getchar();
+  while (10 != ch) {
+    ch = getchar();
+  }
 
   // Make echo work, go to COOKED mode
   system("stty echo");

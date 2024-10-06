@@ -1,8 +1,9 @@
 Tictac-Track - Changelog
 ========================
 
-V1.6.2 - not released yet
+V1.7.0 - not released yet
 -------------------------
+* Modernize code to use C++ 17
 * More closely follow code standards
 * Improve performance, RAM usage
 * Improve commands recognition: allow uppercase

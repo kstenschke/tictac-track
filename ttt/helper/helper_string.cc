@@ -61,7 +61,7 @@ bool String::Contains(char *haystack, const char *needle) {
 
 // Get UTF-8 string length
 // (special chars like umlauts would otherwise be two bytes, not one)
-int String::GetUtf8Size(std::string str) {
+int String::GetUtf8Size(const std::string& str) {
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 
   /*std::wstring wide =*/ converter.from_bytes(str);
@@ -73,17 +73,23 @@ int String::GetUtf8Size(std::string str) {
 int String::GetSubStrCount(const char *str, const char *sub) {
   auto length = static_cast<int>(strlen(sub));
 
-  if (length == 0) return 0;
+  if (length == 0) {
+    return 0;
+  }
 
   int count = 0;
 
-  for (str = strstr(str, sub); str; str = strstr(str + length, sub)) ++count;
+  for (str = strstr(str, sub); str; str = strstr(str + length, sub)) {
+    ++count;
+  }
 
   return count;
 }
 
 extern void String::Ellipsis(std::string &str, unsigned int max_length) {
-  if (str.length() < max_length) return;
+  if (str.length() < max_length) {
+    return;
+  }
 
   str = str.substr(0, static_cast<unsigned long>(max_length - 4)) + "...";
 }
@@ -94,6 +100,7 @@ std::string String::ReplaceAll(
     const char *needle,
     const char *replacement) {
   std::string str = std::string(haystack);
+
   return ReplaceAll(str, needle, replacement);
 }
 
@@ -108,7 +115,9 @@ std::string String::ReplaceAll(
   while (true) {
     index = haystack.find(needle, index);
 
-    if (std::string::npos == index) break;
+    if (std::string::npos == index) {
+      break;
+    }
 
     haystack.replace(index, needle_len, replacement);
   }
@@ -124,7 +133,9 @@ void String::ReplaceAllByReference(
   std::string from = std::string(needle);
   std::string to = std::string(replacement);
 
-  if (str.empty() || to.empty()) return;
+  if (str.empty() || to.empty()) {
+    return;
+  }
 
   std::string::size_type start_pos = 0;
 
@@ -156,8 +167,9 @@ std::string String::GetSubStrBetween(
   if (std::string::npos != offsetStart) {
     size_t offsetEnd = str.find(rhs, offsetStart);
 
-    if (std::string::npos != offsetEnd)
+    if (std::string::npos != offsetEnd) {
       return str.substr(offsetStart, offsetEnd - offsetStart + strlen(rhs));
+    }
   }
 
   return "";
@@ -170,14 +182,17 @@ std::vector<std::string> String::Explode(
   std::vector<std::string> result;
   std::istringstream iss(str);
 
-  for (std::string token; std::getline(iss, token, delimiter);)
+  for (std::string token; std::getline(iss, token, delimiter);) {
     result.push_back(std::move(token));
+  }
 
   return result;
 }
 
-bool String::IsNumeric(const std::string &str, bool allow_negative) {
-  if (str.empty()) return false;
+bool String::IsNumeric(const std::string &str) {
+  if (str.empty()) {
+    return false;
+  }
 
   std::string::const_iterator it = str.begin();
 
@@ -200,7 +215,7 @@ int String::ToInt(const char *str, int defaultValue) {
          : defaultValue;
 }
 
-int String::ToInt(std::string str, int defaultValue) {
+int String::ToInt(const std::string& str, int defaultValue) {
   return String::IsNumeric(str)
          ? std::stoi(str)
          : defaultValue;
@@ -222,53 +237,55 @@ int String::GetAmountChars(std::string str) {
 #pragma ide diagnostic ignored "missing_default_case"
       switch ((int) str[i - 1]) {
         case -49:
-          if ((int) str[i] >= -127
-              && (int) str[i] <= -123)
+          if ((int) str[i] >= -127 && (int) str[i] <= -123) {
             wide_str = ReduceWideChar(wide_str, str_len, i);
+          }
           break;
         case -50:
-          if ((int) str[i] >= -93
-              && (int) str[i] <= -65)
+          if ((int) str[i] >= -93 && (int) str[i] <= -65) {
             wide_str = ReduceWideChar(wide_str, str_len, i);
+          }
           break;
         case -53:
-          if ((int) str[i] >= -122
-              && (int) str[i] <= -100)
+          if ((int) str[i] >= -122 && (int) str[i] <= -100) {
             wide_str = ReduceWideChar(wide_str, str_len, i);
+          }
           break;
         case -59:
-          if ((int) str[i] >= -110
-              && (int) str[i] <= -72)
+          if ((int) str[i] >= -110 && (int) str[i] <= -72) {
             wide_str = ReduceWideChar(wide_str, str_len, i);
+          }
           break;
         case -61:
-          if ((int) str[i] >= -128
-              && (int) str[i] <= -65)
+          if ((int) str[i] >= -128 && (int) str[i] <= -65) {
             wide_str = ReduceWideChar(wide_str, str_len, i);
+          }
           break;
         case -62:
-          if ((int) str[i] >= -95
-              && (int) str[i] <= -65)
+          if ((int) str[i] >= -95 && (int) str[i] <= -65) {
             wide_str = ReduceWideChar(wide_str, str_len, i);
+          }
           break;
         case -126:
           switch ((int) str[i]) {
             case -84:
-              if ((int) str[i - 2] == -30)
+              if ((int) str[i - 2] == -30) {
                 wide_str = ReduceWideChar(wide_str, str_len, i, i - 2, i + 1);
+              }
               break;
           }
           break;
         case -129:
           switch ((int) str[i]) {
             case -71:
-              if ((int) str[i - 2] >= -30
-                  && (int) str[i - 2] <= -29)
+              if ((int) str[i - 2] >= -30 && (int) str[i - 2] <= -29) {
                 wide_str = ReduceWideChar(wide_str, str_len, i, i - 2, i + 1);
+              }
               break;
             case -80:
-              if ((int) str[i - 2] == -30)
+              if ((int) str[i - 2] == -30) {
                 wide_str = ReduceWideChar(wide_str, str_len, i, i - 2, i + 1);
+              }
               break;
           }
           break;

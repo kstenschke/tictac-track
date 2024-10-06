@@ -34,13 +34,17 @@ AppArguments::AppArguments(int argc, char **argv, AppCommand &command) {
   argc_ = argc;
   argv_ = argv;
 
-  if (argc_ > 1) Resolve(command);
+  if (argc_ > 1) {
+    Resolve(command);
+  }
 }
 
 // Resolve arguments to attributes
 void AppArguments::Resolve(AppCommand &command) {
   for (int i = 2; i < argc_; ++i) {
-    if (i == max_arguments_) break;
+    if (i == max_arguments_) {
+      break;
+    }
 
     std::string argument = argv_[i];
 
@@ -81,10 +85,13 @@ void AppArguments::Resolve(AppCommand &command) {
     }
 
     // Try resolve i=<number> or i=<number,number,...>
-    if (helper::String::StartsWith(argv_[i], "i=") && ResolveAsIndex(i))
+    if (helper::String::StartsWith(argv_[i], "i=") && ResolveAsIndex(i)) {
       continue;
+    }
 
-    if (helper::DateTime::IsTime(argument) && ResolveAsTime(i)) continue;
+    if (helper::DateTime::IsTime(argument) && ResolveAsTime(i)) {
+      continue;
+    }
 
     AppCommand::Commands command_resolved = command.GetResolved();
 
@@ -112,8 +119,9 @@ void AppArguments::Resolve(AppCommand &command) {
                 || helper::String::StartsWith(argv_[i], "comment="))
             || (command_resolved == AppCommand::Command_Resume
                 && -1 == argument_index_comment_))
-            && ResolveAsComment(i))
+            && ResolveAsComment(i)) {
       continue;
+    }
 
     // Argument is not numeric, no command or command shortcut
     SetArgvDefaultTypeByCommand(command, i);
@@ -210,36 +218,36 @@ bool AppArguments::IsNumber(int index) {
   return index < argc_ && argv_types_[index] == ArgumentType_Number;
 }
 
-bool AppArguments::IsTime(int index) {
+bool AppArguments::IsTime(int index) const {
   return index < argc_ && helper::DateTime::IsTime(argv_[index]);
 }
 
-std::string AppArguments::GetComment() {
+std::string AppArguments::GetComment() const {
   return argument_index_comment_ == -1
          ? ""
          : ResolveComment(argument_index_comment_);
 }
 
-int AppArguments::GetNegativeNumber() {
+int AppArguments::GetNegativeNumber() const {
   return argument_index_negative_number_ == -1
          ? 0
          : ResolveNumber(argument_index_negative_number_);
 }
 
-int AppArguments::GetTaskNumber() {
+int AppArguments::GetTaskNumber() const {
   return argument_index_task_number_ == -1
          ? -1
          : ResolveNumber(argument_index_task_number_);
 }
 
 // Was the argument given w/ an identifier prefix? e.g. "c=", "i=", etc.
-bool AppArguments::Contains(int index, std::string needle) {
+bool AppArguments::Contains(int index, std::string needle) const {
   return index < argc_
       && helper::String::Contains(argv_[index], needle);
 }
 
 // Get numeric value of number-argument (can be prefixed w/ e.g. "t=")
-int AppArguments::ResolveNumber(int index) {
+int AppArguments::ResolveNumber(int index) const {
   if (index >= argc_) return -1;
 
   if ('-' == argv_[index][0]) {
@@ -254,6 +262,7 @@ int AppArguments::ResolveNumber(int index) {
       || helper::String::StartsWith(argv_[index], "t=")) {
     std::string
         numeric = std::string(argv_[index] + 2, std::strlen(argv_[index]));
+
     return helper::String::ToInt(numeric.c_str());
   }
 
@@ -266,33 +275,44 @@ int AppArguments::ResolveNumber(int index) {
 
 // Validate given time-string in format "hh:mm",
 // or if allowed: "-hh:mm"
-std::string AppArguments::ResolveTime(int index, bool allow_negative) {
-  if (index >= argc_) return "";
+std::string AppArguments::ResolveTime(int index, bool allow_negative) const {
+  if (index >= argc_) {
+    return "";
+  }
 
   std::string value = std::string(argv_[index]);
 
   bool is_negative = allow_negative && value[0] == '-';
-  if (is_negative) value = value.substr(1, std::string::npos);
+  if (is_negative) {
+    value = value.substr(1, std::string::npos);
+  }
 
   size_t offset_colon = value.find(':');
   if (std::string::npos == offset_colon
-      || (value.size() - 1) == offset_colon)
+      || (value.size() - 1) == offset_colon) {
     return "";
+  }
 
   std::string hours = value.substr(0, offset_colon);
   std::string minutes = value.substr(offset_colon + 1, std::string::npos);
 
   std::string zero = "0";
-  while (hours.size() < 2) hours = zero.append(hours);
+  while (hours.size() < 2) {
+    hours = zero.append(hours);
+  }
 
-  while (minutes.size() < 2) minutes = zero.append(minutes);
+  while (minutes.size() < 2) {
+    minutes = zero.append(minutes);
+  }
 
   return (is_negative ? "-" : "") + hours + ":" + minutes;
 }
 
 // Remove possible prefix from comment ("c=" or "comment=")
-std::string AppArguments::ResolveComment(int index) {
-  if (index >= argc_) return "";
+std::string AppArguments::ResolveComment(int index) const {
+  if (index >= argc_) {
+    return "";
+  }
 
   std::string comment;
   if (helper::String::StartsWith(argv_[index], "c=")) {
@@ -303,13 +323,15 @@ std::string AppArguments::ResolveComment(int index) {
     comment = helper::Html::Encode(argv_[index]);
   }
 
-  if (!comment.empty()) helper::String::Trim(comment);
+  if (!comment.empty()) {
+    helper::String::Trim(comment);
+  }
 
   return comment;
 }
 
 // Validate command-name from argument at given index
-AppCommand::Commands AppArguments::ResolveCommandName(int index) {
+AppCommand::Commands AppArguments::ResolveCommandName(int index) const {
   return index >= argc_
          ? AppCommand::Commands::Command_Invalid
          : AppCommand::ResolveCommandByName(argv_[index]);
