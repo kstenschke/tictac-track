@@ -116,6 +116,7 @@ static const char *const NAMED_ENTITIES[][2] = {
     {"ensp;", "\xE2\x80\x82"}, // NOLINT
     {"epsilon;", "ε"},
     {"equiv;", "≡"},
+    {"equals;", "="},
     {"eta;", "η"},
     {"eth;", "ð"},
     {"euml;", "ë"},
@@ -273,11 +274,12 @@ static int cmp(const void *key, const void *value) {
 }
 
 static const char *get_named_entity(const char *name) {
-  const auto *const *entity = (const char *const *) bsearch(name,
-                                                            NAMED_ENTITIES,
-                                                            sizeof NAMED_ENTITIES / sizeof *NAMED_ENTITIES,
-                                                            sizeof *NAMED_ENTITIES,
-                                                            cmp);
+  const auto *const *entity = (const char *const *) bsearch(
+      name,
+      NAMED_ENTITIES,
+      sizeof NAMED_ENTITIES / sizeof *NAMED_ENTITIES,
+      sizeof *NAMED_ENTITIES,
+      cmp);
 
   return entity ? entity[1] : nullptr;
 }
@@ -338,7 +340,10 @@ static bool parse_entity(const char *current, char **to, const char **from) {
   }
 
   const char *entity = get_named_entity(&current[1]);
-  if (!entity) return false;
+
+  if (!entity) {
+    return false;
+  }
 
   size_t len = strlen(entity);
   memcpy(*to, entity, len);
