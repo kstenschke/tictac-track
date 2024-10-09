@@ -8,7 +8,8 @@ V1.7.0 - not released yet
 * Improve performance, RAM usage
 * Improve commands recognition: allow uppercase
 * Parse multi-character commands case-insensitive
-* Add `&equals;` to decoded HTML entities 
+* Add `&equals;` to decoded HTML entities
+* Add config option `dark_theme_html`: Render HTML timesheet light on dark
 
 V1.6.1 - 2020/03/10
 -------------------
