@@ -178,6 +178,9 @@ std::string AppConfig::GetDefaultConfig() {
     << "\n; Browser for opening online issue tracking system in "
        "(e.g. firefox, chromium-browser, etc.)"
     << "\nbrowser=chromium-browser"
+    << "\n"
+    << "\n; Output HTML white on black?"
+    << "\ndark_theme_html=0"
     << "\n";
 
   return content.str();
@@ -241,7 +244,7 @@ std::string AppConfig::GetConfigValue(const std::string &key) {
                                      : config_map_[key];
 }
 
-// Get instance of config, than get value for given config option
+// Get instance of config, then get value for given config option
 std::string AppConfig::GetConfigValueStatic(const std::string &key) {
   return AppConfig::GetInstance().GetConfigValue(key);
 }

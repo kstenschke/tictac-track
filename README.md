@@ -57,6 +57,7 @@ Features
 * Automatic backup / undo option: Before modifications are done, a backup of the timesheet is recorded,
   every modification command can be undone. Note: currently only one previous command can be undone.
 * Terminal color themes: There are several color presets built-in to support different terminal color palettes
+* Optional dark theme for HTML Timesheet (must be configured before starting a new timesheet)
 * Export: Timesheets can be exported to CSV: whole timesheet, current day, recent referenced issue numbers
 * External URL-linking: Referenced items can be dynamically opened in web-browser: all issues of a day/week/month
 * Timesheet can be recorded in multiple languages (de, dk, en, es, fi, fr, hu, it, lv, nl, no, pl, pt, ro, ru, sv, tr)

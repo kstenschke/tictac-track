@@ -154,6 +154,8 @@ class ReportParser : public Report {
       std::string &comment_1,
       std::string &comment_2);
 
+  static std::string GetStyle();
+
   static std::string GetTHead();
 
   // Merge comments from given row and following

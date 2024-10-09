@@ -36,7 +36,9 @@ ReportParser::ReportParser(std::string html): html_(std::move(html)) {
 bool ReportParser::LoadReportHtml() {
   html_ = ReportFile::GetReportHtml();
 
-  if (html_.empty()) return false;
+  if (html_.empty()) {
+    return false;
+  }
 
   html_ = helper::String::ReplaceAll(html_.c_str(), "\n\n", "\n");
 
@@ -64,13 +66,7 @@ std::string ReportParser::GetInitialReportHtml() {
     << "<!DOCTYPE html><html>\n"
     << "<head>\n"
     << "<title>" << title << "</title>\n"
-    << "<style type=\"text/css\">\n"
-    << "h1, table { font-family:sans-serif; font-size:13px;}\n"
-    << "table { border-collapse:collapse; border:1px solid #ccc; }\n"
-    << "th, td { border:1px solid #ccc; padding:2px 4px; }\n"
-    << ".meta { display:none; }\n"
-    << ".new-day td { border-top:3px solid #ccc; }\n"
-    << "</style>\n"
+    << GetStyle()
     << "</head>\n"
     << "<body>\n"
     << "<h1>" << title << "</h1>\n"
@@ -81,6 +77,33 @@ std::string ReportParser::GetInitialReportHtml() {
     << "</html>";
 
   return content_stream.str();
+}
+
+std::string ReportParser::GetStyle() {
+  std::stringstream style_stream;
+
+  if ("1" == AppConfig::GetConfigValueStatic("dark_theme_html")) {
+    style_stream
+        << "<style>\n"
+        << "html,body { background-color: #222; color: #ddd; }\n"
+        << "h1, table { font-family:sans-serif; font-size:13px;}\n"
+        << "table { border-collapse:collapse; border:1px solid #ddd; }\n"
+        << "th, td { border:1px solid #ddd; padding:2px 4px; }\n"
+        << ".meta { display:none; }\n"
+        << ".new-day td { border-top:3px solid #ddd; }\n"
+        << "</style>\n";
+  } else {
+    style_stream
+        << "<style>\n"
+        << "h1, table { font-family:sans-serif; font-size:13px;}\n"
+        << "table { border-collapse:collapse; border:1px solid #ccc; }\n"
+        << "th, td { border:1px solid #ccc; padding:2px 4px; }\n"
+        << ".meta { display:none; }\n"
+        << ".new-day td { border-top:3px solid #ccc; }\n"
+        << "</style>\n";
+  }
+
+  return style_stream.str();
 }
 
 std::string ReportParser::GetTHead() {

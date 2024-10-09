@@ -31,7 +31,7 @@ namespace tictac_track {
 // Constructor
 ReportBrowser::ReportBrowser() = default;
 
-// Open URL (dafault: timehseet) in web browser
+// Open URL (dafault: timesheet) in web browser
 void ReportBrowser::BrowseTimesheet(std::string url) {
   AppConfig &config = AppConfig::GetInstance();
   std::string report_file_path = config.GetReportFilePath();
