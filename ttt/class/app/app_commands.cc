@@ -25,6 +25,7 @@
 */
 
 #include <ttt/class/app/app_commands.h>
+#include <algorithm>
 
 namespace tictac_track {
 
@@ -40,6 +41,11 @@ AppCommand::Commands AppCommand::GetResolved() {
 // Resolve name of command string (1st argument)
 // to related enum item (which allows e.g. switch)
 AppCommand::Commands AppCommand::Resolve() {
+  if (argc_.length() > 1) {
+    // accept multi-character commands case-insensitive
+    std::transform(argc_.begin(), argc_.end(), argc_.begin(), ::tolower);
+  }
+
   return ResolveCommandByName(argc_);
 }
 
@@ -122,7 +128,7 @@ AppCommand::Commands AppCommand::ResolveCommandByName(
     return Command_BrowseTaskUrl;
   }
 
-  if (command == "ud" || command == "dayTasks") {
+  if (command == "ud" || command == "daytasks") {
     return Command_BrowseDayTasks;
   }
 

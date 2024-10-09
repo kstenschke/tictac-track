@@ -332,9 +332,18 @@ std::string AppArguments::ResolveComment(int index) const {
 
 // Validate command-name from argument at given index
 AppCommand::Commands AppArguments::ResolveCommandName(int index) const {
-  return index >= argc_
-         ? AppCommand::Commands::Command_Invalid
-         : AppCommand::ResolveCommandByName(argv_[index]);
+  if (index >= argc_) {
+    return AppCommand::Commands::Command_Invalid;
+  }
+
+  std::string command = argv_[index];
+
+  if (command.length() > 1) {
+    // accept multi-character commands case-insensitive
+    std::transform(command.begin(), command.end(), command.begin(), ::tolower);
+  }
+
+  return AppCommand::ResolveCommandByName(command);
 }
 
 }  // namespace tictac_track
