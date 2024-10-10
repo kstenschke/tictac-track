@@ -6,7 +6,6 @@ V1.7.0 - not released yet
 * Modernize code to use C++ 17
 * More closely follow code standards
 * Improve performance, RAM usage
-* Improve commands recognition: allow uppercase
 * Parse multi-character commands case-insensitive
 * Add `&equals;` to decoded HTML entities
 * Add config option `dark_theme_html`: Render HTML timesheet light on dark
