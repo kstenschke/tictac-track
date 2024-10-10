@@ -250,7 +250,9 @@ int ReportParser::GetLastIndex() {
 
 // Get ID of latest entry w/ given task number, or -1
 int ReportParser::GetLatestIndexByTaskNumber(const std::string& task_number) {
-  if (!HtmlContains(task_number)) return -1;
+  if (!HtmlContains(task_number)) {
+    return -1;
+  }
 
   int last_index = GetLastIndex();
 
@@ -259,8 +261,10 @@ int ReportParser::GetLatestIndexByTaskNumber(const std::string& task_number) {
 
     if (0 == std::strcmp(
         task,
-        GetColumnContent(index, ColumnIndexes::Index_Issue).c_str()))
+        GetColumnContent(index, ColumnIndexes::Index_Issue).c_str())) {
       return index;
+    }
+
   }
 
   return -1;
@@ -282,7 +286,9 @@ int ReportParser::GetIndexFirstEntryOfDate(const std::string &date) {
   int last_index = GetLastIndex();
 
   for (int i = 0; i <= last_index; i++) {
-    if (date == GetColumnContent(i, ColumnIndexes::Index_Date)) return i;
+    if (date == GetColumnContent(i, ColumnIndexes::Index_Date)) {
+      return i;
+    }
   }
 
   return -1;
@@ -362,7 +368,9 @@ int ReportParser::GetOffsetTrOpenByIndex(
     // Get last row entry
     offset_tr = html.rfind("<tr");
 
-    if (std::string::npos != offset_tr) return static_cast<int> (offset_tr);
+    if (std::string::npos != offset_tr) {
+      return static_cast<int> (offset_tr);
+    }
 
     std::cout << "Error - Failed finding row.\n";
 
@@ -375,7 +383,9 @@ int ReportParser::GetOffsetTrOpenByIndex(
   for (int i = 0; i <= index_row + 1; i++) {
     offset_tr = html.find("<tr", offset_tr + 1);
 
-    if (std::string::npos == offset_tr) return -1;
+    if (std::string::npos == offset_tr) {
+      return -1;
+    }
   }
 
   return static_cast<int> (offset_tr);
@@ -421,7 +431,9 @@ size_t ReportParser::GetColumnOffset(
   for (int i = 0; i <= column_index_int; i++) {
     offset = html_.find(needle, offset + 1);
 
-    if (std::string::npos == offset) return std::string::npos;
+    if (std::string::npos == offset) {
+      return std::string::npos;
+    }
   }
 
   return offset;
@@ -431,9 +443,13 @@ std::string ReportParser::GetColumnContent(
     int row_index,
     ColumnIndexes index_column,
     int offset_tr) {
-  if (-1 == offset_tr) offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
+  if (-1 == offset_tr) {
+    offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
+  }
 
-  if (-1 == offset_tr) return "";
+  if (-1 == offset_tr) {
+    return "";
+  }
 
   auto offset_td_start =
       GetColumnOffset(
@@ -456,7 +472,9 @@ std::vector<std::string> ReportParser::GetIssueNumbersOfDay(
     const std::string &date) {
   int index_row_day_start = GetIndexFirstEntryOfDate(date);
 
-  if (-1 == index_row_day_start) return {};
+  if (-1 == index_row_day_start) {
+    return {
+    }};
 
   std::vector<std::string> tasks;
 
@@ -465,13 +483,16 @@ std::vector<std::string> ReportParser::GetIssueNumbersOfDay(
   std::string task;
 
   for (int i = index_row_day_start; i <= last_index; i++) {
-    if (date != GetColumnContent(i, ColumnIndexes::Index_Date))
+    if (date != GetColumnContent(i, ColumnIndexes::Index_Date)) {
       return tasks;
+    }
 
     task = GetColumnContent(i, ColumnIndexes::Index_Issue);
 
-    if (task.empty() || (tasks.end() != find(tasks.begin(), tasks.end(), task)))
+    if (task.empty()
+        || (tasks.end() != find(tasks.begin(), tasks.end(), task))) {
       continue;
+    }
 
     tasks.push_back(task);
   }
@@ -528,13 +549,16 @@ bool ReportParser::UpdateColumn(std::string &html, int row_index,
   delete parser;
 
   // Meta-column td contains also class name
-  if (column_index == ColumnIndexes::Index_Meta) offset_td_content_start += 13;
+  if (column_index == ColumnIndexes::Index_Meta) {
+    offset_td_content_start += 13;
+  }
 
   size_t offset_td_content_end = html.find("</td>", offset_td_content_start);
 
   if (std::string::npos == offset_td_content_start
-      || std::string::npos == offset_td_content_end)
+      || std::string::npos == offset_td_content_end) {
     return false;
+  }
 
   html = html.replace(
       offset_td_content_start,
@@ -553,7 +577,9 @@ bool ReportParser::UpdateColumn(
     const std::string& content) {
   std::string html = ReportFile::GetReportHtml();
 
-  if (html.empty()) return false;
+  if (html.empty()) {
+    return false;
+  }
 
   auto *parser = new ReportParser(html);
 
@@ -585,7 +611,9 @@ std::string ReportParser::AppendToColumn(
     const std::string& content) {
   int offset_tr = GetOffsetTrOpenByIndex(html_, row_index);
 
-  if (-1 == offset_tr) return html_;
+  if (-1 == offset_tr) {
+    return html_;
+  }
 
   size_t offset_td_content_end = GetColumnOffset(
       "</td>",
@@ -667,9 +695,13 @@ std::string ReportParser::GetCommentMergedWithNextByRowIndex(
 std::string ReportParser::MergeComments(
     std::string &comment_1,
     std::string &comment_2) {
-  if (comment_1.empty() || comment_1 == comment_2) return comment_2;
+  if (comment_1.empty() || comment_1 == comment_2) {
+    return comment_2;
+  }
 
-  if (comment_2.empty()) return comment_1;
+  if (comment_2.empty()) {
+    return comment_1;
+  }
 
   std::string merged =
       helper::String::EndsWith(comment_1, ".")

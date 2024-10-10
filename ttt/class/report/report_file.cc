@@ -99,7 +99,9 @@ bool ReportFile::BackupReportTemporary() {
   AppConfig &config = AppConfig::GetInstance();
   std::string report_file_path = config.GetReportFilePath();
 
-  if (!helper::File::FileExists(report_file_path)) return false;
+  if (!helper::File::FileExists(report_file_path)) {
+    return false;
+  }
 
   std::string filename_bak = report_file_path + ".bak";
 
@@ -116,15 +118,20 @@ bool ReportFile::ActivateTemporaryBackup() {
   AppConfig &config = AppConfig::GetInstance();
   std::string path_report_file = config.GetReportFilePath();
 
-  if (!helper::File::FileExists(path_report_file)) return false;
+  if (!helper::File::FileExists(path_report_file)) {
+    return false;
+  }
 
   std::string path_backup_file = path_report_file + ".bak";
   std::string path_backup_tmp = path_backup_file + ".tmp";
 
-  if (!helper::File::FileExists(path_backup_tmp)) return false;
+  if (!helper::File::FileExists(path_backup_tmp)) {
+    return false;
+  }
 
-  if (helper::File::FileExists(path_backup_file))
+  if (helper::File::FileExists(path_backup_file)) {
     std::remove(path_backup_file.c_str());
+  }
 
   return static_cast<bool>(
       std::rename(
@@ -168,8 +175,9 @@ bool ReportFile::InitReportFile(bool removeIfExists) {
   std::string report_file_path = config.GetReportFilePath();
 
   if (helper::File::FileExists(report_file_path)
-      && removeIfExists)
+      && removeIfExists) {
     std::remove(report_file_path.c_str());
+  }
 
   std::string content = ReportParser::GetInitialReportHtml();
 

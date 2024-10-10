@@ -38,7 +38,9 @@ ReportCrud &ReportCrud::GetInstance(bool clear) {
   // Instantiated on first use
   static ReportCrud instance;
 
-  if (!instance.is_initialized_ || clear) instance.Init(clear);
+  if (!instance.is_initialized_ || clear) {
+    instance.Init(clear);
+  }
 
   return instance;
 }
@@ -59,11 +61,13 @@ bool ReportCrud::EnsureReportExists(bool clear) {
   AppConfig &config = AppConfig::GetInstance();
   std::string report_file_path = config.GetReportFilePath();
 
-  if (clear && helper::File::FileExists(report_file_path))
+  if (clear && helper::File::FileExists(report_file_path)) {
     helper::File::Remove(report_file_path.c_str());
+  }
 
-  if (helper::File::FileExists(report_file_path) || InitReportFile(false))
+  if (helper::File::FileExists(report_file_path) || InitReportFile(false)) {
     return true;
+  }
 
   std::cout << "Failed create report file at: " << report_file_path << "\n";
 
@@ -126,8 +130,9 @@ bool ReportCrud::UpsertEntry(
   bool hasTrackedItems =
       helper::String::GetSubStrCount(html.c_str(), "<tr") > 1;
 
-  if (hasTrackedItems)
+  if (hasTrackedItems) {
     UpdateOngoingEntry(html, comment, true, time_stopped);
+  }
 
   if (status != EntryStatus::Status_Started) {
     delete parser;
@@ -137,7 +142,9 @@ bool ReportCrud::UpsertEntry(
 
   parser->SetHtml(html);
 
-  if (hasTrackedItems && parser->GetLastIndex() > 0) parser->UpdateTitle();
+  if (hasTrackedItems && parser->GetLastIndex() > 0) {
+    parser->UpdateTitle();
+  }
 
   html = parser->GetHtml();
 
@@ -497,7 +504,9 @@ bool ReportCrud::AppendComment(
     std::string &comment,
     int row_index,
     bool start_with_space) {
-  if (comment.empty()) return false;
+  if (comment.empty()) {
+    return false;
+  }
 
   auto *parser = new ReportParser();
 
@@ -523,7 +532,9 @@ bool ReportCrud::AppendComment(
 bool ReportCrud::UpdateIssueNumber(int task_number, int row_index) {
   std::string html = GetReportHtml();
 
-  if (html.empty()) return false;
+  if (html.empty()) {
+    return false;
+  }
 
   std::string task_number_str = task_number > 0
       ? helper::Numeric::ToString(task_number)
@@ -598,11 +609,12 @@ bool ReportCrud::Merge(int row_index) {
       Report::ColumnIndexes::Index_Issue,
       offset_tr);
 
-  if (task.empty())
+  if (task.empty()) {
     task = parser->GetColumnContent(
         row_index + 1,
         Report::ColumnIndexes::Index_Issue,
         offset_tr_next);
+  }
 
   // Merge meta: set merged entry to status of 2nd entry before merge
   std::string meta_second = parser->GetColumnContent(
@@ -689,14 +701,17 @@ bool ReportCrud::RemoveEntries(int amount) {
   for (int i = 0; i < amount; i++) {
     std::size_t offset_last_tr = html.rfind("\n<tr");
 
-    if (std::string::npos == offset_last_tr) continue;
+    if (std::string::npos == offset_last_tr) {
+      continue;
+    }
 
     std::size_t offset_last_tr_end = html.rfind("</tr>");
 
-    if (std::string::npos != offset_last_tr_end)
+    if (std::string::npos != offset_last_tr_end) {
       html = html.erase(
           offset_last_tr,
           offset_last_tr_end - offset_last_tr + 6);
+    }
   }
 
   return SaveReport(html) && ReportRecalculator::RecalculateAndUpdate();
@@ -704,7 +719,9 @@ bool ReportCrud::RemoveEntries(int amount) {
 
 // Remove 1 entry at given index
 bool ReportCrud::RemoveEntryById(std::string &html, int id) {
-  if (0 > id) return false;
+  if (0 > id) {
+    return false;
+  }
 
   auto *parser = new ReportParser(html);
 
@@ -723,7 +740,9 @@ bool ReportCrud::RemoveEntryById(std::string &html, int id) {
 
   int offset_tr_open = ReportParser::GetOffsetTrOpenByIndex(html, id);
 
-  if (-1 == offset_tr_open) return false;
+  if (-1 == offset_tr_open) {
+    return false;
+  }
 
   size_t offset_tr_close = html.find(
       "</tr>",
@@ -757,9 +776,10 @@ bool ReportCrud::IsAnyEntryOngoing() {
 bool ReportCrud::CurrentDayHasTasks() {
   std::string html = GetReportHtml();
 
-  if (helper::String::GetSubStrCount(html.c_str(), "<tr") == 1)
+  if (helper::String::GetSubStrCount(html.c_str(), "<tr") == 1) {
     // There are no items tracked at all
     return false;
+  }
 
   std::string date_cell =
       "<td>"

@@ -97,8 +97,9 @@ bool ReportRecalculator::Recalculate() {
         parser->GetColumnContent(row_index, Report::ColumnIndexes::Index_Meta);
 
     if (meta != previous_meta
-        || weekday_name.empty())
+        || weekday_name.empty()) {
       weekday_name = report_date_time->GetWeekdayByMeta(meta);
+    }
 
     ReportParser::UpdateColumn(
         html_,
@@ -237,8 +238,9 @@ void ReportRecalculator::AddToTaskMaps(
 
   auto it = task_in_day_duration_sum_.find(task_number);
 
-  if (it == task_in_day_duration_sum_.end())
+  if (it == task_in_day_duration_sum_.end()) {
     task_in_day_duration_sum_[task_number] = 0;
+  }
 
   task_in_day_duration_sum_[task_number] += duration_minutes;
 }

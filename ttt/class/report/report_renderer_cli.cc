@@ -250,8 +250,9 @@ void ReportRendererCli::PrintHeader(
       }
     }
 
-    if (display_id && offset_id_column_ == index_column)
+    if (display_id && offset_id_column_ == index_column) {
       PrintHeaderCellForId(false);
+    }
   }
 
   std::cout << " " << helper::Tui::kAnsiFormatReset << "\n";
