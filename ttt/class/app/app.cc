@@ -64,6 +64,14 @@ bool App::Process() {
 
   switch (kCommand) {
     case AppCommand::Command_ClearTimesheet:{
+      std::cout << "Really clear timesheet, [y]es or [N]o?";
+      bool do_clear = helper::System::GetNoOrYesKeyPress();
+      std::cout << "\n";
+
+      if (!do_clear) {
+        return true;
+      }
+
       keep_backup = ClearTimesheet();
 
       break;
@@ -398,7 +406,7 @@ bool App::ResumeEntryByIndexOrNegativeOffset(
           << ", last entry is " << last_index << "."
           << " Do you want to resume entry " << row_index_by_task
           << " (last item of task " << row_index
-          << ")?\nY/n";
+          << "), [Y]es or [n]o?";
 
       bool do_resume_by_task = helper::System::GetYesOrNoKeyPress();
 

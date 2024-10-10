@@ -74,6 +74,7 @@ int GetMaxCharsPerTerminalRow();
 extern std::string GetLanguageKey();
 
 bool GetYesOrNoKeyPress();
+bool GetNoOrYesKeyPress();
 
 void WaitForEnterKeyPress();
 

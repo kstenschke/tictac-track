@@ -10,6 +10,7 @@ V1.7.0 - not released yet
 * Parse multi-character commands case-insensitive
 * Add `&equals;` to decoded HTML entities
 * Add config option `dark_theme_html`: Render HTML timesheet light on dark
+* Add request confirmation before clearing timesheet via `cls` / `clear`
 
 V1.6.1 - 2020/03/10
 -------------------

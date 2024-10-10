@@ -85,6 +85,25 @@ bool System::GetYesOrNoKeyPress() {
   return ch != 78 && ch != 110;
 }
 
+// Wait for keys being pressed: y / Y / n / N / ENTER. CTRL+c aborts
+bool System::GetNoOrYesKeyPress() {
+  // Suppress echo, go to RAW mode
+  system("stty -echo");
+  system("stty cbreak");
+
+  int ch = getchar();
+  while (10 != ch && 78 != ch && 89 != ch && 110 != ch && 121 != ch) {
+    ch = getchar();
+  }
+
+  // Make echo work, go to COOKED mode
+  system("stty echo");
+  system("stty -cbreak");
+
+  // Everything but "y" / "Y" means no
+  return !(ch == 89 || ch == 121);
+}
+
 // Wait for key-press: ENTER. CTRL+c aborts
 void System::WaitForEnterKeyPress() {
   // Suppress echo, go to RAW mode
