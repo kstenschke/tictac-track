@@ -473,8 +473,8 @@ std::vector<std::string> ReportParser::GetIssueNumbersOfDay(
   int index_row_day_start = GetIndexFirstEntryOfDate(date);
 
   if (-1 == index_row_day_start) {
-    return {
-    }};
+    return {};
+  }
 
   std::vector<std::string> tasks;
 
