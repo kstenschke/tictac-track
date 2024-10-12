@@ -75,52 +75,52 @@ Commands Overview
 
 ### 1. Record work entries:
 
-| Command          | Description
-|------------------|-------------------------------------------------------------------------------
-| start / s        | Start tracking new work entry or update Start-time of given entry
-| pause / stop / p | Stop currently ongoing entry
-| resume / r       | Start new work entry at current time, w/ issue no. and comment from the previous entry
+| Command          | Description                                                                            |
+|------------------|----------------------------------------------------------------------------------------|
+| start / s        | Start tracking new work entry or update Start-time of given entry                      |
+| pause / stop / p | Stop currently ongoing entry                                                           |
+| resume / r       | Start new work entry at current time, w/ issue no. and comment from the previous entry |
 
 
 ### 2. Update recorded entries:
 
-| Command           | Description
-|-------------------|-------------------------------------------------------------------------------
-| start / s         | Update start-time of given entry
-| stop / pause / p  | Set end-time of given or ongoing entry
-| day / d           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc.
-| comment / c       | Unset or append to comment of given entry
-| task / t          | Update issue-number of given entry
-| split / sp        | Split given entry at given duration into two
-| merge / m         | Merge given entry w/ the following entry
-| remove / rm       | Remove given entry / given amout of latest entries / all entries
-| undo / z          | Undo last entry creation / modification
-| recalculate / rc  | Recalculate all duration sums (per entry, per issue per day, per day)
-| clear / cls       | Empty the timesheet
+| Command           | Description                                                              |
+|-------------------|--------------------------------------------------------------------------|
+| start / s         | Update start-time of given entry                                         |
+| stop / pause / p  | Set end-time of given or ongoing entry                                   |
+| day / d           | Add a full-day entry, useful to log days of e.g. absence, sickness, etc. |
+| comment / c       | Unset or append to comment of given entry                                |
+| task / t          | Update issue-number of given entry                                       |
+| split / sp        | Split given entry at given duration into two                             |
+| merge / m         | Merge given entry w/ the following entry                                 |
+| remove / rm       | Remove given entry / given amout of latest entries / all entries         |
+| undo / z          | Undo last entry creation / modification                                  |
+| recalculate / rc  | Recalculate all duration sums (per entry, per issue per day, per day)    |
+| clear / cls       | Empty the timesheet                                                      |
 
 
 ### 3. View and export timesheet:
 
-| Command           | Description
-|-------------------|-------------------------------------------------------------------------------
-| browse / b        | Open timesheet in web browser
-| view / v          | Display timesheet in command-line
-| week / w          | Display week out of timesheet in command-line
-| csv               | Export timesheet to CSV file
-| csvdt             | Output issue numbers tracked in the current day as CSV
-| csvrtn            | Output recent 30 tracked issue numbers as CSV
-| url / u           | Open external issue URL in web browser
-| dayTasks / ud     | Display issues of day sequentially in CLI and web browser
+| Command           | Description                                                                   |
+|-------------------|-------------------------------------------------------------------------------|
+| browse / b        | Open timesheet in web browser                                                 |
+| view / v          | Display timesheet in command-line                                             |
+| week / w          | Display week out of timesheet in command-line                                 |
+| csv               | Export timesheet to CSV file                                                  |
+| csvdt             | Output issue numbers tracked in the current day as CSV                        |
+| csvrtn            | Output recent 30 tracked issue numbers as CSV                                 |
+| url / u           | Open external issue URL in web browser                                        |
+| dayTasks / ud     | Display issues of day sequentially in CLI and web browser                     |
 
 
 ### 4. Meta Commands:
 
-| Command           | Description
-|-------------------|-------------------------------------------------------------------------------
-| calendarweek / W  | Display number of current- or calendar week at given offset of weeks
-| date / D          | Display current- or date at given offset of days
-| help / h          | Describe usage of this program
-| version / V       | Display installed version of this program
+| Command           | Description                                                                   |
+|-------------------|-------------------------------------------------------------------------------|
+| calendarweek / W  | Display number of current- or calendar week at given offset of weeks          |
+| date / D          | Display current- or date at given offset of days                              |
+| help / h          | Describe usage of this program                                                |
+| version / V       | Display installed version of this program                                     |
 
 
 ## Commands in detail
