@@ -29,6 +29,7 @@
 #include <ttt/helper/helper_tui.h>
 #include <ttt/class/app/app_config.h>
 #include <ttt/class/app/app_help.h>
+#include <ttt/class/report/report_backup.h>
 #include <ttt/class/report/report_browser.h>
 #include <ttt/class/report/report_file.h>
 #include <ttt/class/report/report_renderer_csv.h>
@@ -55,7 +56,7 @@ bool App::Process() {
   AppCommand::Commands kCommand = command_->GetResolved();
 
   bool keep_backup;
-  ReportFile::BackupReportBeforeProcessCommand(kCommand);
+  ReportBackup::BackupReportBeforeProcessCommand(kCommand);
 
   switch (kCommand) {
     case AppCommand::Command_ClearTimesheet:{
@@ -157,7 +158,7 @@ bool App::Process() {
       break;
     }
     case AppCommand::Command_Undo: {
-      return ReportFile::RestoreBackup();
+      return ReportBackup::RestoreBackup();
     }
     case AppCommand::Command_Version: {
       AppHelp::PrintVersion();
@@ -183,8 +184,8 @@ bool App::Process() {
   }
 
   return keep_backup
-         ? ReportFile::ActivateTemporaryBackup()
-         : ReportFile::RemoveTemporaryBackup();
+         ? ReportBackup::ActivateTemporaryBackup()
+         : ReportBackup::RemoveTemporaryBackup();
 }
 
 // TODO(kay): cmd d crashes when current day has < time left than

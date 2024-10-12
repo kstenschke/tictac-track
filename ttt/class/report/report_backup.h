@@ -24,34 +24,35 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef TTT_CLASS_REPORT_REPORT_FILE_H_
-#define TTT_CLASS_REPORT_REPORT_FILE_H_
+#ifndef TICTAC_TRACK_TTT_CLASS_REPORT_BACKUP_MANAGER_H_
+#define TICTAC_TRACK_TTT_CLASS_REPORT_BACKUP_MANAGER_H_
 
 #include <ttt/class/app/app_commands.h>
+#include <ttt/class/app/app_config.h>
+#include <ttt/class/report/report_file.h>
 
 #include <iostream>
 #include <string>
 
 namespace tictac_track {
 
-class ReportFile {
+class ReportBackup {
  public:
-  static const char kFilenameReport[15];
+  static bool BackupReportBeforeProcessCommand(AppCommand::Commands kCommand);
 
-  static std::string GetReportHtml();
+  // Remove timesheet.html.bak, rename timesheet.html.bak to timesheet.html.bak
+  static bool ActivateTemporaryBackup();
 
-  // Save given HTML to timesheet, replacing any previous content
-  static bool SaveReport(const std::string &html);
+  // Remove timesheet.html.bak.tmp
+  static bool RemoveTemporaryBackup();
 
- protected:
-  // Create initial timesheet HTML file
-  static bool InitReportFile(bool removeIfExists);
+  // Overwrite timesheet.html with timesheet.html.bak
+  static bool RestoreBackup();
 
- private:
-  // Get input stream to report file
-  static std::ifstream GetReportIfStream();
+  // Backup timesheet.html to timesheet.html.bak.tmp
+  static bool BackupReportTemporary();
 };
 
 }  // namespace tictac_track
 
-#endif  // TTT_CLASS_REPORT_REPORT_FILE_H_
+#endif //TICTAC_TRACK_TTT_CLASS_REPORT_BACKUP_MANAGER_H_

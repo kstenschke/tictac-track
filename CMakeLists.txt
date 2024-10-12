@@ -42,6 +42,7 @@ add_executable(ttt
         ttt/helper/helper_system.cc
         ttt/helper/helper_tui.cc
 
+        ttt/class/report/report_backup.cc
         ttt/class/report/report_browser.cc
         ttt/class/report/report_crud.cc
         ttt/class/report/report_date_time.cc
