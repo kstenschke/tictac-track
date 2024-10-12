@@ -28,7 +28,8 @@
 
 namespace tictac_track {
 
-bool ReportBackup::BackupReportBeforeProcessCommand(AppCommand::Commands kCommand) {
+bool ReportBackup::BackupReportBeforeProcessCommand(
+    AppCommand::Commands kCommand) {
   switch (kCommand) {
     case AppCommand::Command_ClearTimesheet:
     case AppCommand::Command_Comment:
