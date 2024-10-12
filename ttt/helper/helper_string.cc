@@ -29,8 +29,12 @@
 namespace helper {
 
 // Check whether given string starts w/ given prefix
-bool String::StartsWith(const char *str, const char *prefix) {
-  return 0 == strncmp(str, prefix, strlen(prefix));
+bool String::StartsWith(const char *str,
+                        const char *prefix,
+                        bool case_insensitive) {
+  return case_insensitive
+    ? 0 == strncasecmp(str, prefix, strlen(prefix))
+    : 0 == strncmp(str, prefix, strlen(prefix));
 }
 
 // Check whether given string ends w/ given string

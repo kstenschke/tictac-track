@@ -24,6 +24,7 @@ ttt provides options to quickly transfer time log entries to external issue trac
   * [Command: split (sp): Splits given timesheet entry into two](#command-split-sp-splits-given-timesheet-entry-into-two)
   * [Command: merge (m): Merges two successive entries](#command-merge-m-merges-two-successive-entries)
   * [Command: remove (rm): Removes one or multiple timesheet entries](#command-remove-rm-removes-one-or-multiple-timesheet-entries)
+  * [Command: clear (cls): Clears the timesheet](#command-clear-cls-clears-the-timesheet)
   * [Command: undo (z): Reverts last operation (comment, remove, start, stop, task)](#command-undo-z-reverts-last-operation-comment-remove-start-stop-task)
   * [Command: recalculate (rc): Calculates all duration sums anew (per entry, per issue per day, per day)](#command-recalculate-rc-calculates-all-duration-sums-anew-per-entry-per-issue-per-day-per-day)
   * [Command: browse (b): Open timesheet in web browser](#command-browse-b-open-timesheet-in-web-browser)
@@ -291,6 +292,15 @@ merge comments if different
 `rm -5`  - Remove last 5 entries
 
 `rm a`   - Remove all entries, initialize timesheet anew
+
+
+## Command: clear (cls): Clears the timesheet
+
+#### Usage examples:
+
+`cls`     - Asks for confirmation, than after hitting [y] clears the timesheet
+
+`cls y`   - Clears the timesheet w/o asking for confirmation
 
 
 ### Command: undo (z): Reverts last operation (comment, remove, start, stop, task)

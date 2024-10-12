@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 ########################################################################################################################
-# Test remove command
+# Test clear command
 ########################################################################################################################
 
 load test_helper
@@ -10,7 +10,7 @@ load test_helper
   "$BATS_TEST_DIRNAME"/ttt s "foo bar baz"
   "$BATS_TEST_DIRNAME"/ttt v i=0 | grep "foo bar baz"
 
-  run "$BATS_TEST_DIRNAME"/ttt cls
+  run "$BATS_TEST_DIRNAME"/ttt cls y
 
   run grep -c '<td class="meta">' "$BATS_TEST_DIRNAME"/timesheet.html
   [[ "$output" = 0 ]]
@@ -20,7 +20,7 @@ load test_helper
   "$BATS_TEST_DIRNAME"/ttt s "foo bar baz"
   "$BATS_TEST_DIRNAME"/ttt v i=0 | grep "foo bar baz"
 
-  run $BATS_TEST_DIRNAME/ttt clear
+  run $BATS_TEST_DIRNAME/ttt clear y
 
   run grep -c '<td class="meta">' $BATS_TEST_DIRNAME/timesheet.html
   [[ "$output" = 0 ]]
@@ -30,7 +30,7 @@ load test_helper
   "$BATS_TEST_DIRNAME"/ttt s "foo bar baz"
   "$BATS_TEST_DIRNAME"/ttt v i=0 | grep "foo bar baz"
 
-  run "$BATS_TEST_DIRNAME"/ttt cls
+  run "$BATS_TEST_DIRNAME"/ttt cls y
 
   run grep -c '<td class="meta">' "$BATS_TEST_DIRNAME"/timesheet.html
   [[ "$output" = 0 ]]

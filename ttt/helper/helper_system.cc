@@ -101,7 +101,7 @@ bool System::GetNoOrYesKeyPress() {
   system("stty -cbreak");
 
   // Everything but "y" / "Y" means no
-  return !(ch == 89 || ch == 121);
+  return ch == 89 || ch == 121;
 }
 
 // Wait for key-press: ENTER. CTRL+c aborts

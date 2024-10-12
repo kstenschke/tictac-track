@@ -59,15 +59,19 @@ bool App::Process() {
 
   switch (kCommand) {
     case AppCommand::Command_ClearTimesheet:{
-      std::cout << "Really clear timesheet, [y]es or [N]o?";
-      bool do_clear = helper::System::GetNoOrYesKeyPress();
-      std::cout << "\n";
+      if (arguments_->argc_ > 2 && arguments_->ResolveYesNo(2)) {
+        keep_backup = ClearTimesheet();
+      } else {
+        std::cout << "Really clear timesheet, [y]es or [N]o?";
+        bool do_clear = helper::System::GetNoOrYesKeyPress();
+        std::cout << "\n";
 
-      if (!do_clear) {
-        return true;
+        if (!do_clear) {
+          return true;
+        }
+
+        keep_backup = ClearTimesheet();
       }
-
-      keep_backup = ClearTimesheet();
 
       break;
     }

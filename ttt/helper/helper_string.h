@@ -44,7 +44,9 @@ namespace String {
 bool EndsWith(std::string const &value, std::string const &ending);
 
 // Check whether given string starts w/ given prefix
-extern bool StartsWith(const char *str, const char *prefix);
+extern bool StartsWith(const char *str,
+                       const char *prefix,
+                       bool case_insensitive = false);
 
 // Check whether given haystack contains given straw
 extern bool Contains(std::string &haystack, std::string &needle);

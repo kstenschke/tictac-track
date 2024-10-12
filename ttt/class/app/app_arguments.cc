@@ -330,6 +330,10 @@ std::string AppArguments::ResolveComment(int index) const {
   return comment;
 }
 
+bool AppArguments::ResolveYesNo(int index) const {
+  return index < argc_ && helper::String::StartsWith(argv_[index], "y", true);
+}
+
 // Validate command-name from argument at given index
 AppCommand::Commands AppArguments::ResolveCommandName(int index) const {
   if (index >= argc_) {
