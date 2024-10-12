@@ -45,9 +45,6 @@ class App {
   // Constructor: init (resolve) command and arguments
   App(int argc, char **argv);
 
-  // Destructor
-  ~App();
-
   // Process command + arguments
   bool Process();
 
@@ -55,8 +52,8 @@ class App {
   bool UpdateTaskNumber();
 
  private:
-  AppCommand *command_;
-  AppArguments *arguments_;
+  std::unique_ptr<AppCommand> command_;
+  std::unique_ptr<AppArguments> arguments_;
 
   static bool ClearTimesheet();
 

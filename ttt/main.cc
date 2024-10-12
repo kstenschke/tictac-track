@@ -43,13 +43,11 @@ int main(int argc, char **argv) {
   }
 
   // Process command arguments, display help if no valid command given
-  auto *app = new tictac_track::App(argc, argv);
+  auto app = std::make_unique<tictac_track::App>(argc, argv);
 
   if (argc > 1) {
     app->Process();
   }
-
-  delete app;
 
   return 0;
 }

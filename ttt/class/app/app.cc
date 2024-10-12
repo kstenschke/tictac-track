@@ -46,13 +46,8 @@ App::App(int argc, char **argv) {
     return;
   }
 
-  command_ = new AppCommand(argc > 0 ? argv[1] : "");
-  arguments_ = new AppArguments(argc, argv, *command_);
-}
-
-App::~App() {
-  delete command_;
-  //delete arguments_;
+  command_ = std::make_unique<AppCommand>(argc > 0 ? argv[1] : "");
+  arguments_ = std::make_unique<AppArguments>(argc, argv, *command_);
 }
 
 // Process command + arguments
