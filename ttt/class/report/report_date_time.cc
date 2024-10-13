@@ -47,74 +47,34 @@ std::string ReportDateTime::GetDateFormat() {
 // Translate e.g. "Monday" to "Montag", using configured locale language
 std::string ReportDateTime::TranslateWeekday(const char *weekday_name_en) {
   int weekday_index = helper::DateTime::GetWeekdayIndexByName(weekday_name_en);
-  if (weekday_index > 7) {
+
+  if (weekday_index > 6) {
     return weekday_name_en;
   }
 
-  const char *locale = locale_key_.c_str();
+  static const std::unordered_map<std::string, const char**> weekDayLabels = {
+      {"de", weekDayLabelsDe},
+      {"dk", weekDayLabelsDk},
+      {"es", weekDayLabelsEs},
+      {"fi", weekDayLabelsFi},
+      {"fr", weekDayLabelsFr},
+      {"hu", weekDayLabelsHu},
+      {"iter", weekDayLabelsIt},
+      {"lt", weekDayLabelsLt},
+      {"lv", weekDayLabelsLv},
+      {"nl", weekDayLabelsNl},
+      {"no", weekDayLabelsNo},
+      {"pl", weekDayLabelsPl},
+      {"pt", weekDayLabelsPt},
+      {"ro", weekDayLabelsRo},
+      {"sv", weekDayLabelsSv},
+      {"tr", weekDayLabelsTr}
+  };
 
-  if (0 == std::strcmp("de", locale)) {
-    return weekDayLabelsDe[weekday_index];
-  }
+  auto iter = weekDayLabels.find(locale_key_);
 
-  if (0 == std::strcmp("dk", locale)) {
-    return weekDayLabelsDk[weekday_index];
-  }
-
-  if (0 == std::strcmp("es", locale)) {
-    return weekDayLabelsEs[weekday_index];
-  }
-
-  if (0 == std::strcmp("fi", locale)) {
-    return weekDayLabelsFi[weekday_index];
-  }
-
-  if (0 == std::strcmp("fr", locale)) {
-    return weekDayLabelsFr[weekday_index];
-  }
-
-  if (0 == std::strcmp("hu", locale)) {
-    return weekDayLabelsHu[weekday_index];
-  }
-
-  if (0 == std::strcmp("it", locale)) {
-    return weekDayLabelsIt[weekday_index];
-  }
-
-  if (0 == std::strcmp("lt", locale)) {
-    return weekDayLabelsLt[weekday_index];
-  }
-
-  if (0 == std::strcmp("lv", locale)) {
-    return weekDayLabelsLv[weekday_index];
-  }
-
-  if (0 == std::strcmp("nl", locale)) {
-    return weekDayLabelsNl[weekday_index];
-  }
-
-  if (0 == std::strcmp("no", locale)) {
-    return weekDayLabelsNo[weekday_index];
-  }
-
-  if (0 == std::strcmp("pl", locale)) {
-    return weekDayLabelsPl[weekday_index];
-  }
-
-  if (0 == std::strcmp("pt", locale)) {
-    return weekDayLabelsPt[weekday_index];
-  }
-
-  if (0 == std::strcmp("ro", locale)) {
-    return weekDayLabelsRo[weekday_index];
-  }
-
-  if (0 == std::strcmp("sv", locale)) {
-    return weekDayLabelsSv[weekday_index];
-  }
-
-  if (0 == std::strcmp("tr", locale)) {
-    return weekDayLabelsTr[weekday_index];
+  if (iter != weekDayLabels.end()) {
+    return iter->second[weekday_index];
   }
 
   return weekDayLabelsEn[weekday_index];
