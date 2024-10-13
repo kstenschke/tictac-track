@@ -42,7 +42,7 @@ class AppHelp {
   static void PrintVersion();
 
   // Print usage instructions
-  static bool PrintHelp(bool withTitle, AppCommand::Commands command);
+  static void PrintHelp(bool withTitle, AppCommand::Commands command);
 
   // Print message after unknown command, prepend help
   static void PrintUnknownArgumentMessage(const char *arg);

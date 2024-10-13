@@ -89,7 +89,9 @@ void AppArguments::Resolve(AppCommand &command) {
       continue;
     }
 
-    if (helper::DateTime::IsTime(argument) && ResolveAsTime(i)) {
+    if (helper::DateTime::IsTime(argument)) {
+      ResolveAsTime(i);
+
       continue;
     }
 
@@ -118,8 +120,9 @@ void AppArguments::Resolve(AppCommand &command) {
             (helper::String::StartsWith(argv_[i], "c=")
                 || helper::String::StartsWith(argv_[i], "comment="))
             || (command_resolved == AppCommand::Command_Resume
-                && -1 == argument_index_comment_))
-            && ResolveAsComment(i)) {
+                && -1 == argument_index_comment_))) {
+      ResolveAsComment(i);
+
       continue;
     }
 

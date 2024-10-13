@@ -38,55 +38,134 @@ void AppHelp::PrintVersion() {
 }
 
 // Print usage instructions
-bool AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
+void AppHelp::PrintHelp(bool withTitle, AppCommand::Commands command) {
   switch (command) {
-    case AppCommand::Commands::Command_BrowseTimesheet:
-      return PrintHelpOnBrowse();
-    case AppCommand::Commands::Command_Comment:return PrintHelpOnComment();
-    case AppCommand::Commands::Command_Csv:return PrintHelpOnCsv();
-    case AppCommand::Commands::Command_Day:return PrintHelpOnDay();
-    case AppCommand::Commands::Command_DisplayCalendarWeek:
-      return PrintHelpOnDisplayCalendarWeek();
-    case AppCommand::Commands::Command_DisplayDate:
-      return PrintHelpOnDisplayDate();
-    case AppCommand::Commands::Command_BrowseTaskUrl:
-      return PrintHelpOnExternalTaskUrl();
-    case AppCommand::Commands::Command_Help:return PrintHelpOnHelp();
-    case AppCommand::Commands::Command_Merge:return PrintHelpOnMerge();
-    case AppCommand::Commands::Command_Recalculate:
-      return PrintHelpOnRecalculate();
-    case AppCommand::Commands::Command_Resume:return PrintHelpOnResume();
-    case AppCommand::Commands::Command_Remove:return PrintHelpOnRemove();
-    case AppCommand::Commands::Command_Split:return PrintHelpOnSplit();
-    case AppCommand::Commands::Command_Start:return PrintHelpOnStart();
-    case AppCommand::Commands::Command_Stop:return PrintHelpOnStop();
-    case AppCommand::Commands::Command_Task:return PrintHelpOnTask();
-    case AppCommand::Commands::Command_Undo:return PrintHelpOnUndo();
-    case AppCommand::Commands::Command_Version:
-      std::cout << "version (V): Displays current version number.\n";
+    case AppCommand::Commands::Command_BrowseTimesheet: {
+      PrintHelpOnBrowse();
 
-      return true;
-    case AppCommand::Commands::Command_CsvDayTracks:
+      return;
+    }
+    case AppCommand::Commands::Command_Comment: {
+      PrintHelpOnComment();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Csv: {
+      PrintHelpOnCsv();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Day: {
+      PrintHelpOnDay();
+
+      return;
+    }
+    case AppCommand::Commands::Command_DisplayCalendarWeek: {
+      PrintHelpOnDisplayCalendarWeek();
+
+      return;
+    }
+    case AppCommand::Commands::Command_DisplayDate: {
+      PrintHelpOnDisplayDate();
+
+      return;
+    }
+    case AppCommand::Commands::Command_BrowseTaskUrl: {
+      PrintHelpOnExternalTaskUrl();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Help: {
+      PrintHelpOnHelp();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Merge: {
+      PrintHelpOnMerge();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Recalculate: {
+      PrintHelpOnRecalculate();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Resume: {
+      PrintHelpOnResume();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Remove: {
+      PrintHelpOnRemove();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Split: {
+      PrintHelpOnSplit();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Start: {
+      PrintHelpOnStart();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Stop:  {
+      PrintHelpOnStop();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Task:  {
+      PrintHelpOnTask();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Undo:  {
+      PrintHelpOnUndo();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Version:{
+       std::cout << "version (V): Displays current version number.\n";
+
+      return;
+    }
+    case AppCommand::Commands::Command_CsvDayTracks: {
       std::cout << "csvdt: Output tracked items of current day as CSV.\n";
 
-      return true;
-    case AppCommand::Commands::Command_CsvRecentTaskNumbers:
+      return;
+    }
+    case AppCommand::Commands::Command_CsvRecentTaskNumbers: {
       std::cout << "csvrtn: Output recent (up to) 50 tracked task numbers.\n";
 
-      return true;
-    case AppCommand::Commands::Command_View:return PrintHelpOnView();
-    case AppCommand::Commands::Command_BrowseDayTasks:
-      return PrintHelpOnBrowseDayTasks();
-    case AppCommand::Commands::Command_ViewWeek:return PrintHelpOnWeek();
-    case AppCommand::Commands::Command_Invalid:
-    default:if (withTitle) PrintVersion();
+      return;
+    }
+    case AppCommand::Commands::Command_View: {
+      PrintHelpOnView();
 
-      PrintOverview();
+      return;
+    }
+    case AppCommand::Commands::Command_BrowseDayTasks: {
+      PrintHelpOnBrowseDayTasks();
+
+      return;
+    }
+    case AppCommand::Commands::Command_ViewWeek: {
+      PrintHelpOnWeek();
+
+      return;
+    }
+    case AppCommand::Commands::Command_Invalid:
+    default: {
+      if (withTitle) {
+        PrintVersion();
+      }
+    }
+
+    PrintOverview();
   }
 
   std::cout << "\n\n";
-
-  return true;
 }
 
 void AppHelp::PrintOverview() {
