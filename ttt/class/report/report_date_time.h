@@ -36,7 +36,6 @@ namespace tictac_track {
 
 class ReportDateTime {
  public:
-  // Constructor
   ReportDateTime();
 
   std::string GetDateFormat();

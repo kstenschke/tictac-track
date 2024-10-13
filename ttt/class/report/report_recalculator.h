@@ -42,7 +42,6 @@ namespace tictac_track {
 
 class ReportRecalculator : public ReportParser {
  public:
-  // Constructor
   explicit ReportRecalculator(std::string html = "");
 
   // Recalculate and update title, column titles, durations, day of week,

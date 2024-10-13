@@ -82,7 +82,6 @@ class AppArguments {
 
   bool has_multiple_ids_ = false;
 
-  // Constructor
   AppArguments(int argc, char **argv, AppCommand &command);
 
   bool IsNumber(int index);

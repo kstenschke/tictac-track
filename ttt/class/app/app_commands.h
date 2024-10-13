@@ -62,7 +62,6 @@ class AppCommand {
     Command_Invalid
   };
 
-  // Constructor
   explicit AppCommand(std::string argc);
 
   static Commands ResolveCommandByName(const std::string &command);

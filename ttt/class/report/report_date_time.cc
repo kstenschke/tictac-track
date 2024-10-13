@@ -29,7 +29,6 @@
 
 namespace tictac_track {
 
-// Constructor
 ReportDateTime::ReportDateTime() {
   AppConfig config = AppConfig::GetInstance();
 

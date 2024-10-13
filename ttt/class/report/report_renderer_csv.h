@@ -40,7 +40,6 @@ namespace tictac_track {
 
 class ReportRendererCsv : public ReportRenderer {
  public:
-  // Constructor
   ReportRendererCsv();
 
   static std::string GetFilename();

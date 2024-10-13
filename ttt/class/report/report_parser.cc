@@ -29,7 +29,6 @@
 
 namespace tictac_track {
 
-// Constructor
 ReportParser::ReportParser(std::string html): html_(std::move(html)) {
 }
 

@@ -28,7 +28,6 @@
 
 namespace tictac_track {
 
-// Constructor
 ReportRecalculator::ReportRecalculator(std::string html) {
   html_ = std::move(html);
 }

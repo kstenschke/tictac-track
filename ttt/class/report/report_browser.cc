@@ -28,7 +28,6 @@
 
 namespace tictac_track {
 
-// Constructor
 ReportBrowser::ReportBrowser() = default;
 
 // Open URL (dafault: timesheet) in web browser

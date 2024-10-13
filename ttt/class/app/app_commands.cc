@@ -29,7 +29,6 @@
 
 namespace tictac_track {
 
-// Constructor
 AppCommand::AppCommand(std::string argc) : argc_(std::move(argc)) {
   resolved_ = Resolve();
 }

@@ -40,7 +40,6 @@ namespace tictac_track {
 
 class ReportBrowser : public Report {
  public:
-  // Constructor
   ReportBrowser();
 
   // Open URL (default: timesheet) in web browser

@@ -28,7 +28,6 @@
 
 namespace tictac_track {
 
-// Constructor
 ReportRendererCsv::ReportRendererCsv() = default;
 
 // Get timesheet CSV filename

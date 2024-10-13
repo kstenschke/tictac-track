@@ -46,7 +46,6 @@ namespace tictac_track {
 
 class ReportParser : public Report {
  public:
-  // Constructor
   explicit ReportParser(std::string html = "");
 
   bool LoadReportHtml();

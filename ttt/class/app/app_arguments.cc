@@ -29,7 +29,6 @@
 
 namespace tictac_track {
 
-// Constructor
 AppArguments::AppArguments(int argc, char **argv, AppCommand &command) {
   argc_ = argc;
   argv_ = argv;
