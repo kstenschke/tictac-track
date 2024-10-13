@@ -33,8 +33,7 @@
 #include <utility>
 #include <string>
 
-namespace helper {
-namespace Html {
+namespace helper::Html {
 
 extern std::string Encode(std::string str);
 
@@ -48,7 +47,6 @@ extern std::wstring ReplaceWideCharByEntity(
 
 extern std::string Decode(const std::string& str);
 
-}  // namespace Html
-}  // namespace helper
+}  // namespace helper::Html
 
 #endif  // TTT_HELPER_HELPER_HTML_H_

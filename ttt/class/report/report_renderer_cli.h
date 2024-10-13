@@ -83,9 +83,9 @@ class ReportRendererCli : public ReportRenderer {
   int max_chars_per_comment_;
 
   // Amount of digits in maximum index
-  uint32_t max_index_digits_;
+  uint32_t max_index_digits_{};
 
-  int amount_cells_;
+  int amount_cells_{};
   int offset_id_column_;
 
   // Output <thead>
@@ -130,7 +130,7 @@ class ReportRendererCli : public ReportRenderer {
   // (lunch- or other break) between the start-time of the next entry?
   bool IsEndTimeBeforeBreak(int index_cell);
 
-  int AddSumMinutes(
+  [[nodiscard]] int AddSumMinutes(
       int index_cell,
       const std::string &duration_in_row,
       bool is_entry_ongoing,

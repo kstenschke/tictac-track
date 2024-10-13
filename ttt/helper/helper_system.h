@@ -36,8 +36,7 @@
 #include <string>
 #include <unistd.h>
 
-namespace helper {
-namespace System {
+namespace helper::System {
 
 // OS, newline
 #ifdef _WIN32
@@ -78,7 +77,6 @@ bool GetNoOrYesKeyPress();
 
 void WaitForEnterKeyPress();
 
-}  // namespace System
-}  // namespace helper
+}  // namespace helper::System
 
 #endif  // TTT_HELPER_HELPER_SYSTEM_H_

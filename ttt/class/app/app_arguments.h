@@ -56,7 +56,7 @@ class AppArguments {
   char **argv_;
 
   int max_arguments_ = 10;
-  ArgumentTypes argv_types_[10];
+  ArgumentTypes argv_types_[10]{};
 
   int render_scope_ = 0;
   bool all_ = false;
@@ -85,24 +85,25 @@ class AppArguments {
   AppArguments(int argc, char **argv, AppCommand &command);
 
   bool IsNumber(int index);
-  bool IsTime(int index) const;
-  bool Contains(int index, std::string needle) const;
+  [[nodiscard]] bool IsTime(int index) const;
+  [[nodiscard]] bool Contains(int index, std::string needle) const;
 
-  std::string GetComment() const;
-  int GetNegativeNumber() const;
-  int GetTaskNumber() const;
+  [[nodiscard]] std::string GetComment() const;
+  [[nodiscard]] int GetNegativeNumber() const;
+  [[nodiscard]] int GetTaskNumber() const;
 
   // Get numeric value of number-argument (can be prefixed w/ e.g. "t=")
-  int ResolveNumber(int index) const;
-  // Validate given time-string in format "hh:mm", or if allowed "-hh:mm"
-  std::string ResolveTime(int index, bool allow_negative = false) const;
-  // Remove possible prefix from comment ("c=" or "comment=")
-  std::string ResolveComment(int index) const;
+  [[nodiscard]] int ResolveNumber(int index) const;
 
-  bool ResolveYesNo(int index) const;
+  // Validate given time-string in format "hh:mm", or if allowed "-hh:mm"
+  [[nodiscard]] std::string ResolveTime(int index, bool allow_negative = false) const;
+  // Remove possible prefix from comment ("c=" or "comment=")
+  [[nodiscard]] std::string ResolveComment(int index) const;
+
+  [[nodiscard]] bool ResolveYesNo(int index) const;
 
   // Validate command-name from argument at given index
-  AppCommand::Commands ResolveCommandName(int index) const;
+  [[nodiscard]] AppCommand::Commands ResolveCommandName(int index) const;
 
  private:
   // Set attributes from arguments

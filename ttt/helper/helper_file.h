@@ -33,8 +33,7 @@
 #include <string>
 #include <vector>
 
-namespace helper {
-namespace File {
+namespace helper::File {
 
 // Check whether given file exists
 extern bool FileExists(const std::string &name);
@@ -47,7 +46,6 @@ extern bool WriteToNewFile(const std::string &filename, std::string &content);
 
 extern bool Remove(const char *file_path);
 
-}  // namespace File
-}  // namespace helper
+}  // namespace helper::File
 
 #endif  // TTT_HELPER_HELPER_FILE_H_

@@ -112,8 +112,7 @@ bool AppLocale::IsSupportedLanguageKey(std::string language_key) {
 }
 
 const char *AppLocale::Translate(const char *label) {
-  std::map<std::string, std::string>::const_iterator pos =
-      active_dictionary_.find(label);
+  auto pos = active_dictionary_.find(label);
 
   return pos == active_dictionary_.end() ? label : pos->second.c_str();
 }

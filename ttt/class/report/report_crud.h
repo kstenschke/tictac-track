@@ -41,7 +41,7 @@ class ReportCrud : public ReportFile {
   // Get object instance. Initialize at 1st call
   static ReportCrud &GetInstance(bool clear = false);
 
-  bool ReportExists() const;
+  [[nodiscard]] bool ReportExists() const;
 
   // Add timesheet entry: start of work w/ comment
   bool StartEntry(const char *comment = "", const char *task_number = "");
@@ -102,7 +102,7 @@ class ReportCrud : public ReportFile {
     Status_Stopped
   };
 
-  ReportDateTime *report_date_time_;
+  ReportDateTime *report_date_time_{};
 
   bool is_initialized_ = false;
 

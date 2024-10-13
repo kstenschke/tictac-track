@@ -29,8 +29,7 @@
 
 #include <string>
 
-namespace helper {
-namespace Numeric {
+namespace helper::Numeric {
 
 extern unsigned int ToUnsignedInt(int number);
 
@@ -39,7 +38,6 @@ extern unsigned long GetAmountDigits(int number);
 extern std::string ToString(int number);
 extern std::string ToString(int number, unsigned int amount_digits_min);
 
-}  // namespace Numeric
-}  // namespace helper
+}  // namespace helper::Numeric
 
 #endif  // TTT_HELPER_HELPER_NUMERIC_H_

@@ -37,8 +37,7 @@
 #include <utility>
 #include <vector>
 
-namespace helper {
-namespace String {
+namespace helper::String {
 
 // Check whether given string ends w/ given string
 bool EndsWith(std::string const &value, std::string const &ending);
@@ -114,7 +113,6 @@ extern void LTrim(std::string &s);
 extern void RTrim(std::string &s);
 extern void Trim(std::string &s);
 
-}  // namespace String
-}  // namespace helper
+}  // namespace helper::String
 
 #endif  // TTT_HELPER_HELPER_STRING_H_

@@ -30,8 +30,7 @@
 #include <cstdlib>
 #include <string>
 
-namespace helper {
-namespace Tui {
+namespace helper::Tui {
 
 const std::string kAnsiFormatReset = "\033[0m";
 const std::string kAnsiFormatBold = "\033[1m";
@@ -40,7 +39,6 @@ const std::string kAnsiFormatInverted = "\033[7m";
 
 void ClearConsole();
 
-}  // namespace Tui
-}  // namespace helper
+}  // namespace helper::Tui
 
 #endif  // TTT_HELPER_HELPER_TUI_H_

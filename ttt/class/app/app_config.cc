@@ -190,24 +190,20 @@ std::string AppConfig::GetDefaultConfig() {
 void AppConfig::InitConfigMap() {
   config_map_.erase(config_map_.begin(), config_map_.end());
 
-  std::vector<std::string>
-      lines = helper::String::Explode(config_file_content_, '\n');
+  std::vector<std::string> lines = helper::String::Explode(config_file_content_, '\n');
 
-  for (std::vector<int>::size_type i = 0; i != lines.size(); i++) {
-    std::string line = lines[i];
-
+  for (const auto& line : lines) {
     if (helper::String::StartsWith(line.c_str(), ";")) {
       continue;
     }
 
     size_t offset_equals = line.find('=');
-
-    if (std::string::npos == offset_equals) {
+    if (offset_equals == std::string::npos) {
       continue;
     }
 
     std::string key = line.substr(0, offset_equals);
-    std::string value = line.substr(offset_equals + 1, std::string::npos);
+    std::string value = line.substr(offset_equals + 1);
 
     config_map_.insert(std::make_pair(key, value));
   }

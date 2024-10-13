@@ -35,8 +35,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace helper {
-namespace DateTime {
+namespace helper::DateTime {
 
 const int kMinutesPerDay = 1440;
 
@@ -73,7 +72,6 @@ extern bool IsTime(std::string str);
 
 static constexpr const char *FORMAT_TIME = "%H:%M";
 
-}  // namespace DateTime
-}  // namespace helper
+}  // namespace helper::DateTime
 
 #endif  // TTT_HELPER_HELPER_DATE_TIME_H_

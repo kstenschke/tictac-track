@@ -49,7 +49,7 @@ std::string System::GetBinaryPath(char **argv, size_t strLenExecutableName) {
 
 // @return Amount of columns in current terminal
 int System::GetMaxCharsPerTerminalRow() {
-  struct winsize w;
+  struct winsize w{};
 
   ioctl(
       helper::System::kOsName == "macOs" ? 0 : STDOUT_FILENO,

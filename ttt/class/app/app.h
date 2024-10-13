@@ -126,7 +126,7 @@ class App {
   // View entries sequentially, opening related task URL at the same time
   bool BrowseDayTasks();
 
-  int GetCommentArgOffsetInTaskCommand() const;
+  [[nodiscard]] int GetCommentArgOffsetInTaskCommand() const;
 };
 
 }  // namespace tictac_track

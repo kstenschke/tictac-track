@@ -153,7 +153,7 @@ bool ReportCrud::UpsertEntry(
 
   std::string meta =
       (status == EntryStatus::Status_Started ? "s/" : "p/")
-          + report_date_time_->GetTimestampForMeta();
+          + ReportDateTime::GetTimestampForMeta();
 
   const std::string &task =
       0 == std::strcmp(task_number, "0")

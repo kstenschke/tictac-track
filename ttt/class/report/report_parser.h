@@ -164,7 +164,7 @@ class ReportParser : public Report {
       int offset_tr_next);
 
  protected:
-  std::string html_;
+  std::string html_{};
   int last_index_ = -1;
 
  private:
